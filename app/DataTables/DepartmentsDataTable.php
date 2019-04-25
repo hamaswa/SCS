@@ -16,7 +16,7 @@ class DepartmentsDataTable extends DataTable
     public function dataTable($query)
     {
         return datatables($query)
-            ->addColumn('action', 'departments.action');
+            ->addColumn('action', 'department.action');
     }
 
     /**
@@ -27,7 +27,7 @@ class DepartmentsDataTable extends DataTable
      */
     public function query(User $model)
     {
-        return $model->newQuery()->select('id', 'add-your-columns-here', 'created_at', 'updated_at');
+        return $model->newQuery()->select('id', 'name', 'created_at', 'updated_at');
     }
 
     /**
@@ -52,10 +52,7 @@ class DepartmentsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'id',
-            'add your columns',
-            'created_at',
-            'updated_at'
+            'name',
         ];
     }
 

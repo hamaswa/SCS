@@ -34,9 +34,26 @@ class DatabaseSeeder extends Seeder
 
     public function SeedRole(){
         $admin = new Role();
-        $admin->slug = 'administrator';
-        $admin->name = 'Site Administrator';
-        $admin->save();
+        $admin->create([
+            'slug'=>'administrator',
+            'name'=>'Site Administrator'
+        ]);
+        $admin->create([
+            'slug'=>'admin',
+            'name'=>'Admin'
+        ]);$admin->create([
+            'slug'=>'supervoiser',
+            'name'=>'Supervoiser'
+        ]);
+        $admin->create([
+            'slug'=>'user',
+            'name'=>'User'
+        ]);
+        $admin->create([
+            'slug'=>'agent',
+            'name'=>'Agent'
+        ]);
+
 
     }
 

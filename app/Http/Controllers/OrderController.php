@@ -25,7 +25,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return view("order.orderform");
+        return view("order.addform");
     }
 
     /**

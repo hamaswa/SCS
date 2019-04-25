@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Department;
 use Illuminate\Http\Request;
+use App\DataTables\DepartmentsDataTable;
 
 class DepartmentController extends Controller
 {
@@ -11,9 +13,9 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(DepartmentsDataTable $dataTable)
     {
-        //
+        return $dataTable->render("department.index");
     }
 
     /**
@@ -23,7 +25,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        //
+        return view("department.addform");
     }
 
     /**
@@ -34,7 +36,13 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        Order::create([
+            'name' =>$data['name'],
+            'description' =>$data['description'],
+
+        ]);
+        return redirect (route("department.index"));
     }
 
     /**
@@ -56,7 +64,8 @@ class DepartmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $department = Department::find($id);
+        return view("department.editform")->with("department",$department);
     }
 
     /**
@@ -68,7 +77,13 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $department = Department::find($id);
+        $department->update([
+            'name'=>$data['name'],
+            'description'=>$data['description']
+        ]);
+        redirect( route ("descriptions.index"));
     }
 
     /**
@@ -79,6 +94,6 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Department::delete($id);
     }
 }

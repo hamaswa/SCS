@@ -43,7 +43,7 @@ class OrdersDataTable extends DataTable
             ->addAction(['width' => '80px'])
             ->parameters([
                 'dom' => 'Bfrtip',
-                'buttons' => ['reset', 'reload']
+                'buttons' => ['create','reset', 'reload']
             ]);
         //$this->getBuilderParameters());
     }
