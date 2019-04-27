@@ -2,8 +2,8 @@
 
 namespace App\DataTables;
 
-use App\User;
 use Yajra\DataTables\Services\DataTable;
+use App\Department;
 
 class DepartmentsDataTable extends DataTable
 {
@@ -25,9 +25,9 @@ class DepartmentsDataTable extends DataTable
      * @param \App\User $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(User $model)
+    public function query(Department $model)
     {
-        return $model->newQuery()->select('id', 'name', 'created_at', 'updated_at');
+        return $model->newQuery()->select('id', 'name');
     }
 
     /**

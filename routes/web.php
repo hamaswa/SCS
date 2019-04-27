@@ -24,5 +24,5 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('/orders','OrderController');
     Route::resource('/users','Auth\RegisterController');
     Route::resource('/departments','DepartmentController');
-    Route::get("/users/{id}/departments")->name("users.departments");
+    Route::get("/users/{id}/departments",'UserController@departments')->name("users.departments");
 });

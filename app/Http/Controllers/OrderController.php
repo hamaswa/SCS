@@ -44,7 +44,7 @@ class OrderController extends Controller
             'description' =>$data['description'],
 
         ]);
-        return redirect (route("order.index"));
+        return redirect (route("orders.index"));
     }
 
     /**
@@ -98,6 +98,7 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Order::find($id)->delete();
+        return redirect(route("orders.index"));
     }
 }

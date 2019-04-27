@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Department;
 use Illuminate\Http\Request;
 use App\DataTables\DepartmentsDataTable;
+use App\Department;
 
 class DepartmentController extends Controller
 {
@@ -15,6 +15,7 @@ class DepartmentController extends Controller
      */
     public function index(DepartmentsDataTable $dataTable)
     {
+
         return $dataTable->render("department.index");
     }
 
@@ -37,7 +38,8 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        Order::create([
+
+        Department::create([
             'name' =>$data['name'],
             'description' =>$data['description'],
 

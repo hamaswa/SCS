@@ -2,10 +2,10 @@
 
 namespace App\DataTables;
 
-use App\User;
+use App\Department;
 use Yajra\DataTables\Services\DataTable;
 
-class UserDataTable extends DataTable
+class UserDepartmentsDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -16,7 +16,7 @@ class UserDataTable extends DataTable
     public function dataTable($query)
     {
         return datatables($query)
-            ->addColumn('action', 'auth.action');
+            ->addColumn('action', 'users.department.action');
     }
 
     /**
@@ -25,9 +25,9 @@ class UserDataTable extends DataTable
      * @param \App\User $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(User $model)
+    public function query(Department $model)
     {
-        return $model->newQuery()->select('id', 'name','mobile','address','email');
+        return $model->newQuery()->select('id','name');
     }
 
     /**
@@ -40,11 +40,8 @@ class UserDataTable extends DataTable
         return $this->builder()
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->addAction(['width' => '380px'])
-                    ->parameters([
-                        'dom' => 'Bfrtip',
-                        'buttons' => ['reset', 'reload'],
-                    ]);
+                    ->addAction(['width' => '500px'])
+                    ->parameters($this->getBuilderParameters());
     }
 
     /**
@@ -55,12 +52,7 @@ class UserDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'id',
             'name',
-            'mobile',
-            'address',
-            'email'
-
         ];
     }
 
@@ -71,6 +63,6 @@ class UserDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'User_' . date('YmdHis');
+        return 'Departments_' . date('YmdHis');
     }
 }
