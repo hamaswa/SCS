@@ -23,6 +23,13 @@ Route::group(['middleware' => 'auth'], function() {
     //Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('/orders','OrderController');
     Route::resource('/users','Auth\RegisterController');
+    Route::resource('/housingloan','HousingLoanController');
+    Route::resource('/termloan','TermLoanController');
+    Route::resource('/creditcard','CreditCardController');
+    Route::resource('/hirepurchase','HirePurchaseController');
+    Route::resource('/overdraft','OverDraftController');
+    Route::resource('/personalloan','PersonalLoanController');
     Route::resource('/departments','DepartmentController');
     Route::get("/users/{id}/departments",'UserController@departments')->name("users.departments");
+    Route::get("data/de",'DataEntryController@de');
 });

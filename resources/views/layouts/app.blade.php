@@ -11,6 +11,8 @@
 
 
     <link rel="stylesheet" href="{{ asset("css/bootstrap.min.css") }}">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link href="{{asset("css/bootstrap-datepicker.min.css")}}" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset("css/font-awesome.min.css") }}">
@@ -18,8 +20,12 @@
     <link rel="stylesheet" href="{{asset("css/ionicons.min.css") }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset("css/AdminLTE.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/style.css") }}">
 
     <link rel="stylesheet" href="{{ asset("css/skins/skin-blue.min.css") }}">
+
+    <!-- Select2 Style -->
+    <link rel="stylesheet" href="{{asset("css/select2.css")}}" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -154,25 +160,12 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Page Header
-                <small>Optional description</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                <li class="active">Here</li>
-            </ol>
-        </section>
 
-        <!-- Main content -->
-        <section class="content container-fluid">
 
 
             @yield('content')
 
 
-        </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -183,8 +176,13 @@
 <!-- REQUIRED JS SCRIPTS -->
 
 <script src="{{asset("js/app.js")}}"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="{{asset("js/bootstrap-datepicker.min.js")}}"></script>
+
 <!-- AdminLTE App -->
 <script src="{{asset("js/adminlte.min.js")}}"></script>
+<!-- Select2 js -->
+<script src="{{asset("js/select2.js")}}"></script>
 @stack('scripts')
 
 
