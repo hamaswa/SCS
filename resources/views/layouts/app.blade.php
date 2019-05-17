@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="{{ asset("css/skins/skin-blue.min.css") }}">
 
     <!-- Select2 Style -->
-    <link rel="stylesheet" href="{{asset("css/select2.css")}}" />
+    <link rel="stylesheet" href="{{asset("css/select2.css")}}"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -68,33 +68,36 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     @auth
-                    <li class="dropdown user user-menu">
-                        <a  class="dropdown-toggle" data-toggle="dropdown">
-                            {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
+                        <li class="dropdown user user-menu">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
 
 
-                            <li class="user-footer">
+                                <li class="user-footer">
 
-                                <div class="pull-right">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                                    <div class="pull-right">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
                  document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                                            {{ __('Logout') }}
+                                        </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>                </div>
-                            </li>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                              style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </li>
 
 
-                        </ul>
-                    </li>
-                  @endauth
+                            </ul>
+                        </li>
+                    @endauth
 
-                </ul>      </div>
+                </ul>
+            </div>
         </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
@@ -127,13 +130,22 @@
                         </li>
                     @endif
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ route("housingloan.index") }}">Facility Info</a>
+                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route("aafields.create") }}">AA Fields</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route("aa.create") }}">NE AA</a>
+                        </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('users.index') }}">Users</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('orders.index') }}">Orders</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('departments.index') }}">Departments</a>
+                        <a class="nav-link " href="{{ route('departments.index') }}">Departments</a>
                     </li>
 
 
@@ -162,11 +174,10 @@
         <!-- Content Header (Page header) -->
 
 
+    @yield('content')
 
-            @yield('content')
 
-
-        <!-- /.content -->
+    <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 

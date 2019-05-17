@@ -10,7 +10,9 @@
             </ol>
         </section>
         <section class="content">
-            <div class="row mar-lr">
+            <form id="de" name="de">
+                @csrf
+                <div class="row mar-lr">
                 <div class="col-sm-2 two-width">
                     <div class="btn-group">
                         <button type="button" class="btn btn-default btn-flat">Action</button>
@@ -35,35 +37,35 @@
                         <div class="form-group">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox">
+                                    <input name="csris[]" value="ssa" type="checkbox">
                                     SAA
                                 </label>
                             </div>
 
-                            <div class="checkbox">
+                            <div  class="checkbox">
                                 <label>
-                                    <input type="checkbox">
+                                    <input  name="csris[]" value="akpk" type="checkbox">
                                     AKPK
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox">
+                                    <input  name="csris[]" value="trade" type="checkbox">
                                     TRADE
                                 </label>
                             </div>
 
-                            <div class="checkbox">
+                            <div  class="checkbox">
                                 <label>
-                                    <input type="checkbox">
+                                    <input name="csris[]" value="courtcase" type="checkbox">
                                     COURT CASE
                                 </label>
                             </div>
 
-                            <div class="checkbox">
+                            <div  class="checkbox">
                                 <label>
-                                    <input type="checkbox">
-                                    BANCRUPTCY
+                                    <input name="csris[]" value="bankruptcy" type="checkbox">
+                                    BANKRUPTCY
                                 </label>
                             </div>
                         </div>
@@ -73,11 +75,14 @@
                 <div class="col-sm-10 de-table-bor">
                     <div class="first-table">
                         <div class="box-body">
+                            <div id="response"></div>
                             <table id="example5" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th style="width: 115px;">Facility Date</th>
+                                    @if($type!='creditcard')
                                     <th style="width: 100px;">Capacity</th>
+                                    @endif
                                     <th style="width: 100px;">Facility Limit</th>
                                     <th style="width: 100px;">Facility Outstanding</th>
                                     <th style="width: 100px;">Instalment</th>
@@ -91,47 +96,50 @@
                                         <div class="form-group">
                                             <div class="input-group">
 
-                                                <input type="text" id="daterange-btn" class="form-control"
+                                                <input type="text" id="daterange-btn" name="facilitydate" placeholder="dd/mm/yyyy" class="form-control"
                                                        data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
                                             </div>
                                             <!-- /.input group -->
                                         </div>
                                     </td>
+                                    @if($type!='creditcard')
+
                                     <td>
                                         <div class="form-group">
                                             <label>
-                                                <input type="radio" name="r1" class="minimal" checked="">
+                                                <input type="radio" name="capacity" id='account' value="own" class="minimal" checked="">
                                                 OWN
                                             </label>
                                             <label>
-                                                <input type="radio" name="r1" class="minimal">
+                                                <input type="radio" name="capacity" value="ja" id="account" class="minimal">
                                                 JA
                                             </label>
 
                                         </div>
                                     </td>
+                                    @endif
                                     <td>
                                         <div class="form-group">
-                                            <input type="text" class="form-control my-colorpicker1"
+                                            <input name="facilitylimit" type="text" class="form-control my-colorpicker1"
                                                    style="background-color: #fff;">
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                            <input type="text" class="form-control my-colorpicker1"
+                                            <input type="text" name="facilityoutstanding" class="form-control my-colorpicker1"
                                                    style="background-color: #fff;">
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                            <input type="text" class="form-control my-colorpicker1"
+                                            <input type="text" name="installment" class="form-control my-colorpicker1"
                                                    style="background-color: #fff;">
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                           <select id="mia" name="mia">
-                                               <option value="0">1</option>
+                                           <select id="mia" class="form-control" name="mia">
+                                               <option value="0">0</option>
                                                <option value="1">1</option>
                                                <option value="2">2</option>
                                                <option value="3">3</option>
@@ -140,8 +148,8 @@
                                     </td>
                                     <td>
                                         <div class="btn-group">
-                                            <select id="conduct" name="conduct">
-                                                <option value="0">1</option>
+                                            <select id="conduct" class="form-control" name="conduct">
+                                                <option value="0">0</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -151,7 +159,7 @@
                                 </tr>
                         <tr>
                             <td class="add-button">
-                                <button type="button" id="{{ $button }}" class="btn bg-maroon btn-flat margin">ADD</button>
+                                <button type="button" id="submit" class="btn bg-maroon btn-flat margin">ADD</button>
                             </td>
                         </tr>
                                 </tbody>
@@ -160,17 +168,46 @@
                     </div>
                 </div>
             </div>
+            </form>
         </section>
 
 @endsection
 @push("scripts")
 <script type="text/javascript">
-    $('#daterange-btn').datepicker();
+    $('#daterange-btn').datepicker({
+        format: 'yyyy-mm-dd'
+    });
+    $("#mia,#conduct").select2({allowclear:true});
     $(document).ready(function(){
-        $("#housingloan").click(function(){
-            console.log($("input"));
+        $("#submit").click(function(){
+
+                event.preventDefault(); //prevent default action
+
+
+                $.ajax({
+                    url :'{{ route('housingloan.store') }}',
+                    type: 'POST',
+                    data : $("#de").serialize()
+                }).done(function(response){ //
+                    if(response=="success"){
+                        $("#response").html($("<div class=\"alert alert-success alert-dismissable\">\n" +
+                            "                Record Successfully Added\n" +
+                            "                <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>\n" +
+                            "\n" +
+                            "            </div>")).show();
+                    }
+                    else {
+                        $("#response").html($("<div class=\"alert alert-danger alert-dismissable\">\n" +
+                            "                Error Occured.\n" +
+                            "                <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>\n" +
+                            "\n" +
+                            "            </div>"))
+                    }
+                });
+            });
+
         })
-    })
+
 </script>
 @endpush
 

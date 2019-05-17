@@ -21,6 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function() {
     //Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('/aa','ApplicationAccountController');
+    Route::resource('/aafields','AASourceController');
     Route::resource('/orders','OrderController');
     Route::resource('/users','Auth\RegisterController');
     Route::resource('/housingloan','HousingLoanController');

@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\FacilityInfo;
+use App\AASource;
 
-
-class HousingLoanController extends Controller
+class AASourceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,7 @@ class HousingLoanController extends Controller
      */
     public function index()
     {
-        return view("de")->with(array("type"=>'housingloan','button'=>"housingloan"));
+        //
     }
 
     /**
@@ -25,7 +24,7 @@ class HousingLoanController extends Controller
      */
     public function create()
     {
-        //
+        return view("aasource.addform");
     }
 
     /**
@@ -37,26 +36,16 @@ class HousingLoanController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-
-        $facility = new FacilityInfo();
-        $facility->type= $data['type'];
-            $facility->csris = implode(",",$data['csris']);
-            $facility->facilitydate =  $data['facilitydate'];
-            $facility->capacity = $data['capacity'];
-            $facility->facilitylimit = $data['facilitylimit'];
-            $facility->facilityoutstanding = $data['facilityoutstanding'];
-           $facility->installment = $data['installment'];
-            $facility->mia = $data['mia'];
-            $facility->conduct = $data['conduct'];
-            $facility->save();
-            if($facility->id){
-                echo "success";
-            }
-            else {
-                echo "fail";
-            }
-
-
+        $aasource = new AASource();
+        $aasource->name = $data['name'];
+        $aasource->description = $data['description'];
+        $aasource->type = $data['type'];
+        $aasource->save();
+        if ($aasource->id) {
+            echo "success";
+        } else {
+            echo "fail";
+        }
     }
 
     /**

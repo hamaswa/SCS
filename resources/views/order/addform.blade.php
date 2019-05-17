@@ -1,6 +1,14 @@
 @extends('layouts.layout')
 
 @section('content')
+    <section class="content-header">
+        <h1>Data Entry</h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+            <li class="active">Here</li>
+        </ol>
+    </section>
+    <section class="content">
     <div class="box">
         <div class="box-header">{{ __('Register') }}</div>
         <form method="POST" action="{{ route('orders.store') }}">
@@ -76,5 +84,6 @@
             </div>
         </form>
     </div>
+    </section>
 
 @endsection

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\FacilityInfo;
+use App\AASource;
+use App\ApplicationAccount;
 
-
-class HousingLoanController extends Controller
+class ApplicationAccountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,8 @@ class HousingLoanController extends Controller
      */
     public function index()
     {
-        return view("de")->with(array("type"=>'housingloan','button'=>"housingloan"));
+
+       // return view("applicationaccount");
     }
 
     /**
@@ -25,7 +26,9 @@ class HousingLoanController extends Controller
      */
     public function create()
     {
-        //
+        $data['aafields'] = AASource::all()->where('status','=',1)->ToArray();
+        return view("applicationaccount")->with($data);
+
     }
 
     /**
@@ -36,27 +39,20 @@ class HousingLoanController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-
-        $facility = new FacilityInfo();
-        $facility->type= $data['type'];
-            $facility->csris = implode(",",$data['csris']);
-            $facility->facilitydate =  $data['facilitydate'];
-            $facility->capacity = $data['capacity'];
-            $facility->facilitylimit = $data['facilitylimit'];
-            $facility->facilityoutstanding = $data['facilityoutstanding'];
-           $facility->installment = $data['installment'];
-            $facility->mia = $data['mia'];
-            $facility->conduct = $data['conduct'];
-            $facility->save();
-            if($facility->id){
-                echo "success";
-            }
-            else {
-                echo "fail";
-            }
-
-
+        $data= $request->all();
+        $aa = new ApplicationAccount();
+        $aa->aasource_id = $data['aasource'];
+        $aa->aacategory_id = $data['aacategory'];
+        $aa->aabranch_id = $data['aabranch'];
+        $aa->aatype_id = $data['aatype'];
+        $aa->date = $data['aadate'];
+        $aa->save();
+        if($aa->id){
+            echo "success";
+        }
+        else {
+            echo "error";
+        }
     }
 
     /**
