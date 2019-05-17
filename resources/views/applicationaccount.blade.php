@@ -104,7 +104,7 @@
 
                                 </tr>
                         <tr>
-                            <td class="add-button">
+                            <td class="pull-right">
                                 <button type="submit"  class="btn bg-maroon btn-flat margin">ADD</button>
                             </td>
                         </tr>

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    <section class="content">
         <div class="box login-box center-block">
             <div class="box-header">{{ __('Login') }}</div>
             <form method="POST" action="{{ route('login') }}">
@@ -69,5 +70,5 @@
 
             </form>
     </div>
-
+    </section>
 @endsection
