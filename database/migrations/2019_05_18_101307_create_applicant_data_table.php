@@ -13,6 +13,7 @@ class CreateApplicantDataTable extends Migration
      */
     public function up()
     {
+        return false;
         Schema::create('applicant_data', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('aacategory');
@@ -29,7 +30,7 @@ class CreateApplicantDataTable extends Migration
             $table->integer("gross")->nullable();
             $table->integer("net")->nullable();
             $table->text("form_data");
-            $table->string("applicant_id")->unsigned();
+            $table->bigInteger("applicant_id")->unsigned();
             $table->foreign("applicant_id")->references('id')->on('applicant_data')->onDelete('cascade');
             $table->timestamps();
         });
@@ -39,7 +40,7 @@ class CreateApplicantDataTable extends Migration
             $table->integer('type');
             $table->integer("amount");
             $table->text("form_data");
-            $table->string("applicant_id")->unsigned();
+            $table->bigInteger("applicant_id")->unsigned();
             $table->foreign("applicant_id")->references('id')->on('applicant_data')->onDelete('cascade');
             $table->timestamps();
         });
@@ -49,7 +50,7 @@ class CreateApplicantDataTable extends Migration
             $table->bigIncrements('id');
             $table->integer('type');
             $table->integer("amount");
-            $table->string("applicant_id")->unsigned();
+            $table->bigInteger("applicant_id")->unsigned();
             $table->text("form_data");
             $table->foreign("applicant_id")->references('id')->on('applicant_data')->onDelete('cascade');
             $table->timestamps();
@@ -68,7 +69,7 @@ class CreateApplicantDataTable extends Migration
             $table->integer("renocost");
             $table->text("renovation_details");
             $table->string("address");
-            $table->string("applicant_id")->unsigned();
+            $table->bigInteger("applicant_id")->unsigned();
             $table->foreign("applicant_id")->references('id')->on('applicant_data')->onDelete('cascade');
             $table->timestamps();
         });
