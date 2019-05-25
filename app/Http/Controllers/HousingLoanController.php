@@ -15,7 +15,7 @@ class HousingLoanController extends Controller
      */
     public function index()
     {
-        return view("de")->with(array("type"=>'housingloan','button'=>"housingloan"));
+        return view("de")->with(array("type"=>'housingloan','button'=>"Housing Loan"));
     }
 
     /**
@@ -39,22 +39,21 @@ class HousingLoanController extends Controller
         $data = $request->all();
 
         $facility = new FacilityInfo();
-        $facility->type= $data['type'];
-            $facility->csris = implode(",",$data['csris']);
-            $facility->facilitydate =  $data['facilitydate'];
-            $facility->capacity = $data['capacity'];
-            $facility->facilitylimit = $data['facilitylimit'];
-            $facility->facilityoutstanding = $data['facilityoutstanding'];
-           $facility->installment = $data['installment'];
-            $facility->mia = $data['mia'];
-            $facility->conduct = $data['conduct'];
-            $facility->save();
-            if($facility->id){
-                echo "success";
-            }
-            else {
-                echo "fail";
-            }
+        $facility->type = $data['type'];
+        $facility->csris = implode(",", $data['csris']);
+        $facility->facilitydate = $data['facilitydate'];
+        $facility->capacity = $data['capacity'];
+        $facility->facilitylimit = $data['facilitylimit'];
+        $facility->facilityoutstanding = $data['facilityoutstanding'];
+        $facility->installment = $data['installment'];
+        $facility->mia = $data['mia'];
+        $facility->conduct = $data['conduct'];
+        $facility->save();
+        if ($facility->id) {
+            echo "success";
+        } else {
+            echo "fail";
+        }
 
 
     }

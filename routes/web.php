@@ -19,10 +19,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware' => 'auth'], function() {
+//Route::group(['middleware' => 'auth'], function() {
     //Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('/aa','ApplicationAccountController');
     Route::resource('/aafields','AASourceController');
+    Route::resource('/aadata','ApplicantDataController');
     Route::resource('/orders','OrderController');
     Route::resource('/users','Auth\RegisterController');
     Route::resource('/housingloan','HousingLoanController');
@@ -34,4 +35,4 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('/departments','DepartmentController');
     Route::get("/users/{id}/departments",'UserController@departments')->name("users.departments");
     Route::get("data/de",'DataEntryController@de');
-});
+//});

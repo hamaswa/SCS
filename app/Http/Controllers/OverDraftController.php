@@ -13,7 +13,7 @@ class OverDraftController extends Controller
      */
     public function index()
     {
-        return view("de")->with(array("type"=>'overdraft','button'=>"overdraft"));
+        return view("de")->with(array("type"=>'overdraft','button'=>"Over Draft"));
 
     }
 

@@ -13,7 +13,7 @@ class HirePurchaseController extends Controller
      */
     public function index()
     {
-        return view("de")->with(array("type"=>'hirepurchase','button'=>"hirepurchase"));
+        return view("de")->with(array("type"=>'hirepurchase','button'=>"Hire Purchase"));
 
     }
 

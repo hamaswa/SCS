@@ -13,7 +13,7 @@ class CreditCardController extends Controller
      */
     public function index()
     {
-        return view("de")->with(array("type"=>'creditcard','button'=>"creditcard"));
+        return view("de")->with(array("type"=>'creditcard','button'=>"Credit Card"));
 
     }
 

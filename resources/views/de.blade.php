@@ -15,12 +15,12 @@
                 <div class="row mar-lr">
                 <div class="col-sm-2 two-width">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-flat">Action</button>
+                        <button type="button" class="btn btn-default btn-flat">{{ $button }}</button>
                         <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
                             <span class="caret"></span>
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
-                        <ul class="dropdown-menu" role="menu">
+                        <ul class="dropdown-menu" id="facility_menu" role="menu">
                             <li><a href="{{ route("housingloan.index") }}">Housing Loan</a></li>
                             <li><a href="{{ route("termloan.index") }}">Term Loan</a></li>
                             <li><a href="{{ route("creditcard.index") }}">Credit Card</a></li>
@@ -34,7 +34,7 @@
 
 
                     <div class="Third-width">
-                        <div class="form-group">
+                        <div class="form-group" id="csris">
                             <div class="checkbox">
                                 <label>
                                     <input name="csris[]" value="ssa" type="checkbox">
@@ -96,7 +96,7 @@
                                         <div class="form-group">
                                             <div class="input-group">
 
-                                                <input type="text" id="daterange-btn" name="facilitydate" placeholder="dd/mm/yyyy" class="form-control"
+                                                <input type="text" id="facilitydate" required name="facilitydate" placeholder="dd/mm/yyyy" class="form-control"
                                                        data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
                                             </div>
                                             <!-- /.input group -->
@@ -107,7 +107,7 @@
                                     <td>
                                         <div class="form-group">
                                             <label>
-                                                <input type="radio" name="capacity" id='account' value="own" class="minimal" checked="">
+                                                <input type="radio" checked="true" name="capacity" id='account' value="own" class="minimal" checked="">
                                                 OWN
                                             </label>
                                             <label>
@@ -120,19 +120,19 @@
                                     @endif
                                     <td>
                                         <div class="form-group">
-                                            <input name="facilitylimit" type="text" class="form-control my-colorpicker1"
+                                            <input name="facilitylimit" id="facilitylimit" required type="number" min="0" class="form-control my-colorpicker1"
                                                    style="background-color: #fff;">
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                            <input type="text" name="facilityoutstanding" class="form-control my-colorpicker1"
+                                            <input type="number" name="facilityoutstanding" required  id="facilityoutstanding" class="form-control my-colorpicker1"
                                                    style="background-color: #fff;">
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                            <input type="text" name="installment" class="form-control my-colorpicker1"
+                                            <input type="text" {{ ($type=='creditcard'? 'disabled':'') }} name="installment" id="installment" class="form-control my-colorpicker1"
                                                    style="background-color: #fff;">
                                         </div>
                                     </td>
@@ -174,39 +174,90 @@
 @endsection
 @push("scripts")
 <script type="text/javascript">
-    $('#daterange-btn').datepicker({
+
+    $("#facility_menu").click(function(e){
+        if($("#facilitydate").val()!="" || $("#facilitylimit").val()!="" || $("#facilityoutstanding").val()!=""){
+           if(!confirm("You have Incomplete From. Are you sure to quit?")){
+               e.preventDefault();
+           }
+        }
+    })
+
+    $("#account, #facilitylimit, #facilityoutstanding").on("change click",function(e){
+        type = '{{$type}}';
+        switch (type){
+            case 'creditcard':
+                installment = $("#facilityoutstanding").val() * .05
+                $("#installment").val(installment)
+                break;
+            case 'overdraft':
+                installment = ($("#facilitylimit").val() * .05)/12
+                $("#installment").val(installment)
+                break;
+        }
+    })
+    $('#facilitydate').datepicker({
         format: 'yyyy-mm-dd'
     });
     $("#mia,#conduct").select2({allowclear:true});
-    $(document).ready(function(){
-        $("#submit").click(function(){
 
-                event.preventDefault(); //prevent default action
+    $(document).ready(function() {
+        $("#submit").click(function () {
+            submit=true;
+            $(".has-error").removeClass("has-error");
+            if ($("input:checked[name^=csris]").length == 0) {
+                $("#csris").addClass('has-error')
+                submit=false;
+            }
+            if( $("#facilitylimit").val()==""){
+                $("#facilitylimit").parent("div").addClass("has-error")
+                submit=false;
+
+            }
+            if( $("#facilityoutstanding").val()==""){
+                $("#facilityoutstanding").parent("div").addClass("has-error")
+                submit=false;
+            }
+            if( $("#facilitydate").val()==""){
+                $("#facilitydate").parent("div").addClass("has-error")
+                submit=false;
+            }
+            if( $("#installment").val()==""){
+                $("#installment").parent("div").addClass("has-error")
+                submit=false;
+            }
+            if(submit==false){
+                return false;
+            }
 
 
-                $.ajax({
-                    url :'{{ route('housingloan.store') }}',
-                    type: 'POST',
-                    data : $("#de").serialize()
-                }).done(function(response){ //
-                    if(response=="success"){
-                        $("#response").html($("<div class=\"alert alert-success alert-dismissable\">\n" +
-                            "                Record Successfully Added\n" +
-                            "                <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>\n" +
-                            "\n" +
-                            "            </div>")).show();
-                    }
-                    else {
-                        $("#response").html($("<div class=\"alert alert-danger alert-dismissable\">\n" +
-                            "                Error Occured.\n" +
-                            "                <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>\n" +
-                            "\n" +
-                            "            </div>"))
-                    }
-                });
+            event.preventDefault(); //prevent default action
+
+
+            $.ajax({
+                url: '{{ route('housingloan.store') }}',
+                type: 'POST',
+                data: $("#de").serialize()
+            }).done(function (response) { //
+                if (response == "success") {
+                    $("#facilitydate,#facilitylimit,#facilityoutstanding,#installment,#csris").val("");
+                    $("#response").html($("<div class=\"alert alert-success alert-dismissable\">\n" +
+                        "                Record Successfully Added\n" +
+                        "                <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>\n" +
+                        "\n" +
+                        "            </div>")).show();
+                }
+                else {
+                    $("#response").html($("<div class=\"alert alert-danger alert-dismissable\">\n" +
+                        "                Error Occured.\n" +
+                        "                <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>\n" +
+                        "\n" +
+                        "            </div>"))
+                }
             });
+        });
 
-        })
+    })
 
 </script>
 @endpush

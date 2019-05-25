@@ -31,7 +31,7 @@
                                 <tr style="background-color: #c6d8f2;">
                                     <td>
                                         <div class="form-group">
-                                                <select id="aasource" class="form-control" name="aasource">
+                                                <select id="aasource" required class="form-control" name="aasource">
                                                     <option value="">Select AA Source</option>
 
                                                 @foreach($aafields as $k=>$v)
@@ -47,7 +47,7 @@
 
                                     <td>
                                         <div class="form-group">
-                                            <select id="aabranch" class="form-control" name="aabranch">
+                                            <select id="aabranch" required class="form-control" name="aabranch">
                                                     <option value="">Select AA Branch</option>
 
                                                     @foreach($aafields as $k=>$v)
@@ -63,7 +63,7 @@
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                            <select id="aacategory" class="form-control" name="aacategory">
+                                            <select id="aacategory" required class="form-control" name="aacategory">
                                                     <option value="">Select AA Category</option>
                                                 @foreach($aafields as $k=>$v)
                                                     @if($v['type']=='aacategory')
@@ -78,7 +78,7 @@
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                            <select id="aatype" class="form-control" name="aatype">
+                                            <select id="aatype" required class="form-control" name="aatype">
                                                 <option value="">Select AA Type</option>
 
                                             @foreach($aafields as $k=>$v)

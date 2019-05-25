@@ -13,7 +13,7 @@ class PersonalLoanController extends Controller
      */
     public function index()
     {
-        return view("de")->with(array("type"=>'personalloan','button'=>"personalloan"));
+        return view("de")->with(array("type"=>'personalloan','button'=>"Personal Loan"));
 
     }
 

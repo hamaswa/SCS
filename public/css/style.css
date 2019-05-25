@@ -1,107 +1,41 @@
-.income-bg {
-    background-color: #00acd6;
-	color: #fff;
-	padding: 0 6px;
-	margin-right: 2px;
-	border-radius: 3px;
+.align-content-center{align-content:center!important}
+/*Pipeline*/
+.padding-both {
+    padding-left: 0px;
+    padding-right: 0px;
 }
-.income-bg1 {
-    background-color: #00acd6;
-	color: #fff;
-	padding: 0 6px;
-	margin: 13px 2px 0 0;
-	border-radius: 3px;
+.proceeded{
+	background-color: #7f7f7f;
 }
-.Description {
-    border: 1px solid #31b0d5;
+.left-gids-1 {
+    width: 32%;
+    background-color: #ffc000;
+    height: 470px;
 }
-.btn.bg-maroon {
-    background-color: blue;
-    background-color: #31b0d5 !important;
-    border-radius: 5px;
+.left-gids-2 {
+    width: 32%;
+    background-color: #92d050;
+    height: 470px;
 }
-.form-control {
+.left-gids-3 {
+    width: 32%;
+    background-color: #c55a11;
+    height: 470px;
+}
+.view-exis-1 {
+    background-color: #ffc000;
+}
+.view-exis-2 {
+    background-color: #92d050;
+}
+.view-exis-3 {
+    background-color: #c55a11;
+}
+.views {
+    background-color: #3c8dbc;
+}
+.form1-bg {
     background-color: #31b0d5;
+    height: 421px;
 }
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1000;
-    display: none;
-    float: left;
-    min-width: 90px;
-}
-.income-category {
-    border: 1px solid #31b0d5;
-    margin: 0 14px;
-}
-.income-sec{
-	margin-top: 15px;
-}
-#example2 thead tr th {
-    background-color: #31b0d5;
-    color: #fff;
-}
-.content1 {
-    border: 1px solid #31b0d5;
-    margin: 10px 10px 10px 10px;
-}
-.content2 {
-    border: 1px solid #31b0d5;
-    margin: 10px 10px 0px 10px;
-}
-input#range_5{
-	width: 100%;
-    padding: 15px 0px;
-    background-color: #bfbfbf;
-}
-.callout, .callout-info2 {
-    background-color: #00c0ef !important;
-	color: #fff;
-    border-radius: 3px;
-    margin: 0 0 20px 0;
-    padding: 15px 30px 15px 15px;
-    border-left: 5px solid #367fa9;
-}
-.callout-info2{
-	height: 553px;
-}
-#example3 thead tr th {
-    color: #000
-}
-#example4 thead tr th {
-	background-color: #5b9bd5;
-    color: #fff;
-}
-.col-sm-9.de-table-bor {
-    border: 1px solid #31b0d5;
-}
-.add-button {
-    position: relative;
-    left: 750px;
-}
-#example5 thead tr th {
-    background-color: #31b0d5;
-    color: #fff;
-}
-.col-sm-12.de-table-bor {
-    padding-right: 0px !important;
-    padding-left: 0px !important;
-}
-.mar-lr {
-    margin-right: 0;
-    margin-left: 0;
-}
-.mar-lr2 {
-    margin-right: 0;
-    margin-left: 0;
-    margin-top: 15px;
-}
-.col-sm-2.Third-width {
-    background-color: #367fa9 !important;
-    border-left: 5px solid #ffc000;
-}
-.form-group label {
-    color: #000;
-}
+/*End Pipeline*/
