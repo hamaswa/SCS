@@ -43,7 +43,7 @@ class HousingLoanController extends Controller
         $facility->type = $data['type'];
         $facility->csris = implode(",", $data['csris']);
         $facility->facilitydate = $data['facilitydate'];
-        $facility->capacity = $data['capacity'];
+        $facility->capacity = isset($data['capacity'])?$data['capacity']:"";
         $facility->facilitylimit = $data['facilitylimit'];
         $facility->facilityoutstanding = $data['facilityoutstanding'];
         $facility->installment = $data['installment'];

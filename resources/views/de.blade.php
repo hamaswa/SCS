@@ -2,6 +2,9 @@
 
 @section('content')
         <!-- Content Header (Page header) -->
+        <div class="overlay">
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>
         <section class="content-header">
             <h1>Data Entry</h1>
             <ol class="breadcrumb">
@@ -235,6 +238,9 @@
 
 
             $.ajax({
+                beforeSend: function() {
+                    $('#loader').show();
+                },
                 url: '{{ route('housingloan.store') }}',
                 type: 'POST',
                 data: $("#de").serialize()
