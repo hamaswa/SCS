@@ -135,7 +135,7 @@
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                            <input type="text" {{ ($type=='creditcard'? 'disabled':'') }} name="installment" id="installment" class="form-control my-colorpicker1"
+                                            <input type="text" {{ ($type=='creditcard'? 'readonly':'') }} name="installment" id="installment" class="form-control my-colorpicker1"
                                                    style="background-color: #fff;">
                                         </div>
                                     </td>
