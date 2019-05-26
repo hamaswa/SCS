@@ -15,7 +15,8 @@ class HousingLoanController extends Controller
      */
     public function index()
     {
-        return view("de")->with(array("type"=>'housingloan','button'=>"Housing Loan"));
+        $facilityinfo = FacilityInfo::paginate(10);
+        return view("deview")->with(['facilityinfo'=>$facilityinfo]);
     }
 
     /**
@@ -25,7 +26,7 @@ class HousingLoanController extends Controller
      */
     public function create()
     {
-        //
+        return view("de")->with(array("type"=>'housingloan','button'=>"Housing Loan"));
     }
 
     /**
