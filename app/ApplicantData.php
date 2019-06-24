@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ApplicantData extends Model
 {
+    protected $table = "applicant_data";
     protected $fillable = [
-        'name','uniqueid','mobile'
+        'aacategory','name','unique_id','mobile'
     ];
 }
