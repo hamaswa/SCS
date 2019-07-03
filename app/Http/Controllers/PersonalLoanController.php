@@ -13,7 +13,6 @@ class PersonalLoanController extends Controller
      */
     public function index()
     {
-        return view("de")->with(array("type"=>'personalloan','button'=>"Personal Loan"));
 
     }
 
@@ -22,9 +21,10 @@ class PersonalLoanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $inputs = $request->all();
+        return view("de")->with(array("type"=>'PELNFNCE','button'=>"Personal Loan","applicant_id"=>$inputs['applicant_id']));
     }
 
     /**

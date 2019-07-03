@@ -3,13 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\ApplicantData;
-use DB;
+use App\ApplicantIncome;
 
-
-
-
-class ApplicantDataController extends Controller
+class IncomekycController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +14,7 @@ class ApplicantDataController extends Controller
      */
     public function index()
     {
-        $applicantdata = ApplicantData::paginate(2);
-
-        return view("aadata.index")->with("data",$applicantdata);
+        //
     }
 
     /**
@@ -28,13 +22,9 @@ class ApplicantDataController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-
-        $inputs = $request->all();
-       //SELECT id, created_at FROM applicant_data WHERE created_at BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 day);
-        $inputs['serial_no'] =  date('Ymdhis') ."". rand(1000,9999);
-        return view("aadata.addform")->with("inputs",$inputs);
+        //
     }
 
     /**
@@ -43,27 +33,26 @@ class ApplicantDataController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
-
     public function store(Request $request)
     {
         $inputs = $request->all();
-        if(isset($inputs['applicant_id']) and $inputs['applicant_id']!=""){
-            $applicant = ApplicantData::find($inputs['applicant_id']);
-            $applicant->update($inputs);
-            return json_encode(["applicant_id" => $applicant->id]);
+        if (isset($inputs['income_id']) and $inputs['income_id'] != "") {
+            $income= ApplicantIncome::find($inputs['income_id']);
+            $income->update($inputs);
+
+        } else {
+
+            if (isset($inputs['gross'])) {
+                $income = ApplicantIncome::create($inputs);
+                $income->form_data = json_encode($inputs);
+                $income->save();
+                return json_encode(["applicant_id" => $income->applicant_id, "income_id" => $income->id]);
+            } else {
+                return json_encode(["error" => "No Income Data submitted"]);
+            }
 
         }
-        else {
-            $applicant = ApplicantData::create($inputs);
-            return json_encode(["applicant_id" => $applicant->id]);
-        }
-
-
-
     }
-
-
     /**
      * Display the specified resource.
      *

@@ -3,13 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\ApplicantData;
-use DB;
+use App\ApplicantWealth;
 
-
-
-
-class ApplicantDataController extends Controller
+class WealthkycController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +14,7 @@ class ApplicantDataController extends Controller
      */
     public function index()
     {
-        $applicantdata = ApplicantData::paginate(2);
-
-        return view("aadata.index")->with("data",$applicantdata);
+        //
     }
 
     /**
@@ -28,13 +22,9 @@ class ApplicantDataController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-
-        $inputs = $request->all();
-       //SELECT id, created_at FROM applicant_data WHERE created_at BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 day);
-        $inputs['serial_no'] =  date('Ymdhis') ."". rand(1000,9999);
-        return view("aadata.addform")->with("inputs",$inputs);
+        //
     }
 
     /**
@@ -43,27 +33,26 @@ class ApplicantDataController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
-
     public function store(Request $request)
     {
+
         $inputs = $request->all();
-        if(isset($inputs['applicant_id']) and $inputs['applicant_id']!=""){
-            $applicant = ApplicantData::find($inputs['applicant_id']);
-            $applicant->update($inputs);
-            return json_encode(["applicant_id" => $applicant->id]);
+        if (isset($inputs['welath_id']) and $inputs['welath_id'] != "") {
+            $wealth = ApplicantWealth::find($inputs['welath_id']);
+            $wealth->update($inputs);
+        } else {
+
+            if (isset($inputs['total'])) {
+                $wealth = ApplicantWealth::create($inputs);
+                $wealth->form_data = json_encode($inputs);
+                $wealth->save();
+                return json_encode(["applicant_id" => $wealth->applicant_id, "wealth_id" => $wealth->id]);
+            } else {
+                return json_encode(["error" => "No Wealth Data submitted"]);
+            }
 
         }
-        else {
-            $applicant = ApplicantData::create($inputs);
-            return json_encode(["applicant_id" => $applicant->id]);
-        }
-
-
-
     }
-
-
     /**
      * Display the specified resource.
      *

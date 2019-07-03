@@ -13,7 +13,6 @@ class HirePurchaseController extends Controller
      */
     public function index()
     {
-        return view("de")->with(array("type"=>'hirepurchase','button'=>"Hire Purchase"));
 
     }
 
@@ -22,9 +21,11 @@ class HirePurchaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $inputs = $request->all();
+        return view("de")->with(array("type"=>'OHRPCREC','button'=>"Hire Purchase","applicant_id"=>$inputs['applicant_id']));
+
     }
 
     /**

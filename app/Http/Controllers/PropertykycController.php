@@ -3,13 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\ApplicantData;
-use DB;
-
-
-
-
-class ApplicantDataController extends Controller
+use App\ApplicantProperty;
+class PropertykycController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +13,7 @@ class ApplicantDataController extends Controller
      */
     public function index()
     {
-        $applicantdata = ApplicantData::paginate(2);
-
-        return view("aadata.index")->with("data",$applicantdata);
+        //
     }
 
     /**
@@ -28,13 +21,9 @@ class ApplicantDataController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-
-        $inputs = $request->all();
-       //SELECT id, created_at FROM applicant_data WHERE created_at BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 day);
-        $inputs['serial_no'] =  date('Ymdhis') ."". rand(1000,9999);
-        return view("aadata.addform")->with("inputs",$inputs);
+        //
     }
 
     /**
@@ -43,27 +32,27 @@ class ApplicantDataController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
-
     public function store(Request $request)
     {
         $inputs = $request->all();
-        if(isset($inputs['applicant_id']) and $inputs['applicant_id']!=""){
-            $applicant = ApplicantData::find($inputs['applicant_id']);
-            $applicant->update($inputs);
-            return json_encode(["applicant_id" => $applicant->id]);
+        if (isset($inputs['property_id']) and $inputs['property_id'] != "") {
+            $property = ApplicantProperty::find($inputs["property_id"]);
+            $property->update($inputs);
+        } else {
+            if (isset($inputs['form'])) {
+                foreach ($inputs['form'] as $input) {
+                    unset($input['formname']);
+                    unset($input['number']);
+                    $input['applicant_id'] = $inputs['applicant_id'];
+                    $property = ApplicantProperty::create($input);
+                }
+                return json_encode(["applicant_id" => $property->applicant_id, "property_id" => $property->id]);
+            } else {
+                return json_encode(["error" => "No Property Data submitted"]);
+            }
 
         }
-        else {
-            $applicant = ApplicantData::create($inputs);
-            return json_encode(["applicant_id" => $applicant->id]);
-        }
-
-
-
     }
-
-
     /**
      * Display the specified resource.
      *

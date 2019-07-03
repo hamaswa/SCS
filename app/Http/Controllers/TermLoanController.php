@@ -13,7 +13,6 @@ class TermLoanController extends Controller
      */
     public function index()
     {
-        return view("de")->with(array("type"=>'termloan','button'=>"Term Loan"));
 
     }
 
@@ -22,9 +21,11 @@ class TermLoanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $inputs = $request->all();
+        return view("de")->with(array("type"=>'OTLNFNCE','button'=>"Term Loan","applicant_id"=>$inputs['applicant_id']));
+//
     }
 
     /**

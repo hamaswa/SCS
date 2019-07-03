@@ -13,7 +13,6 @@ class OverDraftController extends Controller
      */
     public function index()
     {
-        return view("de")->with(array("type"=>'overdraft','button'=>"Over Draft"));
 
     }
 
@@ -22,9 +21,11 @@ class OverDraftController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $inputs = $request->all();
+        return view("de")->with(array("type"=>'OVRDRAFT','button'=>"Over Draft","applicant_id"=>$inputs['applicant_id']));
+
     }
 
     /**

@@ -38,4 +38,37 @@
     background-color: #31b0d5;
     height: 421px;
 }
+.select2-container .select2-selection--single{
+    height:33px !important;
+}
+.bg-yellow-light{
+    background-color:#edde34;
+}
+.text-white{
+    color:#ffffff;
+}
+.bg-gray-dark{
+    background-color:#9e9e9e;
+}
+.skin-blue{
+    background-color:#3c8dbc;
+}
+.bg-white{
+    background-color:#ffffff;
+}
+.padding-5{
+    padding:5px;
+}
+.bg-shadlebrown{
+    background-color:#8B4513;
+}
+.bg-chocolate{
+    background-color:#e09763;
+}
+.border-shadlebrown{
+    border:8px solid #8B4513;
+}
+.min-height{
+    min-height:515px;
+}
 /*End Pipeline*/

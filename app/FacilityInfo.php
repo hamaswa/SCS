@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class FacilityInfo extends Model
 {
-    protected  $fillable = ['type','csris','capacity','facilitylimit','facilityoutstanding','installment','mia','conduct'];
+    protected  $fillable = ['applicant_id','type','csris','capacity','facilitylimit','facilityoutstanding','installment','mia','conduct'];
 }

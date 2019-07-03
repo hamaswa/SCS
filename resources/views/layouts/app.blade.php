@@ -121,32 +121,38 @@
                 <!-- Optionally, you can add icons to the links -->
                 @guest
                     {{--<li class="nav-item">--}}
-                        {{--<a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>--}}
+                    {{--<a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>--}}
                     {{--</li>--}}
-                {{--@else--}}
+                    {{--@else--}}
                     @if (Route::has('register'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Add User') }}</a>
                         </li>
                     @endif
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ route("aadata.index") }}">Pipeline</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route("pipeline.index") }}">Pipeline Status</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route("housingloan.index") }}">Facility Info</a>
                     </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route("aafields.create") }}">AA Fields</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route("aa.create") }}">NE AA</a>
-                        </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('users.index') }}">Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('orders.index') }}">Orders</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="{{ route('departments.index') }}">Departments</a>
-                    </li>
+                    {{--<li class="nav-item">--}}
+                        {{--<a class="nav-link" href="{{ route("aafields.create") }}">AA Fields</a>--}}
+                    {{--</li>--}}
+                    {{--<li class="nav-item">--}}
+                        {{--<a class="nav-link" href="{{ route("aa.create") }}">NE AA</a>--}}
+                    {{--</li>--}}
+                    {{--<li class="nav-item">--}}
+                        {{--<a class="nav-link" href="{{ route('users.index') }}">Users</a>--}}
+                    {{--</li>--}}
+                    {{--<li class="nav-item">--}}
+                        {{--<a class="nav-link" href="{{ route('orders.index') }}">Orders</a>--}}
+                    {{--</li>--}}
+                    {{--<li class="nav-item">--}}
+                        {{--<a class="nav-link " href="{{ route('departments.index') }}">Departments</a>--}}
+                    {{--</li>--}}
 
 
             @endguest

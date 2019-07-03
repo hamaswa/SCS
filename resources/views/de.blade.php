@@ -2,9 +2,7 @@
 
 @section('content')
         <!-- Content Header (Page header) -->
-        <div class="overlay">
-            <i class="fa fa-refresh fa-spin"></i>
-        </div>
+
         <section class="content-header">
             <h1>Data Entry</h1>
             <ol class="breadcrumb">
@@ -24,14 +22,14 @@
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <ul class="dropdown-menu" id="facility_menu" role="menu">
-                            <li><a href="{{ route("housingloan.index") }}">Housing Loan</a></li>
-                            <li><a href="{{ route("termloan.index") }}">Term Loan</a></li>
-                            <li><a href="{{ route("creditcard.index") }}">Credit Card</a></li>
-                            <li><a href="{{ route("hirepurchase.index") }}">Hire Purchase</a></li>
-                            <li><a href="{{ route("overdraft.index") }}">Overdraft</a></li>
-                            <li><a href="{{ route("personalloan.index") }}">Personal Loan</a></li>
+                            <li><a href="{{ route("housingloan.create") }}?applicant_id={{ $applicant_id }}">Housing Loan</a></li>
+                            <li><a href="{{ route("termloan.create") }}?applicant_id={{ $applicant_id }}">Term Loan</a></li>
+                            <li><a href="{{ route("creditcard.create") }}?applicant_id={{ $applicant_id }}">Credit Card</a></li>
+                            <li><a href="{{ route("hirepurchase.create") }}?applicant_id={{ $applicant_id }}">Hire Purchase</a></li>
+                            <li><a href="{{ route("overdraft.create") }}?applicant_id={{ $applicant_id }}">Overdraft</a></li>
+                            <li><a href="{{ route("personalloan.create") }}?applicant_id={{ $applicant_id }}">Personal Loan</a></li>
                             <input type="hidden" value="{{ $type }}" id="type" name="type">
-
+                            <input type="hidden" value="{{ $applicant_id }}" name="applicant_id">
                         </ul>
                     </div>
 
@@ -40,6 +38,7 @@
                         <div class="form-group" id="csris">
                             <div class="checkbox">
                                 <label>
+
                                     <input name="csris[]" value="ssa" type="checkbox">
                                     SAA
                                 </label>
@@ -83,7 +82,7 @@
                                 <thead>
                                 <tr>
                                     <th style="width: 115px;">Facility Date</th>
-                                    @if($type!='creditcard')
+                                    @if($type!='CRDTCARD')
                                     <th style="width: 100px;">Capacity</th>
                                     @endif
                                     <th style="width: 100px;">Facility Limit</th>
@@ -105,7 +104,7 @@
                                             <!-- /.input group -->
                                         </div>
                                     </td>
-                                    @if($type!='creditcard')
+                                    @if($type!='CRDTCARD')
 
                                     <td>
                                         <div class="form-group">
@@ -135,7 +134,7 @@
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                            <input type="text" {{ ($type=='creditcard'? 'readonly':'') }} name="installment" id="installment" class="form-control my-colorpicker1"
+                                            <input type="text" {{ ($type=='CRDTCARD'? 'readonly':'') }} name="installment" id="installment" class="form-control my-colorpicker1"
                                                    style="background-color: #fff;">
                                         </div>
                                     </td>
@@ -189,11 +188,11 @@
     $("#account, #facilitylimit, #facilityoutstanding").on("change click",function(e){
         type = '{{$type}}';
         switch (type){
-            case 'creditcard':
+            case 'CRDTCARD':
                 installment = $("#facilityoutstanding").val() * .05
                 $("#installment").val(installment)
                 break;
-            case 'overdraft':
+            case 'OVRDRAFT':
                 installment = ($("#facilitylimit").val() * .05)/12
                 $("#installment").val(installment)
                 break;

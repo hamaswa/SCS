@@ -13,7 +13,6 @@ class CreditCardController extends Controller
      */
     public function index()
     {
-        return view("de")->with(array("type"=>'creditcard','button'=>"Credit Card"));
 
     }
 
@@ -22,8 +21,10 @@ class CreditCardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $inputs = $request->all();
+        return view("de")->with(array("type"=>'CRDTCARD','button'=>"Credit Card","applicant_id"=>$inputs['applicant_id']));
 
     }
 
