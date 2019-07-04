@@ -132,6 +132,7 @@
 
                                         <tr>
                                             <td>
+                                                <input type="hidden" name="id" value="{{$v->id}}">
                                                 @switch($v->type)
                                                     @case("HSLNFNCE")
                                                     Housing Loan
@@ -159,7 +160,6 @@
                                                        placeholder="dd/mm/yyyy" class="form-control"
                                                        data-inputmask="'alias': 'dd/mm/yyyy'"
                                                        value="{{$v->facilitydate}}">
-
                                             </td>
 
 
@@ -169,13 +169,13 @@
                                                         <label>
                                                             <input type="radio" checked="true" name="capacity"
                                                                    id='account' value="own"
-                                                                   {{ ($v->capacity=="own"?"selected":"") }} class="minimal"
+                                                                   {{ ($v->capacity=="own"?" checked":"") }} class="minimal"
                                                                    checked="">
                                                             OWN
                                                         </label>
                                                         <label>
                                                             <input type="radio" name="capacity" value="ja"
-                                                                   {{ ($v->capacity=="own"?"selected":"") }} id="account"
+                                                                   {{ (($v->capacity=="ja" or $v->capacity=='partner')?"checked ":"") }} id="account"
                                                                    class="minimal">
                                                             JA
                                                         </label>
@@ -193,7 +193,7 @@
                                             </td>
                                             <td>
                                                 <input type="number" name="facilityoutstanding"
-                                                       value=" {{$v->facilityoutstanding}}" required
+                                                       value="{{$v->facilityoutstanding}}" required
                                                        id="facilityoutstanding" class="form-control my-colorpicker1"
                                                        style="background-color: #fff;">
 
@@ -399,13 +399,10 @@
 
         $(document).ready(function () {
             $(".update_facility").click(function () {
-                console.log($(this).parent("td").parent("tr").find(":input").serializeArray());
+                event.preventDefault(); //prevent default action
                 submit = true;
                 $(".has-error").removeClass("has-error");
-                if ($("input:checked[name^=csris]").length == 0) {
-                    $("#csris").addClass('has-error')
-                    submit = false;
-                }
+
                 if ($("#facilitylimit").val() == "") {
                     $("#facilitylimit").parent("div").addClass("has-error")
                     submit = false;
@@ -427,34 +424,49 @@
                     return false;
                 }
 
-
-                event.preventDefault(); //prevent default action
-
-
-                $.ajax({
-                    beforeSend: function () {
-                        $('#loader').show();
-                    },
-                    url: '{{ route('housingloan.store') }}',
-                    type: 'POST',
-                    data: $("#de").serialize()
-                }).done(function (response) { //
-                    if (response == "success") {
-                        $("#facilitydate,#facilitylimit,#facilityoutstanding,#installment,#csris").val("");
-                        $("#response").html($("<div class=\"alert alert-success alert-dismissable\">\n" +
-                            "                Record Successfully Added\n" +
-                            "                <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>\n" +
-                            "\n" +
-                            "            </div>")).show();
+                data = $(this).parent("td").parent("tr").find(":input").serializeArray();
+                for(d in data){
+                    if(data[d]['name']=='_method'){
+                        data[d]['value']="patch";
                     }
-                    else {
-                        $("#response").html($("<div class=\"alert alert-danger alert-dismissable\">\n" +
-                            "                Error Occured.\n" +
-                            "                <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>\n" +
-                            "\n" +
-                            "            </div>"))
-                    }
-                });
+
+                }
+                form = document.createElement("form");
+                form.action = '{{ route('housingloan.update',1) }}'
+                form.method = 'POST';
+                $(this).parent("td").parent("tr").find(":input").each(function (e) {
+                    $(form).append($(this));
+                })
+                $(form).find("input[name=_method]").attr("id","_method").val("patch");
+                $(document.body).append(form)
+                form.submit();
+
+
+
+                {{--$.ajax({--}}
+                    {{--url: '{{ route('housingloan.update',1) }}',--}}
+                    {{--type: 'POST',--}}
+                    {{--data: data,--}}
+                    {{--headers: {--}}
+                        {{--'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),--}}
+                    {{--},--}}
+                {{--}).done(function (response) { //--}}
+                    {{--if (response == "success") {--}}
+                        {{--$("#facilitydate,#facilitylimit,#facilityoutstanding,#installment,#csris").val("");--}}
+                        {{--$("#response").html($("<div class=\"alert alert-success alert-dismissable\">\n" +--}}
+                            {{--"                Record Successfully Added\n" +--}}
+                            {{--"                <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>\n" +--}}
+                            {{--"\n" +--}}
+                            {{--"            </div>")).show();--}}
+                    {{--}--}}
+                    {{--else {--}}
+                        {{--$("#response").html($("<div class=\"alert alert-danger alert-dismissable\">\n" +--}}
+                            {{--"                Error Occured.\n" +--}}
+                            {{--"                <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>\n" +--}}
+                            {{--"\n" +--}}
+                            {{--"            </div>"))--}}
+                    {{--}--}}
+                {{--});--}}
             });
 
 

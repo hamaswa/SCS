@@ -101,7 +101,15 @@ class HousingLoanController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        $inputs = $request->all();
+        $facility = FacilityInfo::find($inputs['id']);
+        try {
+            $facility->update($inputs);
+            return back()->with('success','Facility Data Updated Successfully!');
+        }
+        catch (\Exception $exception){
+            return back()->with('error','There is an error');
+        }
 
     }
 
