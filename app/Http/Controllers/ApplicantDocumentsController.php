@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\ApplicantWealth;
+use App\ApplicantDocuments;
+use Illuminate\Support\Facades\Storage;
 
-class WealthkycController extends Controller
+class ApplicantDocumentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,25 @@ class WealthkycController extends Controller
      */
     public function index()
     {
-        //
+
+    }
+
+
+    public function documents(Request $request){
+        $inputs = $request->all();
+        $arr['documents'] = ApplicantDocuments::where("applicant_id",$inputs['id'])->get();
+        return view("aadata.documents")->with($arr);
+    }
+
+
+    public function download(Request $request){
+        $inputs = $request->all();
+        $id= $inputs["id"];
+        $document = ApplicantDocuments::find($id);
+        return response()->download(storage_path("app/uploads/application_docs/". $document->file_name));
+        // Storage::download($document->file_name);
+        //echo $document->file_name;
+
     }
 
     /**
@@ -35,30 +54,9 @@ class WealthkycController extends Controller
      */
     public function store(Request $request)
     {
-        $inputs = $request->all();
-        $wealth = ApplicantWealth::where("applicant_id",$inputs['applicant_id'])->first();
-        if($wealth){
-            $wealth->update($inputs);
-            $wealth->form_data = json_encode($inputs);
-            $wealth->save();
-            return json_encode(["applicant_id" => $wealth->applicant_id, "wealth_id" => $wealth->id]);
-        }
-       else if (isset($inputs['welath_id']) and $inputs['welath_id'] != "") {
-            $wealth = ApplicantWealth::find($inputs['welath_id']);
-            $wealth->update($inputs);
-        } else {
-
-            if (isset($inputs['total'])) {
-                $wealth = ApplicantWealth::create($inputs);
-                $wealth->form_data = json_encode($inputs);
-                $wealth->save();
-                return json_encode(["applicant_id" => $wealth->applicant_id, "wealth_id" => $wealth->id]);
-            } else {
-                return json_encode(["error" => "No Wealth Data submitted"]);
-            }
-
-        }
+        //
     }
+
     /**
      * Display the specified resource.
      *

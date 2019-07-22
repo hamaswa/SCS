@@ -3,18 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\ApplicantWealth;
+use App\ApplicantComments;
 
-class WealthkycController extends Controller
+
+
+class ApplicantCommentsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $inputs = $request->all();
+        $arr["comments"] = ApplicantComments::where("applicant_id",'=',$inputs["id"])->get();
+        return view("aadata.comments")->with($arr);
     }
 
     /**
@@ -36,29 +40,15 @@ class WealthkycController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
-        $wealth = ApplicantWealth::where("applicant_id",$inputs['applicant_id'])->first();
-        if($wealth){
-            $wealth->update($inputs);
-            $wealth->form_data = json_encode($inputs);
-            $wealth->save();
-            return json_encode(["applicant_id" => $wealth->applicant_id, "wealth_id" => $wealth->id]);
+        $comment = ApplicantComments::create($inputs);
+        if($comment->id){
+            return "success";
         }
-       else if (isset($inputs['welath_id']) and $inputs['welath_id'] != "") {
-            $wealth = ApplicantWealth::find($inputs['welath_id']);
-            $wealth->update($inputs);
-        } else {
-
-            if (isset($inputs['total'])) {
-                $wealth = ApplicantWealth::create($inputs);
-                $wealth->form_data = json_encode($inputs);
-                $wealth->save();
-                return json_encode(["applicant_id" => $wealth->applicant_id, "wealth_id" => $wealth->id]);
-            } else {
-                return json_encode(["error" => "No Wealth Data submitted"]);
-            }
-
+        else {
+            return "error";
         }
     }
+
     /**
      * Display the specified resource.
      *

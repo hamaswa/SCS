@@ -15,25 +15,32 @@
                 @csrf
                 <div class="row mar-lr">
                 <div class="col-sm-2 two-width">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-flat">{{ $button }}</button>
-                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu" id="facility_menu" role="menu">
-                            <li><a href="{{ route("housingloan.create") }}?applicant_id={{ $applicant_id }}">Housing Loan</a></li>
-                            <li><a href="{{ route("termloan.create") }}?applicant_id={{ $applicant_id }}">Term Loan</a></li>
-                            <li><a href="{{ route("creditcard.create") }}?applicant_id={{ $applicant_id }}">Credit Card</a></li>
-                            <li><a href="{{ route("hirepurchase.create") }}?applicant_id={{ $applicant_id }}">Hire Purchase</a></li>
-                            <li><a href="{{ route("overdraft.create") }}?applicant_id={{ $applicant_id }}">Overdraft</a></li>
-                            <li><a href="{{ route("personalloan.create") }}?applicant_id={{ $applicant_id }}">Personal Loan</a></li>
-                            <input type="hidden" value="{{ $type }}" id="type" name="type">
-                            <input type="hidden" value="{{ $applicant_id }}" name="applicant_id">
-                        </ul>
-                    </div>
+                    {{--<div class="btn-group">--}}
+                        {{--<button type="button" class="btn btn-default btn-flat">{{ $button }}</button>--}}
+                        {{--<button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">--}}
+                            {{--<span class="caret"></span>--}}
+                            {{--<span class="sr-only">Toggle Dropdown</span>--}}
+                        {{--</button>--}}
+                        {{--<ul class="dropdown-menu" id="facility_menu" role="menu">--}}
+                            {{--<li><a href="{{ route("housingloan.create") }}?applicant_id={{ $applicant_id }}">Housing Loan</a></li>--}}
+                            {{--<li><a href="{{ route("termloan.create") }}?applicant_id={{ $applicant_id }}">Term Loan</a></li>--}}
+                            {{--<li><a href="{{ route("creditcard.create") }}?applicant_id={{ $applicant_id }}">Credit Card</a></li>--}}
+                            {{--<li><a href="{{ route("hirepurchase.create") }}?applicant_id={{ $applicant_id }}">Hire Purchase</a></li>--}}
+                            {{--<li><a href="{{ route("overdraft.create") }}?applicant_id={{ $applicant_id }}">Overdraft</a></li>--}}
+                            {{--<li><a href="{{ route("personalloan.create") }}?applicant_id={{ $applicant_id }}">Personal Loan</a></li>--}}
 
+                        {{--</ul>--}}
 
+                    {{--</div>--}}
+                    <input type="hidden" value="{{ $applicant_id }}" name="applicant_id">
+
+                    <select name="type" id="type">
+                        @foreach($capacity_data as $capacity)
+                            <option value="{{$capacity->name}}">
+                                {{ $capacity->description }}
+                            </option>
+                        @endforeach
+                    </select>
                     <div class="Third-width">
                         <div class="form-group" id="csris">
                             <div class="checkbox">
@@ -82,9 +89,7 @@
                                 <thead>
                                 <tr>
                                     <th style="width: 115px;">Facility Date</th>
-                                    @if($type!='CRDTCARD')
                                     <th style="width: 100px;">Capacity</th>
-                                    @endif
                                     <th style="width: 100px;">Facility Limit</th>
                                     <th style="width: 100px;">Facility Outstanding</th>
                                     <th style="width: 100px;">Instalment</th>
@@ -104,10 +109,10 @@
                                             <!-- /.input group -->
                                         </div>
                                     </td>
-                                    @if($type!='CRDTCARD')
+
 
                                     <td>
-                                        <div class="form-group">
+                                        <div class="form-group" id="capacity">
                                             <label>
                                                 <input type="radio" checked="true" name="capacity" id='account' value="own" class="minimal" checked="">
                                                 OWN
@@ -119,7 +124,7 @@
 
                                         </div>
                                     </td>
-                                    @endif
+
                                     <td>
                                         <div class="form-group">
                                             <input name="facilitylimit" id="facilitylimit" required type="number" min="0" class="form-control my-colorpicker1"
@@ -134,7 +139,7 @@
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                            <input type="text" {{ ($type=='CRDTCARD'? 'readonly':'') }} name="installment" id="installment" class="form-control my-colorpicker1"
+                                            <input type="text" name="installment" id="installment" class="form-control my-colorpicker1"
                                                    style="background-color: #fff;">
                                         </div>
                                     </td>
@@ -176,6 +181,16 @@
 @endsection
 @push("scripts")
 <script type="text/javascript">
+    $("#type").on("change",function (e) {
+        $("#account").trigger("change");
+        $("#capacity").find(":input").prop("disabled",false)
+
+        if($(this).val()=='CRDTCARD'){
+            $("#capacity").find(":input").prop("disabled",true)
+        }
+
+
+    })
 
     $("#facility_menu").click(function(e){
         if($("#facilitydate").val()!="" || $("#facilitylimit").val()!="" || $("#facilityoutstanding").val()!=""){
@@ -186,7 +201,7 @@
     })
 
     $("#account, #facilitylimit, #facilityoutstanding").on("change click",function(e){
-        type = '{{$type}}';
+        type = $("#type").val();
         switch (type){
             case 'CRDTCARD':
                 installment = $("#facilityoutstanding").val() * .05
@@ -201,7 +216,7 @@
     $('#facilitydate').datepicker({
         format: 'yyyy-mm-dd'
     });
-    $("#mia,#conduct").select2({allowclear:true});
+    $("#mia,#conduct,#type").select2({allowclear:true});
 
     $(document).ready(function() {
         $("#submit").click(function () {

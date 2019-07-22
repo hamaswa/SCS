@@ -95,9 +95,14 @@
                             </ul>
                         </li>
                     @endauth
+                    <!-- Control Sidebar Toggle Button -->
+                        <li>
+                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                        </li>
 
                 </ul>
             </div>
+
         </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
@@ -124,13 +129,13 @@
                     {{--<a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>--}}
                     {{--</li>--}}
                     {{--@else--}}
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Add User') }}</a>
-                        </li>
-                    @endif
+                    {{--@if (Route::has('register'))--}}
+                        {{--<li class="nav-item">--}}
+                            {{--<a class="nav-link" href="{{ route('register') }}">{{ __('Add User') }}</a>--}}
+                        {{--</li>--}}
+                    {{--@endif--}}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route("aadata.index") }}">Pipeline</a>
+                        <a class="nav-link" href="{{ route("aadata.index") }}">New AA</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("pipeline.index") }}">Pipeline Status</a>
@@ -186,6 +191,161 @@
     <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+    <aside class="control-sidebar">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li class="tab-toggle">
+                <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-theme-demo-options-tab" class="bg-yellow-light border-light switchDetail">
+                    <img src="{{ asset("img/left-icon.png") }}" class="img-responsive width-30" /></a>
+            </li>
+            <li class="tab-toggle">
+                <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-home-tab" class="bg-green-light border-light switchDetail">
+                    <img src="{{ asset("img/left-icon.png") }}" class="img-responsive width-30" /></a>
+            </li>
+            <li class="tab-toggle">
+                <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-settings-tab" class="bg-chocolate border-light switchDetail">
+                    <img src="{{ asset("img/left-icon.png") }}" class="img-responsive width-30" /></a>
+            </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content tab-data">
+            <!-- Home tab content -->
+            <div class="tab-pane active tap-width" id="control-sidebar-home-tab">
+                <div id="tab-1" class="bg-green-gradient">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover bg-white text-black">
+                            <thead>
+                            <tr class="bg-light-blue-gradient">
+                                <th colspan="4" class="text-center">Document</th>
+                            </tr>
+                            <tr class="bg-aqua">
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @if(isset($applicant->applicantDocuments))
+                                @foreach($applicant->applicantDocuments as $document)
+                                    <tr>
+                                        <td>{{ date("Y-m-d",strtotime($document->created_at))}}</td>
+                                        <td>{{ $document->doc_name }}</td>
+                                        <td>{{$document->doc_status}}</td>
+                                        <td><a href="{{ route("download")}}?id={{$document->id}}">view</a></td>
+                                    </tr>
+                                @endforeach
+                            @endif
+
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div id="control-sidebar-theme-demo-options-tab" class="tab-pane active tap-width">
+                <div id="tab-2" class="bg-yellow-light">
+                </div>
+            </div>
+            <!-- /.tab-pane -->
+
+            <!-- Settings tab content -->
+            <div class="tab-pane active tap-width" id="control-sidebar-settings-tab">
+                <div id="tab-3" class="bg-chocolate border-shadlebrown">
+                    <strong class="applicant padding-5"></strong>
+                    <div class="table-responsive" id="incomekyc_right">
+                        <table class="table table-bordered table-striped table-hover bg-white">
+                            <thead class="bg-light-blue">
+                            <tr class="bg-light-blue-gradient">
+                                <th colspan="3" class="text-center">Monthly Income</th>
+                            </tr>
+                            <tr class="bg-primary">
+                                <th>Type</th>
+                                <th>Gross</th>
+                                <th>Net</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+
+                            <tr id="salary_right_bar" class="salary_right_bar"></tr>
+
+                            <tr id="business_right_bar" class="business_right_bar"></tr>
+
+                            <tr id="incometax_right_bar" class="incometax_right_bar"></tr>
+
+                            <tr id="iif_right_bar" class="iif_right_bar"></tr>
+
+                            <tr id="monthly_rental_right_bar" class="monthly_rental_right_bar"></tr>
+
+                            <tr id="annual_investment_return_right_bar" class="annual_investment_return_right_bar"></tr>
+
+
+
+                            </tbody>
+                            <tfoot>
+                            <tr  class="bg-primary income_kyc_total_right_bar" id="income_kyc_total_right_bar"></tr>
+
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="table-responsive" id="wealthkyc_right">
+                        <table class="table table-bordered table-striped bg-white">
+                            <thead class="bg-light-blue">
+                            <tr class="bg-light-blue-gradient">
+                                <th colspan="3" class="text-center">Wealth</th>
+                            </tr>
+                            <tr class="bg-primary">
+                                <th>Type</th>
+                                <th>Amount</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr id="wealth_saving_right" class="wealth_saving_right"></tr>
+
+                            <tr id="wealth_epf_right" class="wealth_epf_right"></tr>
+
+                            <tr id="wealth_tpf_right" class="wealth_tpf_right"></tr>
+
+                            <tr id="wealth_tsv_right" class="wealth_tsv_right"></tr>
+
+                            <tr id="wealth_utv_right" class="wealth_utv_right"></tr>
+
+                            </tbody>
+                            <tfoot>
+                            <tr class="bg-yellow-light wealth_total_right" id="wealth_total_right">
+
+
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="table-responsive" id="propertykyc_right">
+                        <table class="table table-bordered table-striped table-hover bg-white">
+                            <thead class="bg-light-blue">
+                            <tr class="bg-light-blue-gradient">
+                                <th colspan="3" class="text-center">Property</th>
+                            </tr>
+                            <tr class="bg-aqua">
+                                <th>MV</th>
+                                <th>OS</th>
+                                <th>CD</th>
+                            </tr>
+                            </thead>
+                            <tbody id="propertyright" class="propertyright">
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+    </aside>
 
 </div>
 <!-- ./wrapper -->
@@ -201,7 +361,68 @@
 <!-- Select2 js -->
 <script src="{{asset("js/select2.js")}}"></script>
 @stack('scripts')
+<script>
+    function showRightSidebar(){
+        $('.show-right-detail').removeClass('hide');
+    }
+    $(document).on('click','.switchDetail',function(){
+        var id = $(this).attr('data-tab-id');
+        var status = $(this).attr('data-status');
+        if(status == 'show'){
+            $("#"+id).removeClass('active');
+            $(this).attr('data-status','hide');
+            var total = $(".tab-data").find('.active').length;
+            if(total == 3 || total == 0){
+                $(".tab-toggle").removeAttr('style');
+                $(".tab-toggle").removeClass('minimize-width');
+                $(".tab-toggle").removeClass('expand-width');
+                // if(total == 0){
+                //     $('.control-sidebar').removeClass('control-sidebar-open');
+                // }
+            }else{
+                $(".tab-toggle").css('width','20px');
+                $(this).parent().addClass('minimize-width');
+                $(this).parent().removeClass('expand-width');
+                $(this).parent().removeAttr('style');
+                if($('.minimize-width')){
+                    $('.minimize-width').removeAttr('style');
+                }
+            }
+            var total_width = 1140 / total;
+            if($('.tap-width').hasClass('active')){
+                $('.tap-width').css('width',total_width);
+            }
 
+        }else{
+            $("#"+id).addClass('active');
+            $(this).attr('data-status','show');
+            var total = $(".tab-data").find('.active').length;
+            var total_width = 1140 / total;
+
+            if(total == 3 || total == 0){
+                $(".tab-toggle").removeAttr('style');
+                $(".tab-toggle").removeClass('minimize-width');
+                $(".tab-toggle").removeClass('expand-width');
+
+            }else{
+                // $(".tab-toggle").css('width','20px');
+                $(this).parent().addClass('expand-width');
+                $(this).parent().removeClass('minimize-width');
+                $(this).parent().css('width','20px');
+                if($('.minimize-width')){
+                    $('.minimize-width').removeAttr('style');
+                }else{
+                    $(".tab-toggle").removeAttr('style');
+                }
+            }
+            var total_width = 1140 / total;
+            if($('.tap-width').hasClass('active')){
+                $('.tap-width').css('width',total_width);
+            }
+        }
+
+    });
+</script>
 
 </body>
 </html>

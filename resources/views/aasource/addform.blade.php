@@ -62,6 +62,9 @@
 
                         <div class="col-md-6">
                             <select id="type" class="form-control" name="type">
+                                <option value="facility_type">
+                                    Facility Type
+                                </option>
                                 <option value="aasource">
                                     AASource
                                 </option>

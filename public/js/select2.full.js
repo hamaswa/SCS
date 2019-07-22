@@ -1,4 +1,4 @@
-/*!
+ /*!
  * Select2 4.0.5
  * https://select2.github.io
  *

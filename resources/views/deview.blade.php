@@ -79,14 +79,14 @@
                     <input type="text" class="form-control" name="search" placeholder="Search"/>
                 </div>
                 <div class="col-md-4">
-                    <input type="submit" class="btn btn-default form-control" name="submit" value="Search"/>
+                    <input type="submit" class="btn btn-primary" name="submit" value="Search"/>
                 </div>
             </form>
                 </div>
 
             @foreach($applicantdata as $data)
-                <div class="row mar-lr">
-                    <div class="col-sm-12 col-md-9 de-table-bor">
+                <div class=" mar-lr row">
+                    <div class="col-sm-12 col-md-10 de-table-bor row">
 
                         <div class="box-body">
                             <div id="response"></div>
@@ -98,8 +98,11 @@
                                     <input type="hidden" class="form-control" name="name" value="{{$data->name}}"/>
                                     <input type="hidden" class="form-control" name="unique_id" value="{{$data->unique_id}}"/>
 
-                                    <div class="col-md-4">
-                                        <input type="submit" class="btn btn-default form-control" name="submit" value="Download Ctos Report"/>
+                                    <div class="col-md-4 pull-right">
+                                        {{--<button type="submit" name="submit" value="Download Ctos Report" class="bg-white padding-5 pull-right" title="CTOS Report Download">--}}
+                                            {{--<img src="{{ asset("img/save.jpeg") }}"/>--}}
+                                        {{--</button>--}}
+                                        {{--<input type="submit" class="btn btn-default form-control" name="submit" value="Download Ctos Report"/>--}}
                                     </div>
                                 </form>
                             </div>
@@ -107,8 +110,8 @@
                                 <label>{{ $data->name }}</label>
                                 <div class="clearfix"></div>
                                 <span>CREDIT FACILITY INFORMATION</span>
-                                <div class="pull-right"><a class="btn btn-default"
-                                                           href="{{ route("housingloan.create") }}?applicant_id={{ $data->id }}">Add
+                                <div class="pull-right">
+                                    <a class="btn btn-default" href="{{ route("housingloan.create") }}?applicant_id={{ $data->id }}">Add
                                         Facility Info</a>
                                 </div>
 
@@ -133,54 +136,37 @@
                                         <tr>
                                             <td>
                                                 <input type="hidden" name="id" value="{{$v->id}}">
-                                                @switch($v->type)
-                                                    @case("HSLNFNCE")
-                                                    Housing Loan
-                                                    @break
-                                                    @case("CRDTCARD")
-                                                    Credit Card
-                                                    @break
-                                                    @case("PELNFNCE")
-                                                    Personal Loan
-                                                    @break
-                                                    @case("OTLNFNCE")
-                                                    Term Loan
-                                                    @break
-                                                    @case("OVRDRAFT")
-                                                    Overdraft
-                                                    @break
-                                                    @case("OHRPCREC")
-                                                    Hire Purchase
-                                                    @break
+                                                {{strtoupper($v->type) }}
 
-                                                @endswitch
                                             </td>
                                             <td>
                                                 <input type="text" id="facilitydate" required name="facilitydate"
-                                                       placeholder="dd/mm/yyyy" class="form-control"
+                                                       placeholder="dd/mm/yyyy" class="form-control facilitydate"
                                                        data-inputmask="'alias': 'dd/mm/yyyy'"
                                                        value="{{$v->facilitydate}}">
                                             </td>
 
 
                                             <td>
-                                                @if($v->type!='CRDTCARD')
+                                                @if($v->type!='crdtcard')
+                                                    <form>
                                                     <div class="form-group">
                                                         <label>
                                                             <input type="radio" checked="true" name="capacity"
                                                                    id='account' value="own"
-                                                                   {{ ($v->capacity=="own"?" checked":"") }} class="minimal"
+                                                                   {{ (strtolower($v->capacity)=="own"?" checked":"") }} class="minimal"
                                                                    checked="">
                                                             OWN
                                                         </label>
                                                         <label>
                                                             <input type="radio" name="capacity" value="ja"
-                                                                   {{ (($v->capacity=="ja" or $v->capacity=='partner')?"checked ":"") }} id="account"
+                                                                   {{ ((strtolower($v->capacity)=="joint" or strtolower($v->capacity)=='partner')?"checked ":"") }} id="account"
                                                                    class="minimal">
                                                             JA
                                                         </label>
 
                                                     </div>
+                                                    </form>
                                                 @endif
                                             </td>
                                             <td>
@@ -200,7 +186,7 @@
                                             </td>
                                             <td>
                                                 <input type="text"
-                                                       {{ ($v->type=='CRDTCARD'? 'readonly':'') }} value=" {{$v->installment}}"
+                                                       {{ ($v->type=='crdtcard'? 'readonly':'') }} value=" {{$v->installment}}"
                                                        name="installment" id="installment"
                                                        class="form-control my-colorpicker1"
                                                        style="background-color: #fff;">
@@ -260,31 +246,32 @@
 
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-12 no-padding no-margin">
+                    <div class="col-md-2 col-sm-12 no-padding no-margin">
                         <div class="box">
-                            <div class="box-header">
-                                <div class="padding-5 bg-white pull-right border-light">
-                                    <img src="{{ asset("img/folder.png") }}"/>
-                                </div>
-                                <div class="padding-5 bg-yellow-light pull-right border-light">
-                                    <img src="{{ asset("img/left-icon.png") }}" onclick="showData('all_comments')"/>
-                                </div>
-                                <div class="padding-5 bg-chocolate pull-right border-light">
-                                    <img src="{{ asset("img/left-icon.png") }}" onclick="showData('overview')"/>
-                                </div>
-                                <div class="padding-5 bg-green-gradient pull-right border-light">
-                                    <img src="{{ asset("img/left-icon.png") }}" onclick="showData('view_existing')"/>
-                                </div>
-                            </div>
+                            {{--<div class="box-header">--}}
+                                {{--<div class="padding-5 bg-white pull-right border-light">--}}
+                                    {{--<img src="{{ asset("img/folder.png") }}"/>--}}
+                                {{--</div>--}}
+                                {{--<div class="padding-5 bg-yellow-light pull-right border-light">--}}
+                                    {{--<img src="{{ asset("img/left-icon.png") }}" onclick="showData('all_comments')"/>--}}
+                                {{--</div>--}}
+                                {{--<div class="padding-5 bg-chocolate pull-right border-light">--}}
+                                    {{--<img src="{{ asset("img/left-icon.png") }}" onclick="showData('overview')"/>--}}
+                                {{--</div>--}}
+                                {{--<div class="padding-5 bg-green-gradient pull-right border-light">--}}
+                                    {{--<img src="{{ asset("img/left-icon.png") }}" onclick="showData('view_existing')"/>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
 
                             <div class="box-body bg-yellow-light  left-box  detail-box">
                                 <strong>{{$data->name}}</strong>
+                                <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover bg-white margin-bottom">
                                     <thead>
 
                                     <tr class="bg-light-blue-gradient">
                                         <th>Facility</th>
-                                        <th>ACTUAL INSTALMENT</th>
+                                        <th>Actual Instalment</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -292,27 +279,8 @@
                                         <tr>
                                             <td>
 
-                                                @switch($v->type)
-                                                    @case("HSLNFNCE")
-                                                    Housing Loan
-                                                    @break
-                                                    @case("CRDTCARD")
-                                                    Credit Card
-                                                    @break
-                                                    @case("PELNFNCE")
-                                                    Personal Loan
-                                                    @break
-                                                    @case("OTLNFNCE")
-                                                    Term Loan
-                                                    @break
-                                                    @case("OVRDRAFT")
-                                                    Overdraft
-                                                    @break
-                                                    @case("OHRPCREC")
-                                                    Hire Purchase
-                                                    @break
+                                                {{strtoupper($v->type) }}
 
-                                                @endswitch
                                             </td>
 
                                             <?php
@@ -321,42 +289,26 @@
                                             <td>
                                                 @switch($v->type)
 
-                                                    @case("HSLNFNCE")
-                                                    @if($v->installment!="")
-                                                        @if($v->capacity=='own')
-                                                            {{ $v->installment }}
-                                                        @else
-                                                            {{ $v->installment/2 }}
-                                                        @endif
-                                                    @endif
-                                                    @break
-                                                    @case("CRDTCARD")
+
+                                                    @case("crdtcard")
                                                     {{ $v->facilityoutstanding * .05}}
                                                     @break
-                                                    @case("PELNFNCE")
-                                                    @if($v->installment!="")
-                                                        @if($v->capacity=='own')
-                                                            {{ $v->installment }}
-                                                        @else
-                                                            {{ $v->installment/2 }}
-                                                        @endif
-                                                    @endif
-                                                    @break
-                                                    @case("OTLNFNCE")
-                                                    @if($v->installment!="")
-                                                        @if($v->capacity=='own')
-                                                            {{ $v->installment }}
-                                                        @else
-                                                            {{ $v->installment/2 }}
-                                                        @endif
-                                                    @endif
-                                                    @break
-                                                    @case("OVRDRAFT")
+
+                                                    @case("ovrdraft")
                                                     {{ ($v->facilitylimit * .07) / 12 }}
                                                     @break
-                                                    @case("OHRPCREC")
+                                                    @case("ohrpcrec")
                                                     @if($v->installment!="")
-                                                        @if($v->capacity=='own')
+                                                        @if(strtolower($v->capacity)=='own')
+                                                            {{ $v->installment }}
+                                                        @else
+                                                            {{ $v->installment/2 }}
+                                                        @endif
+                                                    @endif
+                                                    @break
+                                                    @default
+                                                    @if($v->installment!="")
+                                                        @if(strtolower($v->capacity)=='own')
                                                             {{ $v->installment }}
                                                         @else
                                                             {{ $v->installment/2 }}
@@ -374,7 +326,7 @@
                                     </tbody>
 
                                 </table>
-
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -392,7 +344,7 @@
     <script type="text/javascript">
 
 
-        $('#facilitydate').datepicker({
+        $('.facilitydate').datepicker({
             format: 'yyyy-mm-dd'
         });
         //$("#mia,#conduct").select2({allowclear:true});

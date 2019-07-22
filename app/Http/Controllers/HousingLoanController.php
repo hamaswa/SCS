@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\FacilityInfo;
 use App\ApplicantData;
+use App\AASource;
 use SoapClient;
 use SimpleXMLElement;
 
@@ -20,8 +21,13 @@ class HousingLoanController extends Controller
     {
         $applicantdata = ApplicantData::paginate(5);
 
-        //$facilityinfo = FacilityInfo::paginate(10);
-        return view("deview")->with(['applicantdata'=>$applicantdata]);
+        $capacity_types_data  = AASource::where("type","capacity_type")->get();
+        $capacity_type = [];
+        foreach ($capacity_types_data as $item) {
+            $capacity_type[strtolower($item->name)] = $item->description;
+        }
+
+        return view("deview")->with(['applicantdata'=>$applicantdata,'capacity_type'=>$capacity_type]);
     }
 
     /**
@@ -31,9 +37,9 @@ class HousingLoanController extends Controller
      */
     public function create(Request $request)
     {
-
-    $inputs = $request->all();
-        return view("de")->with(array("type"=>'HSLNFNCE','button'=>"Housing Loan","applicant_id"=>$inputs['applicant_id']));
+        $capacity_data  = AASource::where("type","capacity_type")->get();
+        $inputs = $request->all();
+        return view("de")->with(["applicant_id" => $inputs['applicant_id'],"capacity_data"=>$capacity_data]);
     }
 
     /**

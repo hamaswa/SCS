@@ -20,12 +20,31 @@ class CreateApplicantDataTable extends Migration
             $table->string('aacategory')->nullable();
             $table->string('aabranch')->nullable();
             $table->string('aasource')->nullable();
-            $table->string('aaallocation')->nullable();
+            $table->string('aaprogramcode')->nullable();
             $table->string("name")->nullable();
-            $table->string("unique_id")->unique();
+            $table->string("unique_id")->nullable();
             $table->string("mobile")->nullable();
-            $table->string("consent")->nullable();
-            $table->string("status")->default("Application");
+            $table->string("consent")->default("0");
+            $table->string("status")->default("Appointment");
+            $table->string("list_status")->default("0");
+            $table->timestamps();
+        });
+
+        Schema::create('applicant_businesses', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string("business_type")->nullable();
+            $table->string("business_shareholding")->nullable();
+            $table->string("business_turnover")->nullable();
+            $table->string("business_nature")->nullable();
+            $table->string("business_position")->nullable();
+            $table->string("business_email")->nullable();
+            $table->bigInteger("applicant_id")->unsigned();
+            $table->foreign("applicant_id")
+                ->references('id')
+                ->on('applicant_data')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -35,7 +54,11 @@ class CreateApplicantDataTable extends Migration
             $table->integer("net")->nullable();
             $table->text("form_data")->nullable();
             $table->bigInteger("applicant_id")->unsigned();
-            $table->foreign("applicant_id")->references('id')->on('applicant_data')->onDelete('cascade');
+            $table->foreign("applicant_id")
+                ->references('id')
+                ->on('applicant_data')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->timestamps();
         });
 
@@ -44,7 +67,11 @@ class CreateApplicantDataTable extends Migration
             $table->string("total");
             $table->text("form_data")->nullable();
             $table->bigInteger("applicant_id")->unsigned();
-            $table->foreign("applicant_id")->references('id')->on('applicant_data')->onDelete('cascade');
+            $table->foreign("applicant_id")
+                ->references('id')
+                ->on('applicant_data')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->timestamps();
         });
 
@@ -68,7 +95,11 @@ class CreateApplicantDataTable extends Migration
             $table->text("form_data")->nullable();
 
             $table->bigInteger("applicant_id")->unsigned();
-            $table->foreign("applicant_id")->references('id')->on('applicant_data')->onDelete('cascade');
+            $table->foreign("applicant_id")
+                ->references('id')
+                ->on('applicant_data')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->timestamps();
 
         });
@@ -85,7 +116,11 @@ class CreateApplicantDataTable extends Migration
             $table->string("mia")->nullable();
             $table->string("conduct")->nullable();
             $table->bigInteger("applicant_id")->unsigned();
-            $table->foreign("applicant_id")->references('id')->on('applicant_data')->onDelete('cascade');
+            $table->foreign("applicant_id")
+                ->references('id')
+                ->on('applicant_data')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->timestamps();
         });
 
@@ -105,6 +140,7 @@ class CreateApplicantDataTable extends Migration
         Schema::dropIfExists('applicant_wealth');
         Schema::dropIfExists('applicant_property');
         Schema::dropIfExists('facility_infos');
+        Schema::dropIfExists('applicant_businesses');
         Schema::dropIfExists('applicant_data');
     }
 }

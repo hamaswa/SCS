@@ -8,7 +8,7 @@ class ApplicantData extends Model
 {
     protected $table = "applicant_data";
     protected $fillable = [
-        'aacategory','aabranch','aasource','aaallocation','serial_no','name','unique_id','mobile'
+        'aacategory','aabranch','aasource','aaprogramcode','serial_no','name','unique_id','mobile','consent','status'
     ];
 
     public function facilityInfo(){
@@ -27,5 +27,17 @@ class ApplicantData extends Model
 
     public function applicantProperty(){
         return $this->hasMany("App\ApplicantProperty",'applicant_id');
+    }
+
+    public  function applicantComments(){
+        return $this->hasMany("App\ApplicantComments",'applicant_id');
+    }
+
+    public function applicantDocuments(){
+        return $this->hasMany("App\ApplicantDocuments",'applicant_id');
+    }
+
+    public  function applicantBusinesses(){
+        return $this->hasMany("App\ApplicantBusiness",'applicant_id');
     }
 }

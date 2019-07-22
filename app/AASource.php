@@ -9,4 +9,6 @@ class AASource extends Model
     protected $fillable = [
         'name','description','status','type'
     ];
+
+    protected $table = "a_a_sources";
 }

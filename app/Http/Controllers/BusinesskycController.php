@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\ApplicantWealth;
+use App\ApplicantBusiness;
 
-class WealthkycController extends Controller
+class BusinesskycController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,29 +36,30 @@ class WealthkycController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
-        $wealth = ApplicantWealth::where("applicant_id",$inputs['applicant_id'])->first();
-        if($wealth){
-            $wealth->update($inputs);
-            $wealth->form_data = json_encode($inputs);
-            $wealth->save();
-            return json_encode(["applicant_id" => $wealth->applicant_id, "wealth_id" => $wealth->id]);
-        }
-       else if (isset($inputs['welath_id']) and $inputs['welath_id'] != "") {
-            $wealth = ApplicantWealth::find($inputs['welath_id']);
-            $wealth->update($inputs);
-        } else {
 
-            if (isset($inputs['total'])) {
-                $wealth = ApplicantWealth::create($inputs);
-                $wealth->form_data = json_encode($inputs);
-                $wealth->save();
-                return json_encode(["applicant_id" => $wealth->applicant_id, "wealth_id" => $wealth->id]);
-            } else {
-                return json_encode(["error" => "No Wealth Data submitted"]);
+        if (isset($inputs['applicant_id']) and $inputs['applicant_id'] != "") {
+            $business = ApplicantBusiness::where("applicant_id", $inputs["applicant_id"]);
+            $business->delete();
+        }
+
+
+        if (isset($inputs['business_forms'])) {
+            foreach ($inputs['business_forms'] as $input) {
+
+                $input['applicant_id'] = $inputs['applicant_id'];
+                $business = ApplicantBusiness::create($input);
+            }
+            return json_encode(["applicant_id" => $business->applicant_id, "business_id" => $business->id]);
+        } else {
+            if (isset($inputs['applicant_id']) and $inputs['applicant_id'] != "") {
+                $business = ApplicantBusiness::where("applicant_id", $inputs["applicant_id"]);
+                $business->delete();
             }
 
+            return json_encode(["error" => "No Business Data submitted"]);
         }
     }
+
     /**
      * Display the specified resource.
      *
