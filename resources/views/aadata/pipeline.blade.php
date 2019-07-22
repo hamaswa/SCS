@@ -183,72 +183,67 @@
                     <input type="hidden" name="form" value="new_application" id="form">
                     <input type="hidden" name="applicant_status" value="new_application" id="applicant_status">
                     <div id="applicant_id"></div>
-                    <div class="col-lg-12 ">
-                        <div class="box">
-                            <div class="col-md-12 col-sm-12 bg-gray-light padding-5">
-                                <div class="box-body bg-gray-light">
-                                    <div class="form-group col-md-12 col-sm-12">
-                                        <label id="name_label" class="control-label">
-                                            Full Name as per NRIC/Passport
-                                        </label>
-                                        <input name="name" id="name" placeholder="" class="form-control" type="text">
-                                        <input type="checkbox" data-verify-error="Please Verify Name"
-                                               class="verify-newaa-input"> Verified
+                        <div class="bg-gray-light padding-5">
+                            <div class="box-body bg-gray-light">
+                                <div class="form-group col-md-12 col-sm-12">
+                                    <label id="name_label" class="control-label">
+                                        Full Name as per NRIC/Passport
+                                    </label>
+                                    <input name="name" id="name" placeholder="" class="form-control" type="text">
+                                    <input type="checkbox" data-verify-error="Please Verify Name"
+                                           class="verify-newaa-input"> Verified
 
+                                </div>
+                                <div class="form-group col-md-6 col-sm-6">
+                                    <label id="unique_id_label" class="control-label">
+                                        NRIC No./Passport No.(e.g.12345678)
+                                    </label>
+                                    <input name="unique_id" id="unique_id" placeholder="" class="form-control"
+                                           minlength="12" type="number">
+                                    <input type="checkbox" data-verify-error="Please Verify IC"
+                                           class="verify-newaa-input"> Verified
+                                </div>
+                                <div class="form-group col-md-6 col-sm-6">
+                                    <label class="control-label">Mobile Number (e.g. 60121234567 /
+                                        6512345678)</label>
+                                    <input name="mobile" id="mobile" placeholder="" class="form-control"
+                                           minlength="10" type="number">
+                                    <input type="checkbox" data-verify-error="Please Verify mobile"
+                                           class="verify-newaa-input"> Verified
+                                </div>
+                                <div class="form-group col-md-6 col-sm-6 ">
+                                    <div class="form-group">
+                                        <label>Program</label>
+                                        <select class="select2 form-control" name="aaprogramcode"
+                                                id="aaprogramcode">
+                                            <option value="ABMB">ABMB</option>
+                                            <option value="REA">REA</option>
+                                            <option value="DEVP">DEVP</option>
+                                            <option value="INS">INS</option>
+                                        </select>
                                     </div>
-                                    <div class="form-group col-md-6 col-sm-6">
-                                        <label id="unique_id_label" class="control-label">
-                                            NRIC No./Passport No.(e.g.12345678)
-                                        </label>
-                                        <input name="unique_id" id="unique_id" placeholder="" class="form-control"
-                                               minlength="12" type="number">
-                                        <input type="checkbox" data-verify-error="Please Verify IC"
-                                               class="verify-newaa-input"> Verified
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6">
-                                        <label class="control-label">Mobile Number (e.g. 60121234567 /
-                                            6512345678)</label>
-                                        <input name="mobile" id="mobile" placeholder="" class="form-control"
-                                               minlength="10" type="number">
-                                        <input type="checkbox" data-verify-error="Please Verify mobile"
-                                               class="verify-newaa-input"> Verified
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 ">
-                                        <div class="form-group">
-                                            <label>Program</label>
-                                            <select class="select2 form-control" name="aaprogramcode"
-                                                    id="aaprogramcode">
-                                                <option value="ABMB">ABMB</option>
-                                                <option value="REA">REA</option>
-                                                <option value="DEVP">DEVP</option>
-                                                <option value="INS">INS</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="status" value="Appointment-Attendent"/>
-                                    {{--<div class="form-group col-md-6 col-sm-6 hide applicant-status">--}}
-                                    {{--<div class="form-group">--}}
-                                    {{--<label>Appointment-Attedent</label>--}}
-                                    {{--<input type="checkbox" class="verify-newaa-input"> Verified--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
+                                </div>
+                                <input type="hidden" name="status" value="Appointment-Attendent"/>
+                                {{--<div class="form-group col-md-6 col-sm-6 hide applicant-status">--}}
+                                {{--<div class="form-group">--}}
+                                {{--<label>Appointment-Attedent</label>--}}
+                                {{--<input type="checkbox" class="verify-newaa-input"> Verified--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
 
-                                    {{--<div class="form-group col-md-12 col-sm-12 consent-field hide">--}}
-                                    {{--<a class="bg-white padding-5 pull-right consent-field" href="javascript:void(0)" onclick="$('#consent').trigger('click')" title="Upload Consent">--}}
-                                    {{--<img src="{{ asset("img/file.jpeg") }}"/></a>--}}
-                                    {{--<input type="file" class="hide" name="consent" id="consent">--}}
-                                    {{--</div>--}}
-                                    <div class="form-group col-lg-12">
-                                        <button id="btn-newaa-submit" class="btn bg-gray-dark pull-right">Update
-                                        </button>
-                                    </div>
+                                {{--<div class="form-group col-md-12 col-sm-12 consent-field hide">--}}
+                                {{--<a class="bg-white padding-5 pull-right consent-field" href="javascript:void(0)" onclick="$('#consent').trigger('click')" title="Upload Consent">--}}
+                                {{--<img src="{{ asset("img/file.jpeg") }}"/></a>--}}
+                                {{--<input type="file" class="hide" name="consent" id="consent">--}}
+                                {{--</div>--}}
+                                <div class="form-group col-lg-12">
+                                    <button id="btn-newaa-submit" class="btn bg-gray-dark pull-right">Update
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-
                 </form>
+                <div class="clearfix"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
