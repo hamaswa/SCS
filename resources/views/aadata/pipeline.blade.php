@@ -194,7 +194,7 @@
                                            class="verify-newaa-input"> Verified
 
                                 </div>
-                                <div class="form-group col-md-6 col-sm-6">
+                                <div class="form-group col-md-12 col-sm-12">
                                     <label id="unique_id_label" class="control-label">
                                         NRIC No./Passport No.(e.g.12345678)
                                     </label>
@@ -203,7 +203,7 @@
                                     <input type="checkbox" data-verify-error="Please Verify IC"
                                            class="verify-newaa-input"> Verified
                                 </div>
-                                <div class="form-group col-md-6 col-sm-6">
+                                <div class="form-group col-md-12 col-sm-12">
                                     <label class="control-label">Mobile Number (e.g. 60121234567 /
                                         6512345678)</label>
                                     <input name="mobile" id="mobile" placeholder="" class="form-control"
