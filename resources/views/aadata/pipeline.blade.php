@@ -236,7 +236,7 @@
                                 {{--<img src="{{ asset("img/file.jpeg") }}"/></a>--}}
                                 {{--<input type="file" class="hide" name="consent" id="consent">--}}
                                 {{--</div>--}}
-                                <div class="form-group col-lg-12">
+                                <div class="form-group col-md-6 col-sm-6">
                                     <button id="btn-newaa-submit" class="btn bg-gray-dark pull-right">Update
                                     </button>
                                 </div>
