@@ -175,7 +175,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 id="aa_title"></h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body bg-white">
                 <form id="edit-aa" name="edit-aa" action="{{ route("aadata.store") }}" method="post"
                       enctype="multipart/form-data">
 
@@ -245,7 +245,7 @@
                 </form>
                 <div class="clearfix"></div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer bg-gray-light">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
