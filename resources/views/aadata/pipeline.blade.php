@@ -30,7 +30,7 @@
                         <div class="col-md-3">
                             <select class="form-control" name="status" id="">
                                 <option value="Appointment">Appointment</option>
-                                <option value="Appointment-Attendent">Appointment-Attendent</option>
+                                <option value="Appointment-Attended">Appointment-Attended</option>
                                 <option value="Consent Obtained">Consent Obtained</option>
                                 <option value="Documentation">Documentation</option>
                                 <option value="Application">Application</option>
@@ -101,7 +101,7 @@
                                            data-name="{{ $d->name }}" data-unique_id="{{ $d->unique_id }}"
                                            data-mobile="{{$d->mobile}}" class="btn btn-xs bg-light-blue-gradient edit">Appointment
                                             Attendent</a>
-                                    @elseif($d->status =="Appointment-Attendent")
+                                    @elseif($d->status =="Appointment-Attended")
                                         <a href="javascript:void(0)" data-aaprogramcode="{{ $d->aaprogramcode }}"
                                            data-id="{{$d->id}}" data-status="{{ $d->status }}"
                                            data-name="{{ $d->name }}" data-unique_id="{{ $d->unique_id }}"
@@ -211,25 +211,20 @@
                                     <input type="checkbox" data-verify-error="Please Verify mobile"
                                            class="verify-newaa-input"> Verified
                                 </div>
-                                <div class="form-group col-md-6 col-sm-6 ">
-                                    <div class="form-group">
-                                        <label>Program</label>
-                                        <select class="select2 form-control" name="aaprogramcode"
-                                                id="aaprogramcode">
-                                            <option value="ABMB">ABMB</option>
-                                            <option value="REA">REA</option>
-                                            <option value="DEVP">DEVP</option>
-                                            <option value="INS">INS</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <input type="hidden" name="status" value="Appointment-Attendent"/>
-                                {{--<div class="form-group col-md-6 col-sm-6 hide applicant-status">--}}
-                                {{--<div class="form-group">--}}
-                                {{--<label>Appointment-Attedent</label>--}}
-                                {{--<input type="checkbox" class="verify-newaa-input"> Verified--}}
+                                {{--<div class="form-group col-md-6 col-sm-6 ">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<label>Program</label>--}}
+                                        {{--<select class="select2 form-control" name="aaprogramcode"--}}
+                                                {{--id="aaprogramcode">--}}
+                                            {{--<option value="ABMB">ABMB</option>--}}
+                                            {{--<option value="REA">REA</option>--}}
+                                            {{--<option value="DEVP">DEVP</option>--}}
+                                            {{--<option value="INS">INS</option>--}}
+                                        {{--</select>--}}
+                                    {{--</div>--}}
                                 {{--</div>--}}
-                                {{--</div>--}}
+                                <input type="hidden" name="status" value="Appointment-Attended"/>
+
 
                                 {{--<div class="form-group col-md-12 col-sm-12 consent-field hide">--}}
                                 {{--<a class="bg-white padding-5 pull-right consent-field" href="javascript:void(0)" onclick="$('#consent').trigger('click')" title="Upload Consent">--}}
@@ -237,7 +232,7 @@
                                 {{--<input type="file" class="hide" name="consent" id="consent">--}}
                                 {{--</div>--}}
                                 <div class="form-group col-md-6 col-sm-6">
-                                    <button id="btn-newaa-submit" class="btn bg-gray-dark pull-right">Update
+                                    <button id="btn-newaa-submit" class="btn bg-gray-dark pull-right">Request
                                     </button>
                                 </div>
                             </div>
@@ -246,7 +241,7 @@
                 <div class="clearfix"></div>
             </div>
             <div class="modal-footer bg-gray-light">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Consent Not Obtained</button>
             </div>
         </div>
     </div>
@@ -405,7 +400,7 @@
                 $("#applicant_status").val($(this).data("status"));//.prop("disabled",true);
                 $("#aaprogramcode").val($(this).data("aaprogramcode"));
                 $("#applicant_id").append($("<input type='hidden' name='applicant_id' value='" + $(this).data("id") + "'>"))
-                $("#btn-newaa-submit").text("Proceed");
+                $("#btn-newaa-submit").text("Request");
                 if ($(this).data("status") == "Appointment") {
                     $("#form").val("applicant_attend");//.prop("disabled",true);
                     $("#consent").attr("disabled", true);
@@ -413,7 +408,7 @@
                     $(".applicant-status").removeClass("hide");
                     $("#status").attr("disabled", false);
                 }
-                else if ($(this).data("status") == "Appointment-Attendent") {
+                else if ($(this).data("status") == "Appointment-Attended") {
                     $("#form").val("applicant_consent");//.prop("disabled",true);
                     $(".consent-field").removeClass("hide");
                     $(".applicant-status").addClass("hide");

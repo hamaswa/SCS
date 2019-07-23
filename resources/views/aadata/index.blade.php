@@ -68,13 +68,13 @@
                                             {{ $d->status }}
                                         </td>
                                         <td>
-                                            {{--                                    @if(! $d->status=="Appointment" and !$d->status =="Appointment-Attendent" and !$d->status=="Consent Obtained")--}}
+                                            {{--                                    @if(! $d->status=="Appointment" and !$d->status =="Appointment-Attended" and !$d->status=="Consent Obtained")--}}
                                             <a href="javascript:void(0)" data-toggle="control-sidebar"
                                                data-id="{{$d->id}}"
                                                class="btn btn-xs bg-light-blue-gradient view-applicant">View</a>
                                             {{--@if($d->status=="Appointment")--}}
                                             {{--<a href="javascript:void(0)" data-aaprogramcode="{{ $d->aaprogramcode }}" data-id="{{$d->id}}" data-status ="{{ $d->status }}" data-name="{{ $d->name }}" data-unique_id="{{ $d->unique_id }}" data-mobile="{{$d->mobile}}" class="btn btn-xs bg-light-blue-gradient edit">Edit</a>--}}
-                                            {{--@elseif($d->status =="Appointment-Attendent")--}}
+                                            {{--@elseif($d->status =="Appointment-Attended")--}}
                                             {{--<a href="javascript:void(0)" data-aaprogramcode="{{ $d->aaprogramcode }}" data-id="{{$d->id}}" data-status ="{{ $d->status }}" data-name="{{ $d->name }}" data-unique_id="{{ $d->unique_id }}" data-mobile="{{$d->mobile}}" class="btn btn-xs bg-light-blue-gradient edit">Upload Consent</a>--}}
                                             {{--@elseif($d->status=="Consent Obtained")--}}
                                             {{--<a href="{{route("aadata.create", ["id" => $d->id])  }}" class="btn btn-xs bg-light-blue-gradient edit">KYC</a>--}}
@@ -567,8 +567,8 @@
             {{--data: $("#newaa").serializeArray(),--}}
             {{--success:function (response) {--}}
             {{--response = JSON.parse(response)--}}
-            {{--if(response.status =="Appointment-Attendent"){--}}
-            {{--$("#applicant_status").val("Appointment-Attendent")--}}
+            {{--if(response.status =="Appointment-Attended"){--}}
+            {{--$("#applicant_status").val("Appointment-Attended")--}}
             {{--$("#form").val("applicant_consent");//.prop("disabled",true);--}}
             {{--$(".consent-field").removeClass("hide");--}}
             {{--$(".applicant-status").addClass("hide");--}}
@@ -618,7 +618,7 @@
                     $(".applicant-status").removeClass("hide");
                     $("#status").attr("disabled", false);
                 }
-                else if ($(this).data("status") == "Appointment-Attendent") {
+                else if ($(this).data("status") == "Appointment-Attended") {
                     $("#form").val("applicant_consent");//.prop("disabled",true);
                     $(".consent-field").removeClass("hide");
                     $(".applicant-status").addClass("hide");

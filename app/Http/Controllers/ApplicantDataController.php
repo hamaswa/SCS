@@ -96,7 +96,7 @@ class ApplicantDataController extends Controller
                     if($applicant->status=="Appointment"){
                         return back()->with("success", "Data Updated Successfully");
                     }
-                    else if (isset($inputs['status']) and $inputs['status'] == "Appointment-Attendent") {
+                    else if (isset($inputs['status']) and $inputs['status'] == "Appointment-Attended") {
                         return back()->with("success", "Attendent Status Updated");
 
                         //return json_encode(["status" => $applicant->status,"success"=>"Attendent Status Updated"]);
