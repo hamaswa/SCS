@@ -195,16 +195,19 @@
         <!-- Create the tabs -->
         <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
             <li class="tab-toggle">
-                <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-theme-demo-options-tab" class="switchDetail">
-                    <img src="{{ asset("img/left-icon.png") }}" class="img-responsive width-30" /> <h3>DOCUMENT</h3></a>
+                <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-theme-demo-options-tab" class="switchDetail bg-gray-light">
+                    {{--<img src="{{ asset("img/left-icon.png") }}" class="img-responsive width-30 pull-left" />--}}
+                    <h3 class="no-margin text-center">DOCUMENT</h3></a>
             </li>
             <li class="tab-toggle">
-                <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-home-tab" class="switchDetail">
-                    <img src="{{ asset("img/left-icon.png") }}" class="img-responsive width-30" /><h3>COMMENT</h3></a>
+                <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-home-tab" class="switchDetail bg-gray-light">
+                    {{--<img src="{{ asset("img/left-icon.png") }}" class="img-responsive width-30 pull-left" />--}}
+                    <h3 class="no-margin text-center">COMMENT</h3></a>
             </li>
             <li class="tab-toggle">
-                <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-settings-tab" class="switchDetail">
-                    <img src="{{ asset("img/left-icon.png") }}" class="img-responsive width-30" /><h3>OVERVIEW</h3></a>
+                <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-settings-tab" class="switchDetail bg-gray-light">
+                    {{--<img src="{{ asset("img/left-icon.png") }}" class="img-responsive width-30 pull-left" />--}}
+                    <h3 class="no-margin text-center">OVERVIEW</h3></a>
             </li>
         </ul>
         <!-- Tab panes -->
