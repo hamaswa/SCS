@@ -7,7 +7,7 @@
         <tr class="bg-aqua">
             <th>Date</th>
             <th>Status</th>
-            <th>Comments</th>
+            <th style="width:40%;">Comments</th>
             <th>By</th>
         </tr>
 
