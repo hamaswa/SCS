@@ -111,8 +111,7 @@
                                         <a href="{{route("aadata.create", ["id" => $d->id])  }}"
                                            class="btn btn-xs bg-light-blue-gradient edit">KYC</a>
                                     @else
-                                        <a href="javascript:void(0)" data-toggle="control-sidebar" data-id="{{$d->id}}"
-                                           class="btn btn-xs bg-light-blue-gradient view-applicant">View</a>
+                                        KYC complete
                                     @endif
                                 </td>
                             </tr>
@@ -226,11 +225,11 @@
                                 <input type="hidden" name="status" value="Appointment-Attended"/>
 
 
-                                {{--<div class="form-group col-md-12 col-sm-12 consent-field hide">--}}
-                                {{--<a class="bg-white padding-5 pull-right consent-field" href="javascript:void(0)" onclick="$('#consent').trigger('click')" title="Upload Consent">--}}
-                                {{--<img src="{{ asset("img/file.jpeg") }}"/></a>--}}
-                                {{--<input type="file" class="hide" name="consent" id="consent">--}}
-                                {{--</div>--}}
+                                <div class="form-group col-md-12 col-sm-12 consent-field hide">
+                                <a class="bg-white padding-5 pull-right consent-field" href="javascript:void(0)" onclick="$('#consent').trigger('click')" title="Upload Consent">
+                                <img src="{{ asset("img/file.jpeg") }}"/></a>
+                                <input type="file" class="hide" name="consent" id="consent">
+                                </div>
                                 <div class="form-group col-md-6 col-sm-6">
                                     <button id="btn-newaa-submit" class="btn bg-gray-dark pull-right">Request
                                     </button>
@@ -391,6 +390,7 @@
             })
 
             $(".edit").on("click", function (e) {
+                $(".verify-newaa-input").prop("checked",false);
                 $("#aa_edit_form").modal('show');
                 $("#aa_title").html("Request CCRIS");
                 $("#name").val($(this).data("name"));//.prop("disabled",true);
@@ -402,6 +402,8 @@
                 $("#applicant_id").append($("<input type='hidden' name='applicant_id' value='" + $(this).data("id") + "'>"))
                 $("#btn-newaa-submit").text("Request");
                 if ($(this).data("status") == "Appointment") {
+                    $("#btn-newaa-submit").text("Save Data");
+
                     $("#form").val("applicant_attend");//.prop("disabled",true);
                     $("#consent").attr("disabled", true);
                     $(".consent-field").addClass("hide");
