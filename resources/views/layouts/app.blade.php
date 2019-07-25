@@ -194,20 +194,32 @@
     <aside class="control-sidebar">
         <!-- Create the tabs -->
         <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-            <li class="tab-toggle">
+            <li class="tab-toggle bg-gray-light">
                 <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-theme-demo-options-tab" class="switchDetail bg-gray-light">
                     {{--<img src="{{ asset("img/left-icon.png") }}" class="img-responsive width-30 pull-left" />--}}
-                    <h3 class="no-margin text-center">DOCUMENT</h3></a>
+
+                    <h3 class="no-margin text-center">
+                        <strong id="document-icon" class="pull-left sidebar-top-icon">&lt;</strong> DOCUMENT
+                    </h3>
+                </a>
             </li>
-            <li class="tab-toggle">
+            <li class="tab-toggle bg-gray-light">
                 <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-home-tab" class="switchDetail bg-gray-light">
                     {{--<img src="{{ asset("img/left-icon.png") }}" class="img-responsive width-30 pull-left" />--}}
-                    <h3 class="no-margin text-center">COMMENT</h3></a>
+
+                    <h3 class="no-margin text-center">
+                        <strong id="comment-icon" class="pull-left sidebar-top-icon">&lt;</strong> COMMENT
+                    </h3>
+                </a>
             </li>
-            <li class="tab-toggle">
+            <li class="tab-toggle bg-gray-light">
                 <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-settings-tab" class="switchDetail bg-gray-light">
                     {{--<img src="{{ asset("img/left-icon.png") }}" class="img-responsive width-30 pull-left" />--}}
-                    <h3 class="no-margin text-center">OVERVIEW</h3></a>
+
+                    <h3 class="no-margin text-center">
+                        <strong id="overview-icon" class="pull-left sidebar-top-icon">&lt;</strong>OVERVIEW
+                    </h3>
+                </a>
             </li>
         </ul>
         <!-- Tab panes -->
@@ -374,8 +386,11 @@
         if(status == 'show'){
             $("#"+id).removeClass('active');
             $(this).attr('data-status','hide');
+            $(this).find('.sidebar-top-icon').html('&gt;');
+            $(this).css('width','180px');
             var total = $(".tab-data").find('.active').length;
             if(total == 3 || total == 0){
+                $('.switchDetail').removeAttr('style');
                 $(".tab-toggle").removeAttr('style');
                 $(".tab-toggle").removeClass('minimize-width');
                 $(".tab-toggle").removeClass('expand-width');
@@ -399,10 +414,14 @@
         }else{
             $("#"+id).addClass('active');
             $(this).attr('data-status','show');
+            $(this).find('.sidebar-top-icon').html('&lt;');
+            $('.switchDetail').css('width','180px');
+            $(this).removeAttr('style');
             var total = $(".tab-data").find('.active').length;
             var total_width = 1140 / total;
 
             if(total == 3 || total == 0){
+                $('.switchDetail').removeAttr('style');
                 $(".tab-toggle").removeAttr('style');
                 $(".tab-toggle").removeClass('minimize-width');
                 $(".tab-toggle").removeClass('expand-width');
