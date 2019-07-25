@@ -95,12 +95,15 @@
                                                 class="fa fa-calendar-o"></i></button>
                                     <button class="btn commentsModal" data-id="{{$d->id}}"><i
                                                 class="fa fa-comment-o"></i></button>
+                                    <a href="javascript:void(0)" data-toggle="control-sidebar"
+                                       data-id="{{$d->id}}"
+                                       class="btn btn-xs bg-light-blue-gradient view-applicant">View</a>
                                     @if($d->status=="Appointment")
                                         <a href="javascript:void(0)" data-aaprogramcode="{{ $d->aaprogramcode }}"
                                            data-id="{{$d->id}}" data-status="{{ $d->status }}"
                                            data-name="{{ $d->name }}" data-unique_id="{{ $d->unique_id }}"
                                            data-mobile="{{$d->mobile}}" class="btn btn-xs bg-light-blue-gradient edit">Appointment
-                                            Attendent</a>
+                                            Attended</a>
                                     @elseif($d->status =="Appointment-Attended")
                                         <a href="javascript:void(0)" data-aaprogramcode="{{ $d->aaprogramcode }}"
                                            data-id="{{$d->id}}" data-status="{{ $d->status }}"
@@ -109,10 +112,12 @@
                                             Consent</a>
                                     @elseif($d->status=="Consent Obtained")
                                         <a href="{{route("aadata.create", ["id" => $d->id])  }}"
-                                           class="btn btn-xs bg-light-blue-gradient edit">KYC</a>
+                                           class="btn btn-xs bg-light-blue-gradient">KYC</a>
                                     @else
-                                        KYC complete
+                                        <a onclick="alert('Will link to Next Module')"
+                                           class="btn btn-xs bg-light-blue-gradient">Applicantion</a>
                                     @endif
+
                                 </td>
                             </tr>
 
@@ -222,26 +227,27 @@
                                         {{--</select>--}}
                                     {{--</div>--}}
                                 {{--</div>--}}
+
                                 <input type="hidden" name="status" value="Appointment-Attended"/>
 
-
-                                <div class="form-group col-md-12 col-sm-12 consent-field hide">
+                                <div class="form-group col-md-12 col-sm-12 consent-field">
                                 <a class="bg-white padding-5 pull-right consent-field" href="javascript:void(0)" onclick="$('#consent').trigger('click')" title="Upload Consent">
                                 <img src="{{ asset("img/file.jpeg") }}"/></a>
                                 <input type="file" class="hide" name="consent" id="consent">
                                 </div>
                                 <div class="form-group col-md-6 col-sm-6">
-                                    <button id="btn-newaa-submit" class="btn bg-gray-dark pull-right">Request
+                                    <button id="btn-newaa-submit" data-value="consent" class="btn-newaa-submit btn bg-gray-dark">Request
                                     </button>
+
+                                    <button id="btn-newaa-submit-no-consent" data-value="noconsent" class="btn-newaa-submit btn btn-default">Consent Not Obtained</button>
+
                                 </div>
                             </div>
                         </div>
                 </form>
                 <div class="clearfix"></div>
             </div>
-            <div class="modal-footer bg-gray-light">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Consent Not Obtained</button>
-            </div>
+
         </div>
     </div>
 
@@ -379,7 +385,8 @@
 
             })
 
-            $("#btn-newaa-submit").on("click", function (e) {
+            $(".btn-newaa-submit").on("click", function (e) {
+
                 $(".verify-newaa-input").each(function () {
                     if (!($(this).prop("checked"))) {
                         alert($(this).data("verify-error"));
@@ -387,9 +394,63 @@
                         return false;
                     }
                 })
+                $("#applicant_id").append($("<input type='hidden' name='is-consent' value='" + $(this).data("value") + "'>"))
+
             })
+            $(document).on("click", ".view-applicant", function (e) {
+                id = $(this).data("id");
+                $.ajax({
+                    url: "{{ route("comments") }}",
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    data: "id=" + id,
+                    success: function (response) {
+                        $("#tab-2").html(response);
+                    },
+                    error: function () {
+
+                    }
+
+                });
+                $.ajax({
+                    url: "{{ route("documents") }}",
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    data: "id=" + id,
+                    success: function (response) {
+                        $("#tab-1").html(response);
+
+                    },
+                    error: function () {
+
+                    }
+                });
+                $.ajax({
+                    url: "{{ route("incomedata") }}",
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    data: "id=" + id,
+                    success: function (response) {
+                        $("#tab-3").html(response);
+                    },
+                    error: function () {
+
+                    }
+
+                });
+
+
+            });
+
 
             $(".edit").on("click", function (e) {
+                $(".btn-newaa-submit-no-consent").removeClass("hide")
                 $(".verify-newaa-input").prop("checked",false);
                 $("#aa_edit_form").modal('show');
                 $("#aa_title").html("Request CCRIS");
@@ -402,18 +463,19 @@
                 $("#applicant_id").append($("<input type='hidden' name='applicant_id' value='" + $(this).data("id") + "'>"))
                 $("#btn-newaa-submit").text("Request");
                 if ($(this).data("status") == "Appointment") {
-                    $("#btn-newaa-submit").text("Save Data");
+                    //$("#btn-newaa-submit").text("Save Data");
 
                     $("#form").val("applicant_attend");//.prop("disabled",true);
-                    $("#consent").attr("disabled", true);
-                    $(".consent-field").addClass("hide");
+                   // $("#consent").attr("disabled", true);
+                    //$(".consent-field").addClass("hide");
                     $(".applicant-status").removeClass("hide");
                     $("#status").attr("disabled", false);
                 }
                 else if ($(this).data("status") == "Appointment-Attended") {
+                    $("#btn-newaa-submit-no-consent").addClass("hide");
                     $("#form").val("applicant_consent");//.prop("disabled",true);
-                    $(".consent-field").removeClass("hide");
-                    $(".applicant-status").addClass("hide");
+                    //$(".consent-field").removeClass("hide");
+                   // $(".applicant-status").addClass("hide");
                     $("#status").attr("disabled", true);
                     $("#consent").attr("disabled", false);
                 }

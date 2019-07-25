@@ -31,7 +31,7 @@ class ApplicantDataController extends Controller
     public function index()
     {
         $applicantdata = ApplicantData::paginate(5);
-        return view("aadata.index")->with("data", $applicantdata);
+        return view("aadata.index");//->with("data", $applicantdata);
     }
 
     public function applicantData(Request $request)
@@ -64,6 +64,7 @@ class ApplicantDataController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
+
         if (isset($inputs['form']) and $inputs['form'] == 'new_application') {
             $applicant_count = ApplicantData::selectRaw("count(*) as count")->whereRaw("created_at BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 day)")
                 ->get()->ToArray();
@@ -72,8 +73,9 @@ class ApplicantDataController extends Controller
             return back()->with("success", "New Appointment Created");
 
         } else {
+
             $applicant = ApplicantData::find($inputs['applicant_id']);
-            if ($request->file("consent")) {
+            if ($request->file("consent") and isset($inputs['is-consent']) and $inputs['is-consent']=='consent') {
                 $concent_form_name = rand(1, 1000) . $request->file("consent")->getClientOriginalName();
                 $concent_form = $request->file("consent")->storeAs("uploads/application_docs", $concent_form_name);
                 if ($concent_form != "") {

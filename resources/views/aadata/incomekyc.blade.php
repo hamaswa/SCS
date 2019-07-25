@@ -493,6 +493,7 @@
             month4 = $("#month4_variable_basic").val();
             month5 = $("#month5_variable_basic").val();
             month6 = $("#month6_variable_basic").val();
+
             basic = Math.round(((month1*1) + (month2*1)+ (month3*1)+ (month4*1)+ (month5*1)+ (month6*1))/6);
             exchange_rate = $("#monthly_variable_exchange_rate").val();
 
@@ -583,6 +584,12 @@
             month5 = $("#month5_iif").val();
             month6 = $("#month6_iif").val();
             basic = Math.round(((month1*1) + (month2*1)+ (month3*1)+ (month4*1)+ (month5*1)+ (month6*1))/6);
+            incomefactor = $("#iif_income_factor").val();
+            shareholding = $("#iif_share_holding").val();
+            if(!(isNaN(incomefactor)) && incomefactor!="")
+                basic = basic  * incomefactor/100;
+            if(!(isNaN(shareholding)) && shareholding!="")
+                basic = basic * shareholding/100;
             gross = basic;
             net = gross
             $("#iifadded").val("true");
