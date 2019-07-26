@@ -76,7 +76,10 @@
                         @foreach($data as $d)
                             <tr>
                                 <td><input type="checkbox" name="applicant_id" value="{{$d->id}}"/></td>
-                                <td>{{$d->unique_id}}</td>
+                                <td>
+                                    <a href="{{route("aadata.edit",  $d->id)  }}"
+                                       >{{ $d->unique_id }}</a>
+                                </td>
                                 <td>{{ $d->name }}</td>
                                 <td></td>
                                 <td></td>

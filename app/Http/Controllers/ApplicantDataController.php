@@ -146,7 +146,8 @@ class ApplicantDataController extends Controller
      */
     public function edit($id)
     {
-        //
+        $applicant = ApplicantData::find($id);
+        return view("aadata.addform")->with("applicant", $applicant);
     }
 
     /**
