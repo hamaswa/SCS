@@ -279,7 +279,6 @@
                                 <th>Type</th>
                                 <th>Gross</th>
                                 <th>Net</th>
-
                             </tr>
                             </thead>
                             <tbody>
@@ -356,6 +355,50 @@
 
                         </table>
                     </div>
+
+                    <!-- addition code income kyc-->
+                    <h4 class="text-center bg-light-blue-gradient no-margin padding-10 border-light">Monthly Income</h4>
+                    <div class="col-sm-6 text-white bg-aqua padding-10 border-light"><strong>Type</strong></div>
+                    <div class="col-sm-3 text-white bg-aqua padding-10 border-light"><strong>Gross</strong></div>
+                    <div class="col-sm-3 text-white bg-aqua padding-10 border-light"><strong>Net</strong></div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-6 bg-gray-light padding-10 border-light">Monthly Fixed</div>
+                    <div class="col-sm-3 bg-gray-light padding-10 border-light">12</div>
+                    <div class="col-sm-3 bg-gray-light padding-10 border-light">12</div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-6 text-white bg-aqua padding-10 border-light"><strong>Total</strong></div>
+                    <div class="col-sm-3 text-white bg-aqua padding-10 border-light"><strong>12</strong></div>
+                    <div class="col-sm-3 text-white bg-aqua padding-10 border-light"><strong>12</strong></div>
+                    <div class="clearfix"></div><br>
+
+                    <!-- additional code wealth kyc -->
+                    <h4 class="text-center bg-light-blue-gradient no-margin padding-10 border-light">Wealth</h4>
+                    <div class="col-sm-8 text-white bg-aqua padding-10 border-light"><strong>Type</strong></div>
+                    <div class="col-sm-4 text-white bg-aqua padding-10 border-light"><strong>Amount</strong></div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-8 bg-gray-light padding-10 border-light">EPF Account Balance</div>
+                    <div class="col-sm-4 bg-gray-light padding-10 border-light">12</div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-8 text-white bg-yellow-light padding-10 border-light"><strong>Total</strong></div>
+                    <div class="col-sm-4 text-white bg-yellow-light padding-10 border-light"><strong>12</strong></div>
+                    <div class="clearfix"></div><br>
+
+                    <!-- additional code Propery kyc -->
+                    <h4 class="text-center bg-light-blue-gradient no-margin padding-10 border-light">Property</h4>
+                    <div class="col-sm-4 text-white bg-aqua padding-10 border-light"><strong>MV</strong></div>
+                    <div class="col-sm-4 text-white bg-aqua padding-10 border-light"><strong>OS</strong></div>
+                    <div class="col-sm-4 text-white bg-aqua padding-10 border-light"><strong>CO</strong></div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-4 bg-gray-light padding-10 border-light">1000000</div>
+                    <div class="col-sm-4 bg-gray-light padding-10 border-light">1000000</div>
+                    <div class="col-sm-4 bg-gray-light padding-10 border-light">1000000</div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-12 text-white bg-green padding-10 border-light"><strong>Total</strong></div>
+                    <div class="col-sm-4 text-white bg-green padding-10 border-light"><strong>1000000</strong></div>
+                    <div class="col-sm-4 text-white bg-green padding-10 border-light"><strong>1000000</strong></div>
+                    <div class="col-sm-4 text-white bg-green padding-10 border-light"><strong>1000000</strong></div>
+                    <div class="clearfix"></div><br>
+                    <!-- end -->
                 </div>
             </div>
             <!-- /.tab-pane -->
