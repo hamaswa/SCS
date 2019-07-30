@@ -55,7 +55,16 @@
                             </tr>
                             </thead>
                             <tbody>
+
                             @if(isset($data))
+                                @if(count($data)==0)
+                                    <tr>
+                                        <td colspan="5" class="text-center">
+                                            No Data Found
+                                        </td>
+
+                                    </tr>
+                                @endif
                                 @foreach($data as $d)
                                     {{--$d->aasource}}/{{$d->aabranch}}/{{$d->aacategory}}/--}}
                                     <tr data-id="{{$d->id}}" data-status="{{ $d->status }}" data-name="{{ $d->name }}"
