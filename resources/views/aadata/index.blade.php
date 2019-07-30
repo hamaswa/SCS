@@ -84,6 +84,10 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                            @else
+                                <tr class="bg-light-blue-gradient">
+                                    <td colspan="5">No </td>
+                                </tr>
                             @endif
 
                             </tbody>

@@ -77,7 +77,7 @@
                                 </li>
                                 <li style="cursor: pointer;">
                                     {{--i removed word "tab" in data-doggle="tab" to disabled it--}}
-                                    <div id="IK" data-target="#lB" data-toggle="">
+                                    <div id="IK" data-target="#lB" data-toggle="tab">
                                         <div>
                                             <span class="account-type">Income</span><br/>
                                             <span class="account-amount">KYC</span><br/>
@@ -86,7 +86,7 @@
                                 </li>
                                 <li style="cursor: pointer;">
                                     {{--i removed word "tab" in data-doggle="tab" to disabled it--}}
-                                    <div id=WK" class="wk" data-target="#lC" data-toggle="">
+                                    <div id=WK" class="wk" data-target="#lC" data-toggle="tab">
                                         <div>
                                             <span class="account-type">Wealth</span><br/>
                                             <span class="account-amount">KYC</span><br/>
@@ -95,7 +95,7 @@
                                 </li>
                                 <li style="cursor: pointer;">
                                     {{--i removed word "tab" in data-doggle="tab" to disabled it--}}
-                                    <div id="PK" data-target="#lD" data-toggle="">
+                                    <div id="PK" data-target="#lD" data-toggle="tab">
                                         <div>
                                             <span class="account-type">Property</span><br/>
                                             <span class="account-amount">KYC</span>
@@ -111,7 +111,7 @@
                                             @csrf
                                             <input type="hidden" name="formname" value="business_form">
                                             <input type="hidden" id="business_id" name="business_id">
-                                            @include('aadata.businesskyc');
+                                            @include('aadata.businesskycedit',['businesses'=>$applicant->applicantBusinesses]);
                                         </form>
                                     </div>
                                 </div>
@@ -121,7 +121,7 @@
                                             @csrf
                                             <input type="hidden" name="formname" value="incomeform">
                                             <input type="hidden" name="income_id" value="" id="income_id">
-                                            @include('aadata.incomekyc');
+                                            @include('aadata.incomekycedit',['income'=>$applicant->applicantIncome])
                                         </form>
                                     </div>
                                 </div>
@@ -131,7 +131,7 @@
                                             @csrf
                                             <input type="hidden" name="formname" value="wealthform">
                                             <input type="hidden" name="wealth_id" id="wealth_id">
-                                            @include('aadata.wealthkyc')
+                                            @include('aadata.wealthkycedit',['wealth'=>$applicant->applicantWealth])
                                         </form>
                                     </div>
                                 </div>
@@ -139,7 +139,7 @@
                                     <div class="row" style="line-height: 14px; margin-bottom: 34.5px">
                                         <form id="propertyform" name="propertyform">
                                             <input type="hidden" name="property_id" id="property_id">
-                                            @include('aadata.propertykyc')
+                                            @include('aadata.propertykycedit',['properties'=>$applicant->applicantProperty])
                                         </form>
                                     </div>
                                 </div>

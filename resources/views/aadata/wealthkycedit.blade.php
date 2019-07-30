@@ -5,6 +5,9 @@
     {{--<a href="javascript:void(0);" data-id="wealthkyc" id="nextwealthkyc" class="bg-gray-light padding-5 pull-left vericaltext tab-action border-black-1"><br><br>WEALTH <br> KYC</a>--}}
     {{--<a href="javascript:void(0);" data-id="propertykyc" id="nextpropertykyc" class="bg-white padding-5 pull-left vericaltext tab-action border-black-1"><br><br><br>PROPERTY <br> KYC</a>--}}
     {{--</div>--}}
+    <?php
+    $data = json_decode($wealth->form_data);
+    print_r($data->saving_amount)    ?>
     <div class="col-md-6 col-sm-12 col-lg-6 col-lg-offset-1">
         <div class="box">
 
@@ -14,17 +17,18 @@
                         <strong class="padding-5 pull-left margin-r-5 applicant"></strong>
                     </div>
                     {{--<div class="col-md-7 col-sm-12">--}}
-                        {{--<a class="bg-white padding-5 pull-left margin-r-5 d_pdf" id="d_pdf"--}}
-                           {{--title="CTOS Report Download"><img src="{{ asset("img/save.jpeg") }}"/></a>--}}
-                        {{--<a class="bg-white padding-5 pull-left" href="javascript:void(0)"--}}
-                           {{--onclick="$('#wealthform').trigger('reset')" title="Refresh"><img--}}
-                                    {{--src="{{ asset("img/refresh.jpeg") }}"/></a>--}}
+                    {{--<a class="bg-white padding-5 pull-left margin-r-5 d_pdf" id="d_pdf"--}}
+                    {{--title="CTOS Report Download"><img src="{{ asset("img/save.jpeg") }}"/></a>--}}
+                    {{--<a class="bg-white padding-5 pull-left" href="javascript:void(0)"--}}
+                    {{--onclick="$('#wealthform').trigger('reset')" title="Refresh"><img--}}
+                    {{--src="{{ asset("img/refresh.jpeg") }}"/></a>--}}
 
                     {{--</div>--}}
 
                 </div>
                 <div id="" class="col-lg-12 col-md-12 col-sm-12">
-                    <div class="btn-group margin-bottom border-black-1 hide wealthkyc-action-btn" id="btn-saving">
+                    <div class="btn-group margin-bottom border-black-1 {{ (isset($data->saving_amount)?"":"hide") }} wealthkyc-action-btn"
+                         id="btn-saving">
                         <button type="button" class="btn btn-default btn-flat view" data-value="saving">Saving</button>
                         <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
                                 aria-expanded="false">
@@ -33,13 +37,17 @@
                         </button>
                         <ul class="dropdown-menu position-relative" id="" role="menu">
                             <li><a href="#" data-number="0" class="editwealth">Edit</a></li>
-                            <li><a href="#" data-number="0" data-value="saving" data-right="wealth_saving_right" data-action="saving_add"
+                            <li><a href="#" data-number="0" data-value="saving" data-right="wealth_saving_right"
+                                   data-action="saving_add"
                                    class="delwealth">Delete</a></li>
                         </ul>
                     </div>
 
-                    <div class="btn-group margin-bottom border-black-1 hide wealthkyc-action-btn" id="btn-epf">
-                        <button type="button" class="btn btn-default btn-flat view" data-value="epf">EPF Account Balance</button>
+                    <div class="btn-group margin-bottom border-black-1 {{ (isset($data->epf_amount)?"":"hide") }} wealthkyc-action-btn"
+                         id="btn-epf">
+                        <button type="button" class="btn btn-default btn-flat view" data-value="epf">EPF Account
+                            Balance
+                        </button>
                         <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
                                 aria-expanded="false">
                             <i class="fa fa-list"></i>
@@ -47,13 +55,17 @@
                         </button>
                         <ul class="dropdown-menu position-relative" id="" role="menu">
                             <li><a href="#" data-number="0" class="editwealth">Edit</a></li>
-                            <li><a href="#" data-number="0" data-value="epf" data-action="epf_add" data-right="wealth_epf_right" class="delwealth">Delete</a>
+                            <li><a href="#" data-number="0" data-value="epf" data-action="epf_add"
+                                   data-right="wealth_epf_right" class="delwealth">Delete</a>
                             </li>
                         </ul>
                     </div>
 
-                    <div class="btn-group margin-bottom border-black-1 hide wealthkyc-action-btn" id="btn-tpf">
-                        <button type="button" class="btn btn-default btn-flat view" data-value="tpf">Total Fixed Deposits</button>
+                    <div class="btn-group margin-bottom border-black-1 {{ (isset($data->tpf_amount)?"":"hide") }} wealthkyc-action-btn"
+                         id="btn-tpf">
+                        <button type="button" class="btn btn-default btn-flat view" data-value="tpf">Total Fixed
+                            Deposits
+                        </button>
                         <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
                                 aria-expanded="false">
                             <i class="fa fa-list"></i>
@@ -61,13 +73,17 @@
                         </button>
                         <ul class="dropdown-menu position-relative" id="" role="menu">
                             <li><a href="#" data-number="0" class="editwealth">Edit</a></li>
-                            <li><a href="#" data-number="0" data-value="tpf" data-action="tpf_add" data-right="wealth_tpf_right" class="delwealth">Delete</a>
+                            <li><a href="#" data-number="0" data-value="tpf" data-action="tpf_add"
+                                   data-right="wealth_tpf_right" class="delwealth">Delete</a>
                             </li>
                         </ul>
                     </div>
 
-                    <div class="btn-group margin-bottom border-black-1 hide wealthkyc-action-btn" id="btn-tsv">
-                        <button type="button" class="btn btn-default btn-flat view" data-value="tsv">Total Shares Value</button>
+                    <div class="btn-group margin-bottom border-black-1 {{ (isset($data->tsv_amount)?"":"hide") }} wealthkyc-action-btn"
+                         id="btn-tsv">
+                        <button type="button" class="btn btn-default btn-flat view" data-value="tsv">Total Shares
+                            Value
+                        </button>
                         <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
                                 aria-expanded="false">
                             <i class="fa fa-list"></i>
@@ -75,13 +91,16 @@
                         </button>
                         <ul class="dropdown-menu position-relative" id="" role="menu">
                             <li><a href="#" data-number="0" class="editwealth">Edit</a></li>
-                            <li><a href="#" data-number="0" data-value="tsv" data-action="tsv_add" data-right="wealth_tsv_right" class="delwealth">Delete</a>
+                            <li><a href="#" data-number="0" data-value="tsv" data-action="tsv_add"
+                                   data-right="wealth_tsv_right" class="delwealth">Delete</a>
                             </li>
                         </ul>
                     </div>
 
-                    <div class="btn-group margin-bottom border-black-1 hide wealthkyc-action-btn" id="btn-utv">
-                        <button type="button" class="btn btn-default btn-flat view" data-value="utv">Unit Trust Value</button>
+                    <div class="btn-group margin-bottom border-black-1 {{ (isset($data->utv_amount)?"":"hide") }} wealthkyc-action-btn"
+                         id="btn-utv">
+                        <button type="button" class="btn btn-default btn-flat view" data-value="utv">Unit Trust Value
+                        </button>
                         <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
                                 aria-expanded="false">
                             <i class="fa fa-list"></i>
@@ -89,7 +108,8 @@
                         </button>
                         <ul class="dropdown-menu position-relative" id="" role="menu">
                             <li><a href="#" data-number="0" class="editwealth">Edit</a></li>
-                            <li><a href="#" data-number="0" data-value="utv" data-action="utv_add" data-right="wealth_utv_right" class="delwealth">Delete</a>
+                            <li><a href="#" data-number="0" data-value="utv" data-action="utv_add"
+                                   data-right="wealth_utv_right" class="delwealth">Delete</a>
                             </li>
                         </ul>
                     </div>
@@ -116,20 +136,27 @@
 
                 <div class="form-group col-md-12 col-sm-12">
 
-                    <input type="number" name="saving_amount" id="saving_amount" class="form-control" placeholder="">
+                    <input type="number" name="saving_amount"
+                           value="{{ (isset($data->saving_amount)?$data->saving_amount:"") }}" id="saving_amount"
+                           class="form-control">
                 </div>
 
                 <div class="form-group col-md-12 col-sm-12">
                     <label class="radio-inline">
-                        <input type="radio" name="saving_acctype" data-val="own" value="own" id="saving_acctype_own"> OWN
+                        <input type="radio" name="saving_acctype" data-val="own" value="own"
+                               {{ (isset($data->saving_acctype) and $data->saving_acctype=='own')?"checked=checked":"" }}   id="saving_acctype_own">
+                        OWN
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="saving_acctype" data-val="joint" value="joint" id="saving_acctype_ja"> JA
+                        <input type="radio" name="saving_acctype" data-val="joint" value="joint"
+                               {{ (isset($data->saving_acctype) and $data->saving_acctype=='joint')?"checked=checked":"" }}      id="saving_acctype_ja">
+                        JA
                     </label>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-12">
-                        <input type="hidden" name="saving_added" id="saving_added" value="false">
+                        <input type="hidden" name="saving_added" id="saving_added"
+                               value="{{ (isset($data->saving_added)?$data->saving_added:"false") }}">
                         <button type="button" id="saving_add" class="btn btn-primary">ADD</button>
                     </div>
                 </div>
@@ -142,22 +169,28 @@
 
                 <div class="form-group col-md-12 col-sm-12">
                     <label class="control-label">RM</label>
-                    <input type="text" name="epf_amount" id="epf_amount" class="form-control" placeholder="">
+                    <input type="text" name="epf_amount" value="{{ (isset($data->epf_amount)?$data->epf_amount:"") }}"
+                           id="epf_amount" class="form-control">
                 </div>
 
                 <div class="form-group col-md-12 col-sm-12">
                     <label class="control-label">EPF Contributor Age</label>
                     <div class="clearfix"></div>
                     <label class="radio-inline">
-                        <input type="radio" value="> 55" name="epf_contributor_age"> >55
+                        <input type="radio" value="> 55"
+                               {{ (isset($data->epf_contributor_age) and $data->epf_contributor_age=="> 55")?"checked=checked":"" }}  name="epf_contributor_age">
+                        >55
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" value="< 55" name="epf_contributor_age"> <55
+                        <input type="radio" value="< 55"
+                               {{ (isset($data->epf_contributor_age) and $data->epf_contributor_age=="< 55")?"checked=checked":"" }}  name="epf_contributor_age">
+                        <55
                     </label>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-12">
-                        <input type="hidden" name="epf_added" id="epf_added" value="false">
+                        <input type="hidden" name="epf_added" id="epf_added"
+                               value="{{ (isset($data->epf_added)?$data->epf_added:"false") }}">
                         <button type="button" id="epf_add" class="btn btn-primary">ADD</button>
                     </div>
                 </div>
@@ -169,20 +202,27 @@
                 </label>
 
                 <div class="form-group col-md-12 col-sm-12">
-                    <input type="number" name="tpf_amount" id="tpf_amount" class="form-control" placeholder="">
+                    <input type="number" name="tpf_amount"
+                           value="{{ (isset($data->tpf_amount)?$data->tpf_amount:"") }}" id="tpf_amount"
+                           class="form-control">
                 </div>
 
                 <div class="form-group col-md-12 col-sm-12">
                     <label class="radio-inline">
-                        <input type="radio" value="own" data-val="own" name="tpf_acctype" id="tpf_acctype_own"> OWN
+                        <input type="radio" value="own" data-val="own" name="tpf_acctype"
+                               {{ (isset($data->tpf_acctype) and $data->tpf_acctype=='own')?"checked=checked":"" }} id="tpf_acctype_own">
+                        OWN
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" value="joint" data-val="joint" name="tpf_acctype" id="tpf_acctype_ja"> JA
+                        <input type="radio" value="joint" data-val="joint" name="tpf_acctype"
+                               {{ (isset($data->tpf_acctype) and $data->tpf_acctype=='joint')?"checked=checked":"" }} id="tpf_acctype_ja">
+                        JA
                     </label>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-12">
-                        <input type="hidden" name="tpf_added" id="tpf_added" value="false">
+                        <input type="hidden" name="tpf_added" id="tpf_added"
+                               value="{{ (isset($data->tpf_added)?$data->tpf_added:"false") }}">
                         <button type="button" id="tpf_add" class="btn btn-primary">ADD</button>
                     </div>
                 </div>
@@ -194,12 +234,15 @@
                 </label>
 
                 <div class="form-group col-md-12 col-sm-12">
-                    <input type="number" name="tsv_amount" id="tsv_amount" class="form-control" placeholder="">
+                    <input type="number" name="tsv_amount"
+                           value="{{ (isset($data->tsv_amount)?$data->tsv_amount:"") }}" id="tsv_amount"
+                           class="form-control">
                 </div>
 
                 <div class="form-group">
                     <div class="col-lg-12">
-                        <input type="hidden" name="tsv_added" id="tsv_added" value="false">
+                        <input type="hidden" name="tsv_added" id="tsv_added"
+                               value="{{ (isset($data->tsv_added)?$data->tsv_added:"") }}">
                         <button type="button" id="tsv_add" class="btn btn-primary">ADD</button>
                     </div>
                 </div>
@@ -211,12 +254,15 @@
                 </label>
 
                 <div class="form-group col-md-12 col-sm-12">
-                    <input type="number" name="utv_amount" id="utv_amount" class="form-control" placeholder="">
+                    <input type="number" name="utv_amount"
+                           value="{{ (isset($data->utv_amount)?$data->utv_amount:"") }}" id="utv_amount"
+                           class="form-control">
                 </div>
 
                 <div class="form-group">
                     <div class="col-lg-12">
-                        <input type="hidden" name="utv_added" id="utv_added" value="false">
+                        <input type="hidden" name="utv_added" id="utv_added"
+                               value="{{ (isset($data->utv_added)?$data->utv_added:"") }}">
                         <button type="button" id="utv_add" class="btn btn-primary">ADD</button>
                     </div>
                 </div>
@@ -230,36 +276,11 @@
             <div class="box-body bg-chocolate border-shadlebrown min-height left-box">
                 <strong class="applicant"></strong>
                 <div class="table-responsive wealthkyc_right">
-                    <table class="table table-bordered table-striped bg-white">
-                        <thead class="bg-light-blue">
-                        <tr class="bg-light-blue-gradient">
-                            <th colspan="3" class="text-center">Wealth</th>
-                        </tr>
-                        <tr class="bg-aqua">
-                            <th>Type</th>
-                            <th>Amount</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                    <?php
+                     $wealth->form_data = json_decode($wealth->form_data)
+                    ?>
+                    @include("aadata.right_info_wealth")
 
-                        <tr class="wealth_saving_right"></tr>
-
-                        <tr class="wealth_epf_right"></tr>
-
-                        <tr class="wealth_tpf_right"></tr>
-
-                        <tr class="wealth_tsv_right"></tr>
-
-                        <tr class="wealth_utv_right"></tr>
-
-                        </tbody>
-                        <tfoot>
-                        <tr class="bg-yellow-light wealth_total_right">
-
-
-                        </tr>
-                        </tfoot>
-                    </table>
                 </div>
             </div>
 
@@ -350,7 +371,7 @@
             $("#wealthkyc").find("#" + id).removeClass("hide").show();
         })
 
-        $(".wealthkyc-action-btn button.view").on("click",function (e) {
+        $(".wealthkyc-action-btn button.view").on("click", function (e) {
             $("#wealthtype").val($(this).data("value")).trigger("change");
         })
         $("#saving_add").click(function (e) {
@@ -365,7 +386,6 @@
             {
                 $("[name='saving_acctype']:checked").val("own")
             }
-
             html = "<td class=\"bg-yellow-light\">Saving</td><td>" + amount + "</td>";
             //$("#saving_added").val("true");
             $(".wealth_saving_right").html(html)
@@ -393,7 +413,8 @@
                 $("[name='tpf_acctype']:checked").val("own")
             }
 
-                html = "<td class=\"bg-yellow-light\">Total Fixed Deposits</td><td>" + amount + "</td>";
+
+            html = "<td class=\"bg-yellow-light\">Total Fixed Deposits</td><td>" + amount + "</td>";
             // $("#tpf_added").val("true");
             $(".wealth_tpf_right").html(html)
 
@@ -431,7 +452,7 @@
             id = $(this).data("value");
             $("#" + id).find(" :input").not("[type='radio'],select,[type='checkbox']").val(0);
             $("#" + $(this).data("action")).trigger("click");
-            $("."+$(this).data("right")).html("")
+            $("." + $(this).data("right")).html("")
             $(this).parent("li").parent("ul").parent("div").addClass('hide');
 
         })
@@ -441,16 +462,16 @@
             amount1 = $("#utv_amount").val();
             amount2 = $("#tsv_amount").val();
             amount3 = $("#tpf_amount").val();
-            if($("[name='tpf_acctype']:checked").data("val")=="joint")
-                amount3 = Math.round($("#tpf_amount").val()/2);
+            if ($("[name='tpf_acctype']:checked").data("val") == "joint")
+                amount3 = Math.round($("#tpf_amount").val() / 2);
             amount4 = $("#epf_amount").val();
             amount5 = $("#saving_amount").val();
-            if($("[name='saving_acctype']:checked").data("val")=="joint")
-                amount5 = Math.round($("#saving_amount").val()/2);
+            if ($("[name='saving_acctype']:checked").data("val") == "joint")
+                amount5 = Math.round($("#saving_amount").val() / 2);
             // amounttotal = (amount1*1) + (amount2*1)+ (amount3*1)+ (amount4*1)+ (amount5*1)+ (amount6*1);
             amounttotal = Math.round((amount1 * 1) + (amount2 * 1) + (amount3 * 1) + (amount4 * 1) + (amount5 * 1));
-            if(amounttotal==0)
-                html="";
+            if (amounttotal == 0)
+                html = "";
             else
                 html = "<td class=\"bg-yellow-light\">Total</td><td>" + amounttotal + "</td>";
 

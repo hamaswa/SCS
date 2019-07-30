@@ -31,7 +31,7 @@
                         </button>
                         <ul class="dropdown-menu position-relative" id="" role="menu">
                             <li><a href="#"  data-value="salary"  class="editincome">Edit</a></li>
-                            <li><a href="#" class="delincome" data-action="addmonthlyfixed" data-value="salary">Delete</a></li>
+                            <li><a href="#" class="delincome" data-action="addmonthlyfixed" data-right="salary_right_bar" data-value="salary">Delete</a></li>
                         </ul>
                     </div>
 
@@ -44,7 +44,7 @@
                         </button>
                         <ul class="dropdown-menu position-relative" id="" role="menu">
                             <li><a href="#"  data-value="business" class="editincome">Edit</a></li>
-                            <li><a href="#" data-value="business" data-action="addmonthlyvariable" class="delincome">Delete</a></li>
+                            <li><a href="#" data-value="business" data-action="addmonthlyvariable" data-right="business_right_bar" class="delincome">Delete</a></li>
                         </ul>
                     </div>
 
@@ -57,7 +57,7 @@
                         </button>
                         <ul class="dropdown-menu position-relative" id="" role="menu">
                             <li><a href="#"  data-value="incometax" class="editincome">Edit</a></li>
-                            <li><a href="#" data-value="incometax" data-action="addannualtaxdeclared" class="delincome">Delete</a></li>
+                            <li><a href="#" data-value="incometax" data-action="addannualtaxdeclared" data-right="incometax_right_bar" class="delincome">Delete</a></li>
                         </ul>
                     </div>
 
@@ -70,7 +70,7 @@
                         </button>
                         <ul class="dropdown-menu position-relative" id="" role="menu">
                             <li><a href="#"  data-value="iif" class="editincome">Edit</a></li>
-                            <li><a href="#" data-value="iif" data-action="addiif" class="delincome">Delete</a></li>
+                            <li><a href="#" data-value="iif" data-action="addiif" data-right="iif_right_bar" class="delincome">Delete</a></li>
                         </ul>
                     </div>
 
@@ -83,7 +83,7 @@
                         </button>
                         <ul class="dropdown-menu position-relative" id="" role="menu">
                             <li><a href="#"  data-value="monthlyrental" class="editincome">Edit</a></li>
-                            <li><a href="#" data-value="monthlyrental" data-action="monthly_rental_add" class="delincome">Delete</a></li>
+                            <li><a href="#" data-value="monthlyrental" data-action="monthly_rental_add" data-right="monthly_rental_right_bar" class="delincome">Delete</a></li>
                         </ul>
                     </div>
 
@@ -96,7 +96,7 @@
                         </button>
                         <ul class="dropdown-menu position-relative" id="" role="menu">
                             <li><a href="#"  data-value="air" class="editincome">Edit</a></li>
-                            <li><a href="#" data-value="air" data-action="annual_investment_return_add" class="delincome">Delete</a></li>
+                            <li><a href="#" data-value="air" data-action="annual_investment_return_add" data-right="annual_investment_return_right_bar" class="delincome">Delete</a></li>
                         </ul>
                     </div>
 
@@ -273,7 +273,7 @@
                     <input type="number" name="month4_iif" id="month4_iif" class="form-control" placeholder="">
                 </div>
                 <div class="form-group col-md-12 col-sm-12">
-                    <label class="control-label">Month4</label>
+                    <label class="control-label">Month5</label>
                     <input type="number" name="month5_iif"  id="month5_iif" class="form-control" placeholder="">
                 </div>
                 <div class="form-group col-md-12 col-sm-12">
@@ -312,7 +312,7 @@
                     <div class="clearfix"></div>
 
                     <label class="checkbox-inline">
-                        <input value="tax" type="checkbox"  id="monthly_rental_deductions_tax" name="annual_tax_declared_m_deductions[]" class="toggle" data-toggle="toggle"> TAX
+                        <input value="tax" type="checkbox"  id="monthly_rental_deductions_tax" name="monthly_rental_m_deductions[]" class="toggle" data-toggle="toggle"> TAX
                     </label>
                 </div>
 
@@ -374,17 +374,17 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr class="salary_right_bar"></tr>
+                            {{--<tr class="salary_right_bar"></tr>--}}
 
-                            <tr class="salary_right_bar"></tr>
+                            {{--<tr class="salary_right_bar"></tr>--}}
 
-                            <tr class="salary_right_bar"></tr>
+                            {{--<tr class="salary_right_bar"></tr>--}}
 
-                            <tr class="salary_right_bar"></tr>
+                            {{--<tr class="salary_right_bar"></tr>--}}
 
-                            <tr class="salary_right_bar"></tr>
+                            {{--<tr class="salary_right_bar"></tr>--}}
 
-                            <tr class="salary_right_bar"></tr>
+                            {{--<tr class="salary_right_bar"></tr>--}}
                         </tbody>
                         <tfoot>
                         <tr  class="bg-aqua" ></tr>
@@ -553,7 +553,7 @@
             }
             net = Math.round(gross - tax_ded);
             $("#monthly_rental_added").val("true");
-             $(".monthly_rental_right_bar").html("<td>Monthly Reantal</td><td>"+ Math.round(gross) + "</td><td>"+ Math.round(net) + "</td>");
+             $(".monthly_rental_right_bar").html("<td>Monthly Rental</td><td>"+ Math.round(gross) + "</td><td>"+ Math.round(net) + "</td>");
             // $("#monthly_rental_right_bar").text(gross+" / "+net);
             $("#monthly_rental_gross").val(gross)
             $("#monthly_rental_net").val(net)
@@ -611,6 +611,7 @@
             $("#" + id).find(" :input").not('[type=radio],[type=checkbox],select').val(0);
             $("#" + id).find( ":input").val( $("#" + id).find("[type=radio],[type=checkbox],select").prop('defaultSelected') );
             $("#"+$(this).data("action")).trigger("click");
+            $("."+$(this).data("right")).html("")
             $(this).parent("li").parent("ul").parent("div").addClass('hide');
 
         })
@@ -630,7 +631,12 @@
             net5 = $("#annual_investment_return_net").val();
             net6 = $("#monthly_rental_net").val();
             nettotal = Math.round((net1*1) + (net2*1)+ (net3*1)+ (net4*1)+ (net5*1)+ (net6*1));
-             $(".income_kyc_total_right_bar").html("<td>Total</td><td>"+ Math.round(grosstotal) + "</td><td>"+nettotal+"</td>");
+            if(grosstotal==0 &&  nettotal==0)
+                $(".income_kyc_total_right_bar").html("");//<td>Total</td><td>"+ Math.round(grosstotal) + "</td><td>"+nettotal+"</td>");
+            else
+                $(".income_kyc_total_right_bar").html("<td>Total</td><td>"+ Math.round(grosstotal) + "</td><td>"+nettotal+"</td>");
+
+
             //$("#income_kyc_total_right_bar").text(grosstotal + "/"+ nettotal);
             $("#gross").val(grosstotal);
             $("#net").val(nettotal);

@@ -271,7 +271,7 @@
 
                                     <tr class="bg-light-blue-gradient">
                                         <th>Facility</th>
-                                        <th>Actual Instalment</th>
+                                        <th>Current DSR</th>
                                     </tr>
                                     </thead>
                                     <tbody>

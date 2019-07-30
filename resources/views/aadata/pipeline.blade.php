@@ -58,7 +58,7 @@
                             <th></th>
                             <th>IC/Com No.</th>
                             <th>Applicant</th>
-                            <th>Market Value</th>
+                            <th>Loan Amount</th>
                             <th>TAT</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -77,11 +77,19 @@
                             <tr>
                                 <td><input type="checkbox" name="applicant_id" value="{{$d->id}}"/></td>
                                 <td>
-                                    <a href="{{route("aadata.edit",  $d->id)  }}"
-                                       >{{ $d->unique_id }}</a>
+                                    @if($d->status =="Documentation")
+                                        <a href="{{route("aadata.edit",  $d->id)  }}">
+                                            {{ $d->unique_id }}</a>
+
+                                    @elseif($d->status=="Consent Obtained")
+                                        <a href="{{route("aadata.create", ["id" => $d->id])  }}">
+                                            {{ $d->unique_id }}</a>
+                                    @else
+                                        {{ $d->unique_id }}
+                                    @endif
                                 </td>
                                 <td>{{ $d->name }}</td>
-                                <td></td>
+                                <td>{{ $d->market_value }}</td>
                                 <td></td>
                                 <td>{{ $d->status }}
                                     {{--<select class="form-control" id="singalaction{{$d->id}}">--}}
@@ -118,7 +126,7 @@
                                            class="btn btn-xs bg-light-blue-gradient">KYC</a>
                                     @else
                                         <a onclick="alert('Will link to Next Module')"
-                                           class="btn btn-xs bg-light-blue-gradient">Applicantion</a>
+                                           class="btn btn-xs bg-light-blue-gradient">Application</a>
                                     @endif
 
                                 </td>
@@ -190,63 +198,67 @@
                     <input type="hidden" name="form" value="new_application" id="form">
                     <input type="hidden" name="applicant_status" value="new_application" id="applicant_status">
                     <div id="applicant_id"></div>
-                        <div class="bg-gray-light padding-5">
-                            <div class="box-body bg-gray-light">
-                                <div class="form-group col-md-12 col-sm-12">
-                                    <label id="name_label" class="control-label">
-                                        Full Name as per NRIC/Passport
-                                    </label>
-                                    <input name="name" id="name" placeholder="" class="form-control" type="text">
-                                    <input type="checkbox" data-verify-error="Please Verify Name"
-                                           class="verify-newaa-input"> Verified
+                    <div class="bg-gray-light padding-5">
+                        <div class="box-body bg-gray-light">
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label id="name_label" class="control-label">
+                                    Full Name as per NRIC/Passport
+                                </label>
+                                <input name="name" id="name" placeholder="" class="form-control" type="text">
+                                <input type="checkbox" data-verify-error="Please Verify Name"
+                                       class="verify-newaa-input"> Verified
 
-                                </div>
-                                <div class="form-group col-md-12 col-sm-12">
-                                    <label id="unique_id_label" class="control-label">
-                                        NRIC No./Passport No.(e.g.12345678)
-                                    </label>
-                                    <input name="unique_id" id="unique_id" placeholder="" class="form-control"
-                                           minlength="12" type="number">
-                                    <input type="checkbox" data-verify-error="Please Verify IC"
-                                           class="verify-newaa-input"> Verified
-                                </div>
-                                <div class="form-group col-md-12 col-sm-12">
-                                    <label class="control-label">Mobile Number (e.g. 60121234567 /
-                                        6512345678)</label>
-                                    <input name="mobile" id="mobile" placeholder="" class="form-control"
-                                           minlength="10" type="number">
-                                    <input type="checkbox" data-verify-error="Please Verify mobile"
-                                           class="verify-newaa-input"> Verified
-                                </div>
-                                {{--<div class="form-group col-md-6 col-sm-6 ">--}}
-                                    {{--<div class="form-group">--}}
-                                        {{--<label>Program</label>--}}
-                                        {{--<select class="select2 form-control" name="aaprogramcode"--}}
-                                                {{--id="aaprogramcode">--}}
-                                            {{--<option value="ABMB">ABMB</option>--}}
-                                            {{--<option value="REA">REA</option>--}}
-                                            {{--<option value="DEVP">DEVP</option>--}}
-                                            {{--<option value="INS">INS</option>--}}
-                                        {{--</select>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label id="unique_id_label" class="control-label">
+                                    NRIC No./Passport No.(e.g.12345678)
+                                </label>
+                                <input name="unique_id" id="unique_id" placeholder="" class="form-control"
+                                       minlength="12" type="number">
+                                <input type="checkbox" data-verify-error="Please Verify IC"
+                                       class="verify-newaa-input"> Verified
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label class="control-label">Mobile Number (e.g. 60121234567 /
+                                    6512345678)</label>
+                                <input name="mobile" id="mobile" placeholder="" class="form-control"
+                                       minlength="10" type="number">
+                                <input type="checkbox" data-verify-error="Please Verify mobile"
+                                       class="verify-newaa-input"> Verified
+                            </div>
+                            {{--<div class="form-group col-md-6 col-sm-6 ">--}}
+                            {{--<div class="form-group">--}}
+                            {{--<label>Program</label>--}}
+                            {{--<select class="select2 form-control" name="aaprogramcode"--}}
+                            {{--id="aaprogramcode">--}}
+                            {{--<option value="ABMB">ABMB</option>--}}
+                            {{--<option value="REA">REA</option>--}}
+                            {{--<option value="DEVP">DEVP</option>--}}
+                            {{--<option value="INS">INS</option>--}}
+                            {{--</select>--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
 
-                                <input type="hidden" name="status" value="Appointment-Attended"/>
+                            <input type="hidden" name="status" value="Appointment-Attended"/>
 
-                                <div class="form-group col-md-12 col-sm-12 consent-field">
-                                <a class="bg-white padding-5 pull-right consent-field" href="javascript:void(0)" onclick="$('#consent').trigger('click')" title="Upload Consent">
-                                <img src="{{ asset("img/file.jpeg") }}"/></a>
+                            <div class="form-group col-md-12 col-sm-12 consent-field">
+                                <a class="bg-white padding-5 pull-right consent-field" href="javascript:void(0)"
+                                   onclick="$('#consent').trigger('click')" title="Upload Consent">
+                                    <img src="{{ asset("img/file.jpeg") }}"/></a>
                                 <input type="file" class="hide" name="consent" id="consent">
-                                </div>
-                                <div class="form-group col-md-6 col-sm-6">
-                                    <button id="btn-newaa-submit" data-value="consent" class="btn-newaa-submit btn bg-gray-dark">Request
-                                    </button>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6">
+                                <button id="btn-newaa-submit" data-value="consent"
+                                        class="btn-newaa-submit btn bg-gray-dark">Request
+                                </button>
 
-                                    <button id="btn-newaa-submit-no-consent" data-value="noconsent" class="btn-newaa-submit btn btn-default">Consent Not Obtained</button>
+                                <button id="btn-newaa-submit-no-consent" data-value="noconsent"
+                                        class="btn-newaa-submit btn btn-default">Consent Not Obtained
+                                </button>
 
-                                </div>
                             </div>
                         </div>
+                    </div>
                 </form>
                 <div class="clearfix"></div>
             </div>
@@ -454,7 +466,7 @@
 
             $(".edit").on("click", function (e) {
                 $(".btn-newaa-submit-no-consent").removeClass("hide")
-                $(".verify-newaa-input").prop("checked",false);
+                $(".verify-newaa-input").prop("checked", false);
                 $("#aa_edit_form").modal('show');
                 $("#aa_title").html("Request CCRIS");
                 $("#name").val($(this).data("name"));//.prop("disabled",true);
@@ -469,7 +481,7 @@
                     //$("#btn-newaa-submit").text("Save Data");
 
                     $("#form").val("applicant_attend");//.prop("disabled",true);
-                   // $("#consent").attr("disabled", true);
+                    // $("#consent").attr("disabled", true);
                     //$(".consent-field").addClass("hide");
                     $(".applicant-status").removeClass("hide");
                     $("#status").attr("disabled", false);
@@ -478,7 +490,7 @@
                     $("#btn-newaa-submit-no-consent").addClass("hide");
                     $("#form").val("applicant_consent");//.prop("disabled",true);
                     //$(".consent-field").removeClass("hide");
-                   // $(".applicant-status").addClass("hide");
+                    // $(".applicant-status").addClass("hide");
                     $("#status").attr("disabled", true);
                     $("#consent").attr("disabled", false);
                 }

@@ -42,6 +42,15 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-open">
+<?php
+
+if (isset($applicant)) {
+    $income = $applicant->applicantIncome;
+    $wealth = $applicant->applicantWealth;
+    $properties = $applicant->applicantProperty;
+}
+
+?>
 <div class="wrapper" id="app">
 
     <!-- Main Header -->
@@ -94,11 +103,11 @@
 
                             </ul>
                         </li>
-                    @endauth
-                    <!-- Control Sidebar Toggle Button -->
-                        <li>
-                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                        </li>
+                @endauth
+                <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
 
                 </ul>
             </div>
@@ -130,9 +139,9 @@
                     {{--</li>--}}
                     {{--@else--}}
                     {{--@if (Route::has('register'))--}}
-                        {{--<li class="nav-item">--}}
-                            {{--<a class="nav-link" href="{{ route('register') }}">{{ __('Add User') }}</a>--}}
-                        {{--</li>--}}
+                    {{--<li class="nav-item">--}}
+                    {{--<a class="nav-link" href="{{ route('register') }}">{{ __('Add User') }}</a>--}}
+                    {{--</li>--}}
                     {{--@endif--}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("aadata.index") }}">New AA</a>
@@ -143,21 +152,21 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("housingloan.index") }}">Facility Info</a>
                     </li>
-                    {{--<li class="nav-item">--}}
-                        {{--<a class="nav-link" href="{{ route("aafields.create") }}">AA Fields</a>--}}
-                    {{--</li>--}}
-                    {{--<li class="nav-item">--}}
-                        {{--<a class="nav-link" href="{{ route("aa.create") }}">NE AA</a>--}}
-                    {{--</li>--}}
-                    {{--<li class="nav-item">--}}
-                        {{--<a class="nav-link" href="{{ route('users.index') }}">Users</a>--}}
-                    {{--</li>--}}
-                    {{--<li class="nav-item">--}}
-                        {{--<a class="nav-link" href="{{ route('orders.index') }}">Orders</a>--}}
-                    {{--</li>--}}
-                    {{--<li class="nav-item">--}}
-                        {{--<a class="nav-link " href="{{ route('departments.index') }}">Departments</a>--}}
-                    {{--</li>--}}
+                {{--<li class="nav-item">--}}
+                {{--<a class="nav-link" href="{{ route("aafields.create") }}">AA Fields</a>--}}
+                {{--</li>--}}
+                {{--<li class="nav-item">--}}
+                {{--<a class="nav-link" href="{{ route("aa.create") }}">NE AA</a>--}}
+                {{--</li>--}}
+                {{--<li class="nav-item">--}}
+                {{--<a class="nav-link" href="{{ route('users.index') }}">Users</a>--}}
+                {{--</li>--}}
+                {{--<li class="nav-item">--}}
+                {{--<a class="nav-link" href="{{ route('orders.index') }}">Orders</a>--}}
+                {{--</li>--}}
+                {{--<li class="nav-item">--}}
+                {{--<a class="nav-link " href="{{ route('departments.index') }}">Departments</a>--}}
+                {{--</li>--}}
 
 
             @endguest
@@ -195,7 +204,8 @@
         <!-- Create the tabs -->
         <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
             <li class="tab-toggle bg-gray-light">
-                <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-theme-demo-options-tab" class="switchDetail bg-gray-light">
+                <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-theme-demo-options-tab"
+                   class="switchDetail bg-gray-light">
                     {{--<img src="{{ asset("img/left-icon.png") }}" class="img-responsive width-30 pull-left" />--}}
 
                     <h3 class="no-margin text-center">
@@ -204,7 +214,8 @@
                 </a>
             </li>
             <li class="tab-toggle bg-gray-light">
-                <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-home-tab" class="switchDetail bg-gray-light">
+                <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-home-tab"
+                   class="switchDetail bg-gray-light">
                     {{--<img src="{{ asset("img/left-icon.png") }}" class="img-responsive width-30 pull-left" />--}}
 
                     <h3 class="no-margin text-center">
@@ -213,7 +224,8 @@
                 </a>
             </li>
             <li class="tab-toggle bg-gray-light">
-                <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-settings-tab" class="switchDetail bg-gray-light">
+                <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-settings-tab"
+                   class="switchDetail bg-gray-light">
                     {{--<img src="{{ asset("img/left-icon.png") }}" class="img-responsive width-30 pull-left" />--}}
 
                     <h3 class="no-margin text-center">
@@ -270,73 +282,12 @@
                 <div id="tab-3" class="bg-chocolate border-shadlebrown">
                     <strong class="applicant padding-5"></strong>
                     <div class="table-responsive" id="incomekyc_right">
-                        <table class="table table-bordered table-striped table-hover bg-white">
-                            <thead class="bg-light-blue">
-                            <tr class="bg-light-blue-gradient">
-                                <th colspan="3" class="text-center">Monthly Income</th>
-                            </tr>
-                            <tr class="bg-primary">
-                                <th>Type</th>
-                                <th>Gross</th>
-                                <th>Net</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-
-                            <tr id="salary_right_bar" class="salary_right_bar"></tr>
-
-                            <tr id="business_right_bar" class="business_right_bar"></tr>
-
-                            <tr id="incometax_right_bar" class="incometax_right_bar"></tr>
-
-                            <tr id="iif_right_bar" class="iif_right_bar"></tr>
-
-                            <tr id="monthly_rental_right_bar" class="monthly_rental_right_bar"></tr>
-
-                            <tr id="annual_investment_return_right_bar" class="annual_investment_return_right_bar"></tr>
-
-
-
-                            </tbody>
-                            <tfoot>
-                            <tr  class="bg-primary income_kyc_total_right_bar" id="income_kyc_total_right_bar"></tr>
-
-                            </tfoot>
-                        </table>
+                        @include("aadata.right_info_income")
                     </div>
                     <div class="table-responsive" id="wealthkyc_right">
-                        <table class="table table-bordered table-striped bg-white">
-                            <thead class="bg-light-blue">
-                            <tr class="bg-light-blue-gradient">
-                                <th colspan="3" class="text-center">Wealth</th>
-                            </tr>
-                            <tr class="bg-primary">
-                                <th>Type</th>
-                                <th>Amount</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            <tr id="wealth_saving_right" class="wealth_saving_right"></tr>
-
-                            <tr id="wealth_epf_right" class="wealth_epf_right"></tr>
-
-                            <tr id="wealth_tpf_right" class="wealth_tpf_right"></tr>
-
-                            <tr id="wealth_tsv_right" class="wealth_tsv_right"></tr>
-
-                            <tr id="wealth_utv_right" class="wealth_utv_right"></tr>
-
-                            </tbody>
-                            <tfoot>
-                            <tr class="bg-yellow-light wealth_total_right" id="wealth_total_right">
-
-
-                            </tr>
-                            </tfoot>
-                        </table>
+                        @include("aadata.right_info_wealth")
                     </div>
+
                     <div class="table-responsive" id="propertykyc_right">
                         <table class="table table-bordered table-striped table-hover bg-white">
                             <thead class="bg-light-blue">
@@ -346,59 +297,87 @@
                             <tr class="bg-aqua">
                                 <th>MV</th>
                                 <th>OS</th>
-                                <th>CD</th>
+                                <th>CO</th>
                             </tr>
                             </thead>
                             <tbody id="propertyright" class="propertyright">
+                            <?php
+                            $total_mv = 0;
+                            $total_os = 0;
+                            $total_co = 0;
+
+                            ?>
+                            @if(isset($properties))
+                                @foreach($properties as  $property)
+                                    <?php
+                                    $total_mv += $property->property_market_value;
+                                    $total_os += $property->property_loan_outstanding;
+
+                                    ?>
+                                    <tr>
+                                        <td>{{$property->property_market_value}}</td>
+                                        <td>{{$property->property_loan_outstanding}}</td>
+                                        <td>{{ ($property->property_market_value * (0.9) - $property->property_loan_outstanding*1) }}</td>
+                                    </tr>
+                                @endforeach
+                                <tr class='bg-green'>
+                                    <td colspan=3>Total</td>
+                                </tr>
+                                <tr class=bg-green>
+                                    <td>{{$total_mv}}</td>
+                                    <td>{{$total_os}}</td>
+                                    <td>{{ $total_mv * (0.9) - $total_os }}</td>
+                                </tr>
+                            @endif
 
                             </tbody>
 
                         </table>
                     </div>
 
-                    <!-- addition code income kyc-->
-                    <h4 class="text-center bg-light-blue-gradient no-margin padding-10 border-light">Monthly Income</h4>
-                    <div class="col-sm-6 text-white bg-aqua padding-10 border-light"><strong>Type</strong></div>
-                    <div class="col-sm-3 text-white bg-aqua padding-10 border-light"><strong>Gross</strong></div>
-                    <div class="col-sm-3 text-white bg-aqua padding-10 border-light"><strong>Net</strong></div>
-                    <div class="clearfix"></div>
-                    <div class="col-sm-6 bg-gray-light padding-10 border-light">Monthly Fixed</div>
-                    <div class="col-sm-3 bg-gray-light padding-10 border-light">12</div>
-                    <div class="col-sm-3 bg-gray-light padding-10 border-light">12</div>
-                    <div class="clearfix"></div>
-                    <div class="col-sm-6 text-white bg-aqua padding-10 border-light"><strong>Total</strong></div>
-                    <div class="col-sm-3 text-white bg-aqua padding-10 border-light"><strong>12</strong></div>
-                    <div class="col-sm-3 text-white bg-aqua padding-10 border-light"><strong>12</strong></div>
-                    <div class="clearfix"></div><br>
+                    {{--<!-- addition code income kyc-->--}}
+                    {{--<h4 class="text-center bg-light-blue-gradient no-margin padding-10 border-light">Monthly Income</h4>--}}
+                    {{--<div class="col-sm-6 text-white bg-aqua padding-10 border-light"><strong>Type</strong></div>--}}
+                    {{--<div class="col-sm-3 text-white bg-aqua padding-10 border-light"><strong>Gross</strong></div>--}}
+                    {{--<div class="col-sm-3 text-white bg-aqua padding-10 border-light"><strong>Net</strong></div>--}}
+                    {{--<div class="clearfix"></div>--}}
+                    {{--<div class="col-sm-6 bg-gray-light padding-10 border-light">Monthly Fixed</div>--}}
+                    {{--<div class="col-sm-3 bg-gray-light padding-10 border-light">12</div>--}}
+                    {{--<div class="col-sm-3 bg-gray-light padding-10 border-light">12</div>--}}
+                    {{--<div class="clearfix"></div>--}}
+                    {{--<div class="col-sm-6 text-white bg-aqua padding-10 border-light"><strong>Total</strong></div>--}}
+                    {{--<div class="col-sm-3 text-white bg-aqua padding-10 border-light"><strong>12</strong></div>--}}
+                    {{--<div class="col-sm-3 text-white bg-aqua padding-10 border-light"><strong>12</strong></div>--}}
+                    {{--<div class="clearfix"></div><br>--}}
 
-                    <!-- additional code wealth kyc -->
-                    <h4 class="text-center bg-light-blue-gradient no-margin padding-10 border-light">Wealth</h4>
-                    <div class="col-sm-8 text-white bg-aqua padding-10 border-light"><strong>Type</strong></div>
-                    <div class="col-sm-4 text-white bg-aqua padding-10 border-light"><strong>Amount</strong></div>
-                    <div class="clearfix"></div>
-                    <div class="col-sm-8 bg-gray-light padding-10 border-light">EPF Account Balance</div>
-                    <div class="col-sm-4 bg-gray-light padding-10 border-light">12</div>
-                    <div class="clearfix"></div>
-                    <div class="col-sm-8 text-white bg-yellow-light padding-10 border-light"><strong>Total</strong></div>
-                    <div class="col-sm-4 text-white bg-yellow-light padding-10 border-light"><strong>12</strong></div>
-                    <div class="clearfix"></div><br>
+                    {{--<!-- additional code wealth kyc -->--}}
+                    {{--<h4 class="text-center bg-light-blue-gradient no-margin padding-10 border-light">Wealth</h4>--}}
+                    {{--<div class="col-sm-8 text-white bg-aqua padding-10 border-light"><strong>Type</strong></div>--}}
+                    {{--<div class="col-sm-4 text-white bg-aqua padding-10 border-light"><strong>Amount</strong></div>--}}
+                    {{--<div class="clearfix"></div>--}}
+                    {{--<div class="col-sm-8 bg-gray-light padding-10 border-light">EPF Account Balance</div>--}}
+                    {{--<div class="col-sm-4 bg-gray-light padding-10 border-light">12</div>--}}
+                    {{--<div class="clearfix"></div>--}}
+                    {{--<div class="col-sm-8 text-white bg-yellow-light padding-10 border-light"><strong>Total</strong></div>--}}
+                    {{--<div class="col-sm-4 text-white bg-yellow-light padding-10 border-light"><strong>12</strong></div>--}}
+                    {{--<div class="clearfix"></div><br>--}}
 
-                    <!-- additional code Propery kyc -->
-                    <h4 class="text-center bg-light-blue-gradient no-margin padding-10 border-light">Property</h4>
-                    <div class="col-sm-4 text-white bg-aqua padding-10 border-light"><strong>MV</strong></div>
-                    <div class="col-sm-4 text-white bg-aqua padding-10 border-light"><strong>OS</strong></div>
-                    <div class="col-sm-4 text-white bg-aqua padding-10 border-light"><strong>CO</strong></div>
-                    <div class="clearfix"></div>
-                    <div class="col-sm-4 bg-gray-light padding-10 border-light">1000000</div>
-                    <div class="col-sm-4 bg-gray-light padding-10 border-light">1000000</div>
-                    <div class="col-sm-4 bg-gray-light padding-10 border-light">1000000</div>
-                    <div class="clearfix"></div>
-                    <div class="col-sm-12 text-white bg-green padding-10 border-light"><strong>Total</strong></div>
-                    <div class="col-sm-4 text-white bg-green padding-10 border-light"><strong>1000000</strong></div>
-                    <div class="col-sm-4 text-white bg-green padding-10 border-light"><strong>1000000</strong></div>
-                    <div class="col-sm-4 text-white bg-green padding-10 border-light"><strong>1000000</strong></div>
-                    <div class="clearfix"></div><br>
-                    <!-- end -->
+                    {{--<!-- additional code Propery kyc -->--}}
+                    {{--<h4 class="text-center bg-light-blue-gradient no-margin padding-10 border-light">Property</h4>--}}
+                    {{--<div class="col-sm-4 text-white bg-aqua padding-10 border-light"><strong>MV</strong></div>--}}
+                    {{--<div class="col-sm-4 text-white bg-aqua padding-10 border-light"><strong>OS</strong></div>--}}
+                    {{--<div class="col-sm-4 text-white bg-aqua padding-10 border-light"><strong>CO</strong></div>--}}
+                    {{--<div class="clearfix"></div>--}}
+                    {{--<div class="col-sm-4 bg-gray-light padding-10 border-light">1000000</div>--}}
+                    {{--<div class="col-sm-4 bg-gray-light padding-10 border-light">1000000</div>--}}
+                    {{--<div class="col-sm-4 bg-gray-light padding-10 border-light">1000000</div>--}}
+                    {{--<div class="clearfix"></div>--}}
+                    {{--<div class="col-sm-12 text-white bg-green padding-10 border-light"><strong>Total</strong></div>--}}
+                    {{--<div class="col-sm-4 text-white bg-green padding-10 border-light"><strong>1000000</strong></div>--}}
+                    {{--<div class="col-sm-4 text-white bg-green padding-10 border-light"><strong>1000000</strong></div>--}}
+                    {{--<div class="col-sm-4 text-white bg-green padding-10 border-light"><strong>1000000</strong></div>--}}
+                    {{--<div class="clearfix"></div><br>--}}
+                    {{--<!-- end -->--}}
                 </div>
             </div>
             <!-- /.tab-pane -->
@@ -420,19 +399,20 @@
 <script src="{{asset("js/select2.js")}}"></script>
 @stack('scripts')
 <script>
-    function showRightSidebar(){
+    function showRightSidebar() {
         $('.show-right-detail').removeClass('hide');
     }
-    $(document).on('click','.switchDetail',function(){
+
+    $(document).on('click', '.switchDetail', function () {
         var id = $(this).attr('data-tab-id');
         var status = $(this).attr('data-status');
-        if(status == 'show'){
-            $("#"+id).removeClass('active');
-            $(this).attr('data-status','hide');
+        if (status == 'show') {
+            $("#" + id).removeClass('active');
+            $(this).attr('data-status', 'hide');
             $(this).find('.sidebar-top-icon').html('&gt;');
-            $(this).css('width','180px');
+            $(this).css('width', '180px');
             var total = $(".tab-data").find('.active').length;
-            if(total == 3 || total == 0){
+            if (total == 3 || total == 0) {
                 $('.switchDetail').removeAttr('style');
                 $(".tab-toggle").removeAttr('style');
                 $(".tab-toggle").removeClass('minimize-width');
@@ -440,49 +420,49 @@
                 // if(total == 0){
                 //     $('.control-sidebar').removeClass('control-sidebar-open');
                 // }
-            }else{
-                $(".tab-toggle").css('width','20px');
+            } else {
+                $(".tab-toggle").css('width', '20px');
                 $(this).parent().addClass('minimize-width');
                 $(this).parent().removeClass('expand-width');
                 $(this).parent().removeAttr('style');
-                if($('.minimize-width')){
+                if ($('.minimize-width')) {
                     $('.minimize-width').removeAttr('style');
                 }
             }
             var total_width = 1140 / total;
-            if($('.tap-width').hasClass('active')){
-                $('.tap-width').css('width',total_width);
+            if ($('.tap-width').hasClass('active')) {
+                $('.tap-width').css('width', total_width);
             }
 
-        }else{
-            $("#"+id).addClass('active');
-            $(this).attr('data-status','show');
+        } else {
+            $("#" + id).addClass('active');
+            $(this).attr('data-status', 'show');
             $(this).find('.sidebar-top-icon').html('&lt;');
-            $('.switchDetail').css('width','180px');
+            $('.switchDetail').css('width', '180px');
             $(this).removeAttr('style');
             var total = $(".tab-data").find('.active').length;
             var total_width = 1140 / total;
 
-            if(total == 3 || total == 0){
+            if (total == 3 || total == 0) {
                 $('.switchDetail').removeAttr('style');
                 $(".tab-toggle").removeAttr('style');
                 $(".tab-toggle").removeClass('minimize-width');
                 $(".tab-toggle").removeClass('expand-width');
 
-            }else{
+            } else {
                 // $(".tab-toggle").css('width','20px');
                 $(this).parent().addClass('expand-width');
                 $(this).parent().removeClass('minimize-width');
-                $(this).parent().css('width','20px');
-                if($('.minimize-width')){
+                $(this).parent().css('width', '20px');
+                if ($('.minimize-width')) {
                     $('.minimize-width').removeAttr('style');
-                }else{
+                } else {
                     $(".tab-toggle").removeAttr('style');
                 }
             }
             var total_width = 1140 / total;
-            if($('.tap-width').hasClass('active')){
-                $('.tap-width').css('width',total_width);
+            if ($('.tap-width').hasClass('active')) {
+                $('.tap-width').css('width', total_width);
             }
         }
 

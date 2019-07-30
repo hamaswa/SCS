@@ -11,6 +11,7 @@ use App\ApplicantWealth;
 use App\FacilityInfo;
 use App\ApplicantDocuments;
 use Illuminate\Support\Facades\Storage;
+use DB;
 
 
 class PipelineController extends Controller
@@ -22,8 +23,19 @@ class PipelineController extends Controller
      */
     public function index()
     {
-        $applicantdata = ApplicantData::paginate(5);
-        return view("aadata.pipeline")->with("data",$applicantdata);
+
+        //$applicantdata = new ApplicantData();
+        $sql = "select a_d.*, sum(property_market_value) * 0.9 as market_value from applicant_data a_d join applicant_property a_p on a_d.id=a_p.applicant_id group by id";
+        //$data = DB::select($sql)>paginate(5);
+        $data = DB::table("applicant_data")
+                        ->leftjoin("applicant_property","applicant_data.id","=","applicant_property.applicant_id")
+                        ->select(DB::raw("applicant_data.*, sum(applicant_property.property_market_value)* .9 as market_value"))
+                        ->orderBy("id","desc")
+                        ->groupBy("applicant_data.id")
+                        ->paginate(5);
+
+
+        return view("aadata.pipeline")->with("data",$data);
     }
 
     /**
