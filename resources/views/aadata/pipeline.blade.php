@@ -185,6 +185,8 @@
         {{--</div>--}}
     </div>
     <div id="aa_edit_form" class="modal fade" role="dialog">
+        <form id="edit-aa" name="edit-aa" action="{{ route("aadata.store") }}" method="post"
+              enctype="multipart/form-data">
         <div class="modal-dialog">
             <div class="modal-header bg-primary">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -194,9 +196,6 @@
                 <h4 id="aa_title"></h4>
             </div>
             <div class="modal-body bg-white">
-                <form id="edit-aa" name="edit-aa" action="{{ route("aadata.store") }}" method="post"
-                      enctype="multipart/form-data">
-
                     @csrf
                     <input type="hidden" name="form" value="new_application" id="form">
                     <input type="hidden" name="applicant_status" value="new_application" id="applicant_status">
@@ -260,11 +259,12 @@
                             </div>
                         </div>
                     </div>
-                </form>
                 <div class="clearfix"></div>
             </div>
 
         </div>
+        </form>
+
     </div>
 
     <div id="commentsModal" class="modal fade" role="dialog">
@@ -402,7 +402,7 @@
             })
 
             $(".btn-newaa-submit").on("click", function (e) {
-                if($(this).data("val")=="consent")
+                if($(this).data("value")=="consent")
                 $(".verify-newaa-input").each(function () {
                     if (!($(this).prop("checked"))) {
                         alert($(this).data("verify-error"));

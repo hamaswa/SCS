@@ -95,7 +95,7 @@
                                 @endforeach
                             @else
                                 <tr class="bg-light-blue-gradient">
-                                    <td colspan="5">No </td>
+                                    <td colspan="5">No record found</td>
                                 </tr>
                             @endif
 
