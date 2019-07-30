@@ -401,7 +401,7 @@
             })
 
             $(".btn-newaa-submit").on("click", function (e) {
-
+                if($(this).data("val")=="consent")
                 $(".verify-newaa-input").each(function () {
                     if (!($(this).prop("checked"))) {
                         alert($(this).data("verify-error"));
