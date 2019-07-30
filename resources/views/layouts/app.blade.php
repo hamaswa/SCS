@@ -429,7 +429,7 @@ if (isset($applicant)) {
                     $('.minimize-width').removeAttr('style');
                 }
             }
-            var total_width = 1140 / total;
+            var total_width = 1290 / total;
             if ($('.tap-width').hasClass('active')) {
                 $('.tap-width').css('width', total_width);
             }
@@ -441,7 +441,7 @@ if (isset($applicant)) {
             $('.switchDetail').css('width', '180px');
             $(this).removeAttr('style');
             var total = $(".tab-data").find('.active').length;
-            var total_width = 1140 / total;
+            var total_width = 1290 / total;
 
             if (total == 3 || total == 0) {
                 $('.switchDetail').removeAttr('style');
@@ -460,7 +460,7 @@ if (isset($applicant)) {
                     $(".tab-toggle").removeAttr('style');
                 }
             }
-            var total_width = 1140 / total;
+            var total_width = 1290 / total;
             if ($('.tap-width').hasClass('active')) {
                 $('.tap-width').css('width', total_width);
             }

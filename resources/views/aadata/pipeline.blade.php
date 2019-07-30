@@ -188,6 +188,9 @@
         <div class="modal-dialog">
             <div class="modal-header bg-primary">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button id="btn-newaa-submit-no-consent" data-value="noconsent"
+                        class="btn-newaa-submit btn btn-default pull-right" style="margin-right:20px;">Consent Not Obtained
+                </button>
                 <h4 id="aa_title"></h4>
             </div>
             <div class="modal-body bg-white">
@@ -252,9 +255,7 @@
                                         class="btn-newaa-submit btn bg-gray-dark">Request
                                 </button>
 
-                                <button id="btn-newaa-submit-no-consent" data-value="noconsent"
-                                        class="btn-newaa-submit btn btn-default">Consent Not Obtained
-                                </button>
+
 
                             </div>
                         </div>
