@@ -441,7 +441,7 @@ if (isset($applicant)) {
             $('.switchDetail').css('width', '180px');
             $(this).removeAttr('style');
             var total = $(".tab-data").find('.active').length;
-            var total_width = 1140 / total;
+            var total_width = 1305 / total;
 
             if (total == 3 || total == 0) {
                 $('.switchDetail').removeAttr('style');
