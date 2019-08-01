@@ -66,11 +66,11 @@
                     <div class="col-md-12" style="overflow:auto">
                         <div id="MyAccountsTab" class="tabbable tabs-left">
                             <!-- Account selection for desktop - I -->
-                            <ul  class="nav nav-tabs col-md-1 hidden-xs">
+                            <ul  class="nav nav-tabs col-md-1 col-sm-12 col-xs-12">
                                 <li class="active">
                                     <div id="BK" data-target="#lA" data-toggle="tab">
                                         <div class="ellipsis">
-                                            <span class="account-type">Applic<div class="clearfix">ation</div></span><br/>
+                                            <span class="account-type mobile-view-text">Applic<div class="clearfix">ation</div></span><br/>
                                             <span class="account-amount">KYC</span><br/>
                                         </div>
                                     </div>

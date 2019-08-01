@@ -24,6 +24,7 @@
 
                             <div class="pull-right"><a href="{{ route("housingloan.create") }}"> </a>
                             </div>
+                            <div class="table-responsive">
                             <table id="example5" class="table table-bordered table-hover bg-white">
                                 <thead>
                                 <tr class="bg-light-blue-gradient">
@@ -44,6 +45,7 @@
 
                                 </tbody>
                             </table>
+                            </div>
                         </div>
                     </div>
                 </div>

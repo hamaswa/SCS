@@ -400,6 +400,12 @@ if (isset($applicant)) {
 <script src="{{asset("js/select2.js")}}"></script>
 @stack('scripts')
 <script>
+    $(document).ready(function(){
+        if ($(window).width() < 990) {
+            $('body').removeClass('sidebar-open');
+            $('.mobile-view-text').text('Application');
+        }
+    });
     function showRightSidebar() {
         $('.show-right-detail').removeClass('hide');
     }

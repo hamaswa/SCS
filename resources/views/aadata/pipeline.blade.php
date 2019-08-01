@@ -52,6 +52,7 @@
                     {{--</div>--}}
                 </div>
                 <div class="box-body">
+                    <div class="table-responsive">
                     <table class="table table-bordered table-striped table-hover bg-white">
                         <thead>
                         <tr class="bg-light-blue-gradient">
@@ -158,7 +159,7 @@
                         </tr>
                         </tfoot>
                     </table>
-
+                    </div>
                 </div>
 
 
