@@ -85,6 +85,7 @@
                     <div class="first-table">
                         <div class="box-body">
                             <div id="response"></div>
+                            <div class="table-responsive">
                             <table id="example5" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
@@ -171,6 +172,7 @@
                         </tr>
                                 </tbody>
                             </table>
+                            </div>
                         </div>
                     </div>
                 </div>
