@@ -16,21 +16,25 @@ class DatabaseSeeder extends Seeder
     {
      $this->SeedPermission();
      $this->SeedRole();
-     $this->SeedUser();
+        $this->SeedUser("100001","example1@test.commm","100001","MY100001","user");
+        $this->SeedUser("100002","example2@test.commm","100002","MY100002","user");
+        $this->SeedUser("100003","example3@test.commm","100003","MY100003","user");
+        $this->SeedUser("100003","example4@test.commm","100004","MY100004","user");
 
 
     }
 
-    public function SeedUser(){
-        $admin = Role::where('slug','administrator')->first();
-        $developer = new User();
-        $developer->name = 'Admin';
-        $developer->username = 'admin';
-        $developer->email = 'admin@example.com';
-        $developer->password = bcrypt('admin@123$');
-        $developer->save();
-        $developer->roles()->attach($admin);
+    public function SeedUser($name,$email,$username,$pass,$role){
+        $role = Role::where('slug',$role)->first();
+        $user = new User();
+        $user->name = $name;
+        $user->username = $username;
+        $user->email = $email;
+        $user->password = bcrypt($pass);
+        $user->save();
+        $user->roles()->attach($role);
     }
+
 
     public function SeedRole(){
         $admin = new Role();

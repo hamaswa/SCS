@@ -15,10 +15,12 @@ class CreateApplicantCommentsTable extends Migration
     {
         Schema::create('applicant_comments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger("applicant_id")->unsigned();
-           //$table->bigInteger("user_id")->unsigned();
             $table->text("comments")->nullable();
-
+            $table->bigInteger("applicant_id")->unsigned();
+            $table->integer("user_id")->unsigned();
+            $table->foreign("user_id")
+                ->references('id')
+                ->on('users');
             $table->foreign("applicant_id")
                 ->references('id')
                 ->on('applicant_data')

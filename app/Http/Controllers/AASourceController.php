@@ -36,6 +36,7 @@ class AASourceController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        $inputs['user_id']=Auth::id();
         $aasource = new AASource();
         $aasource->name = $data['name'];
         $aasource->description = $data['description'];

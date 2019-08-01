@@ -23,6 +23,8 @@ class ApplicantProperty extends Model
         'applicant_id',
         "MV",
         "OS",
-        "CO"];
+        "CO",
+        'user_id'
+    ];
 
 }

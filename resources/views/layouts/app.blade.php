@@ -134,15 +134,16 @@ if (isset($applicant)) {
             <ul class="sidebar-menu" data-widget="tree">
                 <!-- Optionally, you can add icons to the links -->
                 @guest
-                    {{--<li class="nav-item">--}}
-                    {{--<a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>--}}
-                    {{--</li>--}}
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    </li>
                     {{--@else--}}
                     {{--@if (Route::has('register'))--}}
                     {{--<li class="nav-item">--}}
                     {{--<a class="nav-link" href="{{ route('register') }}">{{ __('Add User') }}</a>--}}
                     {{--</li>--}}
                     {{--@endif--}}
+                @else
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("aadata.index") }}">New AA</a>
                     </li>

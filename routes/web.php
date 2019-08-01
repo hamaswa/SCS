@@ -12,15 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//Route::group(['middleware' => 'auth'], function() {
-//Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => 'auth'], function() {
+Route::get('/home', 'ApplicantDataController@index')->name('home');
 Route::resource('/aa', 'ApplicationAccountController');
 Route::resource('/aafields', 'AASourceController');
 Route::post('/aadata/create', 'ApplicantDataController@create');
@@ -52,4 +52,4 @@ Route::resource('/personalloan', 'PersonalLoanController');
 Route::resource('/departments', 'DepartmentController');
 Route::get("/users/{id}/departments", 'UserController@departments')->name("users.departments");
 Route::get("data/de", 'DataEntryController@de');
-//});
+});

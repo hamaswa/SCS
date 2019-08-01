@@ -1,435 +1,248 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-@section('content')
-    <div class="bg-white">
-        <div class="msg">
-            @if ($message = Session::get('error'))
-                <div class="alert alert-error">
-                    <p>{{ $message }}</p>
+    <title>{{ config('app.name', 'Laravel') }}</title>  <!-- Tell the browser to be responsive to screen width -->
+
+
+    <link rel="stylesheet" href="{{ asset("css/bootstrap.min.css") }}">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link href="{{asset("css/bootstrap-datepicker.min.css")}}" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{asset("css/font-awesome.min.css") }}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="{{asset("css/ionicons.min.css") }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset("css/AdminLTE.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/style.css") }}">
+
+    <link rel="stylesheet" href="{{ asset("css/skins/skin-blue.min.css") }}">
+
+    <!-- Select2 Style -->
+    <link rel="stylesheet" href="{{asset("css/select2.css")}}"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Google Font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    @stack('style')
+
+</head>
+
+<body class="hold-transition skin-blue sidebar-open">
+<?php
+
+if (isset($applicant)) {
+    $income = $applicant->applicantIncome;
+    $wealth = $applicant->applicantWealth;
+    $properties = $applicant->applicantProperty;
+}
+
+?>
+<div class="wrapper" id="app">
+
+    <!-- Main Header -->
+    <header class="main-header">
+
+        <!-- Logo -->
+        <a class="logo" href="{{ url('/') }}">
+            {{ config('app.name', 'Laravel') }}
+        </a>
+        <!--a href="index2.html" class="logo">
+          <!-- mini logo for sidebar mini 50x50 pixels ->
+          <span class="logo-mini"><b>A</b>LT</span>
+          <!-- logo for regular state and mobile devices ->
+          <span class="logo-lg"><b>Admin</b>LTE</span>
+        </a-->
+
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    @auth
+                        <li class="dropdown user user-menu">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+
+
+                                <li class="user-footer">
+
+                                    <div class="pull-right">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                 document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                              style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                @endauth
+                <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel">
+                <div class="pull-left image">
+
                 </div>
-            @endif
-            @if ($message = Session::get('success'))
-                <div class="alert alert-success">
-                    <p>{{ $message }}</p>
-                </div>
-            @endif
-        </div>
-        <div class="col-md-12 col-sm-12 col-lg-12">
-            <div class="box">
-                <div class="box-header">
-                    <form id="searchapplicant" name="searchapplicant" method="post"
-                          action="{{ route("pipeline.index") }}">
-                        @csrf
-                        <div class="col-md-12">
-                            <h4>Existing AA</h4>
-                        </div>
-                        {{--<div class="col-md-4">--}}
-                        {{--<select class="form-control select2" name="searchfield" id="searchfield">--}}
-                        {{--<option value="unique_id">Applicant ID</option>--}}
-                        {{--<option value="name">Applicant Name</option>--}}
-                        {{--<option value="unique_id">Company No</option>--}}
-                        {{--<option value="name">Company Name</option>--}}
-                        {{--</select>--}}
-                        {{--</div>--}}
-                        <div class="col-md-5">
-                            <input type="number" class="form-control" name="search" placeholder="Search NRIC"/>
-                            <span class="col-lg-12 col-md-12 col-sm-12">
-                                e.g. 791219107629 (exclude special character or symbols)
-                            </span>
-                        </div>
-                        <div class="col-md-4">
-                            <input type="submit" class="btn btn-primary" name="submit" value="Search"/>
-                        </div>
-                    </form>
-                </div>
-                <div class="box-body ">
+
+
+            </div>
+
+
+            <!-- Sidebar Menu -->
+            <ul class="sidebar-menu" data-widget="tree">
+                <!-- Optionally, you can add icons to the links -->
+                @guest
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    </li>
+                    {{--@else--}}
+                    {{--@if (Route::has('register'))--}}
+                    {{--<li class="nav-item">--}}
+                    {{--<a class="nav-link" href="{{ route('register') }}">{{ __('Add User') }}</a>--}}
+                    {{--</li>--}}
+                    {{--@endif--}}
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route("aadata.index") }}">New AA</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route("pipeline.index") }}">Pipeline Status</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route("housingloan.index") }}">Facility Info</a>
+                    </li>
+                {{--<li class="nav-item">--}}
+                {{--<a class="nav-link" href="{{ route("aafields.create") }}">AA Fields</a>--}}
+                {{--</li>--}}
+                {{--<li class="nav-item">--}}
+                {{--<a class="nav-link" href="{{ route("aa.create") }}">NE AA</a>--}}
+                {{--</li>--}}
+                {{--<li class="nav-item">--}}
+                {{--<a class="nav-link" href="{{ route('users.index') }}">Users</a>--}}
+                {{--</li>--}}
+                {{--<li class="nav-item">--}}
+                {{--<a class="nav-link" href="{{ route('orders.index') }}">Orders</a>--}}
+                {{--</li>--}}
+                {{--<li class="nav-item">--}}
+                {{--<a class="nav-link " href="{{ route('departments.index') }}">Departments</a>--}}
+                {{--</li>--}}
+
+
+            @endguest
+            <!--li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
+        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
+        <li class="treeview">
+          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#">Link in level 2</a></li>
+            <li><a href="#">Link in level 2</a></li>
+          </ul>
+        </li-->
+            </ul>
+            <!-- /.sidebar-menu -->
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+
+
+    @yield('content')
+
+
+    <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <aside class="control-sidebar">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li class="tab-toggle bg-gray-light">
+                <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-theme-demo-options-tab"
+                   class="switchDetail bg-gray-light">
+                    {{--<img src="{{ asset("img/left-icon.png") }}" class="img-responsive width-30 pull-left" />--}}
+
+                    <h3 class="no-margin text-center">
+                        <strong id="document-icon" class="pull-left sidebar-top-icon">&lt;</strong> DOCUMENT
+                    </h3>
+                </a>
+            </li>
+            <li class="tab-toggle bg-gray-light">
+                <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-home-tab"
+                   class="switchDetail bg-gray-light">
+                    {{--<img src="{{ asset("img/left-icon.png") }}" class="img-responsive width-30 pull-left" />--}}
+
+                    <h3 class="no-margin text-center">
+                        <strong id="comment-icon" class="pull-left sidebar-top-icon">&lt;</strong> COMMENT
+                    </h3>
+                </a>
+            </li>
+            <li class="tab-toggle bg-gray-light">
+                <a href="javascript:void(0)" data-status="show" data-tab-id="control-sidebar-settings-tab"
+                   class="switchDetail bg-gray-light">
+                    {{--<img src="{{ asset("img/left-icon.png") }}" class="img-responsive width-30 pull-left" />--}}
+
+                    <h3 class="no-margin text-center">
+                        <strong id="overview-icon" class="pull-left sidebar-top-icon">&lt;</strong>OVERVIEW
+                    </h3>
+                </a>
+            </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content tab-data">
+            <!-- Home tab content -->
+            <div class="tab-pane active tap-width" id="control-sidebar-home-tab">
+                <div id="tab-1" class="bg-green-gradient">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover bg-white">
+                        <table class="table table-bordered table-striped table-hover bg-white text-black">
                             <thead>
-                            <tr class="bg-light-blue-gradient">
-                                <th>AII LA</th>
-                                <th>Applicant / Company Name</th>
-                                <th>IC No. / Company No.</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            @if(isset($data))
-                                @if(count($data)==0)
-                                    <tr>
-                                        <td colspan="5" class="text-center">
-                                            No Data Found
-                                        </td>
-
-                                    </tr>
-                                @endif
-                                @foreach($data as $d)
-                                    {{--$d->aasource}}/{{$d->aabranch}}/{{$d->aacategory}}/--}}
-                                    <tr data-id="{{$d->id}}" data-status="{{ $d->status }}" data-name="{{ $d->name }}"
-                                        data-unique_id="{{ $d->unique_id }}" data-mobile="{{$d->mobile}}"
-                                        class="applicant-row">
-                                        <td>{{$d->serial_no}}</td>
-                                        <td>{{$d->name}}</td>
-                                        <td>{{$d->unique_id}}</td>
-                                        <td>
-                                            {{ $d->status }}
-                                        </td>
-                                        <td>
-                                            {{--                                    @if(! $d->status=="Appointment" and !$d->status =="Appointment-Attended" and !$d->status=="Consent Obtained")--}}
-                                            <a href="javascript:void(0)" data-toggle="control-sidebar"
-                                               data-id="{{$d->id}}"
-                                               class="btn btn-xs bg-light-blue-gradient view-applicant">View</a>
-                                            {{--@if($d->status=="Appointment")--}}
-                                            {{--<a href="javascript:void(0)" data-aaprogramcode="{{ $d->aaprogramcode }}" data-id="{{$d->id}}" data-status ="{{ $d->status }}" data-name="{{ $d->name }}" data-unique_id="{{ $d->unique_id }}" data-mobile="{{$d->mobile}}" class="btn btn-xs bg-light-blue-gradient edit">Edit</a>--}}
-                                            {{--@elseif($d->status =="Appointment-Attended")--}}
-                                            {{--<a href="javascript:void(0)" data-aaprogramcode="{{ $d->aaprogramcode }}" data-id="{{$d->id}}" data-status ="{{ $d->status }}" data-name="{{ $d->name }}" data-unique_id="{{ $d->unique_id }}" data-mobile="{{$d->mobile}}" class="btn btn-xs bg-light-blue-gradient edit">Upload Consent</a>--}}
-                                            {{--@elseif($d->status=="Consent Obtained")--}}
-                                            {{--<a href="{{route("aadata.create", ["id" => $d->id])  }}" class="btn btn-xs bg-light-blue-gradient edit">KYC</a>--}}
-                                            {{--@else--}}
-                                            {{--@endif--}}
-                                            {{--<a href="javascript:void(0)" class="btn btn-xs bg-light-blue-gradient">Import</a>--}}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @else
-                                <tr class="bg-light-blue-gradient">
-                                    <td colspan="5">No record found</td>
-                                </tr>
-                            @endif
-
-                            </tbody>
-                        </table>
-                    </div>
-                    @if(isset($data))
-                        <div>
-                            {{ $data->links() }}
-                        </div>
-                    @endif
-
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12 col-sm-12 col-lg-12">
-            <div class="col-md-12 col-sm-12 col-lg-12 bg-white">
-                <form id="newaa" name="newaa" action="{{ route("aadata.store") }}" method="post"
-                      enctype="multipart/form-data">
-
-                    @csrf
-                    <input type="hidden" name="form" value="new_application" id="form">
-                    <input type="hidden" name="applicant_status" value="new_application" id="applicant_status">
-                    <div id="applicant_id"></div>
-                    <h3 id="aa_title">Create AA</h3>
-
-                    {{--<div class="col-md-3">--}}
-                    {{--<label>AA Source</label>--}}
-                    {{--<select class="select2 form-control" name="aasource">--}}
-                    {{--<option value="AS">AS</option>--}}
-                    {{--<option value="PS">PS</option>--}}
-                    {{--<option value="BK">BK</option>--}}
-                    {{--<option value="DV">DV</option>--}}
-
-                    {{--</select>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-md-3">--}}
-                    {{--<label>AA Branch</label>--}}
-                    {{--<select class="select2 form-control" name="aabranch">--}}
-                    {{--<option value="KL">KL</option>--}}
-                    {{--<option value="JB">JB</option>--}}
-                    {{--<option value="PN">PN</option>--}}
-                    {{--</select>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-md-3">--}}
-                    {{--<label>AA Category</label>--}}
-                    {{--<select class="select2 form-control" name="aacategory">--}}
-                    {{--<option value="Ind">Indiviual</option>--}}
-                    {{--<option value="Com">Company</option>--}}
-                    {{--</select>--}}
-                    {{--</div>--}}
-
-                    <div class="col-lg-12 ">
-                        <div class="box">
-                            <div class="col-md-12 col-sm-12 bg-gray-light padding-5">
-                                <div class="box-body bg-gray-light">
-                                    <div class="form-group col-md-12 col-sm-12">
-                                        <label id="name_label" class="control-label">
-                                            Full Name as per NRIC/Passport
-                                        </label>
-                                        <input name="name" id="name" placeholder="" class="form-control" type="text">
-
-
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6">
-                                        <label id="unique_id_label" class="control-label">
-                                            NRIC No./Passport No.(e.g.12345678)
-                                        </label>
-                                        <input name="unique_id" id="unique_id" placeholder="" class="form-control"
-                                               minlength="12" type="number">
-
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6">
-                                        <label class="control-label">Mobile Number (e.g. 60121234567 /
-                                            6512345678)</label>
-                                        <input name="mobile" id="mobile" placeholder="" class="form-control"
-                                               minlength="10" type="number">
-
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 ">
-                                        <div class="form-group">
-                                            <label>Program</label>
-                                            <select class="select2 form-control" name="aaprogramcode"
-                                                    id="aaprogramcode">
-                                                <option value="ABMB">ABMB</option>
-                                                <option value="REA">REA</option>
-                                                <option value="DEVP">DEVP</option>
-                                                <option value="INS">INS</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    {{--<div class="form-group col-md-6 col-sm-6 hide applicant-status">--}}
-                                    {{--<div class="form-group">--}}
-                                    {{--<label>Appointment-Attedent</label>--}}
-                                    {{--<input type="checkbox" class="verify-newaa-input"> Verified--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-
-                                    {{--<div class="form-group col-md-12 col-sm-12 consent-field hide">--}}
-                                    {{--<a class="bg-white padding-5 pull-right consent-field" href="javascript:void(0)" onclick="$('#consent').trigger('click')" title="Upload Consent">--}}
-                                    {{--<img src="{{ asset("img/file.jpeg") }}"/></a>--}}
-                                    {{--<input type="file" class="hide" name="consent" id="consent">--}}
-                                    {{--</div>--}}
-                                    <div class="form-group col-lg-12">
-                                        <button id="btn-newaa-submit" class="btn bg-gray-dark pull-right">Create
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </form>
-            </div>
-        </div>
-        <?php /*
-        <div class="col-md-3 col-sm-12 no-padding no-margin">
-            <div class="box">
-                <div class="box-header">
-                    <div class="padding-5 bg-white pull-right border-light">
-                        <img src="{{ asset("img/folder.png") }}" class="img-responsive width-30" onclick="hideData()" />
-                    </div>
-                    <div class="padding-5 bg-chocolate pull-right border-light">
-                        <img src="{{ asset("img/left-icon.png") }}" onclick="showData('overview')" class="img-responsive width-30" />
-                    </div>
-                    <div class="padding-5 bg-green-gradient pull-right border-light">
-                        <img src="{{ asset("img/left-icon.png") }}" onclick="showData('view_existing')" class="img-responsive width-30" />
-                    </div>
-                    <div class="padding-5 bg-yellow-light pull-right border-light">
-                        <img src="{{ asset("img/left-icon.png") }}" onclick="showData('all_comments')" class="img-responsive width-30" />
-                    </div>
-                </div>
-                <div id="overview" class="box-body bg-chocolate min-height left-box hide detail-box">
-                    <h4 class="text-center">Overview</h4>
-                    <strong>MR ABC</strong>
-                    <table class="table table-bordered table-striped table-hover bg-white">
-
-                        <thead>
-                        <tr class="bg-light-blue-gradient">
-                            <th colspan="4" class="text-center">Income</th>
-                        </tr>
-                        <tr class="bg-aqua">
-                            <th>Type</th>
-                            <th>Gross</th>
-                            <th>Net</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Fixed</td>
-                            <td>3454</td>
-                            <td>345</td>
-                        </tr>
-                        <tr>
-                            <td>Rental</td>
-                            <td>345</td>
-                            <td>345</td>
-                        </tr>
-                        <tr>
-                            <td>IIF</td>
-                            <td>345</td>
-                            <td>345</td>
-                        </tr>
-                        </tbody>
-                        <tfoot>
-                        <tr class="bg-yellow-light">
-                            <th>Total</th>
-                            <th>432</th>
-                            <th>234</th>
-                        </tr>
-                        </tfoot>
-                    </table>
-                    <hr>
-                    <table class="table table-bordered table-striped table-hover bg-white">
-
-                        <thead>
-                        <tr class="bg-light-blue-gradient">
-                            <th colspan="4" class="text-center">New Instalment</th>
-                        </tr>
-                        <tr class="bg-aqua">
-                            <th>HL</th>
-                            <th>TL</th>
-                            <th>Total</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>43543</td>
-                            <td>3454</td>
-                            <td class="bg-yellow-light">345</td>
-                        </tr>
-                        <tr>
-                            <td>345435</td>
-                            <td>345</td>
-                            <td class="bg-yellow-light">345</td>
-                        </tr>
-                        <tr>
-                            <td>4354</td>
-                            <td>345</td>
-                            <td class="bg-yellow-light">345</td>
-                        </tr>
-                        </tbody>
-
-                    </table>
-                    <hr>
-                    <table class="table table-bordered table-striped table-hover bg-white">
-
-                        <thead>
-                        <tr class="bg-light-blue-gradient">
-                            <th colspan="4" class="text-center">New Commitment</th>
-                        </tr>
-                        <tr class="bg-aqua">
-                            <th>Type</th>
-                            <th>Monthly</th>
-                            <th>DSR(%)</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>HL</td>
-                            <td>3454</td>
-                            <td class="bg-green">345</td>
-                        </tr>
-                        <tr>
-                            <td>PL</td>
-                            <td>345</td>
-                            <td class="bg-green">345</td>
-                        </tr>
-                        <tr>
-                            <td>HL</td>
-                            <td>345</td>
-                            <td class="bg-green">345</td>
-                        </tr>
-                        <tr>
-                            <td>CC</td>
-                            <td>345</td>
-                            <td class="bg-green">345</td>
-                        </tr>
-                        <tr>
-                            <td>OD</td>
-                            <td>345</td>
-                            <td class="bg-green">345</td>
-                        </tr>
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <th class="bg-yellow-light">Total</th>
-                            <th class="bg-yellow-light">432</th>
-                            <th class="bg-green">234</th>
-                        </tr>
-                        </tfoot>
-                    </table>
-                    <hr>
-                    <table class="table table-bordered table-striped table-hover bg-white">
-
-                        <thead>
-                        <tr class="bg-light-blue-gradient">
-                            <th colspan="4" class="text-center">Existing Commitment</th>
-                        </tr>
-                        <tr class="bg-aqua">
-                            <th>Type</th>
-                            <th>Monthly</th>
-                            <th>DSR(%)</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>HL</td>
-                            <td>3454</td>
-                            <td class="bg-green">345</td>
-                        </tr>
-                        <tr>
-                            <td>PL</td>
-                            <td>345</td>
-                            <td class="bg-green">345</td>
-                        </tr>
-                        <tr>
-                            <td>HL</td>
-                            <td>345</td>
-                            <td class="bg-green">345</td>
-                        </tr>
-                        <tr>
-                            <td>CC</td>
-                            <td>345</td>
-                            <td class="bg-green">345</td>
-                        </tr>
-                        <tr>
-                            <td>OD</td>
-                            <td>345</td>
-                            <td class="bg-green">345</td>
-                        </tr>
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <th class="bg-yellow-light">Total</th>
-                            <th class="bg-yellow-light">432</th>
-                            <th class="bg-green">234</th>
-                        </tr>
-                        </tfoot>
-                    </table>
-                    <hr>
-                    <table class="table table-bordered table-striped table-hover bg-white">
-
-                        <thead>
-                        <tr class="bg-light-blue-gradient">
-                            <th colspan="4" class="text-center">Property</th>
-                        </tr>
-                        <tr class="bg-aqua">
-                            <th>MV</th>
-                            <th>OS</th>
-                            <th>CO</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>HL</td>
-                            <td>3454</td>
-                            <td>345</td>
-                        </tr>
-                        <tr class="text-red">
-                            <td>324</td>
-                            <td>345</td>
-                            <td>345</td>
-                        </tr>
-                        
-                        </tbody>
-
-                    </table>
-                </div>
-                <div id="view_existing" class="box-body bg-green-gradient min-height left-box hide detail-box">
-
-                    <table class="table table-bordered table-striped table-hover bg-white text-black">
-                        <thead>
                             <tr class="bg-light-blue-gradient">
                                 <th colspan="4" class="text-center">Document</th>
                             </tr>
@@ -439,216 +252,223 @@
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td>Company Reg KYC</td>
-                                <td>Mandatory</td>
-                                <td><a href="javascript:void(0)">view</a></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>latest payslip</td>
-                                <td>Updated</td>
-                                <td><a href="javascript:void(0)">view</a></td>
-                            </tr>
-                        </tbody>
+                            </thead>
+                            <tbody>
+                            @if(isset($applicant->applicantDocuments))
+                                @foreach($applicant->applicantDocuments as $document)
+                                    <tr>
+                                        <td>{{ date("Y-m-d",strtotime($document->created_at))}}</td>
+                                        <td>{{ $document->doc_name }}</td>
+                                        <td>{{$document->doc_status}}</td>
+                                        <td><a href="{{ route("download")}}?id={{$document->id}}">view</a></td>
+                                    </tr>
+                                @endforeach
+                            @endif
 
-                    </table>
+                            </tbody>
 
-                </div>
-                <div id="all_comments" class="box-body bg-yellow-light min-height left-box hide detail-box">
-
-                    <table class="table table-bordered table-striped table-hover bg-white">
-                        <thead>
-                        <tr class="bg-light-blue-gradient">
-                            <th colspan="4" class="text-center">All Comments</th>
-                        </tr>
-                        <tr class="bg-aqua">
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Comments</th>
-                            <th>By</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td></td>
-                            <td>Incomplete</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Open</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="bg-red-gradient">
-                            <td></td>
-                            <td>KIV</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="bg-green">
-                            <td></td>
-                            <td>KIV<br><small>replied</small></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        </tbody>
-
-                    </table>
+                        </table>
+                    </div>
 
                 </div>
             </div>
+            <div id="control-sidebar-theme-demo-options-tab" class="tab-pane active tap-width">
+                <div id="tab-2" class="bg-yellow-light">
+                </div>
+            </div>
+            <!-- /.tab-pane -->
+
+            <!-- Settings tab content -->
+            <div class="tab-pane active tap-width" id="control-sidebar-settings-tab">
+                <div id="tab-3" class="bg-chocolate border-shadlebrown">
+                    <strong class="applicant padding-5"></strong>
+                    <div class="table-responsive" id="incomekyc_right">
+                        @include("aadata.right_info_income")
+                    </div>
+                    <div class="table-responsive" id="wealthkyc_right">
+                        @include("aadata.right_info_wealth")
+                    </div>
+
+                    <div class="table-responsive" id="propertykyc_right">
+                        <table class="table table-bordered table-striped table-hover bg-white">
+                            <thead class="bg-light-blue">
+                            <tr class="bg-light-blue-gradient">
+                                <th colspan="3" class="text-center">Property</th>
+                            </tr>
+                            <tr class="bg-aqua">
+                                <th>MV</th>
+                                <th>OS</th>
+                                <th>CO</th>
+                            </tr>
+                            </thead>
+                            <tbody id="propertyright" class="propertyright">
+                            <?php
+                            $total_mv = 0;
+                            $total_os = 0;
+                            $total_co = 0;
+
+                            ?>
+                            @if(isset($properties))
+                                @foreach($properties as  $property)
+                                    <?php
+                                    $total_mv += $property->property_market_value;
+                                    $total_os += $property->property_loan_outstanding;
+
+                                    ?>
+                                    <tr>
+                                        <td>{{$property->property_market_value}}</td>
+                                        <td>{{$property->property_loan_outstanding}}</td>
+                                        <td>{{ ($property->property_market_value * (0.9) - $property->property_loan_outstanding*1) }}</td>
+                                    </tr>
+                                @endforeach
+                                <tr class='bg-green'>
+                                    <td colspan=3>Total</td>
+                                </tr>
+                                <tr class=bg-green>
+                                    <td>{{$total_mv}}</td>
+                                    <td>{{$total_os}}</td>
+                                    <td>{{ $total_mv * (0.9) - $total_os }}</td>
+                                </tr>
+                            @endif
+
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                    {{--<!-- addition code income kyc-->--}}
+                    {{--<h4 class="text-center bg-light-blue-gradient no-margin padding-10 border-light">Monthly Income</h4>--}}
+                    {{--<div class="col-sm-6 text-white bg-aqua padding-10 border-light"><strong>Type</strong></div>--}}
+                    {{--<div class="col-sm-3 text-white bg-aqua padding-10 border-light"><strong>Gross</strong></div>--}}
+                    {{--<div class="col-sm-3 text-white bg-aqua padding-10 border-light"><strong>Net</strong></div>--}}
+                    {{--<div class="clearfix"></div>--}}
+                    {{--<div class="col-sm-6 bg-gray-light padding-10 border-light">Monthly Fixed</div>--}}
+                    {{--<div class="col-sm-3 bg-gray-light padding-10 border-light">12</div>--}}
+                    {{--<div class="col-sm-3 bg-gray-light padding-10 border-light">12</div>--}}
+                    {{--<div class="clearfix"></div>--}}
+                    {{--<div class="col-sm-6 text-white bg-aqua padding-10 border-light"><strong>Total</strong></div>--}}
+                    {{--<div class="col-sm-3 text-white bg-aqua padding-10 border-light"><strong>12</strong></div>--}}
+                    {{--<div class="col-sm-3 text-white bg-aqua padding-10 border-light"><strong>12</strong></div>--}}
+                    {{--<div class="clearfix"></div><br>--}}
+
+                    {{--<!-- additional code wealth kyc -->--}}
+                    {{--<h4 class="text-center bg-light-blue-gradient no-margin padding-10 border-light">Wealth</h4>--}}
+                    {{--<div class="col-sm-8 text-white bg-aqua padding-10 border-light"><strong>Type</strong></div>--}}
+                    {{--<div class="col-sm-4 text-white bg-aqua padding-10 border-light"><strong>Amount</strong></div>--}}
+                    {{--<div class="clearfix"></div>--}}
+                    {{--<div class="col-sm-8 bg-gray-light padding-10 border-light">EPF Account Balance</div>--}}
+                    {{--<div class="col-sm-4 bg-gray-light padding-10 border-light">12</div>--}}
+                    {{--<div class="clearfix"></div>--}}
+                    {{--<div class="col-sm-8 text-white bg-yellow-light padding-10 border-light"><strong>Total</strong></div>--}}
+                    {{--<div class="col-sm-4 text-white bg-yellow-light padding-10 border-light"><strong>12</strong></div>--}}
+                    {{--<div class="clearfix"></div><br>--}}
+
+                    {{--<!-- additional code Propery kyc -->--}}
+                    {{--<h4 class="text-center bg-light-blue-gradient no-margin padding-10 border-light">Property</h4>--}}
+                    {{--<div class="col-sm-4 text-white bg-aqua padding-10 border-light"><strong>MV</strong></div>--}}
+                    {{--<div class="col-sm-4 text-white bg-aqua padding-10 border-light"><strong>OS</strong></div>--}}
+                    {{--<div class="col-sm-4 text-white bg-aqua padding-10 border-light"><strong>CO</strong></div>--}}
+                    {{--<div class="clearfix"></div>--}}
+                    {{--<div class="col-sm-4 bg-gray-light padding-10 border-light">1000000</div>--}}
+                    {{--<div class="col-sm-4 bg-gray-light padding-10 border-light">1000000</div>--}}
+                    {{--<div class="col-sm-4 bg-gray-light padding-10 border-light">1000000</div>--}}
+                    {{--<div class="clearfix"></div>--}}
+                    {{--<div class="col-sm-12 text-white bg-green padding-10 border-light"><strong>Total</strong></div>--}}
+                    {{--<div class="col-sm-4 text-white bg-green padding-10 border-light"><strong>1000000</strong></div>--}}
+                    {{--<div class="col-sm-4 text-white bg-green padding-10 border-light"><strong>1000000</strong></div>--}}
+                    {{--<div class="col-sm-4 text-white bg-green padding-10 border-light"><strong>1000000</strong></div>--}}
+                    {{--<div class="clearfix"></div><br>--}}
+                    {{--<!-- end -->--}}
+                </div>
+            </div>
+            <!-- /.tab-pane -->
         </div>
-        */ ?>
-    </div>
-@endsection
-@push("scripts")
-    <script type="text/javascript">
+    </aside>
 
-        $(document).on("click", ".view-applicant", function (e) {
-            id = $(this).data("id");
-            $.ajax({
-                url: "{{ route("comments") }}",
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                data: "id=" + id,
-                success: function (response) {
-                    $("#tab-2").html(response);
-                },
-                error: function () {
+</div>
+<!-- ./wrapper -->
 
+<!-- REQUIRED JS SCRIPTS -->
+
+<script src="{{asset("js/app.js")}}"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="{{asset("js/bootstrap-datepicker.min.js")}}"></script>
+
+<!-- AdminLTE App -->
+<script src="{{asset("js/adminlte.min.js")}}"></script>
+<!-- Select2 js -->
+<script src="{{asset("js/select2.js")}}"></script>
+@stack('scripts')
+<script>
+    function showRightSidebar() {
+        $('.show-right-detail').removeClass('hide');
+    }
+
+    $(document).on('click', '.switchDetail', function () {
+        var id = $(this).attr('data-tab-id');
+        var status = $(this).attr('data-status');
+        if (status == 'show') {
+            $("#" + id).removeClass('active');
+            $(this).attr('data-status', 'hide');
+            $(this).find('.sidebar-top-icon').html('&gt;');
+            $(this).css('width', '180px');
+            var total = $(".tab-data").find('.active').length;
+            if (total == 3 || total == 0) {
+                $('.switchDetail').removeAttr('style');
+                $(".tab-toggle").removeAttr('style');
+                $(".tab-toggle").removeClass('minimize-width');
+                $(".tab-toggle").removeClass('expand-width');
+                // if(total == 0){
+                //     $('.control-sidebar').removeClass('control-sidebar-open');
+                // }
+            } else {
+                $(".tab-toggle").css('width', '20px');
+                $(this).parent().addClass('minimize-width');
+                $(this).parent().removeClass('expand-width');
+                $(this).parent().removeAttr('style');
+                if ($('.minimize-width')) {
+                    $('.minimize-width').removeAttr('style');
                 }
+            }
+            var total_width = 1290 / total;
+            if ($('.tap-width').hasClass('active')) {
+                $('.tap-width').css('width', total_width);
+            }
 
-            });
-            $.ajax({
-                url: "{{ route("documents") }}",
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                data: "id=" + id,
-                success: function (response) {
-                    $("#tab-1").html(response);
+        } else {
+            $("#" + id).addClass('active');
+            $(this).attr('data-status', 'show');
+            $(this).find('.sidebar-top-icon').html('&lt;');
+            $('.switchDetail').css('width', '180px');
+            $(this).removeAttr('style');
+            var total = $(".tab-data").find('.active').length;
+            var total_width = 1290 / total;
 
-                },
-                error: function () {
+            if (total == 3 || total == 0) {
+                $('.switchDetail').removeAttr('style');
+                $(".tab-toggle").removeAttr('style');
+                $(".tab-toggle").removeClass('minimize-width');
+                $(".tab-toggle").removeClass('expand-width');
 
+            } else {
+                // $(".tab-toggle").css('width','20px');
+                $(this).parent().addClass('expand-width');
+                $(this).parent().removeClass('minimize-width');
+                $(this).parent().css('width', '20px');
+                if ($('.minimize-width')) {
+                    $('.minimize-width').removeAttr('style');
+                } else {
+                    $(".tab-toggle").removeAttr('style');
                 }
-            });
-            $.ajax({
-                url: "{{ route("incomedata") }}",
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                data: "id=" + id,
-                success: function (response) {
-                    $("#tab-3").html(response);
-                },
-                error: function () {
-
-                }
-
-            });
-
-
-        });
-        $(document).ready(function () {
-            $('.select2').select2();
-            {{--$("#newaa").on("submit",function (e) {--}}
-
-            {{--if($("#applicant_status").val()=="Appointment"){--}}
-            {{--$.ajax({--}}
-            {{--url : "{{ route("aadata.store") }}",--}}
-            {{--type:"POST",--}}
-            {{--headers: {--}}
-            {{--'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),--}}
-            {{--},--}}
-            {{--data: $("#newaa").serializeArray(),--}}
-            {{--success:function (response) {--}}
-            {{--response = JSON.parse(response)--}}
-            {{--if(response.status =="Appointment-Attended"){--}}
-            {{--$("#applicant_status").val("Appointment-Attended")--}}
-            {{--$("#form").val("applicant_consent");//.prop("disabled",true);--}}
-            {{--$(".consent-field").removeClass("hide");--}}
-            {{--$(".applicant-status").addClass("hide");--}}
-            {{--$("#status").attr("disabled",true);--}}
-            {{--$("#consent").attr("disabled",false);--}}
-            {{--}--}}
-
-            {{--msg= "";--}}
-            {{--if(response.error){--}}
-            {{--msg = " <div class=\"alert alert-success\">\n" +--}}
-            {{--"                    <p>" + response.success + "</p>\n" +--}}
-            {{--"                </div>";--}}
-            {{--}--}}
-            {{--else if(response.success){--}}
-            {{--msg = " <div class=\"alert alert-success\">\n" +--}}
-            {{--"                    <p>" + response.success + "</p>\n" +--}}
-            {{--"                </div>";--}}
-            {{--}--}}
-            {{--$(".msg").html($(msg));--}}
-
-            {{--},--}}
-            {{--error: function () {--}}
-
-            {{--}--}}
-
-            {{--})--}}
-
-            {{--}--}}
-            {{--})--}}
-
-
-            $(".edit").on("click", function (e) {
-
-                $("#aa_title").html("Edit Profile");
-                $("#name").val($(this).data("name"));//.prop("disabled",true);
-                $("#form").val("");//.prop("disabled",true);
-                $("#unique_id").val($(this).data("unique_id"));//.prop("disabled",true);
-                $("#mobile").val($(this).data("mobile"));//.prop("disabled",true);
-                $("#applicant_status").val($(this).data("status"));//.prop("disabled",true);
-                $("#aaprogramcode").val($(this).data("aaprogramcode"));
-                $("#applicant_id").append($("<input type='hidden' name='applicant_id' value='" + $(this).data("id") + "'>"))
-                $("#btn-submit").text("Proceed");
-                if ($(this).data("status") == "Appointment") {
-                    $("#form").val("applicant_attend");//.prop("disabled",true);
-                    $("#consent").attr("disabled", true);
-                    $(".consent-field").addClass("hide");
-                    $(".applicant-status").removeClass("hide");
-                    $("#status").attr("disabled", false);
-                }
-                else if ($(this).data("status") == "Appointment-Attended") {
-                    $("#form").val("applicant_consent");//.prop("disabled",true);
-                    $(".consent-field").removeClass("hide");
-                    $(".applicant-status").addClass("hide");
-                    $("#status").attr("disabled", true);
-                    $("#consent").attr("disabled", false);
-                }
-
-            })
-        });
-
-        function showData(id) {
-            $('.detail-box').addClass('hide');
-            $("#" + id).removeClass('hide');
+            }
+            var total_width = 1290 / total;
+            if ($('.tap-width').hasClass('active')) {
+                $('.tap-width').css('width', total_width);
+            }
         }
 
-        function hideData() {
-            $('.detail-box').addClass('hide');
-        }
-    </script>
-@endpush
+    });
+</script>
+
+</body>
+</html>

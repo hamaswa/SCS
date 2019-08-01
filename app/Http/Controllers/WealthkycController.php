@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ApplicantWealth;
+use Auth;
 
 class WealthkycController extends Controller
 {
@@ -36,6 +37,8 @@ class WealthkycController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
+        $inputs['user_id']=Auth::id();
+
         $wealth = ApplicantWealth::where("applicant_id",$inputs['applicant_id'])->first();
         if($wealth){
             $wealth->update($inputs);

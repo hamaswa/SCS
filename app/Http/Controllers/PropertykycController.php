@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ApplicantProperty;
 use App\ApplicantData;
+use Auth;
 class PropertykycController extends Controller
 {
     /**
@@ -36,6 +37,7 @@ class PropertykycController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
+        $inputs['user_id']=Auth::id();
         if (isset($inputs['applicant_id']) and $inputs['applicant_id'] != "") {
             $property = ApplicantProperty::where("applicant_id", $inputs["applicant_id"]);
             $property->delete();

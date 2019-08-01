@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ApplicantData;
 use App\ApplicantDocuments;
-use DB;
 use App\Repository\SoapAPIRepo;
-use Session;
 use Illuminate\Support\Facades\Storage;
+use Session;
+use DB;
+use Auth;
 
 
 
@@ -64,7 +65,7 @@ class ApplicantDataController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
-
+        $inputs['user_id']=Auth::id();
         if (isset($inputs['form']) and $inputs['form'] == 'new_application') {
             $applicant_count = ApplicantData::selectRaw("count(*) as count")->whereRaw("created_at BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 day)")
                 ->get()->ToArray();

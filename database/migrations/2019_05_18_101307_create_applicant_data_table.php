@@ -27,6 +27,10 @@ class CreateApplicantDataTable extends Migration
             $table->string("consent")->default("0");
             $table->string("status")->default("Appointment");
             $table->string("list_status")->default("0");
+            $table->integer("user_id")->unsigned();
+            $table->foreign("user_id")
+                ->references('id')
+                ->on('users');
             $table->timestamps();
         });
 
@@ -39,6 +43,10 @@ class CreateApplicantDataTable extends Migration
             $table->string("business_position")->nullable();
             $table->string("business_email")->nullable();
             $table->bigInteger("applicant_id")->unsigned();
+            $table->integer("user_id")->unsigned();
+            $table->foreign("user_id")
+                ->references('id')
+                ->on('users');
             $table->foreign("applicant_id")
                 ->references('id')
                 ->on('applicant_data')
@@ -53,6 +61,10 @@ class CreateApplicantDataTable extends Migration
             $table->integer("gross")->nullable();
             $table->integer("net")->nullable();
             $table->text("form_data")->nullable();
+            $table->integer("user_id")->unsigned();
+            $table->foreign("user_id")
+                ->references('id')
+                ->on('users');
             $table->bigInteger("applicant_id")->unsigned();
             $table->foreign("applicant_id")
                 ->references('id')
@@ -66,6 +78,10 @@ class CreateApplicantDataTable extends Migration
             $table->bigIncrements('id');
             $table->string("total");
             $table->text("form_data")->nullable();
+            $table->integer("user_id")->unsigned();
+            $table->foreign("user_id")
+                ->references('id')
+                ->on('users');
             $table->bigInteger("applicant_id")->unsigned();
             $table->foreign("applicant_id")
                 ->references('id')
@@ -93,7 +109,10 @@ class CreateApplicantDataTable extends Migration
             $table->string("OS")->nullable();
             $table->string("CO")->nullable();
             $table->text("form_data")->nullable();
-
+            $table->integer("user_id")->unsigned();
+            $table->foreign("user_id")
+                ->references('id')
+                ->on('users');
             $table->bigInteger("applicant_id")->unsigned();
             $table->foreign("applicant_id")
                 ->references('id')
@@ -115,6 +134,10 @@ class CreateApplicantDataTable extends Migration
             $table->string("installment")->nullable();
             $table->string("mia")->nullable();
             $table->string("conduct")->nullable();
+            $table->integer("user_id")->unsigned();
+            $table->foreign("user_id")
+                ->references('id')
+                ->on('users');
             $table->bigInteger("applicant_id")->unsigned();
             $table->foreign("applicant_id")
                 ->references('id')

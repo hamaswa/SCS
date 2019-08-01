@@ -12,6 +12,7 @@ use App\FacilityInfo;
 use App\ApplicantDocuments;
 use Illuminate\Support\Facades\Storage;
 use DB;
+use Auth;
 
 
 class PipelineController extends Controller
@@ -105,7 +106,7 @@ class PipelineController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
-
+        $inputs['user_id']=Auth::id();
         if(isset($inputs['statusupdate']) and $inputs['statusupdate']=='statusupdate'){
 
             if(isset($inputs['applicant_id']) and $inputs['applicant_id']!="") {

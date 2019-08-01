@@ -15,11 +15,15 @@ class CreateApplicantDocumentsTable extends Migration
     {
         Schema::create('applicant_documents', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger("applicant_id")->unsigned();
             $table->string("file_name");
             $table->string("doc_name");
             $table->string("doc_type")->nullable();
             $table->string("doc_status")->default("Mandatory");
+            $table->integer("user_id")->unsigned();
+            $table->foreign("user_id")
+                ->references('id')
+                ->on('users');
+            $table->bigInteger("applicant_id")->unsigned();
             $table->foreign("applicant_id")
                 ->references('id')
                 ->on('applicant_data')

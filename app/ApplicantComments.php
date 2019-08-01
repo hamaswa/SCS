@@ -9,11 +9,9 @@ class ApplicantComments extends Model
 {
 
     protected $fillable = [
-        'applicant_id','comments'
+        'applicant_id','comments','user_id'
     ];
 
-    public function applicant(){
-        $this->belongsTo(ApplicantData::class);
-    }
+
 
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\ApplicantIncome;
 use App\ApplicantWealth;
 use App\ApplicantProperty;
+use Auth;
 
 class IncomekycController extends Controller
 {
@@ -45,6 +46,8 @@ class IncomekycController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
+        $inputs['user_id']=Auth::id();
+
         $income = ApplicantIncome::where("applicant_id",$inputs['applicant_id'])->first();
         if($income){
             $income->update($inputs);
