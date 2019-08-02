@@ -17,7 +17,7 @@
             <tr>
                 <td>{{ date("Y-m-d",strtotime($comment->created_at))}}</td>
                 <td></td>
-                <td>{{$comment->comments}}</td>
+                <td>{!! $comment->comments !!}</td>
                 <td></td>
             </tr>
         @endforeach
