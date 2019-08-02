@@ -186,7 +186,7 @@
                     <div class="col-lg-12">
                         <input type="hidden" id="monthlyfixedadded" name="monthlyfixedadded"
                                value="{{ isset($data['monthlyfixedadded'])?$data['monthlyfixedadded']:"false" }}">
-                        <button type="button" id="addmonthlyfixed" class="btn btn-primary">ADD</button>
+                        <button type="button" id="addmonthlyfixed" class="btn btn-primary">Update</button>
                     </div>
                 </div>
 
@@ -270,7 +270,7 @@
                     <div class="col-lg-12">
                         <input type="hidden" id="monthlyvariableadded" name="monthlyvariableadded"
                                value="{{ (isset($data['monthlyvariableadded']) and $data['monthlyvariableadded']!="")?$data['monthlyvariableadded']:"" }}">
-                        <button type="button" id="addmonthlyvariable" class="btn btn-primary">ADD</button>
+                        <button type="button" id="addmonthlyvariable" class="btn btn-primary">Update</button>
                     </div>
                 </div>
 
@@ -328,7 +328,7 @@
                     <div class="col-lg-12">
                         <input type="hidden" id="annualtaxdeclaredadded" name="annualtaxdeclaredadded"
                                value="{{ (isset($data['annualtaxdeclaredadded']) and $data['annualtaxdeclaredadded']!="")?$data['annualtaxdeclaredadded']:"false" }}">
-                        <button type="button" id="addannualtaxdeclared" class="btn btn-primary">ADD</button>
+                        <button type="button" id="addannualtaxdeclared" class="btn btn-primary">Update</button>
                     </div>
                 </div>
 
@@ -394,7 +394,7 @@
                     <div class="col-lg-12">
                         <input type="hidden" id="iifadded" name="monthlyvariableadded"
                                value="{{ (isset($data['monthlyvariableadded']) and $data['monthlyvariableadded']!="")?$data['monthlyvariableadded']:"false" }}">
-                        <button type="button" id="addiif" class="btn btn-primary">ADD</button>
+                        <button type="button" id="addiif" class="btn btn-primary">Update</button>
                     </div>
                 </div>
 
@@ -427,7 +427,7 @@
                     <div class="col-lg-12">
                         <input type="hidden" name="monthly_rental_added" id="monthly_rental_added"
                                value="{{ (isset($data['monthly_rental_added']) and $data['monthly_rental_added']!="")?$data['monthly_rental_added']:"false" }}">
-                        <button type="button" id="monthly_rental_add" class="btn btn-primary">ADD</button>
+                        <button type="button" id="monthly_rental_add" class="btn btn-primary">Update</button>
                     </div>
                 </div>
 
@@ -470,7 +470,7 @@
                     <div class="col-lg-12">
                         <input type="hidden" name="annual_investment_return_added" id="annual_investment_return_added"
                                value="{{ (isset($data['annual_investment_return_added']) and $data['annual_investment_return_added']!="")?$data['annual_investment_return_added']:"false" }}">
-                        <button type="button" id="annual_investment_return_add" class="btn btn-primary">ADD</button>
+                        <button type="button" id="annual_investment_return_add" class="btn btn-primary">Update</button>
                     </div>
                 </div>
 

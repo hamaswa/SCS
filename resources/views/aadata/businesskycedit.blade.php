@@ -273,7 +273,11 @@
                 $(this).val(form[$(this).attr('id')]);
             })
 
-            $("#number").val($(this).data('number'))        })
+            $("#number").val($(this).data('number'))
+
+            $("#btnsubmit").html($("  <input type=\"button\" name=\"submit\" id=\"update_business\" value=\"Update\"\n" +
+                " class=\"btn btn-default pull-right text-uppercase text-bold text-white bg-gray-dark\" data-id=\""+$(this).data('number')+"\" id=\"update_business\">"))
+        })
 
 
         function businessActionButtions(){

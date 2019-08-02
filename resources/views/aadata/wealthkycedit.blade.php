@@ -157,7 +157,7 @@
                     <div class="col-lg-12">
                         <input type="hidden" name="saving_added" id="saving_added"
                                value="{{ (isset($data->saving_added)?$data->saving_added:"false") }}">
-                        <button type="button" id="saving_add" class="btn btn-primary">ADD</button>
+                        <button type="button" id="saving_add" class="btn btn-primary">Update</button>
                     </div>
                 </div>
 
@@ -191,7 +191,7 @@
                     <div class="col-lg-12">
                         <input type="hidden" name="epf_added" id="epf_added"
                                value="{{ (isset($data->epf_added)?$data->epf_added:"false") }}">
-                        <button type="button" id="epf_add" class="btn btn-primary">ADD</button>
+                        <button type="button" id="epf_add" class="btn btn-primary">Update</button>
                     </div>
                 </div>
 
@@ -223,7 +223,7 @@
                     <div class="col-lg-12">
                         <input type="hidden" name="tpf_added" id="tpf_added"
                                value="{{ (isset($data->tpf_added)?$data->tpf_added:"false") }}">
-                        <button type="button" id="tpf_add" class="btn btn-primary">ADD</button>
+                        <button type="button" id="tpf_add" class="btn btn-primary">Update</button>
                     </div>
                 </div>
 
@@ -243,7 +243,7 @@
                     <div class="col-lg-12">
                         <input type="hidden" name="tsv_added" id="tsv_added"
                                value="{{ (isset($data->tsv_added)?$data->tsv_added:"") }}">
-                        <button type="button" id="tsv_add" class="btn btn-primary">ADD</button>
+                        <button type="button" id="tsv_add" class="btn btn-primary">Update</button>
                     </div>
                 </div>
 
@@ -263,7 +263,7 @@
                     <div class="col-lg-12">
                         <input type="hidden" name="utv_added" id="utv_added"
                                value="{{ (isset($data->utv_added)?$data->utv_added:"") }}">
-                        <button type="button" id="utv_add" class="btn btn-primary">ADD</button>
+                        <button type="button" id="utv_add" class="btn btn-primary">Update</button>
                     </div>
                 </div>
 

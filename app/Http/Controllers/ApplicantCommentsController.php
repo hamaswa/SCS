@@ -18,7 +18,6 @@ class ApplicantCommentsController extends Controller
     public function index(Request $request)
     {
         $inputs = $request->all();
-        $inputs['user_id']=Auth::id();
         $arr["comments"] = ApplicantComments::where("applicant_id",'=',$inputs["id"])->get();
         return view("aadata.comments")->with($arr);
     }
@@ -42,6 +41,7 @@ class ApplicantCommentsController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
+        $inputs['user_id']=Auth::id();
         $comment = ApplicantComments::create($inputs);
         if($comment->id){
             return "success";

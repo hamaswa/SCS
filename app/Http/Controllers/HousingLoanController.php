@@ -51,7 +51,7 @@ class HousingLoanController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $inputs['user_id']=Auth::id();
+        $data['user_id']=Auth::id();
 
         if(isset($data['submit']) and $data['submit']=='Search') {
             $applicantdata = ApplicantData::where($data['searchfield'], '=', $data['search'])->paginate(5);

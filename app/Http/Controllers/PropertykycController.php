@@ -37,7 +37,6 @@ class PropertykycController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
-        $inputs['user_id']=Auth::id();
         if (isset($inputs['applicant_id']) and $inputs['applicant_id'] != "") {
             $property = ApplicantProperty::where("applicant_id", $inputs["applicant_id"]);
             $property->delete();
@@ -49,6 +48,7 @@ class PropertykycController extends Controller
                     unset($input['formname']);
                     unset($input['number']);
                     $input['applicant_id'] = $inputs['applicant_id'];
+                    $input['user_id']=Auth::id();
                     $property = ApplicantProperty::create($input);
                     $applicant = ApplicantData::find($inputs['applicant_id']);
                     $applicant->status="Documentation";

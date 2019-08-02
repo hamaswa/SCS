@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ApplicantBusiness;
+use Auth;
 
 class BusinesskycController extends Controller
 {
@@ -45,7 +46,7 @@ class BusinesskycController extends Controller
 
         if (isset($inputs['business_forms'])) {
             foreach ($inputs['business_forms'] as $input) {
-
+                $input['user_id']=Auth::id();
                 $input['applicant_id'] = $inputs['applicant_id'];
                 $business = ApplicantBusiness::create($input);
             }

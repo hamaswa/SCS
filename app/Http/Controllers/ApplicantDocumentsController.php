@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ApplicantDocuments;
 use Illuminate\Support\Facades\Storage;
-use App\Auth;
+use Auth;
 class ApplicantDocumentsController extends Controller
 {
     /**
