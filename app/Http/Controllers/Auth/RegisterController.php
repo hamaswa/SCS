@@ -45,7 +45,7 @@ class RegisterController extends Controller
 
     public function index(UserDataTable $datatable)
     {
-        return $datatable->render('auth.index');
+        return $datatable->render('admin.auth.index');
 
     }
 
@@ -82,7 +82,7 @@ class RegisterController extends Controller
         $user = User::find($id);
 
         $data['roles'] = Role::all();
-        return view('auth.edit', $data)->with('user', $user);
+        return view('admin.auth.edit', $data)->with('user', $user);
         // }
         // else return "You don't have permissions to edit User";
     }
@@ -135,7 +135,7 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $data['roles'] = Role::all();
-        return view('auth.register', $data);
+        return view('admin.auth.register', $data);
     }
 
     /**

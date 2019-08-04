@@ -14,6 +14,7 @@ use SimpleXMLElement;
 use App\ApplicantDocuments;
 use App\FacilityInfo;
 use Illuminate\Support\Facades\Storage;
+use Auth;
 
 class SoapAPIRepo
 {
@@ -34,6 +35,7 @@ class SoapAPIRepo
         $inputs['doc_name'] = "Ctos report";
         $inputs['doc_type'] = "ctos";
         $inputs['doc_status'] = "Mandatory";
+        $inputs['user_id'] = Auth::id();
         $document = ApplicantDocuments::create($inputs);
     }
 
@@ -73,7 +75,7 @@ class SoapAPIRepo
     {
         $facility = new FacilityInfo();
         $facility->type = $data['type'];
-        //$facility->csris = implode(",", $data['csris']);
+        $facility->user_id = Auth::id();
         $facility->facilitydate = date("Y-m-d",strtotime($data['facilitydate']));
         $facility->capacity = strtolower(isset($data['capacity']) ? $data['capacity'] : "");
         $facility->facilitylimit = $data['facilitylimit'];
