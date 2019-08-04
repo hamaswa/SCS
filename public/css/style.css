@@ -514,3 +514,6 @@ div.bottom-rounded {
 .border-light{
     border:1px solid #eeeeee;
 }
+.ck-content{
+    height:150px;
+}

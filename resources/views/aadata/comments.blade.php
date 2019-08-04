@@ -7,7 +7,6 @@
         <tr class="bg-aqua">
             <th>Date</th>
             <th>Status</th>
-            <th style="width:40%;">Comments</th>
             <th>By</th>
         </tr>
 
@@ -17,8 +16,10 @@
             <tr>
                 <td>{{ date("Y-m-d",strtotime($comment->created_at))}}</td>
                 <td></td>
-                <td>{!! $comment->comments !!}</td>
                 <td></td>
+            </tr>
+            <tr>
+                <td colspan="3"><b>Comments:</b><br>{!! $comment->comments !!}</td>
             </tr>
         @endforeach
 
@@ -35,7 +36,6 @@
             {{--<td></td>--}}
         {{--</tr>--}}
         <tr>
-            <td></td>
             <td></td>
             <td></td>
             <td></td>

@@ -275,13 +275,13 @@
             <div class="modal-content">
                 <div class="modal-header bg-primary">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header Comments</h4>
+                    <h4 class="modal-title">Comments</h4>
                 </div>
                 <div class="modal-body">
                     <form method="post" id="commentsform">
                         <input type="hidden" id="comment_applicant_id" name="applicant_id">
                         <div class="col-lg-12"><label>Comments</label>
-                            <textarea name="comments" class="form-control">
+                            <textarea name="comments" class="form-control editor">
 
                         </textarea>
                         </div>
@@ -324,6 +324,14 @@
 @endsection
 
 @push("scripts")
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.3.1/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '.editor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#commentsform").submit(function (e) {
