@@ -41,7 +41,7 @@
         <form method="POST" action="{{ route('login') }}">
             <div class="form-group has-feedback">
                 <label for="username">{{ __('User Name') }}</label>
-                    <input id="username" type="username" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
+                    <input id="username" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
 
                     @if ($errors->has('username'))
                         <span class="invalid-feedback" role="alert">
