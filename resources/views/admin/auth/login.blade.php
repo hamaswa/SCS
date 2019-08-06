@@ -39,6 +39,8 @@
         <p class="login-box-msg">{{ __('Login') }}</p>
 
         <form method="POST" action="{{ route('login') }}">
+            {{ csrf_field() }}
+
             <div class="form-group has-feedback">
                 <label for="username">{{ __('User Name') }}</label>
                     <input id="username" type="username" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
