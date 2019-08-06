@@ -36,7 +36,7 @@
 
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">{{ __('Login') }}</p>
+        <h3 class="login-box-msg">{{ __('Login') }}</h3>
 
         <form method="POST" action="{{ route('login') }}">
             <div class="form-group has-feedback">
@@ -62,7 +62,7 @@
 
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
-            <div class="row">
+            <div class="form-group">
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label  class="form-check-label" for="remember">
@@ -72,10 +72,11 @@
                     </div>
                 </div>
                 <!-- /.col -->
-                <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">{{ __('Login') }}</button>
-                </div>
+
                 <!-- /.col -->
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block btn-flat">{{ __('Login') }}</button>
             </div>
         </form>
 
