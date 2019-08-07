@@ -19,7 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['prefix'=>'admin','middleware' => 'role:administrator'], function() {
+    Route::resource('/permissions', 'Admin\PermissionController');
+
+});
+
+Route::group(['middleware' => 'role:user'], function() {
 Route::get('/home', 'ApplicantDataController@index')->name('home');
 Route::resource('/aa', 'ApplicationAccountController');
 Route::resource('/aafields', 'AASourceController');

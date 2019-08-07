@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
      $this->SeedPermission();
      $this->SeedRole();
+        $this->SeedUser("Admin","hama_swa@yahoo.com","admin","admin@123$","administrator");
         $this->SeedUser("100001","example1@test.commm","100001","MY100001","user");
         $this->SeedUser("100002","example2@test.commm","100002","MY100002","user");
         $this->SeedUser("100003","example3@test.commm","100003","MY100003","user");
