@@ -21,6 +21,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix'=>'admin','middleware' => 'role:administrator'], function() {
     Route::resource('/permissions', 'Admin\PermissionController');
+    Route::get('/users/income_type', function () {
+        return view('admin.users.income_type');
+    });
+    Route::get('/users/payments', function () {
+        return view('admin.users.payments');
+    });
 
 });
 
