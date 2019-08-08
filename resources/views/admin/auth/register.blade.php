@@ -106,7 +106,7 @@
             </div>
             <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('Country') }}</label>
-                <input id="country" type="text" class="form-control" name="country" value="" required
+                <input id="country" type="text" class="form-control" name="country" value="{{ old('country') }}" required
                        autocomplete="off">
                 @if ($errors->has('country'))
                     <span class="help-block">
@@ -116,7 +116,7 @@
             </div>
             <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('State') }}</label>
-                <input id="state" type="text" class="form-control" name="state" value="" required autocomplete="off">
+                <input id="state" type="text" class="form-control" name="state" value="{{ old('state') }}" required autocomplete="off">
                 @if ($errors->has('state'))
                     <span class="help-block">
                                         <strong>{{ $errors->first('state') }}</strong>
@@ -125,7 +125,7 @@
             </div>
             <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('City') }}</label>
-                <input id="city" type="text" class="form-control" name="city" value="" required autocomplete="off">
+                <input id="city" type="text" class="form-control" name="city" value="{{ old('city') }}" required autocomplete="off">
                 @if ($errors->has('city'))
                     <span class="help-block">
                                         <strong>{{ $errors->first('city') }}</strong>
@@ -134,7 +134,7 @@
             </div>
             <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('Zipcode') }}</label>
-                <input id="zipcode" type="text" class="form-control" name="zipcode" value="" required
+                <input id="zipcode" type="text" class="form-control" name="zipcode" value="{{ old('zipcode') }}" required
                        autocomplete="off">
                 @if ($errors->has('zipcode'))
                     <span class="help-block">

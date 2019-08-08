@@ -70,6 +70,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'without_spaces', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:6'],
@@ -117,18 +118,22 @@ class RegisterController extends Controller
         $user = User::find($id);
         $data = $request->all();
         Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'without_spaces', 'string', 'max:255', 'unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
-            'password' => ['required', 'string', 'min:6'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            //'username' => ['required', 'without_spaces', 'string', 'max:255', 'unique:users'],
+            //'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
+            //'password' => ['required', 'string', 'min:6'],
         ]);
 
         $user->update(
-            ['name' => $data['name'],
-                'email' => $data['email'],
+            [
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
                 'mobile' => $data['mobile'],
-                'address' => $data['address'],
-                'status' => $data['status']
+                'country' => $data['country'],
+                'state' => $data['state'],
+                'city' => $data['city'],
+                'zipcode' => $data['zipcode']
             ]);
 
         if (isset($data['role'])) {
@@ -160,6 +165,11 @@ class RegisterController extends Controller
         return User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
+            'mobile' => $data['mobile'],
+            'country' => $data['country'],
+            'state' => $data['state'],
+            'city' => $data['city'],
+            'zipcode' => $data['zipcode'],
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),

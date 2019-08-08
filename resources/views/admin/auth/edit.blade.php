@@ -1,152 +1,186 @@
-@extends('admin.layouts.app')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Register</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="{{ asset("css/bootstrap.min.css") }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{asset("css/font-awesome.min.css") }}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="{{asset("css/ionicons.min.css") }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset("css/AdminLTE.min.css") }}">
+    <!-- iCheck -->
+    {{--<link rel="stylesheet" href="../../plugins/iCheck/square/blue.css">--}}
+    <link rel="stylesheet" href="{{ asset("css/style.css") }}">
 
-@section('content')
-    <div class="box">
-        <div class="box-header">{{ __('Edit User') }}</div>
+    <link rel="stylesheet" href="{{ asset("css/skins/skin-blue.min.css") }}">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
-        {!! Form::model($user, ['route' => ['users.update', $user->id], 'method' => 'patch']) !!}
-        <div class="box-body">
+    <!-- Google Font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box" style="width:600px;">
 
-            <div class="form-group row">
-                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <h3 class="login-box-msg">{{ __('Register') }}</h3>
+        <form method="POST" action="{{ route('register.store') }}">
+            {{ csrf_field() }}
+            <div class="form-group has-feedback col-md-6 col-sm-12">
+                <label>{{ __('First Name') }}</label>
+                <input id="first_name" type="text" class="form-control" name="first_name"
+                       value="{{ $user->first_name }}">
 
-                <div class="col-md-6">
-                    <input id="name" type="text"
-                           class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                           name="name" value="{{ $user->name }}" required autofocus>
-
-                    @if ($errors->has('name'))
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                @if ($errors->has('first_name'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('first_name') }}</strong>
                                     </span>
-                    @endif
-                </div>
-
-
+                @endif
             </div>
+            <div class="form-group has-feedback col-md-6 col-sm-12">
+                <label>{{ __('Last Name') }}</label>
+                <input id="last_name" type="text" class="form-control" name="last_name"
+                       value="{{ $user->last_name }}" required autocomplete="off">
 
-            <div class="form-group row">
-                <label for="mobile"
-                       class="col-md-4 col-form-label text-md-right">{{ __('Mobile') }}</label>
-
-                <div class="col-md-6">
-                    <input id="mobile" type="text"
-                           class="form-control{{ $errors->has('mobile') ? ' is-invalid' : '' }}"
-                           name="mobile" value="{{ $user->mobile }}" required autofocus>
-
-                    @if ($errors->has('mobile'))
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('mobile') }}</strong>
+                @if ($errors->has('last_name'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('last_name') }}</strong>
                                     </span>
-                    @endif
-                </div>
-
-
+                @endif
             </div>
-
-            <div class="form-group row">
-                <label for="address"
-                       class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
-
-                <div class="col-md-6">
-                    <input id="address" type="text"
-                           class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}"
-                           name="address" value="{{ $user->address }}" required autofocus>
-
-                    @if ($errors->has('address'))
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('address') }}</strong>
-                                    </span>
-                    @endif
-                </div>
-
-
-            </div>
-
-            <div class="form-group row">
-                <label for="email"
-                       class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                <div class="col-md-6">
-                    <input id="email" type="email"
-                           class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                           name="email" value="{{ $user->email }}" required>
-
-                    @if ($errors->has('email'))
-                        <span class="invalid-feedback" role="alert">
+            <div class="form-group has-feedback col-md-6 col-sm-12">
+                <label>{{ __('Email') }}</label>
+                <input id="email" type="email" disabled class="form-control"
+                       name="email" value="{{ $user->email }}" required autocomplete="off">
+                @if ($errors->has('email'))
+                    <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                    @endif
+                @endif
+            </div>
+            {{--<div class="form-group has-feedback col-md-6 col-sm-12">--}}
+                {{--<label>{{ __('User Name') }}</label>--}}
+                {{--<input id="username" type="text" class="form-control"--}}
+                       {{--name="username" value="{{ $user->username }}" required autocomplete="off">--}}
+                {{--@if ($errors->has('username'))--}}
+                    {{--<span class="help-block">--}}
+                                        {{--<strong>{{ $errors->first('username') }}</strong>--}}
+                                    {{--</span>--}}
+                {{--@endif--}}
+
+            {{--</div>--}}
+            {{--<div class="form-group has-feedback col-md-6 col-sm-12">--}}
+                {{--<label>{{ __('Password') }}</label>--}}
+                {{--<input id="password" type="password" class="form-control"--}}
+                       {{--name="password" required autocomplete="off">--}}
+                {{--@if ($errors->has('password'))--}}
+                    {{--<span class="help-block">--}}
+                                        {{--<strong>{{ $errors->first('password') }}</strong>--}}
+                                    {{--</span>--}}
+                {{--@endif--}}
+
+            {{--</div>--}}
+            {{--<div class="form-group has-feedback col-md-6 col-sm-12">--}}
+                {{--<label>{{ __('Confirm Password') }}</label>--}}
+                {{--<input id="confirm_password" type="password" class="form-control"--}}
+                       {{--name="confirm_password" required autocomplete="off">--}}
+                {{--@if ($errors->has('confirm_password'))--}}
+                    {{--<span class="help-block">--}}
+                                        {{--<strong>{{ $errors->first('confirm_password') }}</strong>--}}
+                                    {{--</span>--}}
+                {{--@endif--}}
+            {{--</div>--}}
+            <div class="form-group has-feedback col-md-6 col-sm-12">
+                <label>{{ __('Country') }}</label>
+                <input id="country" type="text" class="form-control" name="country"
+                       value="{{$user->country}}" required
+                       autocomplete="off">
+                @if ($errors->has('country'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('country') }}</strong>
+                                    </span>
+                @endif
+            </div>
+            <div class="form-group has-feedback col-md-6 col-sm-12">
+                <label>{{ __('State') }}</label>
+                <input id="state" type="text" class="form-control" name="state" value="{{ $user->state }}" required autocomplete="off">
+                @if ($errors->has('state'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('state') }}</strong>
+                                    </span>
+                @endif
+            </div>
+            <div class="form-group has-feedback col-md-6 col-sm-12">
+                <label>{{ __('City') }}</label>
+                <input id="city" type="text" class="form-control" name="city" value="{{$user->city}}" required autocomplete="off">
+                @if ($errors->has('city'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('city') }}</strong>
+                                    </span>
+                @endif
+            </div>
+            <div class="form-group has-feedback col-md-6 col-sm-12">
+                <label>{{ __('Zipcode') }}</label>
+                <input id="zipcode" type="text" class="form-control" name="zipcode" value="{{$user->zipcode}}" required
+                       autocomplete="off">
+                @if ($errors->has('zipcode'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('zipcode') }}</strong>
+                                    </span>
+                @endif
+            </div>
+
+            <div class="form-group row{{ $errors->has('role') ? ' has-error' : '' }}">
+                <label for="role"
+                       class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
+                <div class="form-group col-sm-6">
+                    <select class="chosen-select form-control" data-placeholder="Select Role"
+                            id="role_id" name="role" required>
+                        @foreach($roles as $role)
+                            <option value="{{$role->id}}">{{$role->name}}</option>
+                        @endforeach
+                    </select>
                 </div>
+                @if ($errors->has('role'))
+                    <span class="help-block">
+                                <strong>{{ $errors->first('role') }}</strong>
+                                    </span>
+                @endif
             </div>
 
 
-            @if(auth()->check() and auth()->user()->hasRole('administrator'))
-
-                <div class="form-group row{{ $errors->has('status') ? ' has-error' : '' }}">
-                    <label for="status"
-                           class="col-md-4 col-form-label text-md-right">{{ __('Status') }}</label>
-
-                    <div class="form-group col-sm-6">
-                        <label class="radio-inline">
-                            @if($user->status==1)
-                                {!! Form::radio('status', "1", null, array("checked" => true)) !!} Active
-                            @else
-                                {!! Form::radio('status', "1", null) !!} Active
-                            @endif
-                        </label>
-
-                        <label class="radio-inline">
-                            @if($user->status==0)
-                                {!! Form::radio('status', "0", null, array("checked" => true)) !!} Inactive
-                            @else
-                                {!! Form::radio('status', "0", null) !!} Inactive
-                            @endif
-                        </label>
-                    </div>
-                    @if ($errors->has('status'))
-                        <span class="help-block">
-                                        <strong>{{ $errors->first('status') }}</strong>
-                                    </span>
-                    @endif
-
-                </div>
-
-                <div class="form-group row{{ $errors->has('role') ? ' has-error' : '' }}">
-                    <label for="role"
-                           class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
-                    <div class="form-group col-sm-6">
-                        <select class="chosen-select form-control" data-placeholder="Select Role"
-                                id="role_id" name="role" required>
-                            @foreach($roles as $role)
-                                <option value="{{$role->id}}" {{ in_array($role->id,$user->roles()->get()->pluck('id')->toArray())?" selected":"" }}>{{$role->name}}</option>
-
-                            @endforeach
-                        </select>
-                    </div>
-
-                    @if ($errors->has('role'))
-                        <span class="help-block">
-                                        <strong>{{ $errors->first('role') }}</strong>
-                                    </span>
-                    @endif
-
-                </div>
-
-            @endif
-
-
-        </div>
-        <div class="box-footer">
-            <div class="form-group row mb-0">
-                <div class="col-md-10 offset-md-4">
-                    <button type="submit" class="btn btn-primary pull-right">
-                        {{ __('Update User') }}
-                    </button>
-                </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block btn-flat">{{ __('Register') }}</button>
             </div>
-        </div>
-        {{ Form::close() }}
+        </form>
+
     </div>
+    <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
+<script src="{{asset("js/app.js")}}"></script>
+<!-- AdminLTE App -->
+<script src="{{asset("js/adminlte.min.js")}}"></script>
+<!-- jQuery 3 -->
+{{--<script src="../../bower_components/jquery/dist/jquery.min.js"></script>--}}
+<!-- Bootstrap 3.3.7 -->
+{{--<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>--}}
 
-@endsection
+
+</body>
+</html>
+

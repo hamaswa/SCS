@@ -1,6 +1,4 @@
-    <a href="{{ route('users.departments', $id) }}" class='btn btn-default mr-2'>
-        <i class="glyphicon glyphicon-eye-open">Departments</i>
-    </a>
+
     <a href="{{ route('users.edit', $id) }}" class='btn btn-default mr-2'>
         <i class="glyphicon glyphicon-edit">Edit</i>
     </a>
