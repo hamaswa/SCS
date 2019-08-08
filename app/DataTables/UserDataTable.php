@@ -16,7 +16,7 @@ class UserDataTable extends DataTable
     public function dataTable($query)
     {
         return datatables($query)
-            ->addColumn('action', 'auth.action');
+            ->addColumn('action', 'admin.auth.action');
     }
 
     /**

@@ -148,7 +148,7 @@ if (isset($applicant)) {
                         <a class="nav-link" href="{{ route("register.create") }}">Add User</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route("users.index") }}">New AA</a>
+                        <a class="nav-link" href="{{ route("users.index") }}">Users</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("aadata.index") }}">New AA</a>
