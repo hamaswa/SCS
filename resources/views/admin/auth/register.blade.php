@@ -81,10 +81,10 @@
                 <label>{{ __('City') }}</label>
                 <input id="city" type="text" class="form-control" name="city" value="" required autocomplete="off">
             </div>
-            <div class="form-group has-feedback col-md-6 col-sm-12">
-                <label>{{ __('Zipcode') }}</label>
-                <input id="zipcode" type="text" class="form-control" name="zipcode" value="" required autocomplete="off">
-            </div>
+            {{--<div class="form-group has-feedback col-md-6 col-sm-12">--}}
+                {{--<label>{{ __('Zipcode') }}</label>--}}
+                {{--<input id="zipcode" type="text" class="form-control" name="zipcode" value="" required autocomplete="off">--}}
+            {{--</div>--}}
             <div class="form-group col-md-12 col-sm-12">
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
