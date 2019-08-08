@@ -132,16 +132,16 @@
                                     </span>
                 @endif
             </div>
-            <div class="form-group has-feedback col-md-6 col-sm-12">
-                <label>{{ __('Zipcode') }}</label>
-                <input id="zipcode" type="text" class="form-control" name="zipcode" value="" required
-                       autocomplete="off">
-                @if ($errors->has('zipcode'))
-                    <span class="help-block">
-                                        <strong>{{ $errors->first('zipcode') }}</strong>
-                                    </span>
-                @endif
-            </div>
+            {{--<div class="form-group has-feedback col-md-6 col-sm-12">--}}
+                {{--<label>{{ __('Zipcode') }}</label>--}}
+                {{--<input id="zipcode" type="text" class="form-control" name="zipcode" value="" required--}}
+                       {{--autocomplete="off">--}}
+                {{--@if ($errors->has('zipcode'))--}}
+                    {{--<span class="help-block">--}}
+                                        {{--<strong>{{ $errors->first('zipcode') }}</strong>--}}
+                                    {{--</span>--}}
+                {{--@endif--}}
+            {{--</div>--}}
 
             <div class="form-group row{{ $errors->has('role') ? ' has-error' : '' }}">
                 <label for="role"
