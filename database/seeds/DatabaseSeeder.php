@@ -14,13 +14,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-     $this->SeedPermission();
-     $this->SeedRole();
-        $this->SeedUser("Admin","hama_swa@yahoo.com","admin","admin@123$","administrator");
-        $this->SeedUser("100001","example1@test.commm","100001","MY100001","user");
-        $this->SeedUser("100002","example2@test.commm","100002","MY100002","user");
-        $this->SeedUser("100003","example3@test.commm","100003","MY100003","user");
-        $this->SeedUser("100003","example4@test.commm","100004","MY100004","user");
+        $this->SeedPermission();
+        $this->SeedRole(['admin1','Admin 1']);
+        $this->SeedRole(['admin2','Admin 2']);
+        $this->SeedRole(['executor','Executor']);
+
+        $this->SeedRole(['originator','Originator']);
+        $this->SeedRole(['maker','Maker']);
+        $this->SeedRole(['checker','Checker']);
+        $this->SeedRole(['uploader','Uploader']);
+        $this->SeedRole(['requestor','Requestor']);
+        $this->SeedRole(['processor','Processor']);
+        $this->SeedRole(['data_entry','Data Entry']);
+
+        $this->SeedUser("Admin", "hama_swa@yahoo.com", "admin", "admin@123$", "admin1");
+        $this->SeedUser("100001", "example1@test.commm", "100001", "MY100001", "executor");
+        $this->SeedUser("100002", "example2@test.commm", "100002", "MY100002", "executor");
+        $this->SeedUser("100003", "example3@test.commm", "100003", "MY100003", "executor");
+        $this->SeedUser("100003", "example4@test.commm", "100004", "MY100004", "executor");
 
 
     }
@@ -28,7 +39,7 @@ class DatabaseSeeder extends Seeder
     public function SeedUser($name,$email,$username,$pass,$role){
         $role = Role::where('slug',$role)->first();
         $user = new User();
-        $user->name = $name;
+        $user->first_name = $name;
         $user->username = $username;
         $user->email = $email;
         $user->password = bcrypt($pass);
@@ -37,29 +48,9 @@ class DatabaseSeeder extends Seeder
     }
 
 
-    public function SeedRole(){
-        $admin = new Role();
-        $admin->create([
-            'slug'=>'administrator',
-            'name'=>'Site Administrator'
-        ]);
-        $admin->create([
-            'slug'=>'admin',
-            'name'=>'Admin'
-        ]);$admin->create([
-            'slug'=>'supervoiser',
-            'name'=>'Supervoiser'
-        ]);
-        $admin->create([
-            'slug'=>'user',
-            'name'=>'User'
-        ]);
-        $admin->create([
-            'slug'=>'agent',
-            'name'=>'Agent'
-        ]);
-
-
+    public function SeedRole($role)
+    {
+        Role::create(['slug'=>$role[0],'name'=>$role[1]]);
     }
 
     public function SeedPermission(){

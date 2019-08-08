@@ -15,12 +15,18 @@ Route::get('/', function () {
     return view('admin.auth.login');
 });
 
-Auth::routes();
+Auth::routes([
+    'register'=>false,
+]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix'=>'admin','middleware' => 'role:administrator'], function() {
     Route::resource('/permissions', 'Admin\PermissionController');
+    Route::get('/register', 'Auth\RegisterController@showRegistrationForm');
+    Route::post('/register', 'Auth\RegisterController@register')->name("register.store");
+
+
     Route::get('/users/income_type', function () {
         return view('admin.users.income_type');
     });

@@ -38,6 +38,17 @@ class RegisterController extends Controller
      *
      * @return void
      */
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        $user = $this->create($request->all());
+
+        return back()->with("success","New User Successfully Created");
+
+    }
+
     public function __construct()
     {
         //$this->middleware('guest');
@@ -46,7 +57,6 @@ class RegisterController extends Controller
     public function index(UserDataTable $datatable)
     {
         return $datatable->render('admin.auth.index');
-
     }
 
     /**
@@ -59,7 +69,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'without_spaces', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:6'],

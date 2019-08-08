@@ -29,7 +29,8 @@
     <![endif]-->
 
     <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box" style="width:600px;">
@@ -37,67 +38,130 @@
     <!-- /.login-logo -->
     <div class="login-box-body">
         <h3 class="login-box-msg">{{ __('Register') }}</h3>
-
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('register.store') }}">
+            {{ csrf_field() }}
             <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('First Name') }}</label>
-                <input id="first_name" type="text" class="form-control" name="first_name" value="" required autofocus autocomplete="off">
+                <input id="first_name" type="text" class="form-control" name="first_name"
+                       value="{{ old('first_name') }}">
 
+                @if ($errors->has('first_name'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('first_name') }}</strong>
+                                    </span>
+                @endif
             </div>
             <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('Last Name') }}</label>
-                <input id="last_name" type="text" class="form-control" name="last_name" value="" required autocomplete="off" >
+                <input id="last_name" type="text" class="form-control" name="last_name"
+                       value="{{ old('last_name') }}" required autocomplete="off">
 
+                @if ($errors->has('last_name'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('last_name') }}</strong>
+                                    </span>
+                @endif
             </div>
             <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('Email') }}</label>
-                <input id="email" type="email" class="form-control" name="email" value="" required autocomplete="off" >
-
+                <input id="email" type="email" class="form-control"
+                       name="email" value="{{ old('email') }}" required autocomplete="off">
+                @if ($errors->has('email'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                @endif
             </div>
             <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('User Name') }}</label>
-                <input id="username" type="text" class="form-control" name="username" value="" required autocomplete="off">
+                <input id="username" type="text" class="form-control"
+                       name="username" value="{{ old('username') }}" required autocomplete="off">
+                @if ($errors->has('username'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('username') }}</strong>
+                                    </span>
+                @endif
 
             </div>
             <div class="form-group has-feedback col-md-6 col-sm-12">
-                <label >{{ __('Password') }}</label>
-                <input id="password" type="password" class="form-control" name="password" required autocomplete="off">
+                <label>{{ __('Password') }}</label>
+                <input id="password" type="password" class="form-control"
+                       name="password" required autocomplete="off">
+                @if ($errors->has('password'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                @endif
 
             </div>
             <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('Confirm Password') }}</label>
-                <input id="confirm_password" type="password" class="form-control" name="confirm_password" required autocomplete="off">
-
+                <input id="confirm_password" type="password" class="form-control"
+                       name="confirm_password" required autocomplete="off">
+                @if ($errors->has('confirm_password'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('confirm_password') }}</strong>
+                                    </span>
+                @endif
             </div>
             <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('Country') }}</label>
-                <input id="country" type="text" class="form-control" name="country" value="" required autocomplete="off">
+                <input id="country" type="text" class="form-control" name="country" value="" required
+                       autocomplete="off">
+                @if ($errors->has('country'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('country') }}</strong>
+                                    </span>
+                @endif
             </div>
             <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('State') }}</label>
                 <input id="state" type="text" class="form-control" name="state" value="" required autocomplete="off">
+                @if ($errors->has('state'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('state') }}</strong>
+                                    </span>
+                @endif
             </div>
             <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('City') }}</label>
                 <input id="city" type="text" class="form-control" name="city" value="" required autocomplete="off">
+                @if ($errors->has('city'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('city') }}</strong>
+                                    </span>
+                @endif
             </div>
             <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('Zipcode') }}</label>
-                <input id="zipcode" type="text" class="form-control" name="zipcode" value="" required autocomplete="off">
+                <input id="zipcode" type="text" class="form-control" name="zipcode" value="" required
+                       autocomplete="off">
+                @if ($errors->has('zipcode'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('zipcode') }}</strong>
+                                    </span>
+                @endif
             </div>
-            <div class="form-group col-md-12 col-sm-12">
-                <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label  class="form-check-label" for="remember">
-                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}> <input type="checkbox">
-                            {{ __('Remember Me') }}
-                        </label>
-                    </div>
-                </div>
-                <!-- /.col -->
 
-                <!-- /.col -->
+            <div class="form-group row{{ $errors->has('role') ? ' has-error' : '' }}">
+                <label for="role"
+                       class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
+                <div class="form-group col-sm-6">
+                    <select class="chosen-select form-control" data-placeholder="Select Role"
+                            id="role_id" name="role" required>
+                        @foreach($roles as $role)
+                            <option value="{{$role->id}}">{{$role->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                @if ($errors->has('role'))
+                    <span class="help-block">
+                                <strong>{{ $errors->first('role') }}</strong>
+                                    </span>
+                @endif
             </div>
+
+
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block btn-flat">{{ __('Register') }}</button>
             </div>
@@ -119,81 +183,3 @@
 </body>
 </html>
 
-<?php
-/*
-@extends('admin.layouts.app')
-
-@section('content')
-    <section class="content">
-        <div class="box login-box center-block">
-            <div class="box-header">{{ __('Login') }}</div>
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
-        <div class="login-box-body">
-
-
-                <div class="form-group row">
-                    <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('User Name') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="username" type="username" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
-
-                        @if ($errors->has('username'))
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('username') }}</strong>
-                                    </span>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                        @if ($errors->has('password'))
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-md-6 offset-md-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                            <label class="form-check-label" for="remember">
-                                {{ __('Remember Me') }}
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-
-
-        </div>
-            <div class="box-fotter">
-                <div class="form-group row mb-0">
-                    <div class="col-md-12 offset-md-4">
-                        <button type="submit" class="btn btn-primary center-block">
-                            {{ __('Login') }}
-                        </button>
-
-                        @if (Route::has('password.request'))
-                            <a class="btn btn-link center-block" href="{{ route('password.request') }}">
-                                {{ __('Forgot Your Password?') }}
-                            </a>
-                        @endif
-                    </div>
-                </div>
-            </div>
-
-            </form>
-    </div>
-    </section>
-@endsection
-*/
-?>
