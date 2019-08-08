@@ -145,6 +145,12 @@ if (isset($applicant)) {
                     {{--@endif--}}
                 @else
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ route("register.create") }}">Add User</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route("users.index") }}">New AA</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route("aadata.index") }}">New AA</a>
                     </li>
                     <li class="nav-item">

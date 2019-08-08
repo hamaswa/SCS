@@ -180,6 +180,7 @@
             $("#incomekyc").removeClass("hide");
         })
 
+
         // $("#business_type").on('change',function (e) {
         //     if($(this).val()=="Business"){
         //         $(".for_business").show();
@@ -188,6 +189,8 @@
         //         $(".for_business").val("").hide();
         //     }
         // })
+
+
         let business_forms=[];
 
         $(document.body).on("click","#add_business",function(){

@@ -23,7 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix'=>'admin','middleware' => 'role:admin1'], function() {
     Route::resource('/permissions', 'Admin\PermissionController');
-    Route::get('/register', 'Auth\RegisterController@showRegistrationForm');
+    Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name("register.create");
     Route::post('/register', 'Auth\RegisterController@register')->name("register.store");
 
 

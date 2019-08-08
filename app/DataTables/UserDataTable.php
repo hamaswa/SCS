@@ -27,7 +27,7 @@ class UserDataTable extends DataTable
      */
     public function query(User $model)
     {
-        return $model->newQuery()->select('id', 'name','mobile','address','email');
+        return $model->newQuery()->select('id', 'first_name','last_name','mobile','username','email');
     }
 
     /**
@@ -56,9 +56,10 @@ class UserDataTable extends DataTable
     {
         return [
             'id',
-            'name',
+            'first_name',
+            'last_name',
             'mobile',
-            'address',
+            'username',
             'email'
 
         ];
