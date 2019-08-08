@@ -21,7 +21,7 @@ Auth::routes([
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix'=>'admin','middleware' => 'role:administrator'], function() {
+Route::group(['prefix'=>'admin','middleware' => 'role:admin1'], function() {
     Route::resource('/permissions', 'Admin\PermissionController');
     Route::get('/register', 'Auth\RegisterController@showRegistrationForm');
     Route::post('/register', 'Auth\RegisterController@register')->name("register.store");
@@ -36,7 +36,7 @@ Route::group(['prefix'=>'admin','middleware' => 'role:administrator'], function(
 
 });
 
-Route::group(['middleware' => 'role:user'], function() {
+Route::group(['middleware' => 'auth'], function() {
 Route::get('/home', 'ApplicantDataController@index')->name('home');
 Route::resource('/aa', 'ApplicationAccountController');
 Route::resource('/aafields', 'AASourceController');

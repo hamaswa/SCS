@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->SeedRole(['admin1','Admin 1']);
         $this->SeedRole(['admin2','Admin 2']);
         $this->SeedRole(['executor','Executor']);
-
         $this->SeedRole(['originator','Originator']);
         $this->SeedRole(['maker','Maker']);
         $this->SeedRole(['checker','Checker']);
