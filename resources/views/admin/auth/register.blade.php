@@ -132,25 +132,25 @@
                                     </span>
                 @endif
             </div>
-            <div class="form-group has-feedback col-md-6 col-sm-12">
-                <label>{{ __('Zipcode') }}</label>
-                <input id="zipcode" type="text" class="form-control" name="zipcode" value="" required
-                       autocomplete="off">
-                @if ($errors->has('zipcode'))
-                    <span class="help-block">
-                                        <strong>{{ $errors->first('zipcode') }}</strong>
-                                    </span>
-                @endif
-            </div>
+            {{--<div class="form-group has-feedback col-md-6 col-sm-12">--}}
+                {{--<label>{{ __('Zipcode') }}</label>--}}
+                {{--<input id="zipcode" type="text" class="form-control" name="zipcode" value="" required--}}
+                       {{--autocomplete="off">--}}
+                {{--@if ($errors->has('zipcode'))--}}
+                    {{--<span class="help-block">--}}
+                                        {{--<strong>{{ $errors->first('zipcode') }}</strong>--}}
+                                    {{--</span>--}}
+                {{--@endif--}}
+            {{--</div>--}}
 
-            <div class="form-group row{{ $errors->has('role') ? ' has-error' : '' }}">
-                <label for="role"
-                       class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
+            <div class="form-group row{{ $errors->has('position') ? ' has-error' : '' }}">
+                <label for="position"
+                       class="col-md-4 col-form-label text-md-right">{{ __('Position') }}</label>
                 <div class="form-group col-sm-6">
-                    <select class="chosen-select form-control" data-placeholder="Select Role"
+                    <select class="chosen-select form-control" data-placeholder="Select POsition"
                             id="role_id" name="role" required>
-                        @foreach($roles as $role)
-                            <option value="{{$role->id}}">{{$role->name}}</option>
+                        @foreach($positions as $position)
+                            <option value="{{$position->id}}">{{$position->name}}</option>
                         @endforeach
                     </select>
                 </div>

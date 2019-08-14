@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Role;
+use App\Position;
 use App\Permission;
 use App\User;
 
@@ -25,6 +26,12 @@ class DatabaseSeeder extends Seeder
         $this->SeedRole(['requestor','Requestor']);
         $this->SeedRole(['processor','Processor']);
         $this->SeedRole(['data_entry','Data Entry']);
+
+        $this->SeedPosition(['advisor','Advisor']);
+        $this->SeedPosition(['exective_advisor','Executive Advisor']);
+        $this->SeedPosition(['business_associate','Business Associate']);
+        $this->SeedPosition(['associate_partner','Associate Partner']);
+        $this->SeedPosition(['partner','Partner']);
 
         $this->SeedUser("Admin", "hama_swa@yahoo.com", "admin", "admin@123$", "admin1");
         $this->SeedUser("100001", "example1@test.commm", "100001", "MY100001", "executor");
@@ -50,6 +57,11 @@ class DatabaseSeeder extends Seeder
     public function SeedRole($role)
     {
         Role::create(['slug'=>$role[0],'name'=>$role[1]]);
+    }
+
+    public function SeedPosition($position)
+    {
+        Position::create(['slug'=>$position[0],'name'=>$position[1]]);
     }
 
     public function SeedPermission(){

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Role;
+use App\Position;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -92,7 +93,7 @@ class RegisterController extends Controller
 
         $user = User::find($id);
 
-        $data['roles'] = Role::all();
+        $data['positions'] = Position::all();
         return view('admin.auth.edit', $data)->with('user', $user);
         // }
         // else return "You don't have permissions to edit User";
