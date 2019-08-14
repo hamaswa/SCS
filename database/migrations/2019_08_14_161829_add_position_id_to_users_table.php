@@ -15,7 +15,7 @@ class AddPositionIdToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->integer("position_id")->unsigned();
-            $table->foreign('position_id')->references('id')->on('positions');
+            //$table->foreign('position_id')->references('id')->on('positions');
 
         });
     }
