@@ -150,7 +150,7 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        $data['roles'] = Role::all();
+        $data['positions'] = Position::all();
         return view('admin.auth.register', $data);
     }
 
