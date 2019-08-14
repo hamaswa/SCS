@@ -143,12 +143,12 @@
                 {{--@endif--}}
             {{--</div>--}}
 
-            <div class="form-group row{{ $errors->has('position') ? ' has-error' : '' }}">
+            <div class="form-group row{{ $errors->has('position_id') ? ' has-error' : '' }}">
                 <label for="position"
                        class="col-md-4 col-form-label text-md-right">{{ __('Position') }}</label>
                 <div class="form-group col-sm-6">
-                    <select class="chosen-select form-control" data-placeholder="Select POsition"
-                            id="role_id" name="role" required>
+                    <select class="chosen-select form-control" data-placeholder="Select Position"
+                            id="position_id" name="position_id" required>
                         @foreach($positions as $position)
                             <option value="{{$position->id}}">{{$position->name}}</option>
                         @endforeach
