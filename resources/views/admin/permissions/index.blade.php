@@ -75,12 +75,8 @@
             </div>
             <div class="col-md-8 col-sm-12">
                 <h3 class="text-center">View Memeber</h3>
-                {{--<div class="col-sm-12 text-center form-group">--}}
-                    {{--<span>--}}
-                        {{--<i class="fa fa-user-circle fa-3x"></i>--}}
-                        {{--<div>UserName</div>--}}
-                    {{--</span>--}}
-                {{--</div>--}}
+
+
 
                 <div class="col-sm-6 text-center form-group">
                     @foreach($users as $user)
