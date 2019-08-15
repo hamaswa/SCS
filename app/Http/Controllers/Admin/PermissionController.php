@@ -18,7 +18,8 @@ class PermissionController extends Controller
 
     public function index()
     {
-        $arr["users"] = User::where("position_id","=",auth()->user()->position_id)->get();
+        $arr["users"] = User::where("position_id","=",auth()->user()->position_id)
+                        ->where("id",">",5)->get();
         return view("admin.permissions.index")->with($arr);
     }
 
