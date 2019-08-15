@@ -12,7 +12,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use App\DataTables\UserDataTable;
 use Auth;
-use Flash;
+//use Flash;
 
 class RegisterController extends Controller
 {

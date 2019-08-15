@@ -18,56 +18,102 @@
                         <tr>
                             <td>Originator</td>
                             <td class="text-center"><input type="checkbox" checked/></td>
-                            <td></td>
+                            <td><select multiple="multiple" class="users">
+                                    @foreach($users as $user)
+                                     <option value="{{$user->id}}">{{$user->username}}</option>
+
+                                    @endforeach
+                                </select> </td>
                         </tr>
                         <tr>
                             <td>Maker</td>
                             <td class="text-center"><input type="checkbox" checked/></td>
-                            <td></td>
+                            <td><select multiple="multiple" class="users">
+                                    @foreach($users as $user)
+                                        <option value="{{$user->id}}">{{$user->username}}</option>
+
+                                    @endforeach
+                                </select></td>
                         </tr>
                         <tr>
                             <td>Checker</td>
                             <td class="text-center"><input type="checkbox" checked/></td>
-                            <td><span class="padding-5 bg-light-blue-gradient">MY100027<i
-                                            class="fa fa-search margin"></i> </span></td>
+                            <td><select multiple="multiple" class="users">
+                                    @foreach($users as $user)
+                                        <option value="{{$user->id}}">{{$user->username}}</option>
+
+                                    @endforeach
+                                </select></td>
                         </tr>
                         <tr>
                             <td>Uploader</td>
                             <td class="text-center"><input type="checkbox" checked/></td>
-                            <td></td>
+                            <td><select multiple="multiple" class="users">
+                                    @foreach($users as $user)
+                                        <option value="{{$user->id}}">{{$user->username}}</option>
+
+                                    @endforeach
+                                </select></td>
                         </tr>
                         <tr>
                             <td>Requestor</td>
                             <td class="text-center"><input type="checkbox" checked/></td>
-                            <td></td>
+                            <td><select multiple="multiple" class="users">
+                                    @foreach($users as $user)
+                                        <option value="{{$user->id}}">{{$user->username}}</option>
+
+                                    @endforeach
+                                </select></td>
                         </tr>
                         <tr>
                             <td>Processor</td>
                             <td class="text-center"><input type="checkbox" checked/></td>
-                            <td></td>
+                            <td><select multiple="multiple" class="users">
+                                    @foreach($users as $user)
+                                        <option value="{{$user->id}}">{{$user->username}}</option>
+
+                                    @endforeach
+                                </select></td>
                         </tr>
                         <tr>
                             <td>Data Entry</td>
                             <td class="text-center"><input type="checkbox" checked/></td>
-                            <td><span class="padding-5 bg-light-blue-gradient">MY100027<i
-                                            class="fa fa-search margin"></i> </span></td>
+                            <td><select multiple="multiple" class="users">
+                                    @foreach($users as $user)
+                                        <option value="{{$user->id}}">{{$user->username}}</option>
+
+                                    @endforeach
+                                </select></td>
                         </tr>
                         <tr>
                             <td>Executor</td>
                             <td class="text-center"><input type="checkbox"/></td>
-                            <td></td>
+                            <td><select multiple="multiple" class="users">
+                                    @foreach($users as $user)
+                                        <option value="{{$user->id}}">{{$user->username}}</option>
+
+                                    @endforeach
+                                </select></td>
                         </tr>
                         <tr>
                             <td>Admin 1</td>
                             <td class="text-center"><input type="checkbox"/></td>
-                            <td><span class="padding-5 bg-light-blue-gradient">Default<i
-                                            class="fa fa-search margin"></i> </span></td>
+                            <td><select multiple="multiple" class="users">
+                                    @foreach($users as $user)
+                                        <option value="{{$user->id}}">{{$user->username}}</option>
+
+                                    @endforeach
+                                </select></td>
                         </tr>
                         <tr>
                             <td>Admin 2</td>
                             <td class="text-center"><input type="checkbox"/></td>
-                            <td><span class="padding-5 bg-light-blue-gradient">Default<i
-                                            class="fa fa-search margin"></i> </span></td>
+                            <td><select multiple="multiple" class="users">
+                                    @foreach($users as $user)
+                                        <option value="{{$user->id}}">{{$user->username}}</option>
+
+                                    @endforeach
+                                </select></td>
                         </tr>
                         </tbody>
                     </table>
@@ -176,3 +222,13 @@
         </div>
     </div>
 @endsection
+
+
+
+@push("scripts")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".users").select2()
+        })
+    </script>
+@endpush
