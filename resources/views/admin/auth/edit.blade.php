@@ -37,8 +37,8 @@
 
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <h3 class="login-box-msg">{{ __('Register') }}</h3>
-        <form method="POST" action="{{ route('register.store') }}">
+        <h3 class="login-box-msg">{{ __('User Update') }}</h3>
+        <form method="POST" action="{{ route('register.update',$user->id) }}">
             {{ csrf_field() }}
             <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('First Name') }}</label>
@@ -133,25 +133,25 @@
                                     </span>
                 @endif
             </div>
-            <div class="form-group has-feedback col-md-6 col-sm-12">
-                <label>{{ __('Zipcode') }}</label>
-                <input id="zipcode" type="text" class="form-control" name="zipcode" value="{{$user->zipcode}}" required
-                       autocomplete="off">
-                @if ($errors->has('zipcode'))
-                    <span class="help-block">
-                                        <strong>{{ $errors->first('zipcode') }}</strong>
-                                    </span>
-                @endif
-            </div>
+            {{--<div class="form-group has-feedback col-md-6 col-sm-12">--}}
+                {{--<label>{{ __('Zipcode') }}</label>--}}
+                {{--<input id="zipcode" type="text" class="form-control" name="zipcode" value="{{$user->zipcode}}" required--}}
+                       {{--autocomplete="off">--}}
+                {{--@if ($errors->has('zipcode'))--}}
+                    {{--<span class="help-block">--}}
+                                        {{--<strong>{{ $errors->first('zipcode') }}</strong>--}}
+                                    {{--</span>--}}
+                {{--@endif--}}
+            {{--</div>--}}
 
-            <div class="form-group row{{ $errors->has('role') ? ' has-error' : '' }}">
+            <div class="form-group row{{ $errors->has('poistion_id') ? ' has-error' : '' }}">
                 <label for="role"
-                       class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
+                       class="col-md-4 col-form-label text-md-right">{{ __('Position') }}</label>
                 <div class="form-group col-sm-6">
-                    <select class="chosen-select form-control" data-placeholder="Select Role"
-                            id="role_id" name="role" required>
-                        @foreach($roles as $role)
-                            <option value="{{$role->id}}">{{$role->name}}</option>
+                    <select class="chosen-select form-control" data-placeholder="Select Position"
+                            id="position_id" name="position_id" required>
+                        @foreach($positions as $position)
+                            <option {{ ($position->id==$user->position_id?"checked=checked":"") }} value="{{$position->id}}">{{$position->name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -164,7 +164,7 @@
 
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block btn-flat">{{ __('Register') }}</button>
+                <button type="submit" class="btn btn-primary btn-block btn-flat">{{ __('Update User') }}</button>
             </div>
         </form>
 

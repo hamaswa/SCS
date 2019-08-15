@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->SeedPermission();
         $this->SeedRole(['admin1','Admin 1']);
         $this->SeedRole(['admin2','Admin 2']);
+        $this->SeedRole(['admin3','Admin 3']);
         $this->SeedRole(['executor','Executor']);
         $this->SeedRole(['originator','Originator']);
         $this->SeedRole(['maker','Maker']);
@@ -33,11 +34,13 @@ class DatabaseSeeder extends Seeder
         $this->SeedPosition(['associate_partner','Associate Partner']);
         $this->SeedPosition(['partner','Partner']);
 
-        $this->SeedUser("Admin", "hama_swa@yahoo.com", "admin", "admin@123$", "admin1");
+        $this->SeedUser("Admin1", "hama_swa1@yahoo.com", "admin1", "admin@123$", "admin1");
+        $this->SeedUser("Admin2", "hama_swa2@yahoo.com", "admin2", "admin@123$", "admin2");
+        $this->SeedUser("Admin3", "hama_swa3@yahoo.com", "admin3", "admin@123$", "admin3");
         $this->SeedUser("100001", "example1@test.commm", "100001", "MY100001", "executor");
         $this->SeedUser("100002", "example2@test.commm", "100002", "MY100002", "executor");
-        $this->SeedUser("100003", "example3@test.commm", "100003", "MY100003", "executor");
-        $this->SeedUser("100003", "example4@test.commm", "100004", "MY100004", "executor");
+//        $this->SeedUser("100003", "example3@test.commm", "100003", "MY100003", "executor");
+//        $this->SeedUser("100003", "example4@test.commm", "100004", "MY100004", "executor");
 
 
     }

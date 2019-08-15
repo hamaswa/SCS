@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use App\DataTables\UserDataTable;
+use Auth;
+use Flash;
 
 class RegisterController extends Controller
 {
@@ -46,17 +48,25 @@ class RegisterController extends Controller
 
         $user = $this->create($request->all());
 
-        return back()->with("success","New User Successfully Created");
+        $roles = Role::all();
+        foreach ($roles as $role){
 
+            $user->roles()->attach($role);
+
+        }
+        Flash::success('User saved successfully.');
+
+        return redirect(route('users.index'));
     }
 
     public function __construct()
     {
-        //$this->middleware('guest');
+        $this->middleware('auth');
     }
 
     public function index(UserDataTable $datatable)
     {
+
         return $datatable->render('admin.auth.index');
     }
 
@@ -114,7 +124,7 @@ class RegisterController extends Controller
     }
 
 
-    public function update(Request $request, $id, UserDataTable $datatable)
+    public function update(Request $request, $id)
     {
         $user = User::find($id);
         $data = $request->all();
@@ -130,21 +140,22 @@ class RegisterController extends Controller
             [
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
-                'mobile' => $data['mobile'],
+                //'mobile' => $data['mobile'],
                 'country' => $data['country'],
                 'state' => $data['state'],
                 'city' => $data['city'],
-                'zipcode' => $data['zipcode']
+                //'zipcode' => $data['zipcode'],
+                //'username' => $data['username'],
+                'position_id' => $data['position_id'],
+                //'email' => $data['email'],
+                //'password' => Hash::make($data['password']),
             ]);
 
-        if (isset($data['role'])) {
-            $user->roles()->detach();
-            $role = Role::where('id', $data['role'])->first();
-            $user->roles()->attach($role);
+        if (isset($data['position_id'])) {
+            $role = Position::where('id', $data['position_id'])->first();
         }
 
-
-        return redirect( route("users.index"));
+        return redirect(route("users.index"));
     }
 
 
@@ -176,5 +187,6 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
     }
 }

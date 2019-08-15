@@ -9,6 +9,7 @@ class UserController extends Controller
 {
     public function departments(UserDepartmentsDataTable $dataTable)
     {
+
         return $dataTable->render("users.department.index");
     }
 }

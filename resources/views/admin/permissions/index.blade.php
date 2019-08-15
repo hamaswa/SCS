@@ -75,76 +75,43 @@
             </div>
             <div class="col-md-8 col-sm-12">
                 <h3 class="text-center">View Memeber</h3>
-                <div class="col-sm-12 text-center form-group">
-                    <span>
-                        <i class="fa fa-user-circle fa-3x"></i>
-                        <div>UserName</div>
-                    </span>
-                </div>
-                <div class="col-sm-6 text-center form-group">
-                    <span class="clearfix form-group">
-                        <i class="fa fa-user-circle fa-3x"></i>
-                        <div>UserName</div>
-                    </span>
-                    <div class="col-sm-6 text-center form-group margin-top-15">
-                        <span class="clearfix form-group">
-                            <i class="fa fa-user-circle fa-3x"></i>
-                            <div>UserName</div>
-                        </span>
-                        <div class="col-sm-6 text-center form-group margin-top-15">
-                            <span class="clearfix form-group">
-                                <i class="fa fa-user-circle fa-3x"></i>
-                                <div>UserName</div>
-                            </span>
-                        </div>
-                        <div class="col-sm-6 text-center form-group margin-top-15">
-                            <span class="clearfix form-group">
-                                <i class="fa fa-user-circle fa-3x"></i>
-                                <div>UserName</div>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 text-center form-group margin-top-15">
-                        <span class="clearfix form-group">
-                            <i class="fa fa-user-circle fa-3x"></i>
-                            <div>UserName</div>
-                        </span>
-                        <div class="col-sm-6 text-center form-group margin-top-15">
-                            <span class="clearfix form-group">
-                                <i class="fa fa-user-circle fa-3x"></i>
-                                <div>UserName</div>
-                            </span>
-                        </div>
-                        <div class="col-sm-6 text-center form-group margin-top-15">
-                            <span class="clearfix form-group">
-                                <i class="fa fa-user-circle fa-3x"></i>
-                                <div>UserName</div>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 text-center form-group">
-                    <span class="clearfix form-group">
-                        <i class="fa fa-user-circle fa-3x"></i>
-                        <div>UserName</div>
-                    </span>
-                    <div class="col-sm-6 text-center form-group margin-top-15">
-                        <span class="clearfix form-group">
-                            <i class="fa fa-user-circle fa-3x"></i>
-                            <div>UserName</div>
-                        </span>
-                        <div class="col-sm-6 text-center form-group margin-top-15">
-                            <span class="clearfix form-group">
-                                <i class="fa fa-user-circle fa-3x"></i>
-                                <div>UserName</div>
-                            </span>
-                        </div>
-                        <div class="col-sm-6 text-center form-group margin-top-15">
-                            <span class="clearfix form-group">
-                                <i class="fa fa-user-circle fa-3x"></i>
-                                <div>UserName</div>
-                            </span>
+                {{--<div class="col-sm-12 text-center form-group">--}}
+                    {{--<span>--}}
+                        {{--<i class="fa fa-user-circle fa-3x"></i>--}}
+                        {{--<div>UserName</div>--}}
+                    {{--</span>--}}
+                {{--</div>--}}
 
+                <div class="col-sm-6 text-center form-group">
+                    @foreach($users as $user)
+                        <div class="col-sm-12 text-center form-group">
+                        <span>
+                        <i class="fa fa-user-circle fa-3x"></i>
+                        <div>{{$user->username}}</div>
+                        </span>
+                        </div>
+
+                    @endforeach
+                    <span class="clearfix form-group">
+                        <i class="fa fa-user-circle fa-3x"></i>
+                        <div>UserName</div>
+                    </span>
+                    <div class="col-sm-6 text-center form-group margin-top-15">
+                        <span class="clearfix form-group">
+                            <i class="fa fa-user-circle fa-3x"></i>
+                            <div>UserName</div>
+                        </span>
+                        <div class="col-sm-6 text-center form-group margin-top-15">
+                            <span class="clearfix form-group">
+                                <i class="fa fa-user-circle fa-3x"></i>
+                                <div>UserName</div>
+                            </span>
+                        </div>
+                        <div class="col-sm-6 text-center form-group margin-top-15">
+                            <span class="clearfix form-group">
+                                <i class="fa fa-user-circle fa-3x"></i>
+                                <div>UserName</div>
+                            </span>
                         </div>
                     </div>
                     <div class="col-sm-6 text-center form-group margin-top-15">
@@ -166,6 +133,49 @@
                         </div>
                     </div>
                 </div>
+                {{--<div class="col-sm-6 text-center form-group">--}}
+                    {{--<span class="clearfix form-group">--}}
+                        {{--<i class="fa fa-user-circle fa-3x"></i>--}}
+                        {{--<div>UserName</div>--}}
+                    {{--</span>--}}
+                    {{--<div class="col-sm-6 text-center form-group margin-top-15">--}}
+                        {{--<span class="clearfix form-group">--}}
+                            {{--<i class="fa fa-user-circle fa-3x"></i>--}}
+                            {{--<div>UserName</div>--}}
+                        {{--</span>--}}
+                        {{--<div class="col-sm-6 text-center form-group margin-top-15">--}}
+                            {{--<span class="clearfix form-group">--}}
+                                {{--<i class="fa fa-user-circle fa-3x"></i>--}}
+                                {{--<div>UserName</div>--}}
+                            {{--</span>--}}
+                        {{--</div>--}}
+                        {{--<div class="col-sm-6 text-center form-group margin-top-15">--}}
+                            {{--<span class="clearfix form-group">--}}
+                                {{--<i class="fa fa-user-circle fa-3x"></i>--}}
+                                {{--<div>UserName</div>--}}
+                            {{--</span>--}}
+
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-sm-6 text-center form-group margin-top-15">--}}
+                        {{--<span class="clearfix form-group">--}}
+                            {{--<i class="fa fa-user-circle fa-3x"></i>--}}
+                            {{--<div>UserName</div>--}}
+                        {{--</span>--}}
+                        {{--<div class="col-sm-6 text-center form-group margin-top-15">--}}
+                            {{--<span class="clearfix form-group">--}}
+                                {{--<i class="fa fa-user-circle fa-3x"></i>--}}
+                                {{--<div>UserName</div>--}}
+                            {{--</span>--}}
+                        {{--</div>--}}
+                        {{--<div class="col-sm-6 text-center form-group margin-top-15">--}}
+                            {{--<span class="clearfix form-group">--}}
+                                {{--<i class="fa fa-user-circle fa-3x"></i>--}}
+                                {{--<div>UserName</div>--}}
+                            {{--</span>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
             </div>
         </div>
     </div>

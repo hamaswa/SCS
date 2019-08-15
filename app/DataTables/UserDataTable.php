@@ -27,7 +27,9 @@ class UserDataTable extends DataTable
      */
     public function query(User $model)
     {
-        return $model->newQuery()->select('id', 'first_name','last_name','mobile','username','email');
+        return $model->newQuery()->select('id', 'first_name','last_name','country','state','city','username','email')
+            ->where("id",">","5")
+            ->where("position_id",'=',request()->user()->position_id);
     }
 
     /**
@@ -55,10 +57,12 @@ class UserDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'id',
+            'id'=>['visible'=>false],
             'first_name',
             'last_name',
-            'mobile',
+            'country',
+            'state',
+            'city',
             'username',
             'email'
 

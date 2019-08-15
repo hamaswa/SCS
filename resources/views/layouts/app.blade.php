@@ -79,7 +79,7 @@ if (isset($applicant)) {
                     @auth
                         <li class="dropdown user user-menu">
                             <a class="dropdown-toggle" data-toggle="dropdown">
-                                {{ Auth::user()->name }} <span class="caret"></span>
+                                {{ Auth::user()->first_name }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
 
@@ -144,12 +144,14 @@ if (isset($applicant)) {
                     {{--</li>--}}
                     {{--@endif--}}
                 @else
+                    @if(request()->user()->hasRole("admin3"))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("register.create") }}">Add User</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("users.index") }}">Users</a>
                     </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("aadata.index") }}">New AA</a>
                     </li>

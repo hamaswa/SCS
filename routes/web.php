@@ -15,16 +15,21 @@ Route::get('/', function () {
     return view('admin.auth.login');
 });
 
-Auth::routes([
-    'register'=>false,
-]);
+
 
 Route::get('/home', 'HomeController@index')->name('home');
+    Auth::routes([
+        'register' => false,
+    ]);
 
 Route::group(['prefix'=>'admin','auth'], function() {
+
     Route::resource('/permissions', 'Admin\PermissionController');
     Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name("register.create");
     Route::post('/register', 'Auth\RegisterController@register')->name("register.store");
+    Route::post('/register/{id}', 'Auth\RegisterController@update')->name("register.update");
+    Route::resource('/users', 'Auth\RegisterController');
+
 
 
     Route::get('/users/income_type', function () {
@@ -58,7 +63,6 @@ Route::get('/download', 'ApplicantDocumentsController@download')->name("download
 Route::get('/downloadpdf', 'PipelineController@downloadpdf')->name("downloadpdf");
 Route::post('/downloadpdf', 'PipelineController@downloadpdf')->name("downloadpdf");
 Route::resource('/orders', 'OrderController');
-Route::resource('/users', 'Auth\RegisterController');
 //Route::post('/housingloan/create', 'HousingLoanController@create');
 Route::resource('/housingloan', 'HousingLoanController');
 Route::resource('/termloan', 'TermLoanController');

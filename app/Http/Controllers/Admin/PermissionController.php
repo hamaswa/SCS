@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
+use App\Role;
+use App\Permission;
 
 class PermissionController extends Controller
 {
@@ -12,9 +15,11 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        return view("admin.permissions.index");
+        $arr["users"] = User::where("position_id","=",auth()->user()->position_id)->get();
+        return view("admin.permissions.index")->with($arr);
     }
 
     /**
