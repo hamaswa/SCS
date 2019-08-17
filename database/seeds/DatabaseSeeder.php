@@ -34,19 +34,19 @@ class DatabaseSeeder extends Seeder
         $this->SeedPosition(['associate_partner','Associate Partner']);
         $this->SeedPosition(['partner','Partner']);
 
-        $this->SeedUser("Admin1", "hama_swa1@yahoo.com", "admin1", "admin@123$", "admin1");
-        $this->SeedUser("Admin2", "hama_swa2@yahoo.com", "admin2", "admin@123$", "admin2");
-        $this->SeedUser("Admin3", "hama_swa3@yahoo.com", "admin3", "admin@123$", "admin3");
-        $this->SeedUser("100001", "example1@test.commm", "100001", "MY100001", "executor");
-        $this->SeedUser("100002", "example2@test.commm", "100002", "MY100002", "executor");
+        $this->SeedUser("Administrator", "admin@domain.com", "admin", "admin@123$");
+       // $this->SeedUser("Admin2", "hama_swa2@yahoo.com", "admin2", "admin@123$");
+        //$this->SeedUser("Admin3", "hama_swa3@yahoo.com", "admin3", "admin@123$");
+        //$this->SeedUser("100001", "example1@test.commm", "100001", "MY100001");
+       // $this->SeedUser("100002", "example2@test.commm", "100002", "MY100002");
 //        $this->SeedUser("100003", "example3@test.commm", "100003", "MY100003", "executor");
 //        $this->SeedUser("100003", "example4@test.commm", "100004", "MY100004", "executor");
 
 
     }
 
-    public function SeedUser($name,$email,$username,$pass,$role){
-        $role = Role::where('slug',$role)->first();
+    public function SeedUser($name,$email,$username,$pass){
+        $roles = Role::all();
         $user = new User();
         $user->first_name = $name;
         $user->username = $username;
@@ -54,7 +54,9 @@ class DatabaseSeeder extends Seeder
         $user->password = bcrypt($pass);
         $user->position_id=1;
         $user->save();
-        $user->roles()->attach($role);
+        foreach ($roles as $role) {
+            $user->roles()->attach($role);
+        }
     }
 
 

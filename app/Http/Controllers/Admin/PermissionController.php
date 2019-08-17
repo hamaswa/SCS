@@ -19,7 +19,8 @@ class PermissionController extends Controller
     public function index()
     {
         $arr["users"] = User::where("position_id","=",auth()->user()->position_id)
-                        ->where("id",">",5)->get();
+                        ->where("id",">",1)->get();
+        $arr['roles'] = Role::all();
         return view("admin.permissions.index")->with($arr);
     }
 
@@ -75,7 +76,18 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $role = Role::find($id);
+       foreach ($role->users as $user) {
+            if($user->id>1)
+            $user->roles()->detach($id);
+       }
+        $inputs = $request->all();
+       if(isset($inputs["users"])) {
+           foreach ($inputs["users"] as $user_id) {
+               $user = User::find($user_id);
+               $user->roles()->attach($id);
+           }
+       }
     }
 
     /**
@@ -87,5 +99,18 @@ class PermissionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public static function userOptions($users,$role)
+    {
+        $html = "";
+        foreach ($users as $user) {
+            $html .= "<option " . ($user->hasRole($role->slug) ? "selected" : "") . "  value=\"" . $user->id . "\">
+                $user->username</option>";
+        }
+        return $html;
+
+
     }
 }
