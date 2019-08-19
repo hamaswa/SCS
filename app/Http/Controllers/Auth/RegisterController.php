@@ -48,7 +48,7 @@ class RegisterController extends Controller
 
         $user = $this->create($request->all());
 
-        $roles = Role::all();
+        $roles = Role::whereRaw("slug not in ('admin1','admin2','admin3')")->get();
         foreach ($roles as $role){
 
             $user->roles()->attach($role);
@@ -100,13 +100,34 @@ class RegisterController extends Controller
         //   or auth()->user()->hasPermission('edit-user')
         //   or auth()->user()->hasPermissionThroughRole('edit-user')) {
 
-
         $user = User::find($id);
+        $arr["user"] = $user;
+        $current_childs = implode(",",$user->childs()->Pluck("id")->ToArray());
+        if(count($user->childs()))
+            $current_childs .= (($current_childs!="" and count($user->childs))?",":""). $this->getExcludeIds($user->childs);
 
-        $data['positions'] = Position::all();
-        return view('admin.auth.edit', $data)->with('user', $user);
+        $exclude_users = trim($current_childs,",");
+
+
+        $arr["users"] = User::whereRaw("id not in ($exclude_users)")
+            ->get();
+
+        $arr['positions'] = Position::all();
+        return view('admin.auth.edit')->with($arr);
         // }
         // else return "You don't have permissions to edit User";
+    }
+
+    public function getExcludeIds($users){
+        $current_childs="";
+        foreach ($users as $user){
+            if(count($user->childs())) {
+                $current_childs .= implode(",", $user->childs()->Pluck("id")->ToArray());
+                $current_childs .= (($current_childs!="" and count($user->childs))?",":""). $this->getExcludeIds($user->childs);
+            }
+        }
+        return  $current_childs;
+
     }
 
 
@@ -147,6 +168,7 @@ class RegisterController extends Controller
                 //'zipcode' => $data['zipcode'],
                 //'username' => $data['username'],
                 'position_id' => $data['position_id'],
+                'parent_id' => $data['parent_id'],
                 //'email' => $data['email'],
                 //'password' => Hash::make($data['password']),
             ]);

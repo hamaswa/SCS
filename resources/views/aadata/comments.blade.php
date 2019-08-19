@@ -16,7 +16,7 @@
             <tr>
                 <td>{{ date("Y-m-d",strtotime($comment->created_at))}}</td>
                 <td></td>
-                <td></td>
+                <td>{{$comment->user->first_name}}</td>
             </tr>
             <tr>
                 <td colspan="3"><b>Comments:</b><br>{!! $comment->comments !!}</td>

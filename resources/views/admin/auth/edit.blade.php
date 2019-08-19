@@ -144,6 +144,30 @@
                 {{--@endif--}}
             {{--</div>--}}
 
+            <div class="form-group row{{ $errors->has('parent_id') ? ' has-error' : '' }}">
+                <label for="role"
+                       class="col-md-4 col-form-label text-md-right">{{ __('Top User') }}</label>
+                <div class="form-group col-sm-6">
+                    <select class="chosen-select form-control" data-placeholder="Select User"
+                            id="parent_id" name="parent_id" required>
+                        <option value="1" {{$user->parent_id==1?"checked=checked":""}}>
+                        No Parent Needed
+                        </option>
+                        @foreach($users as $sub_user)
+                            <option {{ ($user->parent_id==$sub_user->id?"checked=checked":"") }}
+                                    value="{{$sub_user->id}}"">
+                                {{$sub_user->username}}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                @if ($errors->has('parent_id'))
+                    <span class="help-block">
+                                <strong>{{ $errors->first('parent_id') }}</strong>
+                                    </span>
+                @endif
+            </div>
+
             <div class="form-group row{{ $errors->has('poistion_id') ? ' has-error' : '' }}">
                 <label for="role"
                        class="col-md-4 col-form-label text-md-right">{{ __('Position') }}</label>
@@ -155,9 +179,9 @@
                         @endforeach
                     </select>
                 </div>
-                @if ($errors->has('role'))
+                @if ($errors->has('position_id'))
                     <span class="help-block">
-                                <strong>{{ $errors->first('role') }}</strong>
+                                <strong>{{ $errors->first('position_id') }}</strong>
                                     </span>
                 @endif
             </div>

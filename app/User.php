@@ -18,7 +18,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'first_name','last_name', 'username','mobile','address','status', 'email', 'password',
-        'position_id',
+        'position_id','parent_id',
         'country','state','city','zipcode'
     ];
 
@@ -46,5 +46,16 @@ class User extends Authenticatable
 
     public function Applicants(){
         return $this->hasMany("App\ApplicantData","user_id");
+    }
+
+    public function childs() {
+        return $this->hasMany('App\User','parent_id','id') ;
+    }
+
+    public function childrenRecursive()
+    {
+        return $this->childs()->with('childrenRecursive');
+        // which is equivalent to:
+        // return $this->hasMany('Survey', 'parent')->with('childrenRecursive);
     }
 }

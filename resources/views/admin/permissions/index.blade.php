@@ -2,6 +2,18 @@
 
 @section('content')
     <div class="box">
+        <div class="msg">
+            @if ($message = Session::get('error'))
+                <div class="alert alert-error">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
+        </div>
         <div class="box-header"><h3>Permissions</h3></div>
         <div class="box-body">
             <div class="col-md-4 col-sm-12">
@@ -143,14 +155,21 @@
                 <h3 class="text-center">View Memeber</h3>
 
 
-                <div class="col-sm-6 text-center form-group">
+                <div class="col-sm-12 col-lg-12 text-center form-group">
+                    <?php
+                        $i = 12/sizeof($users);
+                    ?>
                     @foreach($users as $user)
-                        <div class="col-sm-12 text-center form-group">
+                        <div class="col-sm-{{$i}} text-center form-group">
                             <span class="clearfix form-group view_member">
-                                <i class="fa fa-user-circle fa-3x">
-                                    <span>{{$user->username}}</span>
+                                <i class="fa fa-user-circle fa-2x">
                                 </i>
-                            </span>
+                                    <span>{{$user->username}}</span>
+                              </span>       @if(count($user->childs))
+                                        @include('admin.permissions.sub_members',['childs' => $user->childs])
+                                    @endif
+
+
                         </div>
                 </div>
 
@@ -256,22 +275,24 @@
                         type: 'POST',
                         data: $(this).serializeArray(),
                     }).done(function (response) {
-                        response = JSON.parse(response);
                         if (response.error) {
+                            $(".msg").html(" <div class=\"alert alert-error\"><p>" + response.error + "</p></div>").show();
+
                         }
                         else {
+                            $(".msg").html(" <div class=\"alert alert-success\"><p>Permissions Successfully Updated</p></div>").show();
 
                         }
                     });
                 })
             })
-            $(".view_member").on("click",function (e) {
+            $(".view_member").on("click", function (e) {
                 $.ajax({
-                    url:"",
-                    type:"POST",
-                    data:"",
+                    url: "",
+                    type: "POST",
+                    data: "",
                 }).done(function (response) {
-                    
+
                 })
             })
         })

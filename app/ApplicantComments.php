@@ -12,4 +12,8 @@ class ApplicantComments extends Model
         'applicant_id','comments','user_id'
     ];
 
+    public function  user(){
+        return $this->belongsTo(App\User::class);
+    }
+
 }
