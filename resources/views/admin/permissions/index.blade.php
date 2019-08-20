@@ -161,10 +161,11 @@
                     ?>
                     @foreach($users_tree as $user)
                         <div class="col-sm-{{$i}} text-center form-group">
-                            <span class="clearfix form-group view_member">
+                            <span class="clearfix form-group showModal" data-id="{{$user->id}}">
                                 <i class="fa fa-user-circle fa-2x">
                                 </i>
-                                    <span>{{$user->username}}</span>
+
+                                <span>{{$user->username}}</span>
                               </span>       @if(count($user->childs))
                                         @include('admin.permissions.sub_members',['childs' => $user->childs])
                                     @endif
@@ -261,6 +262,26 @@
         </div>
     </div>
     </div>
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 @endsection
 
@@ -268,7 +289,12 @@
 
 @push("scripts")
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function ()
+        {
+            $(document).on('click','.showModal',function(){
+                $('.modal-title').text($(this).attr('data-name'));
+            });
+
             $(".users").select2()
             $("#update_all").on("click", function () {
                 $(".permission_form").each(function () {
