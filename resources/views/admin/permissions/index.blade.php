@@ -22,22 +22,24 @@
                 <div class="col-sm-2 bg-light-blue-gradient padding-5"><b> Action </b></div>
                 <div class="clearfix"></div>
                 @foreach($roles as $role)
-
+                    <div class="border-light">
                     <form method="post" action="{{ route("permissions.update",$role->id) }}" class="permission_form">
                         @method('patch')
                         @csrf()
-                        <div class="col-sm-4 padding-5 border-light ">{{$role->name }}</div>
+                        <div class="col-sm-4 padding-5 ">{{$role->name }}</div>
                         {{--<div class="col-lg-4"><input type="checkbox" checked/></div>--}}
-                        <div class="col-sm-6 padding-5 border-light ">
-                            <select multiple="multiple" name="users[]" class="users">
+                        <div class="col-sm-6 padding-5 ">
+                            <select multiple="multiple" name="users[]" class="users form-control">
                                 <?php
                                 echo App\Http\Controllers\Admin\PermissionController::userOptions($users, $role)
                                 ?>
                             </select>
                         </div>
-                        <div class="col-sm-2 padding-5 border-light "><input type="submit" value="Update" class="btn btn-primary btn-sm"></div>
+                        <div class="col-sm-2 padding-5 "><input type="submit" value="Update" class="btn btn-primary btn-sm"></div>
 
                     </form>
+                    </div>
+                    <div class="clearfix"></div>
                 @endforeach
                 <div class="col-sm-12 text-center">
                     <input type="submit" class="btn btn-primary" id="update_all" value="Update All">
