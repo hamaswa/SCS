@@ -55,11 +55,11 @@
                     ?>
                     @foreach($users_tree as $user)
                         <div class="col-sm-{{$i}} text-center form-group">
-                            <span class="clearfix form-group showModal" data-id="{{$user->id}}" data-name="{{$user->username}}">
+                            <span class="clearfix form-group showModal  pull-left" data-id="{{$user->id}}" data-name="{{$user->username}}">
                                 <i class="fa fa-user-circle fa-2x">
                                 </i>
 
-                                <span class="text-center clearfix margin-bottom pull-left">{{$user->username}}</span>
+                                <span class="text-center clearfix margin-bottom">{{$user->username}}</span>
                               </span>       @if(count($user->childs))
                                         @include('admin.permissions.sub_members',['childs' => $user->childs])
                                     @endif
