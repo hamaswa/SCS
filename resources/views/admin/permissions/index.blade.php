@@ -17,9 +17,9 @@
         <div class="box-header"><h3>Permissions</h3></div>
         <div class="box-body">
             <div class="col-md-4 col-sm-12">
-                <div class="col-sm-4 bg-light-blue-gradient padding-5"><b> User Role </b></div>
-                <div class="col-sm-6 bg-light-blue-gradient padding-5"><b> Users </b></div>
-                <div class="col-sm-2 bg-light-blue-gradient padding-5"><b> Action </b></div>
+                <div class="col-sm-4 bg-light-blue-gradient padding-5 border-light"><b> User Role </b></div>
+                <div class="col-sm-6 bg-light-blue-gradient padding-5 border-light"><b> Users </b></div>
+                <div class="col-sm-2 bg-light-blue-gradient padding-5 border-light"><b> Action </b></div>
                 <div class="clearfix"></div>
                 @foreach($roles as $role)
                     <div class="border-light">
@@ -35,7 +35,7 @@
                                 ?>
                             </select>
                         </div>
-                        <div class="col-sm-2 padding-5 "><input type="submit" value="Update" class="btn btn-primary btn-sm"></div>
+                        <div class="col-sm-2 padding-5 "><input type="submit" value="Update" class="btn btn-primary btn-xs"></div>
 
                     </form>
                     </div>
