@@ -26,16 +26,16 @@
                     <form method="post" action="{{ route("permissions.update",$role->id) }}" class="permission_form">
                         @method('patch')
                         @csrf()
-                        <div class="col-sm-4 padding-5 border-light collapse">{{$role->name }}</div>
+                        <div class="col-sm-4 padding-5 border-light ">{{$role->name }}</div>
                         {{--<div class="col-lg-4"><input type="checkbox" checked/></div>--}}
-                        <div class="col-sm-6 padding-5 border-light collapse">
+                        <div class="col-sm-6 padding-5 border-light ">
                             <select multiple="multiple" name="users[]" class="users">
                                 <?php
                                 echo App\Http\Controllers\Admin\PermissionController::userOptions($users, $role)
                                 ?>
                             </select>
                         </div>
-                        <div class="col-sm-2 padding-5 border-light collapse"><input type="submit" value="Update" class="btn btn-primary btn-sm"></div>
+                        <div class="col-sm-2 padding-5 border-light "><input type="submit" value="Update" class="btn btn-primary btn-sm"></div>
 
                     </form>
                 @endforeach
