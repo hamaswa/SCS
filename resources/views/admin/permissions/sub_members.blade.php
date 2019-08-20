@@ -8,7 +8,7 @@ $i = 12 / count($childs);
         <span class="clearfix form-group showModal" data-id="{{$child->id}}">
             <i class="fa fa-user-circle fa-2x">
             </i>
-                            <span>{{ $child->username }}</span>
+                            <span class="mark text-center clearfix">{{ $child->username }}</span>
         </span>
 
         @if(count($child->childs))
