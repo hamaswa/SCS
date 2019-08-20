@@ -59,7 +59,7 @@
                                 <i class="fa fa-user-circle fa-2x">
                                 </i>
 
-                                <span class="text-center clearfix margin-bottom">{{$user->username}}</span>
+                                <span class="text-center clearfix margin-bottom pull-left">{{$user->username}}</span>
                               </span>       @if(count($user->childs))
                                         @include('admin.permissions.sub_members',['childs' => $user->childs])
                                     @endif
