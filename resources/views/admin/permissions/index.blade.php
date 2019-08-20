@@ -41,7 +41,7 @@
                     </div>
                     <div class="clearfix"></div>
                 @endforeach
-                <div class="col-sm-12 text-center">
+                <div class="col-sm-12 margin-top-15">
                     <input type="submit" class="btn btn-primary" id="update_all" value="Update All">
                 </div>
             </div>
@@ -59,7 +59,7 @@
                                 <i class="fa fa-user-circle fa-2x">
                                 </i>
 
-                                <span>{{$user->username}}</span>
+                                <span class="mark text-center clearfix">{{$user->username}}</span>
                               </span>       @if(count($user->childs))
                                         @include('admin.permissions.sub_members',['childs' => $user->childs])
                                     @endif
