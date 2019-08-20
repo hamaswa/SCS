@@ -517,3 +517,6 @@ div.bottom-rounded {
 .ck-content{
     height:150px;
 }
+.select2-container--default .select2-selection--multiple .select2-selection__choice{
+    color:#000000;
+}
