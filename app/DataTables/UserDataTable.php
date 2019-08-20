@@ -28,8 +28,8 @@ class UserDataTable extends DataTable
     public function query(User $model)
     {
         return $model->newQuery()->select('id', 'first_name','last_name','country','state','city','username','email')
-            ->where("id",">","1")
-            ->where("position_id",'=',request()->user()->position_id);
+            ->where("id",">","1");
+           // ->where("position_id",'=',request()->user()->position_id);
     }
 
     /**

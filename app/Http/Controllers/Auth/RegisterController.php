@@ -103,11 +103,14 @@ class RegisterController extends Controller
         $user = User::find($id);
         $arr["user"] = $user;
         $current_childs = implode(",",$user->childs()->Pluck("id")->ToArray());
-        if(count($user->childs()))
-            $current_childs .= (($current_childs!="" and count($user->childs))?",":""). $this->getExcludeIds($user->childs);
+        if($user->childs()) {
+            $str  =  $this->getExcludeIds($user->childs);
+            $current_childs .= (($current_childs != "" and $str!="") ? "," : "").$str;
+        }
 
+        $current_childs .= (($current_childs!="")?",":"").$id;
         $exclude_users = trim($current_childs,",");
-
+echo $exclude_users;
 
         $arr["users"] = User::whereRaw("id not in ($exclude_users)")
             ->get();
@@ -121,10 +124,10 @@ class RegisterController extends Controller
     public function getExcludeIds($users){
         $current_childs="";
         foreach ($users as $user){
-            if(count($user->childs())) {
-                $current_childs .= implode(",", $user->childs()->Pluck("id")->ToArray());
-                $current_childs .= (($current_childs!="" and count($user->childs))?",":""). $this->getExcludeIds($user->childs);
-            }
+            if($user->childs()) {
+                $str  =  $this->getExcludeIds($user->childs);
+                $current_childs .= (($current_childs != "" and $str!="") ? "," : "").$str;
+                }
         }
         return  $current_childs;
 

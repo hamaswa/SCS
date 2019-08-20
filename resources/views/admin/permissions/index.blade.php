@@ -157,9 +157,9 @@
 
                 <div class="col-sm-12 col-lg-12 text-center form-group">
                     <?php
-                        $i = 12/sizeof($users);
+                        $i = 12/sizeof($users_tree);
                     ?>
-                    @foreach($users as $user)
+                    @foreach($users_tree as $user)
                         <div class="col-sm-{{$i}} text-center form-group">
                             <span class="clearfix form-group view_member">
                                 <i class="fa fa-user-circle fa-2x">
@@ -171,9 +171,9 @@
 
 
                         </div>
-                </div>
 
                 @endforeach
+
                 {{--<span class="clearfix form-group">--}}
                 {{--<i class="fa fa-user-circle fa-3x"></i>--}}
                 {{--<div>UserName</div>--}}
@@ -260,6 +260,8 @@
             {{--</div>--}}
         </div>
     </div>
+    </div>
+
 @endsection
 
 
