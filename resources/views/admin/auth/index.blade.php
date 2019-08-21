@@ -2,9 +2,15 @@
 
 @section('content')
     <div class="box">
-        <div class="box-header"><h3>Users</h3></div>
+        <div class="box-header">
+            <div class="pull-left"><h3>Users</h3></div>
+            <div class="pull-right">
+                <a class="btn btn-default margin-r-5" href="{{route("permissions.index")}}"> Permissions </a>
+                <button class="btn btn-primary margin-r-5" data-toggle="modal" data-target="#createGroupModal"> Create Group </button>
+            </div>
+        </div>
         {{--<div class="col-lg-2 pull-right">--}}
-            {{--<a class="btn btn-default" href="{{route("permissions.index")}}"> Permissions </a> --}}
+            {{-- --}}
         {{--</div>--}}
         <div class="box-body">
 
@@ -72,6 +78,9 @@
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
                 <div class="modal-body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover">
@@ -107,9 +116,6 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
             </div>
         </div>
     </div>
@@ -117,6 +123,9 @@
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
                 <div class="modal-body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover">
@@ -152,9 +161,6 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
             </div>
         </div>
     </div>
@@ -162,6 +168,9 @@
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
                 <div class="modal-body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover">
@@ -183,9 +192,6 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
             </div>
         </div>
     </div>
@@ -193,6 +199,9 @@
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
                 <div class="modal-body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover">
@@ -214,13 +223,53 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+
             </div>
         </div>
     </div>
-
+    <div id="createGroupModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <form method="post">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Create Group</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-4 form-group">
+                        <label>Code</label>
+                        <select class="form-control" required>
+                            <option value="">Code</option>
+                            <option value="PG">PG</option>
+                            <option value="REA">REA</option>
+                            <option value="INS">INS</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label>Area</label>
+                        <select class="form-control" required>
+                            <option value="">Area</option>
+                            <option value="KL">KL</option>
+                            <option value="JB">JB</option>
+                            <option value="PN">PN</option>
+                        </select>
+                    </div>
+                    <div class="cleafix"></div>
+                    <div class="col-md-8 form-group has-feedback">
+                        <label>User ID</label>
+                        <input type="text" class="form-control" />
+                        <span class="glyphicon glyphicon-gear form-control-feedback"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Create</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
 @endsection
 @push("scripts")
     <script type="text/javascript">
