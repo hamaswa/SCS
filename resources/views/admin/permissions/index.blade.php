@@ -187,10 +187,19 @@
     <script type="text/javascript">
         $(document).ready(function ()
         {
+
             $(document).on('click','.showModal',function(){
-                $('.modal-title').text($(this).attr('data-name'));
-                $('#myModal').modal('show');
+                $.ajax({
+                    url: "{{ url("admin/users/details")}}/"+$(this).data("id"),
+                    type: "get",
+                    data: "",
+                }).done(function (response) {
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                })
+
             });
+
 
             $(".users").select2()
             $("#update_all").on("click", function () {
@@ -211,15 +220,7 @@
                     });
                 })
             })
-            $(".view_member").on("click", function (e) {
-                $.ajax({
-                    url: "",
-                    type: "POST",
-                    data: "",
-                }).done(function (response) {
 
-                })
-            })
         })
     </script>
 @endpush
