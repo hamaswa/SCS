@@ -3,8 +3,9 @@
 @section('content')
     <div class="box">
         <div class="box-header"><h3>Users</h3></div>
-        <div class="col-lg-2 pull-right">
-            <a class="btn btn-default" href="{{route("permissions.index")}}"> Permissions </a> </div>
+        {{--<div class="col-lg-2 pull-right">--}}
+            {{--<a class="btn btn-default" href="{{route("permissions.index")}}"> Permissions </a> --}}
+        {{--</div>--}}
         <div class="box-body">
 
         <?php /*
