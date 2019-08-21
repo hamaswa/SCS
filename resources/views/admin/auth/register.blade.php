@@ -41,6 +41,36 @@
         <form method="POST" action="{{ route('register.store') }}">
             {{ csrf_field() }}
             <div class="form-group has-feedback col-md-6 col-sm-12">
+                <label>{{ __('Code') }}</label>
+                <select class="form-control" name="code" required>
+                    <option value="PG">PG</option>
+                    <option value="REA">REA</option>
+                    <option value="INS">INS</option>
+                </select>
+
+                @if ($errors->has('code'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('code') }}</strong>
+                                    </span>
+                @endif
+            </div>
+            <div class="form-group has-feedback col-md-6 col-sm-12">
+                <label>{{ __('Area') }}</label>
+                <select class="form-control" name="area" required>
+                    <option value="KL">KL</option>
+                    <option value="JB">JB</option>
+                    <option value="PN">PN</option>
+                </select>
+
+                @if ($errors->has('area'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('area') }}</strong>
+                                    </span>
+                @endif
+            </div>
+
+
+            <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('First Name') }}</label>
                 <input id="first_name" type="text" class="form-control" name="first_name"
                        value="{{ old('first_name') }}">
@@ -51,6 +81,7 @@
                                     </span>
                 @endif
             </div>
+
             <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('Last Name') }}</label>
                 <input id="last_name" type="text" class="form-control" name="last_name"
@@ -101,6 +132,81 @@
                 @if ($errors->has('confirm_password'))
                     <span class="help-block">
                                         <strong>{{ $errors->first('confirm_password') }}</strong>
+                                    </span>
+                @endif
+            </div>
+
+            <div class="form-group has-feedback col-md-6 col-sm-12">
+                <label>{{ __('Bank') }}</label>
+                <input id="bank" type="text" class="form-control"
+                       name="bank" required autocomplete="off">
+                @if ($errors->has('bank'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('bank') }}</strong>
+                                    </span>
+                @endif
+            </div>
+            <div class="form-group has-feedback col-md-6 col-sm-12">
+                <label>{{ __('Bank Name') }}</label>
+                <input id="bank_name" type="text" class="form-control"
+                       name="bank_name" required autocomplete="off">
+                @if ($errors->has('bank_name'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('bank_name') }}</strong>
+                                    </span>
+                @endif
+            </div>
+            <div class="form-group has-feedback col-md-6 col-sm-12">
+                <label>{{ __('Account No') }}</label>
+                <input id="account_no" type="text" class="form-control"
+                       name="account_no" required autocomplete="off">
+                @if ($errors->has('account_no'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('account_no') }}</strong>
+                                    </span>
+                @endif
+            </div>
+            <div class="form-group has-feedback col-md-6 col-sm-12">
+
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                    <tr class="bg-light-blue-gradient">
+                        <th>PCE</th>
+                        <th>CEILI</th>
+                        <th>REN</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><input type="checkbox" name="PCE" value="1" checked class="checkbox-custom" /> </td>
+                        <td><input type="checkbox" name="CEILI" value="1" checked class="checkbox-custom" /></td>
+                        <td><input type="checkbox" name="REN" value="1" class="checkbox-custom" /> </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+            <div class="form-group has-feedback col-md-6 col-sm-12">
+                <label>{{ __('Salary') }}</label>
+                <input id="salary" type="text" class="form-control" name="salary" value="" required
+                       autocomplete="off">
+                @if ($errors->has('salary'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('salary') }}</strong>
+                                    </span>
+                @endif
+            </div>
+            <div class="form-group has-feedback col-md-6 col-sm-12">
+                <label>{{ __('Scheme') }}</label>
+                <select class="form-control" name="scheme" required>
+                    <option value="staff">Staff</option>
+                    <option value="user">User</option>
+                    <option value="agent">Agent</option>
+                </select>
+                @if ($errors->has('scheme'))
+                    <span class="help-block">
+                                        <strong>{{ $errors->first('scheme') }}</strong>
                                     </span>
                 @endif
             </div>
@@ -160,7 +266,17 @@
                                     </span>
                 @endif
             </div>
+            <div class="form-group col-sm-6" >
+                <label for="status">Status:</label>
+                <label class="radio-inline">
+                    <input checked="checked" name="status" type="radio" value="1" id="status"> Active
+                </label>
 
+                <label class="radio-inline">
+                    <input name="status" type="radio" value="0" id="status"> Inactive
+                </label>
+
+            </div>
 
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block btn-flat">{{ __('Register') }}</button>

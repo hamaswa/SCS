@@ -53,21 +53,32 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @foreach($users as $user)
                         <tr>
-                            <td class="bg-yellow-light">PG</td>
-                            <td class="bg-yellow-light">KL</td>
-                            <td class="bg-yellow-light text-red">123456</td>
-                            <td>Active</td>
-                            <td>100001</td>
-                            <td>Business Associate</td>
+                            <td class="bg-yellow-light">{{$user->code}}</td>
+                            <td class="bg-yellow-light">{{$user->area}}</td>
+                            <td class="bg-yellow-light text-red">{{$user->username}}</td>
+                            <td>{{ ($user->status==0?"Inactive":"Active") }}</td>
+                            <td>{{ $user->parent()->Pluck("username")[0] }}</td>
+                            <td>{{$user->position()->Pluck("name")[0]}}</td>
                             <td><a href="#">ROLE</a></td>
-                            <td><a href="#">View</a></td>
-                            <td>Agent</td>
-                            <td>1900</td>
-                            <td><i class="fa fa-comment-o fa-2x margin-r-5"></i><i class="fa fa-phone fa-2x margin-r-5 showContactDetail"></i>
-                                <i class="fa fa-desktop fa-2x margin-r-5 showCredentials"></i><i class="fa fa-address-book fa-2x margin-r-5 showInfo"></i>
-                                <i class="fa fa-bank fa-2x margin-r-5 showBankDetail"></i><i class="fa fa-money fa-2x"></i></td>
+                            <td><a href="{{ route('users.edit', $user->id) }}">View</a></td>
+                            <td>{{$user->scheme}}</td>
+                            <td>{{$user->salary}}</td>
+                            <td><i class="fa fa-comment-o fa-2x margin-r-5"></i>
+                                <i class="fa fa-phone fa-2x margin-r-5 showContactDetail" data-id="{{$user->id}}"></i>
+                                <i class="fa fa-desktop fa-2x margin-r-5 showCredentials"></i>
+                                <i class="fa fa-address-book fa-2x margin-r-5 showInfo"
+                                   data-PCE="{{ ($user->PCE==1?"true":"false") }}"
+                                   data-CEILI="{{($user->CEILI==1?"true":"false")}}"
+                                   data-REN="{{($user->REN==1?"true":"false")}}"
+                                ></i>
+                                <i class="fa fa-bank fa-2x margin-r-5 showBankDetail"
+                                   data-bank="{{$user->bank}}" data-bank_name="{{$user->bank_name}}"
+                                   data-account_no="{{$user->account_no}}"></i>
+                                <i class="fa fa-money fa-2x"></i></td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -82,37 +93,8 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover">
-                            <thead>
-                                <tr class="bg-light-blue-gradient">
-                                    <th>Group ID</th>
-                                    <th>Contact</th>
-                                    <th>Email</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>123456</td>
-                                    <td>60123456789</td>
-                                    <td>testabd@gmail.com</td>
-                                    <td><a href="#">Edit</a> | <a href="#">Save</a> </td>
-                                </tr>
-                                <tr>
-                                    <td>123456</td>
-                                    <td>60123456789</td>
-                                    <td>testabd@gmail.com</td>
-                                    <td><a href="#">Edit</a> | <a href="#">Save</a> </td>
-                                </tr>
-                                <tr>
-                                    <td>123456</td>
-                                    <td><input type="text" class="form-control"> </td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><a href="#">Edit</a> | <a href="#">Save</a> </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="table-responsive" id="user_contacts">
+
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -181,12 +163,8 @@
                                     <th>REN</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input type="checkbox" checked class="checkbox-custom" /> </td>
-                                    <td><input type="checkbox" checked class="checkbox-custom" /></td>
-                                    <td><input type="checkbox" class="checkbox-custom" /> </td>
-                                </tr>
+                            <tbody id="showInfo">
+
                             </tbody>
                         </table>
                     </div>
@@ -212,12 +190,8 @@
                                 <th>Account No.</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>MBB</td>
-                                <td>ABC DFEWR DSF</td>
-                                <td>34535435435435</td>
-                            </tr>
+                            <tbody id="bankinfo">
+
                             </tbody>
                         </table>
                     </div>
@@ -277,15 +251,38 @@
         $(document).ready(function ()
         {
             $(document).on('click','.showContactDetail',function(){
-                $('#contactDetailModal').modal('show');
+                $.ajax({
+                    url: "{{ route("contacts.index")}}/",
+                    type: "get",
+                    data: "id="+$(this).data("id"),
+                }).done(function (response) {
+                    $("#user_contacts").html(response);
+                    $('#contactDetailModal').modal('show');
+                })
+
             });
             $(document).on('click','.showCredentials',function(){
                 $('#credentialModal').modal('show');
             });
             $(document).on('click','.showInfo',function(){
+                console.log($(this).data("pce"));
+                html='<tr><td><input type="checkbox" name="PCE" value="1" class="checkbox-custom"';
+                if($(this).data("pce")==true)
+                    html+=" checked ";
+                html+= ' /> </td><td><input type="checkbox" name="CEILI" value="1" class="checkbox-custom"';
+                if($(this).data("ceili")==true)
+                    html+=" checked";
+                html+='/></td><td><input type="checkbox" name="REN" value="1" class="checkbox-custom"';
+                if($(this).data("ren")==true)
+                    html+=" checked";
+                html+='/> </td>';
+                console.log(html);
+                $("#showInfo").html(html);
                 $('#infoModal').modal('show');
             });
             $(document).on('click','.showBankDetail',function(){
+                html ="<tr><td>"+$(this).data("bank")+"</td><td>"+$(this).data("bank_name")+"</td><td>"+$(this).data("account_no")+"</td></tr>"
+                $("#bankinfo").html(html);
                 $('#bankDetailModal').modal('show');
             });
         })

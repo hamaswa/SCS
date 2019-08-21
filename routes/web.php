@@ -28,8 +28,14 @@ Route::group(['prefix'=>'admin','auth'], function() {
     Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name("register.create");
     Route::post('/register', 'Auth\RegisterController@register')->name("register.store");
     Route::post('/register/{id}', 'Auth\RegisterController@update')->name("register.update");
-    Route::resource('/users', 'Auth\RegisterController');
     Route::get("/users/details/{id}",'Admin\UserController@getUserDetail')->name("user.details");
+    Route::get("/users/contacts/{id}",'Admin\UserController@getUserContacts');
+    Route::resource("/users/contacts",'Admin\UserContactsController');
+    Route::resource('/users', 'Auth\RegisterController');
+
+//    Route::post("/users/contacts",'Admin\UserController@storeUserContacts')->name("user_contacts.store");
+//    Route::post("/users/contacts",'Admin\UserController@saveUserContacts')->name("user_contacts.update");
+//    Route::post("/users/contacts",'Admin\UserController@saveUserContacts')->name("user_contacts.destroy");
 
 
 

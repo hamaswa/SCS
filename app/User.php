@@ -21,8 +21,8 @@ class User extends Authenticatable
         'position_id','parent_id',
         'country','state','city','zipcode',
         'bank','bank_name','account_no',
-        'pce','ceili','ren',
-        'salary','status'
+        'PCE','CEILI','REN','scheme',
+        'salary','code','area','status'
 
     ];
 
@@ -52,8 +52,16 @@ class User extends Authenticatable
         return $this->hasMany("App\ApplicantData","user_id");
     }
 
+    public function parent(){
+        return $this->belongsTo(User::class);
+    }
+
     public function childs() {
         return $this->hasMany('App\User','parent_id','id') ;
+    }
+
+    public function contacts(){
+        return $this->hasMany('App\UserContacts','user_id');
     }
 
     public function childrenRecursive()

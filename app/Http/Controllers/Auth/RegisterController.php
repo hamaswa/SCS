@@ -64,10 +64,11 @@ class RegisterController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(UserDataTable $datatable)
+    public function index()
     {
-
-        return $datatable->render('admin.auth.index');
+        $arr["users"] = User::where("id",">","1")
+            ->where("id","!=",request()->user()->id)->get();
+        return view('admin.auth.index')->with($arr);
     }
 
     /**
@@ -108,9 +109,9 @@ class RegisterController extends Controller
             $current_childs .= (($current_childs != "" and $str!="") ? "," : "").$str;
         }
 
-        $current_childs .= (($current_childs!="")?",":"").$id;
+        $current_childs .= (($current_childs!="")?",":""). $id .",1";
         $exclude_users = trim($current_childs,",");
-echo $exclude_users;
+
 
         $arr["users"] = User::whereRaw("id not in ($exclude_users)")
             ->get();
@@ -127,7 +128,7 @@ echo $exclude_users;
             if($user->childs()) {
                 $str  =  $this->getExcludeIds($user->childs);
                 $current_childs .= (($current_childs != "" and $str!="") ? "," : "").$str;
-                }
+            }
         }
         return  $current_childs;
 
@@ -160,21 +161,7 @@ echo $exclude_users;
             //'password' => ['required', 'string', 'min:6'],
         ]);
 
-        $user->update(
-            [
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                //'mobile' => $data['mobile'],
-                'country' => $data['country'],
-                'state' => $data['state'],
-                'city' => $data['city'],
-                //'zipcode' => $data['zipcode'],
-                //'username' => $data['username'],
-                'position_id' => $data['position_id'],
-                'parent_id' => $data['parent_id'],
-                //'email' => $data['email'],
-                //'password' => Hash::make($data['password']),
-            ]);
+        $user->update($data);
 
         if (isset($data['position_id'])) {
             $role = Position::where('id', $data['position_id'])->first();
@@ -199,19 +186,11 @@ echo $exclude_users;
     protected function create(array $data)
     {
 
-        return User::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            //'mobile' => $data['mobile'],
-            'country' => $data['country'],
-            'state' => $data['state'],
-            'city' => $data['city'],
-            //'zipcode' => $data['zipcode'],
-            'username' => $data['username'],
-            'position_id' => $data['position_id'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+
+        $data['password'] =  Hash::make($data['password']);
+
+        return User::create($data);
+
 
     }
 }

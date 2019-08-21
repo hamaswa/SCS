@@ -15,6 +15,8 @@ class UserController extends Controller
 
         return view("admin.users.user_details")->with($arr);
     }
+
+
     public function departments(UserDepartmentsDataTable $dataTable)
     {
 
