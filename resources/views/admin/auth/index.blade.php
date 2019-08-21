@@ -28,7 +28,42 @@
                 {!! $dataTable->scripts() !!}
             @endpush
             */ ?>
-
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-condensed table-bordered">
+                    <thead>
+                        <tr class="bg-light-blue-gradient">
+                            <th>Code</th>
+                            <th>Area</th>
+                            <th>User ID</th>
+                            <th>Status</th>
+                            <th>Upline</th>
+                            <th>Position</th>
+                            <th>Assign</th>
+                            <th>Member</th>
+                            <th>Scheme</th>
+                            <th>Salary</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="bg-yellow-light">PG</td>
+                            <td class="bg-yellow-light">KL</td>
+                            <td class="bg-yellow-light text-red">123456</td>
+                            <td>Active</td>
+                            <td>100001</td>
+                            <td>Business Associate</td>
+                            <td><a href="#">ROLE</a></td>
+                            <td><a href="#">View</a></td>
+                            <td>Agent</td>
+                            <td>1900</td>
+                            <td><i class="fa fa-comment-o"></i><i class="fa fa-phone"></i>
+                                <i class="fa fa-desktop"></i><i class="fa fa-address-book"></i>
+                                <i class="fa fa-bank"></i><i class="fa fa-money"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 @endsection
