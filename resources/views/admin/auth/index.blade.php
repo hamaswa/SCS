@@ -166,19 +166,18 @@
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover">
                             <thead>
-                            <tr class="bg-light-blue-gradient">
-                                <th>PCE</th>
-                                <th>CEILI</th>
-                                <th>REN</th>
-                            </tr>
+                                <tr class="bg-light-blue-gradient">
+                                    <th>PCE</th>
+                                    <th>CEILI</th>
+                                    <th>REN</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td><input type="checkbox" checked /> </td>
-                                <td><input type="checkbox" checked /></td>
-                                <td><input type="checkbox" /> </td>
-                            </tr>
-
+                                <tr>
+                                    <td><input type="checkbox" checked class="checkbox-custom" /> </td>
+                                    <td><input type="checkbox" checked class="checkbox-custom" /></td>
+                                    <td><input type="checkbox" class="checkbox-custom" /> </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

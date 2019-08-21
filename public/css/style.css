@@ -520,3 +520,7 @@ div.bottom-rounded {
 .select2-container--default .select2-selection--multiple .select2-selection__choice{
     color:#000000;
 }
+.checkbox-custom{
+    width:25px;
+    height:25px;
+}
