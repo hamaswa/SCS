@@ -58,9 +58,9 @@
                             <td><a href="#">View</a></td>
                             <td>Agent</td>
                             <td>1900</td>
-                            <td><i class="fa fa-comment-o"></i><i class="fa fa-phone"></i>
-                                <i class="fa fa-desktop"></i><i class="fa fa-address-book"></i>
-                                <i class="fa fa-bank"></i><i class="fa fa-money"></i></td>
+                            <td><i class="fa fa-comment-o fa-2x margin-r-5"></i><i class="fa fa-phone fa-2x margin-r-5"></i>
+                                <i class="fa fa-desktop fa-2x margin-r-5"></i><i class="fa fa-address-book fa-2x margin-r-5"></i>
+                                <i class="fa fa-bank fa-2x margin-r-5"></i><i class="fa fa-money fa-2x"></i></td>
                         </tr>
                     </tbody>
                 </table>
