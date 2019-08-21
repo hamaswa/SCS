@@ -237,7 +237,7 @@
                     <h4 class="modal-title">Create Group</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="col-md-4 form-group">
+                    <div class="col-md-6 form-group">
                         <label>Code</label>
                         <select class="form-control" required>
                             <option value="">Code</option>
@@ -246,7 +246,7 @@
                             <option value="INS">INS</option>
                         </select>
                     </div>
-                    <div class="col-md-4 form-group">
+                    <div class="col-md-6 form-group">
                         <label>Area</label>
                         <select class="form-control" required>
                             <option value="">Area</option>
@@ -256,14 +256,15 @@
                         </select>
                     </div>
                     <div class="cleafix"></div>
-                    <div class="col-md-8 form-group has-feedback">
+                    <div class="col-md-6 form-group has-feedback">
                         <label>User ID</label>
                         <input type="text" class="form-control" />
                         <span class="glyphicon glyphicon-gear form-control-feedback"></span>
                     </div>
+                    <div class="clearfix"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Create</button>
+                    <button type="submit" class="btn btn-success pull-left">Create</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
