@@ -4,9 +4,6 @@
     <div class="box">
         <div class="box-header"><h3>Users</h3></div>
         <div class="box-body">
-
-        <?php
-            /*
         @push('style')
             <!-- DataTable Bootstrap -->
                 <link href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet">
@@ -26,8 +23,6 @@
 
                 {!! $dataTable->scripts() !!}
             @endpush
-
-            */ ?>
         </div>
     </div>
 @endsection
