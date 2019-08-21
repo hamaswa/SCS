@@ -29,6 +29,7 @@ Route::group(['prefix'=>'admin','auth'], function() {
     Route::post('/register', 'Auth\RegisterController@register')->name("register.store");
     Route::post('/register/{id}', 'Auth\RegisterController@update')->name("register.update");
     Route::resource('/users', 'Auth\RegisterController');
+    Route::get("/users/details/{id}",'Admin\UserController@getUserDetail')->name("user.details");
 
 
 
@@ -71,6 +72,6 @@ Route::resource('/hirepurchase', 'HirePurchaseController');
 Route::resource('/overdraft', 'OverDraftController');
 Route::resource('/personalloan', 'PersonalLoanController');
 Route::resource('/departments', 'DepartmentController');
-Route::get("/users/{id}/departments", 'UserController@departments')->name("users.departments");
+Route::get("/users/{id}/departments", 'Admin\UserController@departments')->name("users.departments");
 Route::get("data/de", 'DataEntryController@de');
 });
