@@ -6,7 +6,7 @@
             <div class="pull-left"><h3>Users</h3></div>
             <div class="pull-right">
                 <a class="btn btn-default margin-r-5" href="{{route("permissions.index")}}"> Permissions </a>
-                <button class="btn btn-primary margin-r-5" data-toggle="modal" data-target="#createGroupModal"> Create Group </button>
+                {{--<button class="btn btn-primary margin-r-5" data-toggle="modal" data-target="#createGroupModal"> Create Group </button>--}}
             </div>
         </div>
         {{--<div class="col-lg-2 pull-right">--}}
@@ -61,7 +61,18 @@
                             <td>{{ ($user->status==0?"Inactive":"Active") }}</td>
                             <td>{{ $user->parent()->Pluck("username")[0] }}</td>
                             <td>{{$user->position()->Pluck("name")[0]}}</td>
-                            <td><a href="#">ROLE</a></td>
+                            <td><div class="hide">
+                                    @if(count($user->roles))
+                                    <ul>
+                                        @foreach($user->roles as $role)
+                                            <li>{{$role->name}}</li>
+                                        @endforeach
+                                    </ul>
+                                        @else
+                                        <h4>No Roles Assignes</h4>
+                                        @endif
+
+                                </div> <a href="#" class="showRoles" data-id="{{$user->username}}">ROLE</a></td>
                             <td><a href="{{ route('users.edit', $user->id) }}">View</a></td>
                             <td>{{$user->scheme}}</td>
                             <td>{{$user->salary}}</td>
@@ -201,44 +212,21 @@
             </div>
         </div>
     </div>
-    <div id="createGroupModal" class="modal fade" role="dialog">
+    <div id="showRoles" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <form method="post">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Create Group</h4>
+                    <h4 class="modal-title"><span  id="user_roles"></span> Roles</h4>
                 </div>
-                <div class="modal-body">
-                    <div class="col-md-6 form-group">
-                        <label>Code</label>
-                        <select class="form-control" required>
-                            <option value="">Code</option>
-                            <option value="PG">PG</option>
-                            <option value="REA">REA</option>
-                            <option value="INS">INS</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Area</label>
-                        <select class="form-control" required>
-                            <option value="">Area</option>
-                            <option value="KL">KL</option>
-                            <option value="JB">JB</option>
-                            <option value="PN">PN</option>
-                        </select>
-                    </div>
-                    <div class="cleafix"></div>
-                    <div class="col-md-6 form-group has-feedback">
-                        <label>User ID</label>
-                        <input type="text" class="form-control" />
-                        <span class="glyphicon glyphicon-gear form-control-feedback"></span>
-                    </div>
+                <div class="modal-body" id="rolesbody">
+
+
                     <div class="clearfix"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success pull-left">Create</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -264,6 +252,14 @@
             $(document).on('click','.showCredentials',function(){
                 $('#credentialModal').modal('show');
             });
+
+            $(document).on('click','.showRoles',function(){
+                $("#user_roles").text($(this).data("id"));
+                $("#rolesbody").html($(this).parent("td").find("div").html());
+                $('#showRoles').modal('show');
+            });
+
+
             $(document).on('click','.showInfo',function(){
                 console.log($(this).data("pce"));
                 html='<tr><td><input type="checkbox" name="PCE" value="1" class="checkbox-custom"';

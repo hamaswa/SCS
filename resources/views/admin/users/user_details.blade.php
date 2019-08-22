@@ -18,7 +18,11 @@
 
 <h1>Role and permissions</h1>
 <ul class="list-group-unbordered">
+    @if(count($user->roles))
 @foreach($user->roles as $role)
     <li>{{$role->name}}</li>
 @endforeach
+        @else
+    <li> No Roles Assigned</li>
+        @endif
 </ul>

@@ -10,4 +10,17 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+
+    public function getExcludeIds($users){
+        $current_childs="";
+        foreach ($users as $user){
+            if($user->childs()) {
+                $str  =  $this->getExcludeIds($user->childs);
+                $current_childs .= (($current_childs != "" and $str!="") ? "," : "").$str;
+            }
+        }
+        return  $current_childs;
+
+    }
 }

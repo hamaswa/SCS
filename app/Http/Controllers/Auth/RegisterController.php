@@ -112,7 +112,6 @@ class RegisterController extends Controller
         $current_childs .= (($current_childs!="")?",":""). $id .",1";
         $exclude_users = trim($current_childs,",");
 
-
         $arr["users"] = User::whereRaw("id not in ($exclude_users)")
             ->get();
 
@@ -122,20 +121,7 @@ class RegisterController extends Controller
         // else return "You don't have permissions to edit User";
     }
 
-    public function getExcludeIds($users){
-        $current_childs="";
-        foreach ($users as $user){
-            if($user->childs()) {
-                $str  =  $this->getExcludeIds($user->childs);
-                $current_childs .= (($current_childs != "" and $str!="") ? "," : "").$str;
-            }
-        }
-        return  $current_childs;
-
-    }
-
-
-    public function show($id)
+   public function show($id)
     {
 
         $user = User::find($id);

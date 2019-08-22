@@ -33,11 +33,6 @@ Route::group(['prefix'=>'admin','auth'], function() {
     Route::resource("/users/contacts",'Admin\UserContactsController');
     Route::resource('/users', 'Auth\RegisterController');
 
-//    Route::post("/users/contacts",'Admin\UserController@storeUserContacts')->name("user_contacts.store");
-//    Route::post("/users/contacts",'Admin\UserController@saveUserContacts')->name("user_contacts.update");
-//    Route::post("/users/contacts",'Admin\UserController@saveUserContacts')->name("user_contacts.destroy");
-
-
 
     Route::get('/users/income_type', function () {
         return view('admin.users.income_type');
@@ -78,6 +73,7 @@ Route::resource('/hirepurchase', 'HirePurchaseController');
 Route::resource('/overdraft', 'OverDraftController');
 Route::resource('/personalloan', 'PersonalLoanController');
 Route::resource('/departments', 'DepartmentController');
+Route::get("/members","MembersController@getMembers")->name("members.index");
 Route::get("/users/{id}/departments", 'Admin\UserController@departments')->name("users.departments");
 Route::get("data/de", 'DataEntryController@de');
 });

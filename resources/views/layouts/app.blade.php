@@ -166,6 +166,9 @@ if (isset($applicant)) {
                         <a class="nav-link" href="{{ route("housingloan.index") }}">Facility Info</a>
                     </li>
                         @endif
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route("members.index") }}">Facility Info</a>
+                        </li>
                 {{--<li class="nav-item">--}}
                 {{--<a class="nav-link" href="{{ route("aafields.create") }}">AA Fields</a>--}}
                 {{--</li>--}}

@@ -9,34 +9,40 @@
     </thead>
     <tbody>
     @if(count($contacts)>0)
-    @foreach($contacts as $contact)
-    <tr><td colspan="4">
-            <form method="post" action="{{route("contacts.update",$contact->id)}}">
-                @method('patch')
-                @csrf()
-            <div class="col-lg-3">{{$user->id}}</div>
-            <div  class="col-lg-3"><input type="text" class="form-control" name="phone" value="{{ $contact->phone }}"></div>
-            <div  class="col-lg-3"><input type="text" class="form-control" name="email" value="{{ $contact->email }}"></div>
-            <div  class="col-lg-3"><a href="#">Edit</a> |<input type="submit" value="Save"></div>
-            </form>
-            <form method="post" action="{{route("contacts.destroy",$contact->id)}}">
-                @method('delete')
-                @csrf()
-               <input type="submit" class="btn btn-danger" value="Delete"></div>
-            </form>
+        @foreach($contacts as $contact)
+            <tr>
+                <td colspan="4">
+                    <form method="post" action="{{route("contacts.update",$contact->id)}}">
+                        @method('patch')
+                        @csrf()
+                        <input type="hidden" class="form-control" name="user_id" value="{{$user->id}}">
+                        <div class="col-lg-3">{{$user->username}}</div>
+                        <div class="col-lg-3"><input type="text" class="form-control" name="phone"
+                                                     value="{{ $contact->phone }}"></div>
+                        <div class="col-lg-3"><input type="text" class="form-control" name="email"
+                                                     value="{{ $contact->email }}"></div>
+                        <div class="col-lg-3"><a href="#">Edit</a> |<input type="submit" value="Save"></div>
+                    </form>
+                    <form method="post" action="{{route("contacts.destroy",$contact->id)}}">
+                        @method('delete')
+                        @csrf()
+                        <input type="submit" class="btn btn-danger" value="Delete"></div>
+                    </form>
 
-        </td>
-    </tr>
-    @endforeach
+                </td>
+            </tr>
+        @endforeach
     @endif
 
-    <tr><td colspan="4">
+    <tr>
+        <td colspan="4">
             <form method="post" action="{{route("contacts.store")}}">
                 @csrf()
-                <div class="col-lg-3"><input type="text" class="form-control" name="user_id" value="{{$user->id}}"></div>
-                <div  class="col-lg-3"><input type="text" class="form-control" name="phone" value=""></div>
-                <div  class="col-lg-3"><input type="text" class="form-control" name="email" value=""></div>
-                <div  class="col-lg-3"><a href="#">Edit</a> |<input type="submit" value="Save"></div>
+                <input type="hidden" class="form-control" name="user_id" value="{{$user->id}}">
+                <div class="col-lg-3">{{$user->username}}</div>
+                <div class="col-lg-3"><input type="text" class="form-control" name="phone" value=""></div>
+                <div class="col-lg-3"><input type="text" class="form-control" name="email" value=""></div>
+                <div class="col-lg-3"><a href="#">Edit</a> |<input type="submit" value="Save"></div>
             </form>
 
         </td>
