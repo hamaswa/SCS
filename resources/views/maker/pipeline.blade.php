@@ -126,13 +126,8 @@
                                         <a href="{{route("aadata.create", ["id" => $d->id])  }}"
                                            class="btn btn-xs bg-light-blue-gradient">KYC</a>
                                     @else
-                                        @if(request()->user()->hasRole("maker"))
-                                            <a href="{{ route("maker.newla", $d->id) }}"
-                                               class="btn btn-xs bg-light-blue-gradient">NE LA</a>
-
-                                            <a href="{{ route("maker.edit", $d->id) }}"
-                                               class="btn btn-xs bg-light-blue-gradient">Maker</a>
-                                            @endif
+                                        <a onclick="alert('Will link to Next Module')"
+                                           class="btn btn-xs bg-light-blue-gradient">Application</a>
                                     @endif
 
                                 </td>

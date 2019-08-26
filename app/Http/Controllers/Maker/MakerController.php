@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Maker;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\ApplicantData;
+use App\ApplicantIncome;
+use App\ApplicantWealth;
+use App\ApplicantProperty;
 
 class MakerController extends Controller
 {
@@ -55,6 +58,13 @@ class MakerController extends Controller
         //
     }
 
+
+
+    public function storela(Request $request)
+    {
+        //
+    }
+
     /**
      * Display the specified resource.
      *
@@ -74,8 +84,23 @@ class MakerController extends Controller
      */
     public function edit($id)
     {
+
         $applicant = ApplicantData::find($id);
         return view("maker.editform")->with("applicant", $applicant);
+    }
+
+
+    public function newla($id)
+    {
+        $arr['income'] = ApplicantIncome::where("applicant_id","=",$id)->first();
+        $arr['wealth'] = ApplicantWealth::where("applicant_id","=",$id)->first();
+        $arr['properties'] = ApplicantProperty::where("applicant_id","=",$id)->get();
+        $arr['income']->form_data = json_decode($arr['income']->form_data);
+        $arr['wealth']->form_data = json_decode($arr['wealth']->form_data);
+        $applicant = ApplicantData::find($id);
+        $arr["applicant"] = $applicant;
+
+        return view("maker.newla")->with($arr);
     }
 
     /**

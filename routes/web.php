@@ -47,7 +47,9 @@ Route::group(['prefix'=>'admin','auth'], function() {
 
 Route::group(['middleware' => 'role:maker'], function() {
 
-    Route::post("/search",'Maker\MakerController@search')->name("maker.search");
+    Route::post("/maker/search",'Maker\MakerController@search')->name("maker.search");
+    Route::get("/maker/newla/{id}",'Maker\MakerController@newla')->name("maker.newla");
+    Route::post("/maker/storela",'Maker\MakerController@storela')->name("maker.storela");
     Route::resource('maker', 'Maker\MakerController');
 
 });
