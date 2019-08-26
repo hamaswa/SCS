@@ -128,7 +128,7 @@
                                     @else
                                         @if(request()->user()->hasRole("maker"))
                                             <a href="{{ route("maker.newla", $d->id) }}"
-                                               class="btn btn-xs bg-light-blue-gradient">NE LA</a>
+                                               class="btn btn-xs bg-light-blue-gradient">Import</a>
 
                                             <a href="{{ route("maker.edit", $d->id) }}"
                                                class="btn btn-xs bg-light-blue-gradient">Maker</a>
