@@ -143,7 +143,7 @@ if (isset($applicant) and !isset($properties)) {
                 <!-- Optionally, you can add icons to the links -->
                 @guest
                     <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
                     {{--@else--}}
                     {{--@if (Route::has('register'))--}}
@@ -153,30 +153,32 @@ if (isset($applicant) and !isset($properties)) {
                     {{--@endif--}}
                 @else
                     @if(request()->user()->hasRole("admin3"))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route("register.create") }}">Add User</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route("users.index") }}">Users</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route("register.create") }}">Add User</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route("users.index") }}">Users</a>
+                        </li>
                     @endif
-                        @if(request()->user()->hasRole("processor"))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route("maker.index") }}">New AA</a>
-                    </li>
+                    @if(request()->user()->hasRole("processor") or request()->user()->hasRole("maker"))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route("aadata.index") }}">New AA</a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route("pipeline.index") }}">Pipeline Status</a>
-                    </li>
-                        @endif
-                        @if(request()->user()->hasRole("data_entry"))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route("housingloan.index") }}">Facility Info</a>
-                    </li>
-                        @endif
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route("pipeline.index") }}">Pipeline Status</a>
+                        </li>
+                    @endif
+                    @if(request()->user()->hasRole("data_entry"))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route("housingloan.index") }}">Facility Info</a>
+                        </li>
+                    @endif
+                    @if(!request()->user()->hasRole("admin1") and !request()->user()->hasRole("admin1") and !request()->user()->hasRole("admin1"))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route("members.index") }}">Facility Info</a>
                         </li>
+                @endif
                 {{--<li class="nav-item">--}}
                 {{--<a class="nav-link" href="{{ route("aafields.create") }}">AA Fields</a>--}}
                 {{--</li>--}}
@@ -382,12 +384,13 @@ if (isset($applicant) and !isset($properties)) {
 <script src="{{asset("js/select2.js")}}"></script>
 @stack('scripts')
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         if ($(window).width() < 990) {
             $('body').removeClass('sidebar-open');
             $('.mobile-view-text').text('Application');
         }
     });
+
     function showRightSidebar() {
         $('.show-right-detail').removeClass('hide');
     }

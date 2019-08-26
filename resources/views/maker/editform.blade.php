@@ -65,7 +65,7 @@
                                             @csrf
                                             <input type="hidden" name="formname" value="business_form">
                                             <input type="hidden" id="business_id" name="business_id">
-                                            @include('aadata.businesskycedit',['businesses'=>$applicant->applicantBusinesses]);
+                                            @include('maker.applicantkyc',['businesses'=>$applicant->applicantBusinesses]);
                                         </form>
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                                             @csrf
                                             <input type="hidden" name="formname" value="incomeform">
                                             <input type="hidden" name="income_id" value="" id="income_id">
-                                            @include('aadata.incomekycedit',['income'=>$applicant->applicantIncome])
+                                            @include('maker.incomekycedit',['income'=>$applicant->applicantIncome])
                                         </form>
                                     </div>
                                 </div>
@@ -85,7 +85,7 @@
                                             @csrf
                                             <input type="hidden" name="formname" value="wealthform">
                                             <input type="hidden" name="wealth_id" id="wealth_id">
-                                            @include('aadata.wealthkycedit',['wealth'=>$applicant->applicantWealth])
+                                            @include('maker.wealthkycedit',['wealth'=>$applicant->applicantWealth])
                                         </form>
                                     </div>
                                 </div>
@@ -93,7 +93,7 @@
                                     <div class="row" style="line-height: 14px; margin-bottom: 34.5px">
                                         <form id="propertyform" name="propertyform">
                                             <input type="hidden" name="property_id" id="property_id">
-                                            @include('aadata.propertykycedit',['properties'=>$applicant->applicantProperty])
+                                            @include('maker.propertykycedit',['properties'=>$applicant->applicantProperty])
                                         </form>
                                     </div>
                                 </div>
