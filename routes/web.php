@@ -22,6 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
         'register' => false,
     ]);
 
+
 Route::group(['prefix'=>'admin','auth'], function() {
 
     Route::resource('/permissions', 'Admin\PermissionController');
@@ -40,6 +41,14 @@ Route::group(['prefix'=>'admin','auth'], function() {
     Route::get('/users/payments', function () {
         return view('admin.users.payments');
     });
+
+});
+
+
+Route::group(['middleware' => 'role:maker'], function() {
+
+    Route::post("/search",'Maker\MakerController@search')->name("maker.search");
+    Route::resource('maker', 'Maker\MakerController');
 
 });
 

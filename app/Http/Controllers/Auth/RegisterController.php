@@ -105,7 +105,7 @@ class RegisterController extends Controller
         $arr["user"] = $user;
         $current_childs = implode(",",$user->childs()->Pluck("id")->ToArray());
         if($user->childs()) {
-            $str  =  $this->getExcludeIds($user->childs);
+            $str  =  $this->getChildrens($user->childs);
             $current_childs .= (($current_childs != "" and $str!="") ? "," : "").$str;
         }
 

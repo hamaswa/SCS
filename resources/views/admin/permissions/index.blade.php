@@ -14,11 +14,11 @@
                 </div>
             @endif
         </div>
-        @if($user->hasRole("admin3"))
+        @if(request()->user()->hasRole("admin3"))
         <div class="box-header"><h3>Permissions</h3></div>
         @endif
         <div class="box-body">
-            @if($user->hasRole("admin3"))
+            @if(request()->user()->hasRole("admin3"))
             <div class="col-md-4 col-sm-12">
                 <div class="col-sm-4 bg-light-blue-gradient padding-5 border-light"><b> User Role </b></div>
                 <div class="col-sm-6 bg-light-blue-gradient padding-5 border-light"><b> Users </b></div>
