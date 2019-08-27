@@ -13,56 +13,41 @@
                 </legend>
 
             </div>
-
-            <div class="container"> <!-- style="overflow:hidden" -->
-
-                <div class="row">
-                    <div class="col-md-12" style="overflow:auto">
+            <div class="col-md-12" style="overflow:auto">
+                <div class="box">
+                    <div class="box-body bg-white">
                         <form method="post" action="{{route("maker.storela")}}">
                             @csrf
                             <input type="hidden" name="applicant_id" value="{{$applicant->id}}">
-
-                        <table class="table">
-                        <tr>
-                            <td>
-
-                                <select name="la_source">
+                            <div class="col-md-3">
+                                <select name="la_source" class="form-control">
                                     <option value="as">AS</option>
                                     <option value="ps">PS</option>
                                     <option value="bk">BK</option>
                                     <option value="dv">DV</option>
                                 </select>
-
-                            </td>
-
-                            <td>
-
-                                <select name="la_branch">
+                            </div>
+                            <div class="col-md-3">
+                                <select name="la_branch" class="form-control">
                                     <option value="kl">KL</option>
                                     <option value="jb">JB</option>
                                     <option value="pn">PN</option>
                                 </select>
-
-                            </td>
-
-                            <td>
-
-                                <select name="la_category">
+                            </div>
+                            <div class="col-md-3">
+                                <select name="la_category" class="form-control">
                                     <option value="C">Company</option>
                                     <option value="I">Individual</option>
                                 </select>
-
-                            </td>
-
-                        </tr>
-                        <tr><td colspan="3" style="text-align:right"><input type="submit" value="Proceed" /> </td> </tr>
-                        </table>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="submit" value="Proceed" class="btn btn-primary" />
+                            </div>
                         </form>
                     </div>
                 </div>
+
             </div>
-
-
         </div>
 
     </section>
