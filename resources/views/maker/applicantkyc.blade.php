@@ -17,13 +17,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label><span>Company Registration No.</span></label>
-                    <div class="col-sm-10">
-                        <input type="text" placeholder="No Data Found" class="form-control" autocomplete="off">
-                    </div>
-                    <div class="col-sm-2">
-                        <button type="submit" class="btn btn-primary">Search</button>
-                    </div>
+                    <label>Company Registration No.</label>
+                    <input type="text" placeholder="No Data Found" class="form-control" autocomplete="off">
+                    <button type="submit" class="btn btn-primary">Search</button>
                 </div>
                 <div class="bg-yellow-light padding-5">
                     <div class="form-group">
@@ -70,12 +66,8 @@
                 </div>
                 <div class="form-group">
                     <label>NRIC / Passport NO</label>
-                    <div class="col-sm-10">
-                        <input type="text" placeholder="No Data Found" class="form-control" autocomplete="off">
-                    </div>
-                    <div class="col-sm-2">
-                        <button type="submit" class="btn btn-primary">Search</button>
-                    </div>
+                    <input type="text" placeholder="No Data Found" class="form-control" autocomplete="off">
+                    <button type="submit" class="btn btn-primary">Search</button>
                 </div>
                 <div class="bg-gray-light padding-5">
                     <div class="form-group">
@@ -116,7 +108,7 @@
                     </div>
                     <div class="form-group">
                         <label>Residential Address</label>
-                        <textarea class="form-control" rows="8"></textarea>
+                        <textarea class="form-control"></textarea>
                     </div>
                 </div>
             </div>
