@@ -116,7 +116,8 @@
 
 
                 </div>
-                <div class="form-group col-md-12 col-sm-12 bg-gray-light">
+                <div class="form-group col-md-12 col-sm-12 bg-gray-light" id="wealth_doc_form">
+                <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                     <label class="control-label">Type</label>
                     <select id="wealthtype" class="form-control select2" name="wealthtype" style="width:100%;">
                         <option value="saving">Saving</option>
@@ -127,6 +128,31 @@
                         </option>
 
                     </select>
+                </div>
+                <div class="form-group col-md-4 col-sm-4 bg-gray-light">
+
+                    <select name="primary_doc" id="primary_doc"  class="form-control select2">
+                        @foreach($wealth_primary_docs as $doc)
+                            <option value="{{$doc->name}}">
+                                {{ $doc->description }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-md-4 col-sm-4 bg-gray-light">
+
+                    <select name="primary_doc" id="primary_doc"  class="form-control select2">
+                        @foreach($wealth_primary_docs as $doc)
+                            <option value="{{$doc->name}}">
+                                {{ $doc->description }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                    <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right">
+
+                        <input type="file" name="wealth_doc" id="wealth_doc" />
+                    </div>
                 </div>
             </div>
             <div class="box-body bg-gray-light wealthtype" id="saving">
@@ -357,6 +383,25 @@
 
 @push("scripts")
     <script type="text/javascript">
+
+        $('#wealth_doc[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("enctype","multipart/form-data")
+            form.setAttribute("action", "{{ route("documents.store") }}");
+            csrf = $('{{ csrf_field() }}')
+            $(form).append(csrf);
+            $(form).append($("#wealth_doc_form").clone(true));
+            $(form).append($("#applicant_id").clone(true));
+
+            div = $("<div style=\"display=hidden\"></div>")
+
+            $(div).append(form)
+            document.body.appendChild(form);
+            form.submit();
+        });
+
         $("#backincomekyc").click(function (e) {
             $("#wealthkyc").addClass("hide");
             $("#incomekyc").removeClass("hide");

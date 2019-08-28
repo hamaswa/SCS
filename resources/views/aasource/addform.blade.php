@@ -62,12 +62,29 @@
 
                         <div class="col-md-6">
                             <select id="type" class="form-control" name="type">
-                                <option value="primary_docs">
-                                    Primary Docs
+                                <option value="income_primary_docs">
+                                    Income Primary Docs
                                 </option>
 
-                                <option value="support_docs">
-                                    Supporting Docs
+                                <option value="income_support_docs">
+                                    Income Supporting Docs
+                                </option>
+
+
+                                <option value="wealth_primary_docs">
+                                    Wealth Primary Docs
+                                </option>
+
+                                <option value="wealth_support_docs">
+                                    Wealth Supporting Docs
+                                </option>
+
+                                <option value="Property_primary_docs">
+                                    Property Primary Docs
+                                </option>
+
+                                <option value="property_support_docs">
+                                    Property Supporting Docs
                                 </option>
 
                                 <option value="facility_type">

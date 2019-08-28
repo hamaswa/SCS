@@ -70,6 +70,20 @@ class ApplicantDocumentsController extends Controller
                 $document = ApplicantDocuments::create($inputs);
                 return back()->with("success",$inputs['incometype']. " document successfully uploaded");
             }
+
+            else if ($request->file("wealth_doc")) {
+                $wealth_doc = rand(1, 1000) . $request->file("wealth_doc")->getClientOriginalName();
+                $wealth_doc = $request->file("wealth_doc")->storeAs("uploads/application_docs", $wealth_doc);
+
+                $inputs['file_name'] = $income_doc;
+                $inputs['doc_name'] = $inputs['primary_doc'];
+                $inputs['doc_type'] = $inputs['support_doc'];
+                $inputs['doc_hint'] = $inputs['wealthtype'];
+                $inputs['doc_status'] = "Optional";
+                $inputs['user_id'] = Auth::id();
+                $document = ApplicantDocuments::create($inputs);
+                return back()->with("success",$inputs['wealthtype']. " document successfully uploaded");
+            }
         }
         catch (\Exception $exception){
             echo $exception->getMessage();
