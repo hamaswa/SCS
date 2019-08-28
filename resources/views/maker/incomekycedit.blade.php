@@ -120,7 +120,8 @@
                     </div>
 
                 </div>
-                <div class="form-group col-md-12 col-sm-12 bg-gray-light">
+                <div class="col-md-12 col-sm-12 bg-gray-light">
+                    <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                     <label class="control-label">Type</label>
                     <select id="incometype" class="form-control select2" name="incometype" style="width: 100%;">
                         <option value="salary"> Monthly Fixed</option>
@@ -130,7 +131,34 @@
                         <option value="monthlyrental">Monthly Rental</option>
                         <option value="air">Annual Investment Return</option>
                     </select>
+                    </div>
+
+                    <div class="form-group col-md-4 col-sm-4 bg-gray-light">
+
+                        <select name="type" id="type">
+                            @foreach($primary_doc as $doc)
+                                <option value="{{$doc->name}}">
+                                    {{ $doc->description }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+
+                    <div class="form-group col-md-4 col-sm-4 bg-gray-light">
+
+                        <select name="type" id="type">
+                            @foreach($support_doc as $doc)
+                                <option value="{{$doc->name}}">
+                                    {{ $doc->description }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
                 </div>
+
+
             </div>
             <div class="box-body bg-gray-light incometype" id="salary">
                 <label class="col-lg-12 form-group clearfix">

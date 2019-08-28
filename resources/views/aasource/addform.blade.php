@@ -62,6 +62,14 @@
 
                         <div class="col-md-6">
                             <select id="type" class="form-control" name="type">
+                                <option value="primary_docs">
+                                    Primary Docs
+                                </option>
+
+                                <option value="support_docs">
+                                    Supporting Docs
+                                </option>
+
                                 <option value="facility_type">
                                     Facility Type
                                 </option>

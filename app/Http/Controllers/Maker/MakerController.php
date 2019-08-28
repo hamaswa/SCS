@@ -8,6 +8,7 @@ use App\ApplicantData;
 use App\ApplicantIncome;
 use App\ApplicantWealth;
 use App\ApplicantProperty;
+use App\AASource;
 
 class MakerController extends Controller
 {
@@ -62,7 +63,18 @@ class MakerController extends Controller
 
     public function storela(Request $request)
     {
-        //
+        $inputs = $request->all();
+        try {
+            $applicant = ApplicantData::find($inputs['id']);
+            $applicant->aasource = $inputs['aasource'];
+            $applicant->aabranch = $inputs['aabranch'];
+            $applicant->aacategory = $inputs['aacategory'];
+            $applicant->save();
+            return redirect(route("maker.edit", $applicant->id));
+        }
+        catch(\Exception $e){
+            return back()->with("error",$e->getMessage());
+        }
     }
 
     /**
@@ -85,8 +97,10 @@ class MakerController extends Controller
     public function edit($id)
     {
 
-        $applicant = ApplicantData::find($id);
-        return view("maker.editform")->with("applicant", $applicant);
+        $arr["applicant"] = ApplicantData::find($id);
+        $arr["primary_docs"]  = AASource::where("type","primary_docs")->get();
+        $arr["support_docs"]  = AASource::where("type","support_docs")->get();
+        return view("maker.editform")->with("applicant", $arr);
     }
 
 

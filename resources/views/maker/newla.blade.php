@@ -18,26 +18,26 @@
                     <div class="box-body bg-white">
                         <form method="post" action="{{route("maker.storela")}}">
                             @csrf
-                            <input type="hidden" name="applicant_id" value="{{$applicant->id}}">
+                            <input type="hidden" name="id" value="{{$applicant->id}}">
                             <div class="col-md-3">
-                                <select name="la_source" class="form-control">
-                                    <option value="as">AS</option>
-                                    <option value="ps">PS</option>
-                                    <option value="bk">BK</option>
-                                    <option value="dv">DV</option>
+                                <select name="aasource" class="form-control" id="aasource">
+                                    <option value="AS" {{ ((isset($applicant->aasource) and $applicant->aasource=="AS")?"selected=selected":"") }}>AS</option>
+                                    <option value="PS" {{ ((isset($applicant->aasource) and $applicant->aasource=="PS")?"selected=selected":"") }}>PS</option>
+                                    <option value="BK" {{ ((isset($applicant->aasource) and $applicant->aasource=="BK")?"selected=selected":"") }}>BK</option>
+                                    <option value="DV" {{ ((isset($applicant->aasource) and $applicant->aasource=="DV")?"selected=selected":"") }}>DV</option>
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <select name="la_branch" class="form-control">
-                                    <option value="kl">KL</option>
-                                    <option value="jb">JB</option>
-                                    <option value="pn">PN</option>
+                                <select name="aabranch" class="form-control" id="aabranch">
+                                    <option value="KL" {{ ((isset($applicant->aabranch) and $applicant->aabranch=="KL")?"selected=selected":"") }}>KL</option>
+                                    <option value="JB" {{ ((isset($applicant->aabranch) and $applicant->aabranch=="JB")?"selected=selected":"") }}>JB</option>
+                                    <option value="PN" {{ ((isset($applicant->aabranch) and $applicant->aabranch=="PN")?"selected=selected":"") }}>PN</option>
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <select name="la_category" class="form-control">
-                                    <option value="C">Company</option>
-                                    <option value="I">Individual</option>
+                                <select name="aacategory" class="form-control" id="aacategory">
+                                    <option value="C" {{ ((isset($applicant->aacategory) and $applicant->aacategory=="C")?"selected=selected":"") }}>Company</option>
+                                    <option value="I" {{ ((isset($applicant->aacategory) and $applicant->aacategory=="I")?"selected=selected":"") }}>Individual</option>
                                 </select>
                             </div>
                             <div class="col-md-3">
