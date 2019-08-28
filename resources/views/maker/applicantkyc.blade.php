@@ -19,7 +19,7 @@
                 <div class="form-group">
                     <label>Company Registration No.(No Special Character)</label>
                     <input type="text" placeholder="No Data Found" class="form-control" autocomplete="off">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-search" /></button>
+                    <button type="submit" class="btn btn-primary">Search</button>
                 </div>
                 <div class="bg-yellow-light">
                     <div class="form-group">
@@ -67,7 +67,7 @@
                 <div class="form-group">
                     <label>Company Registration No.(No Special Character)</label>
                     <input type="text" placeholder="No Data Found" class="form-control">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-search" /></button>
+                    <button type="submit" class="btn btn-primary">Search</button>
                 </div>
                 <div class="bg-gray-light">
                     <div class="form-group col-md-4 col-sm-12">
@@ -177,7 +177,6 @@
         </div>
 
     </div>
-
 </fieldset>
 
 @push("scripts")
