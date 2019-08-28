@@ -100,7 +100,7 @@ class MakerController extends Controller
         $arr["applicant"] = ApplicantData::find($id);
         $arr["primary_docs"]  = AASource::where("type","primary_docs")->get();
         $arr["support_docs"]  = AASource::where("type","support_docs")->get();
-        return view("maker.editform")->with("applicant", $arr);
+        return view("maker.editform")->with($arr);
     }
 
 

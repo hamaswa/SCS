@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class ApplicantDocuments extends Model
 {
     public $fillable = [
-        'applicant_id','file_name','doc_name','doc_type','doc_status','user_id'
+        'applicant_id','file_name','doc_name','doc_type','doc_status','user_id','doc_hint'
     ];
 }

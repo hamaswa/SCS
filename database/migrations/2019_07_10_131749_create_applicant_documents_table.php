@@ -18,6 +18,7 @@ class CreateApplicantDocumentsTable extends Migration
             $table->string("file_name");
             $table->string("doc_name");
             $table->string("doc_type")->nullable();
+            $table->string("doc_hint")->nullable();
             $table->string("doc_status")->default("Mandatory");
             $table->integer("user_id")->unsigned();
             $table->foreign("user_id")

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ApplicantDocuments;
-use Illuminate\Support\Facades\Storage;
 use Auth;
 class ApplicantDocumentsController extends Controller
 {
@@ -55,7 +54,27 @@ class ApplicantDocumentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        try {
+            $inputs = $request->all();
+            if ($request->file("income_doc")) {
+                $income_doc = rand(1, 1000) . $request->file("income_doc")->getClientOriginalName();
+                $income_doc = $request->file("income_doc")->storeAs("uploads/application_docs", $income_doc);
+
+                $inputs['file_name'] = $income_doc;
+                $inputs['doc_name'] = $inputs['primary_doc'];
+                $inputs['doc_type'] = $inputs['support_doc'];
+                $inputs['doc_hint'] = $inputs['incometype'];
+                $inputs['doc_status'] = "Optional";
+                $inputs['user_id'] = Auth::id();
+                $document = ApplicantDocuments::create($inputs);
+                return back()->with("success",$inputs['incometype']. " document successfully uploaded");
+            }
+        }
+        catch (\Exception $exception){
+            echo $exception->getMessage();
+          //  return back()->with("error", $exception->getMessage());
+        }
     }
 
     /**

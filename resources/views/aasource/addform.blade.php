@@ -117,6 +117,7 @@
     <script type="text/javascript">
 
         $("select").select2({allowclear:true});
+
         $(document).ready(function(){
             $("#submit").click(function(){
 

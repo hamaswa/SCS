@@ -120,7 +120,7 @@
                     </div>
 
                 </div>
-                <div class="col-md-12 col-sm-12 bg-gray-light">
+                <div class="col-md-12 col-sm-12 bg-gray-light" id="income_doc_form">
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                     <label class="control-label">Type</label>
                     <select id="incometype" class="form-control select2" name="incometype" style="width: 100%;">
@@ -135,8 +135,8 @@
 
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
 
-                        <select name="type" id="type">
-                            @foreach($primary_doc as $doc)
+                        <select name="primary_doc" id="primary_doc"  class="form-control select2">
+                            @foreach($primary_docs as $doc)
                                 <option value="{{$doc->name}}">
                                     {{ $doc->description }}
                                 </option>
@@ -147,19 +147,24 @@
 
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
 
-                        <select name="type" id="type">
-                            @foreach($support_doc as $doc)
+                        <select name="support_doc" id="support_doc"  class="form-control select2">
+                            @foreach($support_docs as $doc)
                                 <option value="{{$doc->name}}">
                                     {{ $doc->description }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right">
 
+                        <input type="file" name="income_doc" id="income_doc" />
+                    </div>
                 </div>
 
 
-            </div>
+
+
+                </div>
             <div class="box-body bg-gray-light incometype" id="salary">
                 <label class="col-lg-12 form-group clearfix">
                     Monthly Fixed
@@ -552,6 +557,24 @@
 <input type=hidden class="kyctotalnet" value="{{ (isset($data['net']) and $data['net']!=0)?$data['net']:0 }}" name=net id=net>
 @push("scripts")
     <script type="text/javascript">
+
+            $('#income_doc[type="file"]').change(function(e){
+                var fileName = e.target.files[0].name;
+                    form = document.createElement("form");
+                    form.setAttribute("method", "post");
+                    form.setAttribute("enctype","multipart/form-data")
+                    form.setAttribute("action", "{{ route("documents.store") }}");
+                    csrf = $('{{ csrf_field() }}')
+                    $(form).append(csrf);
+                    $(form).append($("#income_doc_form").clone(true));
+                    $(form).append($("#applicant_id").clone(true));
+
+                     div = $("<div style=\"display=hidden\"></div>")
+
+                    $(div).append(form)
+                    document.body.appendChild(form);
+                    form.submit();
+            });
 
         $(".currency").on("change", function (e) {
             if ($(this).val() == "myr")
