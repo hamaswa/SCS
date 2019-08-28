@@ -5,7 +5,7 @@
             <div class="col-md-6 col-sm-12 col-lg-6">
                 <div class="form-group">
                     <div class="btn-group margin-bottom border-black-1">
-                        <button type="button" class="btn btn-default btn-flat">Business 1</button>
+                        <button type="button" class="btn btn-default btn-flat">abd pvt ltd</button>
                         <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-list"></i>
                             <span class="sr-only">Toggle Dropdown</span>
@@ -17,11 +17,15 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Company Registration No.(No Special Character)</label>
-                    <input type="text" placeholder="No Data Found" class="form-control" autocomplete="off">
-                    <button type="submit" class="btn btn-primary">Search</button>
+                    <label><span>Company Registration No.</span></label>
+                    <div class="col-sm-10">
+                        <input type="text" placeholder="No Data Found" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
                 </div>
-                <div class="bg-yellow-light">
+                <div class="bg-yellow-light padding-5">
                     <div class="form-group">
                         <label>Company Name</label>
                         <input type="text" class="form-control" autocomplete="off">
@@ -35,11 +39,11 @@
                         <input type="text" class="form-control" autocomplete="off">
                     </div>
                 </div>
-                <div class="form-group col-md-6 col-sm-12">
+                <div class="form-group">
                     <label>Date Established</label>
                     <input type="date" class="form-control" autocomplete="off">
                 </div>
-                <div class="form-group col-md-6 col-sm-12">
+                <div class="form-group">
                     <label>Nature of Business</label>
                     <select class="form-control">
                         <option value=""></option>
@@ -53,7 +57,7 @@
             <div class="col-md-6 col-sm-12 col-lg-6">
                 <div class="form-group">
                     <div class="btn-group margin-bottom border-black-1">
-                        <button type="button" class="btn btn-default btn-flat">Business 1</button>
+                        <button type="button" class="btn btn-default btn-flat">Mr add</button>
                         <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-list"></i>
                             <span class="sr-only">Toggle Dropdown</span>
@@ -65,24 +69,28 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Company Registration No.(No Special Character)</label>
-                    <input type="text" placeholder="No Data Found" class="form-control">
-                    <button type="submit" class="btn btn-primary">Search</button>
+                    <label>NRIC / Passport NO</label>
+                    <div class="col-sm-10">
+                        <input type="text" placeholder="No Data Found" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
                 </div>
-                <div class="bg-gray-light">
-                    <div class="form-group col-md-4 col-sm-12">
+                <div class="bg-gray-light padding-5">
+                    <div class="form-group">
                         <label>Salutation</label>
                         <select class="form-control">
                             <option value=""></option>
                         </select>
                     </div>
-                    <div class="form-group col-md-4 col-sm-12">
+                    <div class="form-group">
                         <label>Position</label>
                         <select class="form-control">
                             <option value=""></option>
                         </select>
                     </div>
-                    <div class="form-group col-md-4 col-sm-12">
+                    <div class="form-group">
                         <label class="clearfix">Ownership</label>
                         <div class="col-sm-11 no-margin no-padding">
                             <input type="text" class="form-control">
@@ -117,7 +125,7 @@
     <div class="col-sm-12 col-md-4 col-lg-4">
         <div class="box">
             <div class="box-header bg-primary">
-                <h3>Request CCRIS</h3>
+                <h4 class="text-white">Request CCRIS</h4>
             </div>
             <div class="box-body left-box">
                 <div class="form-group">
@@ -147,7 +155,7 @@
         </div>
         <div class="box">
             <div class="box-header bg-primary">
-                <h3>Request CCRIS</h3>
+                <h4 class="text-white">Request CCRIS</h4>
             </div>
             <div class="box-body left-box">
                 <div class="form-group">
