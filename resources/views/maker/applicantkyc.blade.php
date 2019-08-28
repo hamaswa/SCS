@@ -1,6 +1,6 @@
 <fieldset id="applicantkyc" class="tab-action-main">
 
-    <div class="col-sm-12 col-md-6 col-lg-6 col-lg-offset-1">
+    <div class="col-sm-12 col-md-6 col-lg-6 col-lg-offset-1 border-light">
         <div class="box">
             <div class="col-md-6 col-sm-12 col-lg-6">
                 <div class="form-group">
@@ -115,7 +115,7 @@
         </div>
     </div>
     <div class="col-sm-12 col-md-4 col-lg-4">
-        <div class="box">
+        <div class="box border-light">
             <div class="box-header bg-primary">
                 <h4 class="text-white">Request CCRIS</h4>
             </div>
@@ -145,7 +145,7 @@
                 </div>
             </div>
         </div>
-        <div class="box">
+        <div class="box border-light">
             <div class="box-header bg-primary">
                 <h4 class="text-white">Request CCRIS</h4>
             </div>
