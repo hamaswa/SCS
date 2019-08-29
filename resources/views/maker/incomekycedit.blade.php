@@ -134,6 +134,7 @@
                     </div>
 
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
+                        <label class="control-label">Primary Document</label>
 
                         <select name="primary_doc" id="primary_doc"  class="form-control select2">
                             @foreach($income_primary_docs as $doc)
@@ -146,6 +147,7 @@
 
 
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
+                        <label class="control-label">Supporting Document</label>
 
                         <select name="support_doc" id="support_doc"  class="form-control select2">
                             @foreach($income_support_docs as $doc)
@@ -155,9 +157,8 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right">
-
-                        <input type="file" name="income_doc" id="income_doc" />
+                    <div class="form-group col-md-4 col-sm-3 pull-right">
+                        <input type="file" class="form-control btn btn-primary" name="income_doc" id="income_doc" />
                     </div>
                 </div>
 

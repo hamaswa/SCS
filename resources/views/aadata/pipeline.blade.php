@@ -130,8 +130,7 @@
                                             <a href="{{ route("maker.newla", $d->id) }}"
                                                class="btn btn-xs bg-light-blue-gradient">Import</a>
 
-                                            <a href="{{ route("maker.edit", $d->id) }}"
-                                               class="btn btn-xs bg-light-blue-gradient">Maker</a>
+
                                             @endif
                                     @endif
 
