@@ -18,7 +18,7 @@
 
 
                     <div class="form-group row">
-                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Slug') }} e.g first_name</label>
+                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Slug') }}</label>
 
                         <div class="col-md-6">
                             <input id="name" type="text"

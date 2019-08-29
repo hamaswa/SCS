@@ -67,7 +67,7 @@ class ApplicantDocumentsController extends Controller
                 $inputs['file_name'] = $income_doc;
                 $inputs['doc_name'] = $inputs['primary_doc'];
                 $inputs['doc_type'] = $inputs['support_doc'];
-                $inputs['doc_hint'] = $inputs['incometype'];
+                $inputs['doc_hint'] = "income+".$inputs['incometype'];
                 $inputs['doc_status'] = "Optional";
                 $inputs['user_id'] = Auth::id();
                 $document = ApplicantDocuments::create($inputs);
@@ -81,7 +81,21 @@ class ApplicantDocumentsController extends Controller
                 $inputs['file_name'] = $wealth_doc;
                 $inputs['doc_name'] = $inputs['primary_doc'];
                 $inputs['doc_type'] = $inputs['support_doc'];
-                $inputs['doc_hint'] = $inputs['wealthtype'];
+                $inputs['doc_hint'] = "wealth+".$inputs['wealthtype'];
+                $inputs['doc_status'] = "Optional";
+                $inputs['user_id'] = Auth::id();
+                $document = ApplicantDocuments::create($inputs);
+                return back()->with("success",$inputs['wealthtype']. " document successfully uploaded");
+            }
+
+            else if ($request->file("property_doc")) {
+                $property_doc = rand(1, 1000) . $request->file("property_doc")->getClientOriginalName();
+                $property_doc = $request->file("property_doc")->storeAs("uploads/application_docs", $property_doc);
+
+                $inputs['file_name'] = $property_doc;
+                $inputs['doc_name'] = $inputs['primary_doc'];
+                $inputs['doc_type'] = $inputs['support_doc'];
+                $inputs['doc_hint'] = "wealth+".$inputs['wealthtype'];
                 $inputs['doc_status'] = "Optional";
                 $inputs['user_id'] = Auth::id();
                 $document = ApplicantDocuments::create($inputs);
