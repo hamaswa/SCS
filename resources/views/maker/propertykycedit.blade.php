@@ -46,7 +46,7 @@
                         </div>
 
                         <div class="form-group col-md-12 col-sm-12" id="property_doc_form">
-                            <input type="hidden" name="doc_hint" value="Property{{$i}}">
+                            <input type="hidden" name="doc_hint" value="Property+{{$i}}">
                             <div class="form-group col-md-4 col-sm-4 bg-gray-light">
 
                                 <select name="primary_doc" id="primary_doc" class="form-control select2">

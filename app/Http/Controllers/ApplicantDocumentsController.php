@@ -95,7 +95,7 @@ class ApplicantDocumentsController extends Controller
                 $inputs['file_name'] = $property_doc;
                 $inputs['doc_name'] = $inputs['primary_doc'];
                 $inputs['doc_type'] = $inputs['support_doc'];
-                $inputs['doc_hint'] = "wealth+".$inputs['wealthtype'];
+                $inputs['doc_hint'] = $inputs['doc_hint'];
                 $inputs['doc_status'] = "Optional";
                 $inputs['user_id'] = Auth::id();
                 $document = ApplicantDocuments::create($inputs);
