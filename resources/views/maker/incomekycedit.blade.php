@@ -120,7 +120,7 @@
                     </div>
 
                 </div>
-                <div class="col-md-12 col-sm-12 bg-gray-light" class="income_doc_form">
+                <div class="col-md-12 col-sm-12 bg-gray-light" id="income_doc_form">
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                     <label class="control-label">Type</label>
                     <select id="incometype" class="form-control select2" name="incometype" style="width: 100%;">
@@ -157,7 +157,7 @@
                     </div>
                     <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right">
 
-                        <input type="file" name="kyc_doc" class="kyc_doc" />
+                        <input type="file" name="income_doc" id="income_doc" />
                     </div>
                 </div>
 

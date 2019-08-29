@@ -18,12 +18,12 @@
 
 
                     <div class="form-group row">
-                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Slug') }} e.g first_name</label>
 
                         <div class="col-md-6">
                             <input id="name" type="text"
                                    class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                   name="name" value="{{ old('name') }}" required autofocus>
+                                   name="name" placeholder="slug" value="{{ old('name') }}" required autofocus>
 
                             @if ($errors->has('name'))
                                 <span class="invalid-feedback" role="alert">
@@ -38,10 +38,10 @@
 
                     <div class="form-group row">
                         <label for="description"
-                               class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
+                               class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                         <div class="col-md-6">
-                            <input id="description"
+                            <input id="description" placeholder="name"
                                    class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"
                                    name="description" required autofocus
                                    value ="{{ old('description') }}"
@@ -58,7 +58,7 @@
 
                     <div class="form-group row">
                         <label for="description"
-                               class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
+                               class="col-md-4 col-form-label text-md-right">{{ __('Type') }}</label>
 
                         <div class="col-md-6">
                             <select id="type" class="form-control" name="type">
@@ -90,18 +90,18 @@
                                 <option value="facility_type">
                                     Facility Type
                                 </option>
-                                <option value="aasource">
-                                    AASource
-                                </option>
-                                <option value="aabranch">
-                                    AABranch
-                                </option>
-                                <option value="aacategory">
-                                    AACategory
-                                </option>
-                                <option value="aatype">
-                                    AAType
-                                </option>
+                                {{--<option value="aasource">--}}
+                                    {{--AASource--}}
+                                {{--</option>--}}
+                                {{--<option value="aabranch">--}}
+                                    {{--AABranch--}}
+                                {{--</option>--}}
+                                {{--<option value="aacategory">--}}
+                                    {{--AACategory--}}
+                                {{--</option>--}}
+                                {{--<option value="aatype">--}}
+                                    {{--AAType--}}
+                                {{--</option>--}}
 
                             </select>
 

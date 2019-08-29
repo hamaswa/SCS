@@ -55,8 +55,11 @@ class ApplicantDocumentsController extends Controller
     public function store(Request $request)
     {
 
+        echo "<pre>";
         try {
             $inputs = $request->all();
+            print_r($inputs);
+
             if ($request->file("income_doc")) {
                 $income_doc = rand(1, 1000) . $request->file("income_doc")->getClientOriginalName();
                 $income_doc = $request->file("income_doc")->storeAs("uploads/application_docs", $income_doc);
@@ -75,7 +78,7 @@ class ApplicantDocumentsController extends Controller
                 $wealth_doc = rand(1, 1000) . $request->file("wealth_doc")->getClientOriginalName();
                 $wealth_doc = $request->file("wealth_doc")->storeAs("uploads/application_docs", $wealth_doc);
 
-                $inputs['file_name'] = $income_doc;
+                $inputs['file_name'] = $wealth_doc;
                 $inputs['doc_name'] = $inputs['primary_doc'];
                 $inputs['doc_type'] = $inputs['support_doc'];
                 $inputs['doc_hint'] = $inputs['wealthtype'];
@@ -86,6 +89,8 @@ class ApplicantDocumentsController extends Controller
             }
         }
         catch (\Exception $exception){
+            echo "<pre>";
+            print_r($inputs);
             echo $exception->getMessage();
           //  return back()->with("error", $exception->getMessage());
         }

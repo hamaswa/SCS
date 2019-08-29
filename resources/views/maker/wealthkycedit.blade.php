@@ -141,8 +141,8 @@
                 </div>
                 <div class="form-group col-md-4 col-sm-4 bg-gray-light">
 
-                    <select name="primary_doc" id="primary_doc"  class="form-control select2">
-                        @foreach($wealth_primary_docs as $doc)
+                    <select name="support_doc" id="support_doc"  class="form-control select2">
+                        @foreach($wealth_support_docs as $doc)
                             <option value="{{$doc->name}}">
                                 {{ $doc->description }}
                             </option>
