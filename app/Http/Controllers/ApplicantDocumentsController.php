@@ -99,7 +99,7 @@ class ApplicantDocumentsController extends Controller
                 $inputs['doc_status'] = "Optional";
                 $inputs['user_id'] = Auth::id();
                 $document = ApplicantDocuments::create($inputs);
-                return back()->with("success",$inputs['wealthtype']. " document successfully uploaded");
+                return back()->with("success",$inputs['doc_hint']. " document successfully uploaded");
             }
         }
         catch (\Exception $exception){

@@ -16,6 +16,16 @@
             <div class="container"> <!-- style="overflow:hidden" -->
 
 
+                @if ($message = Session::get('success'))
+                    <div class="alert alert-success">
+                        <p>{{ $message }}</p>
+                    </div>
+                @endif
+                @if($errors->any())
+                    <div class="alert alert-error">
+                        {{ $errors->first() }}
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-md-12" style="overflow:auto">
                         <div id="MyAccountsTab" class="tabbable tabs-left">
