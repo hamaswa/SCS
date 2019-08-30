@@ -2,37 +2,38 @@
 
     <div class="col-sm-12 col-md-6 col-lg-6 col-lg-offset-1 border-light">
         <div class="box">
+            @if($applicant->aacategory=="C")
             <div class="col-md-6 col-sm-12 col-lg-6">
-                <div class="form-group">
-                    <div class="btn-group margin-bottom border-black-1">
-                        <button type="button" class="btn btn-default btn-flat">abd pvt ltd</button>
-                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-list"></i>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu position-relative" id="" role="menu">
-                            <li><a href="#" data-number="0">Edit</a></li>
-                            <li><a href="#" data-number="0">Delete</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Company Registration No.</label>
-                    <input type="text" placeholder="No Data Found" class="form-control" autocomplete="off">
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </div>
+                {{--<div class="form-group">--}}
+                    {{--<div class="btn-group margin-bottom border-black-1">--}}
+                        {{--<button type="button" class="btn btn-default btn-flat">abd pvt ltd</button>--}}
+                        {{--<button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">--}}
+                            {{--<i class="fa fa-list"></i>--}}
+                            {{--<span class="sr-only">Toggle Dropdown</span>--}}
+                        {{--</button>--}}
+                        {{--<ul class="dropdown-menu position-relative" id="" role="menu">--}}
+                            {{--<li><a href="#" data-number="0">Edit</a></li>--}}
+                            {{--<li><a href="#" data-number="0">Delete</a></li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="form-group">--}}
+                    {{--<label>Company Registration No.</label>--}}
+                    {{--<input type="text" placeholder="No Data Found" class="form-control" autocomplete="off">--}}
+                    {{--<button type="submit" class="btn btn-primary">Search</button>--}}
+                {{--</div>--}}
                 <div class="bg-yellow-light padding-5">
                     <div class="form-group">
                         <label>Company Name</label>
-                        <input type="text" class="form-control" autocomplete="off">
+                        <input type="text"  value="{{$applicant->name}}" name="name" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>Company Registration Number</label>
-                        <input type="text" class="form-control" autocomplete="off">
+                        <input type="text" value="{{$applicant->unique_id}}" name="unique_id" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>Office Phone No</label>
-                        <input type="text" class="form-control" autocomplete="off">
+                        <input type="text" value="{{$applicant->mobile}}" name="mobile" class="form-control" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
@@ -50,30 +51,37 @@
                     <textarea class="form-control" rows="8"></textarea>
                 </div>
             </div>
+            @else
             <div class="col-md-6 col-sm-12 col-lg-6">
-                <div class="form-group">
-                    <div class="btn-group margin-bottom border-black-1">
-                        <button type="button" class="btn btn-default btn-flat">Mr add</button>
-                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-list"></i>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu position-relative" id="" role="menu">
-                            <li><a href="#" data-number="0">Edit</a></li>
-                            <li><a href="#" data-number="0">Delete</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>NRIC / Passport NO</label>
-                    <input type="text" placeholder="No Data Found" class="form-control" autocomplete="off">
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </div>
+                {{--<div class="form-group">--}}
+                    {{--<div class="btn-group margin-bottom border-black-1">--}}
+                        {{--<button type="button" class="btn btn-default btn-flat">Mr add</button>--}}
+                        {{--<button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">--}}
+                            {{--<i class="fa fa-list"></i>--}}
+                            {{--<span class="sr-only">Toggle Dropdown</span>--}}
+                        {{--</button>--}}
+                        {{--<ul class="dropdown-menu position-relative" id="" role="menu">--}}
+                            {{--<li><a href="#" data-number="0">Edit</a></li>--}}
+                            {{--<li><a href="#" data-number="0">Delete</a></li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="form-group">--}}
+                    {{--<label>NRIC / Passport NO</label>--}}
+                    {{--<input type="text" placeholder="No Data Found" class="form-control" autocomplete="off">--}}
+                    {{--<button type="submit" class="btn btn-primary">Search</button>--}}
+                {{--</div>--}}
                 <div class="bg-gray-light padding-5">
                     <div class="form-group">
                         <label>Salutation</label>
-                        <select class="form-control">
-                            <option value=""></option>
+                        <select name="support_doc" id="support_doc"  class="form-control select2">
+                            @foreach($options as $option)
+                                @if($option->type=="")
+                                <option value="{{$option->name}}">
+                                    {{ $option->description }}
+                                </option>
+                                @endif
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
@@ -85,98 +93,99 @@
                     <div class="form-group">
                         <label class="clearfix">Ownership</label>
                         <div class="col-sm-11 no-margin no-padding">
-                            <input type="text" class="form-control">
+                            <input type="text" name="ownership" {{(isset($applicant->ownership)?$applicant->ownership:""}} class="form-control">
                         </div>
                         <div class="col-sm-1 no-margin no-padding">%</div>
 
                     </div>
                     <div class="form-group">
                         <label>Full Name as Per NRIC / Passport</label>
-                        <input type="text" class="form-control" autocomplete="off">
+                        <input type="text"  value="{{$applicant->name}}" name="name" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>NRIC No. / Passport No.</label>
-                        <input type="text" class="form-control" autocomplete="off">
+                        <input type="text" value="{{$applicant->unique_id}}" name="unique_id"  class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>Mobile No.</label>
-                        <input type="text" class="form-control" autocomplete="off">
+                        <input type="text"  value="{{$applicant->mobile}}" name="mobile"  class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" class="form-control" autocomplete="off">
+                        <input type="email" name="email" value="{{(isset($applicant->email)?$applicant->email:""}}" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>Residential Address</label>
-                        <textarea class="form-control"></textarea>
+                        <textarea name="residential_address" class="form-control">{{(isset($applicant->residential_address)?$applicant->residential_address:""}}</textarea>
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </div>
-    <div class="col-sm-12 col-md-4 col-lg-4">
-        <div class="box border-light">
-            <div class="box-header bg-primary">
-                <h4 class="text-white">Request CCRIS</h4>
-            </div>
-            <div class="box-body left-box">
-                <div class="form-group">
-                    <label>Full Name as Per NRIC / Passport</label>
-                    <input type="text" class="form-control" autocomplete="off">
-                    <input type="checkbox" /> Verified
-                </div>
-                <div class="form-group">
-                    <label>NRIC No. / Passport No.</label>
-                    <input type="text" class="form-control" autocomplete="off">
-                    <input type="checkbox" /> Verified
-                </div>
-                <div class="form-group">
-                    <label>Mobile No.</label>
-                    <input type="text" class="form-control" autocomplete="off">
-                    <input type="checkbox" /> Verified
-                </div>
-                <div class="form-group">
-                    <div class="pull-right">
-                        <img src="{{ asset("img/file.jpeg") }}"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-default">Request</button>
-                </div>
-            </div>
-        </div>
-        <div class="box border-light">
-            <div class="box-header bg-primary">
-                <h4 class="text-white">Request CCRIS</h4>
-            </div>
-            <div class="box-body left-box">
-                <div class="form-group">
-                    <label>Company Name</label>
-                    <input type="text" class="form-control" autocomplete="off">
-                    <input type="checkbox" /> Verified
-                </div>
-                <div class="form-group">
-                    <label>Company Registration Number</label>
-                    <input type="text" class="form-control" autocomplete="off">
-                    <input type="checkbox" /> Verified
-                </div>
-                <div class="form-group">
-                    <label>Office Phone No</label>
-                    <input type="text" class="form-control" autocomplete="off">
-                    <input type="checkbox" /> Verified
-                </div>
-                <div class="form-group">
-                    <div class="pull-right">
-                        <img src="{{ asset("img/file.jpeg") }}"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-default">Request</button>
-                </div>
-            </div>
-        </div>
+    {{--<div class="col-sm-12 col-md-4 col-lg-4">--}}
+        {{--<div class="box border-light">--}}
+            {{--<div class="box-header bg-primary">--}}
+                {{--<h4 class="text-white">Request CCRIS</h4>--}}
+            {{--</div>--}}
+            {{--<div class="box-body left-box">--}}
+                {{--<div class="form-group">--}}
+                    {{--<label>Full Name as Per NRIC / Passport</label>--}}
+                    {{--<input type="text" class="form-control" autocomplete="off">--}}
+                    {{--<input type="checkbox" /> Verified--}}
+                {{--</div>--}}
+                {{--<div class="form-group">--}}
+                    {{--<label>NRIC No. / Passport No.</label>--}}
+                    {{--<input type="text" class="form-control" autocomplete="off">--}}
+                    {{--<input type="checkbox" /> Verified--}}
+                {{--</div>--}}
+                {{--<div class="form-group">--}}
+                    {{--<label>Mobile No.</label>--}}
+                    {{--<input type="text" class="form-control" autocomplete="off">--}}
+                    {{--<input type="checkbox" /> Verified--}}
+                {{--</div>--}}
+                {{--<div class="form-group">--}}
+                    {{--<div class="pull-right">--}}
+                        {{--<img src="{{ asset("img/file.jpeg") }}"/>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="form-group">--}}
+                    {{--<button class="btn btn-default">Request</button>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="box border-light">--}}
+            {{--<div class="box-header bg-primary">--}}
+                {{--<h4 class="text-white">Request CCRIS</h4>--}}
+            {{--</div>--}}
+            {{--<div class="box-body left-box">--}}
+                {{--<div class="form-group">--}}
+                    {{--<label>Company Name</label>--}}
+                    {{--<input type="text" class="form-control" autocomplete="off">--}}
+                    {{--<input type="checkbox" /> Verified--}}
+                {{--</div>--}}
+                {{--<div class="form-group">--}}
+                    {{--<label>Company Registration Number</label>--}}
+                    {{--<input type="text" class="form-control" autocomplete="off">--}}
+                    {{--<input type="checkbox" /> Verified--}}
+                {{--</div>--}}
+                {{--<div class="form-group">--}}
+                    {{--<label>Office Phone No</label>--}}
+                    {{--<input type="text" class="form-control" autocomplete="off">--}}
+                    {{--<input type="checkbox" /> Verified--}}
+                {{--</div>--}}
+                {{--<div class="form-group">--}}
+                    {{--<div class="pull-right">--}}
+                        {{--<img src="{{ asset("img/file.jpeg") }}"/>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="form-group">--}}
+                    {{--<button class="btn btn-default">Request</button>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
 
-    </div>
+    {{--</div>--}}
 </fieldset>
 
 @push("scripts")
