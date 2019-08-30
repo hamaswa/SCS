@@ -9,6 +9,8 @@ use App\ApplicantIncome;
 use App\ApplicantWealth;
 use App\ApplicantProperty;
 use App\AASource;
+use App\Applicant_ApplicantData;
+use Auth;
 
 class MakerController extends Controller
 {
@@ -56,6 +58,21 @@ class MakerController extends Controller
      */
     public function store(Request $request)
     {
+
+        $inputs = $request->all();
+        try {
+            if ($applicant = Applicant_ApplicantData::find($inputs['id'])) {
+                $inputs['user_id'] = Auth::id();
+                $applicant->update($inputs);
+            } else {
+                $applicant = Applicant_ApplicantData::create($inputs);
+            }
+
+            return back()->with("success", "Applicant Data Successfully Saved");
+        }
+        catch (\Exception $exception){
+            return back()->with("success", "Data not Saved" . $exception->getMessage());
+        }
         //
     }
 
@@ -98,12 +115,8 @@ class MakerController extends Controller
     {
 
         $arr["applicant"] = ApplicantData::find($id);
-        $arr["income_primary_docs"]  = AASource::where("type","income_primary_docs")->get();
-        $arr["income_support_docs"]  = AASource::where("type","income_support_docs")->get();
-        $arr["wealth_primary_docs"]  = AASource::where("type","wealth_primary_docs")->get();
-        $arr["wealth_support_docs"]  = AASource::where("type","wealth_support_docs")->get();
-        $arr["property_primary_docs"]  = AASource::where("type","property_primary_docs")->get();
-        $arr["property_support_docs"]  = AASource::where("type","property_support_docs")->get();
+        $arr["options"]  = AASource::whereRaw(
+            'type in ("income_primary_docs","income_support_docs","wealth_primary_docs","wealth_support_docs", "property_primary_docs","property_support_docs", "salutation","position","nature_of_business")')->get();
         return view("maker.editform")->with($arr);
     }
 

@@ -71,11 +71,10 @@
                                 <div class="tab-pane active" id="lA"><!--style="padding-left: 60px; padding-right:100px"-->
                                     <div class="row" style="line-height: 14px; margin-bottom: 34.5px">
                                         <input type="hidden" id="applicant_id" value="{{ $applicant->id }}" name="applicant_id">
-                                        <form id="business_form" name="business_form">
+                                        <form id="business_form" name="business_form" method="post" action="{{route("maker.store")}}">
                                             @csrf
-                                            <input type="hidden" name="formname" value="business_form">
-                                            <input type="hidden" id="business_id" name="business_id">
-                                            @include('maker.applicantkyc',['businesses'=>$applicant->applicantBusinesses]);
+                                            <input type="hidden" name="applicant_id" value="{{$applicant->id}}">
+                                            @include('maker.applicantkyc',['applicant_data'=>$applicant->applicantApplicants]);
                                         </form>
                                     </div>
                                 </div>

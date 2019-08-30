@@ -98,7 +98,7 @@
                                 <option value="position">
                                     Applicantio KYC Position
                                 </option>
-                                <option value="salution">
+                                <option value="salutation">
                                     Salutation
                                 </option>
                                 {{--<option value="aasource">--}}

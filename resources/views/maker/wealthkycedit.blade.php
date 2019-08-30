@@ -131,25 +131,15 @@
                 </div>
                 <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                     <label class="control-label">Primary Document</label>
+                    @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'property_support_doc','options'=>$options,'class'=>'form-control select2'])
 
-                    <select name="primary_doc" id="primary_doc"  class="form-control select2">
-                        @foreach($wealth_primary_docs as $doc)
-                            <option value="{{$doc->name}}">
-                                {{ $doc->description }}
-                            </option>
-                        @endforeach
-                    </select>
+
                 </div>
                 <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                     <label class="control-label">Supporting Document</label>
 
-                    <select name="support_doc" id="support_doc"  class="form-control select2">
-                        @foreach($wealth_support_docs as $doc)
-                            <option value="{{$doc->name}}">
-                                {{ $doc->description }}
-                            </option>
-                        @endforeach
-                    </select>
+                    @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'wealth_support_doc','options'=>$options,'class'=>'form-control select2'])
+
                 </div>
                     <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right">
 

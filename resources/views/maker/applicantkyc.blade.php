@@ -2,7 +2,10 @@
 
     <div class="col-sm-12 col-md-6 col-lg-6 col-lg-offset-1 border-light">
         <div class="box">
-            @if($applicant->aacategory=="C")
+            <div class="box-body">
+            <input type="hidden" value="{{$applicant->aacategory}}" name="aacategory">
+            <input type="hidden" value="{{isset($applicant_data->id)?$applicant_data->id:"0"}}" name="id">
+        @if($applicant->aacategory=="C")
             <div class="col-md-6 col-sm-12 col-lg-6">
                 {{--<div class="form-group">--}}
                     {{--<div class="btn-group margin-bottom border-black-1">--}}
@@ -25,30 +28,30 @@
                 <div class="bg-yellow-light padding-5">
                     <div class="form-group">
                         <label>Company Name</label>
-                        <input type="text"  value="{{$applicant->name}}" name="name" class="form-control" autocomplete="off">
+                        <input type="text"  value="{{$applicant_data->name}}" name="name" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>Company Registration Number</label>
-                        <input type="text" value="{{$applicant->unique_id}}" name="unique_id" class="form-control" autocomplete="off">
+                        <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>Office Phone No</label>
-                        <input type="text" value="{{$applicant->mobile}}" name="mobile" class="form-control" autocomplete="off">
+                        <input type="text" value="{{$applicant_data->mobile}}" name="mobile" class="form-control" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Date Established</label>
-                    <input type="date" class="form-control" autocomplete="off">
+                    <label>Date Established
+                        <input type="date"  name="date_established"
+                               value="{{(isset($applicant_data->date_established)?$applicant_data->date_established:"")}}" class="form-control" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <label>Nature of Business</label>
-                    <select class="form-control">
-                        <option value=""></option>
-                    </select>
+                    @include("layouts.select", ['name'=>'nature_of_business','id'=>'nature_of_business','type'=>'nature_of_business','options'=>$options])
+
                 </div>
                 <div class="form-group">
                     <label>Office Address</label>
-                    <textarea class="form-control" rows="8"></textarea>
+                    <textarea name="address" value="{{isset($applicant_data->address)?$applicant_data->address:""}}" class="form-control" rows="8"></textarea>
                 </div>
             </div>
             @else
@@ -74,55 +77,55 @@
                 <div class="bg-gray-light padding-5">
                     <div class="form-group">
                         <label>Salutation</label>
-                        <select name="support_doc" id="support_doc"  class="form-control select2">
-                            @foreach($options as $option)
-                                @if($option->type=="")
-                                <option value="{{$option->name}}">
-                                    {{ $option->description }}
-                                </option>
-                                @endif
-                            @endforeach
-                        </select>
+
+                        @include("layouts.select", ['name'=>'salutation','id'=>'salutation','type'=>'salutation','options'=>$options,'class'=>'form-control select2'])
                     </div>
                     <div class="form-group">
                         <label>Position</label>
-                        <select class="form-control">
-                            <option value=""></option>
-                        </select>
+                        @include("layouts.select", ['name'=>'position','id'=>'position','type'=>'position','options'=>$options,'class'=>'form-control select2'])
+
                     </div>
                     <div class="form-group">
                         <label class="clearfix">Ownership</label>
                         <div class="col-sm-11 no-margin no-padding">
-                            <input type="text" name="ownership" {{(isset($applicant->ownership)?$applicant->ownership:""}} class="form-control">
+                            <input type="text" name="ownership"
+                                   {{(isset($applicant_data->ownership)?$applicant_data->ownership:"")}} class="form-control">
                         </div>
                         <div class="col-sm-1 no-margin no-padding">%</div>
 
                     </div>
                     <div class="form-group">
                         <label>Full Name as Per NRIC / Passport</label>
-                        <input type="text"  value="{{$applicant->name}}" name="name" class="form-control" autocomplete="off">
+                        <input type="text"  value="{{$applicant_data->name}}" name="name" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>NRIC No. / Passport No.</label>
-                        <input type="text" value="{{$applicant->unique_id}}" name="unique_id"  class="form-control" autocomplete="off">
+                        <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id"  class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>Mobile No.</label>
-                        <input type="text"  value="{{$applicant->mobile}}" name="mobile"  class="form-control" autocomplete="off">
+                        <input type="text"  value="{{$applicant_data->mobile}}" name="mobile"  class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" name="email" value="{{(isset($applicant->email)?$applicant->email:""}}" class="form-control" autocomplete="off">
+                        <input type="email" name="email" value="{{(isset($applicant_data->email)?$applicant_data->email:"")}}" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>Residential Address</label>
-                        <textarea name="residential_address" class="form-control">{{(isset($applicant->residential_address)?$applicant->residential_address:""}}</textarea>
+                        <textarea name="address" class="form-control">
+                            {{(isset($applicant_data->address)?$applicant_data->residential_address:"")}}</textarea>
                     </div>
                 </div>
             </div>
             @endif
+            </div>
+            <div class="box-footer">
+                <input type="submit" class="btn btn-adn">
+
+            </div>
         </div>
     </div>
+
     {{--<div class="col-sm-12 col-md-4 col-lg-4">--}}
         {{--<div class="box border-light">--}}
             {{--<div class="box-header bg-primary">--}}

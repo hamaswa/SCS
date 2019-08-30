@@ -29,6 +29,11 @@ class ApplicantData extends Model
         return $this->hasMany("App\ApplicantProperty",'applicant_id');
     }
 
+
+    public function applicantApplicants(){
+        return $this->hasOne("App\Applicant_ApplicantData",'applicant_id');
+    }
+
     public  function applicantComments(){
         return $this->hasMany("App\ApplicantComments",'applicant_id');
     }
