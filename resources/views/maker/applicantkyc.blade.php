@@ -1,5 +1,9 @@
 <fieldset id="applicantkyc" class="tab-action-main">
-
+<?php
+if(!(isset($applicant_data) and $applicant_data!="")){
+   $applicant_data = $applicant;
+}
+?>
     <div class="col-sm-12 col-md-6 col-lg-6 col-lg-offset-1 border-light">
         <div class="box">
             <div class="box-body">
