@@ -29,7 +29,7 @@ if(!(isset($applicant_data) and $applicant_data!="")){
                     </div>
                     <div class="col-sm-12 col-md-6 form-group">
                         <label>Nature of Business</label>
-                        <input type="date" name="nature_of_business" id="nature_of_business"
+                        <input type="text" name="nature_of_business" id="nature_of_business"
                                value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}" class="form-control" autocomplete="off" />
 
                     </div>
@@ -63,12 +63,12 @@ if(!(isset($applicant_data) and $applicant_data!="")){
                     <div class="bg-gray-light padding-5">
                         <div class="col-sm-12 col-md-4 form-group">
                             <label>Salutation</label>
-                            <input type="date" name="salutation" id="salutation"
+                            <input type="text" name="salutation" id="salutation"
                                    value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}" class="form-control" autocomplete="off" />
                         </div>
                         <div class="col-sm-12 col-md-4 form-group">
                             <label>Position</label>
-                            <input type="date" name="position" id="position"
+                            <input type="text" name="position" id="position"
                                    value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}" class="form-control" autocomplete="off" />
 
                         </div>
