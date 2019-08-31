@@ -10,7 +10,34 @@ if(!(isset($applicant_data) and $applicant_data!="")){
             <input type="hidden" value="{{$applicant->aacategory}}" name="aacategory">
             <input type="hidden" value="{{isset($applicant_data->id)?$applicant_data->id:"0"}}" name="id">
         @if($applicant->aacategory=="C")
-            <div class="col-md-6 col-sm-12 col-lg-6 no-padding">
+                    <div class="col-sm-6 col-md-6 form-group">
+                        <label>Company Name</label>
+                        <input type="text"  value="{{$applicant_data->name}}" name="name" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="col-sm-12 col-md-6 form-group">
+                        <label>Company Reg No</label>
+                        <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="col-sm-12 col-md-6 form-group">
+                        <label>Office Phone No</label>
+                        <input type="text" value="{{$applicant_data->mobile}}" name="mobile" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="col-sm-12 col-md-6 form-group">
+                        <label>Date Established</label>
+                        <input type="date" name="date_established"
+                               value="{{(isset($applicant_data->date_established)?$applicant_data->date_established:"")}}" class="form-control" autocomplete="off" />
+                    </div>
+                    <div class="col-sm-12 col-md-6 form-group">
+                        <label>Nature of Business</label>
+                        <input type="date" name="nature_of_business" id="nature_of_business"
+                               value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}" class="form-control" autocomplete="off" />
+
+                    </div>
+                    <div class="col-sm-12 col-md-6 form-group">
+                        <label>Office Address</label>
+                        <textarea name="address" value="{{isset($applicant_data->address)?$applicant_data->address:""}}" class="form-control"></textarea>
+                    </div>
+            {{--<div class="col-md-6 col-sm-12 col-lg-6 no-padding">--}}
                 {{--<div class="form-group">--}}
                     {{--<div class="btn-group margin-bottom border-black-1">--}}
                         {{--<button type="button" class="btn btn-default btn-flat">abd pvt ltd</button>--}}
@@ -30,36 +57,53 @@ if(!(isset($applicant_data) and $applicant_data!="")){
                     {{--<button type="submit" class="btn btn-primary">Search</button>--}}
                 {{--</div>--}}
 
-                <div class="col-sm-12 col-md-6 form-group no-padding">
-                    <label>Company Name</label>
-                    <input type="text"  value="{{$applicant_data->name}}" name="name" class="form-control" autocomplete="off">
-                </div>
-                <div class="col-sm-12 col-md-6 form-group">
-                    <label>Company Reg No</label>
-                    <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id" class="form-control" autocomplete="off">
-                </div>
-                <div class="col-sm-12 col-md-6 form-group no-padding">
-                    <label>Office Phone No</label>
-                    <input type="text" value="{{$applicant_data->mobile}}" name="mobile" class="form-control" autocomplete="off">
-                </div>
-                <div class="col-sm-12 col-md-6 form-group">
-                    <label>Date Established</label>
-                    <input type="date" name="date_established"
-                           value="{{(isset($applicant_data->date_established)?$applicant_data->date_established:"")}}" class="form-control" autocomplete="off" />
-                </div>
-                <div class="col-sm-12 col-md-6 form-group no-padding">
-                    <label>Nature of Business</label>
-                    <input type="date" name="nature_of_business" id="nature_of_business"
-                           value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}" class="form-control" autocomplete="off" />
 
-                </div>
-                <div class="col-sm-12 col-md-6 form-group">
-                    <label>Office Address</label>
-                    <textarea name="address" value="{{isset($applicant_data->address)?$applicant_data->address:""}}" class="form-control"></textarea>
-                </div>
-            </div>
+            {{--</div>--}}
             @else
-            <div class="col-md-6 col-sm-12 col-lg-6">
+                    <div class="bg-gray-light padding-5">
+                        <div class="col-sm-12 col-md-4 form-group">
+                            <label>Salutation</label>
+                            <input type="date" name="salutation" id="salutation"
+                                   value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}" class="form-control" autocomplete="off" />
+                        </div>
+                        <div class="col-sm-12 col-md-4 form-group">
+                            <label>Position</label>
+                            <input type="date" name="position" id="position"
+                                   value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}" class="form-control" autocomplete="off" />
+
+                        </div>
+                        <div class="col-sm-12 col-md-4 form-group">
+                            <label class="clearfix">Ownership</label>
+                            <div class="col-sm-11 no-margin no-padding">
+                                <input type="text" name="ownership"
+                                       {{(isset($applicant_data->ownership)?$applicant_data->ownership:"")}} class="form-control">
+                            </div>
+                            <div class="col-sm-1 no-margin no-padding">%</div>
+
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Full Name as Per NRIC / Passport</label>
+                            <input type="text"  value="{{$applicant_data->name}}" name="name" class="form-control" autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>NRIC No. / Passport No.</label>
+                            <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id"  class="form-control" autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Mobile No.</label>
+                            <input type="text"  value="{{$applicant_data->mobile}}" name="mobile"  class="form-control" autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" value="{{(isset($applicant_data->email)?$applicant_data->email:"")}}" class="form-control" autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Residential Address</label>
+                            <textarea name="address" class="form-control">
+                            {{(isset($applicant_data->address)?$applicant_data->residential_address:"")}}</textarea>
+                        </div>
+                    </div>
+            {{--<div class="col-md-6 col-sm-12 col-lg-6">--}}
                 {{--<div class="form-group">--}}
                     {{--<div class="btn-group margin-bottom border-black-1">--}}
                         {{--<button type="button" class="btn btn-default btn-flat">Mr add</button>--}}
@@ -78,55 +122,13 @@ if(!(isset($applicant_data) and $applicant_data!="")){
                     {{--<input type="text" placeholder="No Data Found" class="form-control" autocomplete="off">--}}
                     {{--<button type="submit" class="btn btn-primary">Search</button>--}}
                 {{--</div>--}}
-                <div class="bg-gray-light padding-5">
-                    <div class="col-sm-12 col-md-4 form-group no-padding">
-                        <label>Salutation</label>
-                        <input type="date" name="salutation" id="salutation"
-                               value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}" class="form-control" autocomplete="off" />
-                    </div>
-                    <div class="col-sm-12 col-md-4 form-group no-padding">
-                        <label>Position</label>
-                        <input type="date" name="position" id="position"
-                               value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}" class="form-control" autocomplete="off" />
 
-                    </div>
-                    <div class="col-sm-12 col-md-4 form-group no-padding">
-                        <label class="clearfix">Ownership</label>
-                        <div class="col-sm-11 no-margin no-padding">
-                            <input type="text" name="ownership"
-                                   {{(isset($applicant_data->ownership)?$applicant_data->ownership:"")}} class="form-control">
-                        </div>
-                        <div class="col-sm-1 no-margin no-padding">%</div>
-
-                    </div>
-                    <div class="form-group">
-                        <label>Full Name as Per NRIC / Passport</label>
-                        <input type="text"  value="{{$applicant_data->name}}" name="name" class="form-control" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label>NRIC No. / Passport No.</label>
-                        <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id"  class="form-control" autocomplete="off">
-                    </div>
-                    <div class="col-sm-12 col-md-6 form-group no-padding">
-                        <label>Mobile No.</label>
-                        <input type="text"  value="{{$applicant_data->mobile}}" name="mobile"  class="form-control" autocomplete="off">
-                    </div>
-                    <div class="col-sm-12 col-md-6 form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" value="{{(isset($applicant_data->email)?$applicant_data->email:"")}}" class="form-control" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label>Residential Address</label>
-                        <textarea name="address" class="form-control">
-                            {{(isset($applicant_data->address)?$applicant_data->residential_address:"")}}</textarea>
-                    </div>
-                </div>
-            </div>
+            {{--</div>--}}
             @endif
             </div>
             <div class="box-footer">
                 <input type="submit" class="btn btn-adn">
-
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Upload Consent</button>
             </div>
         </div>
     </div>
@@ -137,7 +139,7 @@ if(!(isset($applicant_data) and $applicant_data!="")){
         {{--</div>--}}
 
     {{--</div>--}}
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
     <div id="myModal" class="modal fade" role="dialog">
         @include("layouts.consent_form")
     </div>
