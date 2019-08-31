@@ -29,28 +29,28 @@ if(!(isset($applicant_data) and $applicant_data!="")){
                     {{--<input type="text" placeholder="No Data Found" class="form-control" autocomplete="off">--}}
                     {{--<button type="submit" class="btn btn-primary">Search</button>--}}
                 {{--</div>--}}
-                <div class="bg-yellow-light padding-5">
-                    <div class="col-sm-12 col-md-6 form-group no-padding">
+                <div class="bg-yellow-light">
+                    <div class="col-sm-12 col-md-6 form-group">
                         <label>Company Name</label>
                         <input type="text"  value="{{$applicant_data->name}}" name="name" class="form-control" autocomplete="off">
                     </div>
-                    <div class="col-sm-12 col-md-6 form-group no-padding">
-                        <label>Company Registration Number</label>
+                    <div class="col-sm-12 col-md-6 form-group">
+                        <label>Company Reg No</label>
                         <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id" class="form-control" autocomplete="off">
                     </div>
-                    <div class="col-sm-12 col-md-6 form-group no-padding">
+                    <div class="col-sm-12 col-md-6 form-group">
                         <label>Office Phone No</label>
                         <input type="text" value="{{$applicant_data->mobile}}" name="mobile" class="form-control" autocomplete="off">
                     </div>
 
                 </div>
-                <div class="cleafix"></div>
-                <div class="col-sm-12 col-md-6 form-group no-padding">
+                <div class="clearfix"></div>
+                <div class="col-sm-12 col-md-6 form-group">
                     <label>Date Established</label>
                     <input type="date" name="date_established"
                            value="{{(isset($applicant_data->date_established)?$applicant_data->date_established:"")}}" class="form-control" autocomplete="off" />
                 </div>
-                <div class="col-sm-12 col-md-6 form-group no-padding">
+                <div class="col-sm-12 col-md-6 form-group">
                     <label>Nature of Business</label>
                     @include("layouts.select", ['name'=>'nature_of_business','id'=>'nature_of_business','type'=>'nature_of_business','options'=>$options])
 
@@ -140,22 +140,7 @@ if(!(isset($applicant_data) and $applicant_data!="")){
     {{--</div>--}}
     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
     <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
-                </div>
-                <div class="modal-body">
-                    @include("layouts.consent_form")
-                    <div class="clearfix"></div>
-                </div>
-
-            </div>
-
-        </div>
+        @include("layouts.consent_form")
     </div>
 </fieldset>
 
