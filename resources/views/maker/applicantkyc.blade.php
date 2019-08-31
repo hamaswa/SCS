@@ -49,7 +49,8 @@ if(!(isset($applicant_data) and $applicant_data!="")){
                 </div>
                 <div class="col-sm-12 col-md-6 form-group no-padding">
                     <label>Nature of Business</label>
-                    @include("layouts.select", ['name'=>'nature_of_business','id'=>'nature_of_business','type'=>'nature_of_business','options'=>$options])
+                    <input type="date" name="nature_of_business" id="nature_of_business"
+                           value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}" class="form-control" autocomplete="off" />
 
                 </div>
                 <div class="col-sm-12 col-md-6 form-group">
@@ -80,12 +81,13 @@ if(!(isset($applicant_data) and $applicant_data!="")){
                 <div class="bg-gray-light padding-5">
                     <div class="col-sm-12 col-md-4 form-group no-padding">
                         <label>Salutation</label>
-
-                        @include("layouts.select", ['name'=>'salutation','id'=>'salutation','type'=>'salutation','options'=>$options,'class'=>'form-control select2'])
+                        <input type="date" name="salutation" id="salutation"
+                               value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}" class="form-control" autocomplete="off" />
                     </div>
                     <div class="col-sm-12 col-md-4 form-group no-padding">
                         <label>Position</label>
-                        @include("layouts.select", ['name'=>'position','id'=>'position','type'=>'position','options'=>$options,'class'=>'form-control select2'])
+                        <input type="date" name="position" id="position"
+                               value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}" class="form-control" autocomplete="off" />
 
                     </div>
                     <div class="col-sm-12 col-md-4 form-group no-padding">
