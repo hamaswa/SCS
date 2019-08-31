@@ -130,69 +130,12 @@ if(!(isset($applicant_data) and $applicant_data!="")){
         </div>
     </div>
 
-    {{--<div class="col-sm-12 col-md-4 col-lg-4">--}}
-        {{--<div class="box border-light">--}}
-            {{--<div class="box-header bg-primary">--}}
-                {{--<h4 class="text-white">Request CCRIS</h4>--}}
-            {{--</div>--}}
-            {{--<div class="box-body left-box">--}}
-                {{--<div class="form-group">--}}
-                    {{--<label>Full Name as Per NRIC / Passport</label>--}}
-                    {{--<input type="text" class="form-control" autocomplete="off">--}}
-                    {{--<input type="checkbox" /> Verified--}}
-                {{--</div>--}}
-                {{--<div class="form-group">--}}
-                    {{--<label>NRIC No. / Passport No.</label>--}}
-                    {{--<input type="text" class="form-control" autocomplete="off">--}}
-                    {{--<input type="checkbox" /> Verified--}}
-                {{--</div>--}}
-                {{--<div class="form-group">--}}
-                    {{--<label>Mobile No.</label>--}}
-                    {{--<input type="text" class="form-control" autocomplete="off">--}}
-                    {{--<input type="checkbox" /> Verified--}}
-                {{--</div>--}}
-                {{--<div class="form-group">--}}
-                    {{--<div class="pull-right">--}}
-                        {{--<img src="{{ asset("img/file.jpeg") }}"/>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="form-group">--}}
-                    {{--<button class="btn btn-default">Request</button>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="box border-light">--}}
-            {{--<div class="box-header bg-primary">--}}
-                {{--<h4 class="text-white">Request CCRIS</h4>--}}
-            {{--</div>--}}
-            {{--<div class="box-body left-box">--}}
-                {{--<div class="form-group">--}}
-                    {{--<label>Company Name</label>--}}
-                    {{--<input type="text" class="form-control" autocomplete="off">--}}
-                    {{--<input type="checkbox" /> Verified--}}
-                {{--</div>--}}
-                {{--<div class="form-group">--}}
-                    {{--<label>Company Registration Number</label>--}}
-                    {{--<input type="text" class="form-control" autocomplete="off">--}}
-                    {{--<input type="checkbox" /> Verified--}}
-                {{--</div>--}}
-                {{--<div class="form-group">--}}
-                    {{--<label>Office Phone No</label>--}}
-                    {{--<input type="text" class="form-control" autocomplete="off">--}}
-                    {{--<input type="checkbox" /> Verified--}}
-                {{--</div>--}}
-                {{--<div class="form-group">--}}
-                    {{--<div class="pull-right">--}}
-                        {{--<img src="{{ asset("img/file.jpeg") }}"/>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="form-group">--}}
-                    {{--<button class="btn btn-default">Request</button>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
+    <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="box border-light">
+            @include("layouts.consent_form")
+        </div>
 
-    {{--</div>--}}
+    </div>
 </fieldset>
 
 @push("scripts")
