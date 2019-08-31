@@ -126,10 +126,10 @@ if(!(isset($applicant_data) and $applicant_data!="")){
             {{--</div>--}}
             @endif
             </div>
-            <div class="box-footer">
-                <input type="submit" class="btn btn-adn">
-                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Upload Consent</button>
-            </div>
+            {{--<div class="box-footer">--}}
+                {{--<input type="submit" class="btn btn-adn">--}}
+                {{--<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Upload Consent</button>--}}
+            {{--</div>--}}
         </div>
     </div>
 
