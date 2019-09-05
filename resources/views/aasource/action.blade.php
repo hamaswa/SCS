@@ -4,9 +4,9 @@
 <!--<a href="{{ route('orders.show', $id) }}" class='btn btn-default btn-xs'>
         <i class="glyphicon glyphicon-eye-open"></i>
     </a>-->
-    <a href="{{ route('aafields.edit', $id) }}" class='btn btn-default btn-xs'>
-        <i class="glyphicon glyphicon-edit"></i>
-    </a>
+    {{--<a href="{{ route('aafields.edit', $id) }}" class='btn btn-default btn-xs'>--}}
+        {{--<i class="glyphicon glyphicon-edit"></i>--}}
+    {{--</a>--}}
 @if($status==1)
     <input type="hidden" value="0" name="status">
     @else
