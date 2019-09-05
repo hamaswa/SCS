@@ -10,6 +10,7 @@ use App\ApplicantWealth;
 use App\ApplicantProperty;
 use App\AASource;
 use App\Applicant_ApplicantData;
+use App\maker\LoanApplication;
 use Auth;
 
 class MakerController extends Controller
@@ -115,6 +116,10 @@ class MakerController extends Controller
     {
 
         $arr["applicant"] = ApplicantData::find($id);
+        $attached_applicants = LoanApplication::select('applicant_id')
+            ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
+        $attached_applicants_id = implode(",",$attached_applicants);
+       $arr['attached_applicants'] = ApplicantData::whereRaw("id in (". $attached_applicants_id .")")->get();
         $arr["options"]  = AASource::whereRaw(
             'type in ("income_primary_docs","income_support_docs","wealth_primary_docs","wealth_support_docs", "property_primary_docs","property_support_docs", "salutation","position","nature_of_business")')->get();
         return view("maker.editform")->with($arr);

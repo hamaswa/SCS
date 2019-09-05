@@ -91,16 +91,16 @@
                                     Facility Type
                                 </option>
 
-                                <option value="nature_of_business">
-                                    Nature of Business
-                                </option>
+                                {{--<option value="nature_of_business">--}}
+                                    {{--Nature of Business--}}
+                                {{--</option>--}}
 
-                                <option value="position">
-                                    Applicantio KYC Position
-                                </option>
-                                <option value="salutation">
-                                    Salutation
-                                </option>
+                                {{--<option value="position">--}}
+                                    {{--Applicantio KYC Position--}}
+                                {{--</option>--}}
+                                {{--<option value="salutation">--}}
+                                    {{--Salutation--}}
+                                {{--</option>--}}
                                 {{--<option value="aasource">--}}
                                     {{--AASource--}}
                                 {{--</option>--}}

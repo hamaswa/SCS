@@ -45,4 +45,8 @@ class ApplicantData extends Model
     public  function applicantBusinesses(){
         return $this->hasMany("App\ApplicantBusiness",'applicant_id');
     }
+
+//    public function LA_AAs(){
+//        return $this->belongsToMany("App\Maker\LoanApplication",'loan_applications');
+//    }
 }

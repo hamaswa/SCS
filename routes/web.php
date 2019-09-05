@@ -57,6 +57,9 @@ Route::group(['middleware' => 'role:maker'], function() {
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/home', 'ApplicantDataController@index')->name('home');
     Route::resource('/aa', 'ApplicationAccountController');
+    Route::resource('/la', 'LoanApplicationController');
+    Route::post('/attachIndAA', 'LoanApplicationController@attachIndAA')->name("attachIndAA");
+    Route::post('/attachIndAASearch', 'LoanApplicationController@attachIndAASearch')->name("attachIndAASearch");
     Route::resource('/aafields', 'AASourceController');
     Route::post('/aadata/create', 'ApplicantDataController@create');
     Route::resource('/aadata', 'ApplicantDataController');

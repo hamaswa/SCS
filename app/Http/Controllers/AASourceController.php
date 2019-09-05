@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\AASource;
+use App\DataTables\FieldsDatatable;
 use Auth;
 
 class AASourceController extends Controller
@@ -13,9 +14,9 @@ class AASourceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(FieldsDatatable $datatable)
     {
-        //
+      return    $datatable->render("aasource.index");
     }
 
     /**
@@ -69,7 +70,10 @@ class AASourceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $select = AASource::find($id);
+        return view("aasource.editform")->with("select",$select);
+
+
     }
 
     /**
@@ -81,7 +85,16 @@ class AASourceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $inputs = $request->all();
+        $source = AASource::find($id);
+        if(isset($inputs['status'])) {
+            $source->update($inputs);
+            return back()->with("success", "Status successfull Updated");
+        }
+        else {
+            $source->update($inputs);
+            return redirect(route("aafields.index")->with("success","Successfully Updated"));
+        }
     }
 
     /**
@@ -90,8 +103,10 @@ class AASourceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
     {
+
         //
     }
 }
