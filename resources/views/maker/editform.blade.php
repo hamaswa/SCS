@@ -140,7 +140,7 @@
                 type.setAttribute("name", "aacategory");
                 type.value = $("#aacategory").val()
                 $(form).append($(type))
-                div = $("<div style=\"display=hidden\"></div>")
+                div = $("<div style=\"display=none\"></div>")
                 $(div).append(form)
                 document.body.appendChild(form);
                 form.submit();
@@ -175,7 +175,6 @@
 
                             }
                         });
-
                     }
                 })
             });
@@ -194,9 +193,7 @@
                 else {
                     if(!isNaN(response.income_id)){
                         console.log($("#WK"));
-
                         $(".wk").attr("data-toggle","tab");
-
                     }
                     $("#income_id").val(response.income_id);
                 }
@@ -239,7 +236,6 @@
                 if(response.error){
                 }
                 else {
-
                     $("#property_id").val(response.property_id);
                     //document.location.href = "{{ route("aadata.index") }}"
                 }
