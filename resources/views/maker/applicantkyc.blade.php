@@ -70,21 +70,25 @@
 
 
                             </div>
-                            @foreach($attached_applicants as $applicant_sub)
-                                <div class="col-lg-12 col-md-12" id="applicants">
-                                    <div class="btn-group margin-bottom border-black-1 incomekyc-action-btn" id="btn-air">
-                                        <button type="button" class="btn btn-default btn-flat load" data-la="{{$applicant_data->id}}"
-                                                data-value="{{$applicant_sub->id}}">{{$applicant_sub->name}}</button>
-                                        <button type="button" class="btn btn-default btn-flat dropdown-toggle"
-                                                data-toggle="dropdown"
-                                                aria-expanded="false">
-                                            <i class="fa fa-list"></i>
-                                            <span class="sr-only">Toggle Dropdown</span>
-                                        </button>
+                            @if(isset($attached_applicants))
+                                @foreach($attached_applicants as $applicant_sub)
+                                    <div class="col-lg-12 col-md-12" id="applicants">
+                                        <div class="btn-group margin-bottom border-black-1 incomekyc-action-btn"
+                                             id="btn-air">
+                                            <button type="button" class="btn btn-default btn-flat load"
+                                                    data-la="{{$applicant_data->id}}"
+                                                    data-value="{{$applicant_sub->id}}">{{$applicant_sub->name}}</button>
+                                            <button type="button" class="btn btn-default btn-flat dropdown-toggle"
+                                                    data-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                <i class="fa fa-list"></i>
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
 
-                            @endforeach
+                                @endforeach
+                            @endif
                         </div>
                         <input class="form-control" name="attachIndAA" id="attachIndAASearch">
                         <input type="submit" class="attachIndAASearch">
@@ -182,7 +186,7 @@
             $("#incomekyc").removeClass("hide");
         })
 
-        $(document.body).on("click","#aa_attach",function () {
+        $(document.body).on("click", "#aa_attach", function () {
             $.ajax({
                 url: '{{ route('attachIndAA') }}',
                 type: 'POST',
@@ -193,15 +197,14 @@
             }).done(function (response) {
                 response = JSON.parse(response);
 
-                if(response.error){
+                if (response.error) {
 
                 }
-                else
-                {
+                else {
                     html = "<div class=\"col-lg-12 col-md-12\" id=\"applicants\">\n" +
                         "                                <div class=\"btn-group margin-bottom border-black-1 incomekyc-action-btn\" id=\"btn-air\">\n" +
                         "                                    <button type=\"button\" class=\"btn btn-default btn-flat\"\n" +
-                        "                                            data-value=\"air\">"+ response.applicant.name + "</button>\n" +
+                        "                                            data-value=\"air\">" + response.applicant.name + "</button>\n" +
                         "                                    <button type=\"button\" class=\"btn btn-default btn-flat dropdown-toggle\"\n" +
                         "                                            data-toggle=\"dropdown\"\n" +
                         "                                            aria-expanded=\"false\">\n" +
@@ -231,10 +234,10 @@
             }).done(function (response) {
                 //response = JSON.parse(response);
 
-                if(response=="No Data Found"){
+                if (response == "No Data Found") {
 
                 }
-                else{
+                else {
 
                     $("#aa_attach_form_body").html($(response));
                     $("#aa_attach_form").modal('show');
