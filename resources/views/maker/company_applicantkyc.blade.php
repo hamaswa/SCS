@@ -7,11 +7,52 @@
     <div class="col-sm-12 col-md-10 col-lg-10 col-lg-offset-1 border-light no-padding">
         <div class="box">
             <div class="box-body">
-                <form id="newaa" name="newaa" action="{{ route("la.store") }}" method="post">
-                    @csrf
-                    <input type="hidden" name="applicant_id" value="{{$applicant->id}}">
-                    <input type="hidden" value="{{$applicant->aacategory}}" name="aacategory">
-                    <input type="hidden" value="{{isset($applicant_data->id)?$applicant_data->id:"0"}}" name="id">
+                @if($applicant->aacategory=="C")
+                    <form id="newaa" name="newaa" action="{{ route("la.store") }}" method="post">
+                        @csrf
+                        <input type="hidden" name="applicant_id" value="{{$applicant->id}}">
+                        <input type="hidden" value="{{$applicant->aacategory}}" name="aacategory">
+                        <input type="hidden" value="{{isset($applicant_data->id)?$applicant_data->id:"0"}}" name="id">
+
+
+                        <div class="col-sm-6 col-md-6 form-group">
+                            <label>Company Name</label>
+                            <input type="text" value="{{$applicant_data->name}}" name="name" class="form-control"
+                                   autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Company Reg No</label>
+                            <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id"
+                                   class="form-control"
+                                   autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Office Phone No</label>
+                            <input type="text" value="{{$applicant_data->mobile}}" name="mobile" class="form-control"
+                                   autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Date Established</label>
+                            <input type="date" name="date_established"
+                                   value="{{(isset($applicant_data->date_established)?$applicant_data->date_established:"")}}"
+                                   class="form-control" autocomplete="off"/>
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Nature of Business</label>
+                            <input type="text" name="nature_of_business" id="nature_of_business"
+                                   value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}"
+                                   class="form-control" autocomplete="off"/>
+
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Office Address</label>
+                            <textarea name="address"
+                                      value="{{isset($applicant_data->address)?$applicant_data->address:""}}"
+                                      class="form-control"></textarea>
+                        </div>
+                        <input type="submit" name="create_company" value="Submit">
+                    </form>
+                @else
                     <div class="bg-gray-light padding-5">
 
                         <div id="applicant_buttons">
@@ -100,16 +141,15 @@
                         <textarea name="address" class="form-control">
                             {{(isset($applicant_data->address)?$applicant_data->residential_address:"")}}</textarea>
                     </div>
-                </form>
-
             </div>
-
+            @endif
         </div>
 
         {{--<div class="box-footer">--}}
         {{--<input type="submit" class="btn btn-adn">--}}
         {{--<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Upload Consent</button>--}}
         {{--</div>--}}
+    </div>
     </div>
 
     {{--<div class="col-sm-12 col-md-4 col-lg-4">--}}
@@ -132,6 +172,9 @@
         </div>
     </div>
 
+    <div id="myModal" class="modal fade" role="dialog">
+        @include("layouts.consent_form")
+    </div>
 </fieldset>
 
 @push("scripts")

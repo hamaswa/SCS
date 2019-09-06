@@ -66,10 +66,9 @@ class LoanApplicationController extends Controller
 
         $applicant = new  ApplicantData();
         $data = $applicant->whereRaw("(unique_id = '" . $inputs['unique_id'] . "' or name = '" . $inputs['unique_id'] . "')
-            " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " status = 'Documentation' and id!=".$inputs['la_applicant_id'])->paginate(5);
+            " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='I' and status = 'Documentation' and id!=".$inputs['la_applicant_id'])->paginate(5);
 
         if (count($data) > 0) {
-
             return view("maker.aa_attach_form")->with("data", $data);
         } else {
             return json_encode(["error" => "No Data Found"]);
