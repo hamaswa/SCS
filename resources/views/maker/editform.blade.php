@@ -212,7 +212,7 @@
                 if(response.error){
                 }
                 else {
-                    console.log('pk');
+
                     if(!isNaN(response.wealth_id)){
                         $("#PK").attr("data-toggle","tab");
                     }
@@ -238,10 +238,6 @@
                 if(response.error){
                 }
                 else {
-                    $("#property_id").val(response.property_id);
-                    if(!isNaN(response.property_id)){
-                        $("#PK").attr("data-toggle","tab");
-                    }
                     $("#property_id").val(response.property_id);
                     //document.location.href = "{{ route("aadata.index") }}"
                 }
