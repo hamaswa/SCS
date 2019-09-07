@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\loan_application;
 use Illuminate\Http\Request;
 use App\ApplicantData;
 use App\AASource;
-use App\Maker\LoanApplication;
+use App\maker\LoanApplication;
 use Auth;
 
 class LoanApplicationController extends Controller
@@ -26,6 +25,7 @@ class LoanApplicationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         //
@@ -40,7 +40,6 @@ class LoanApplicationController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
-        print_r($inputs);
 
         $inputs['user_id']=Auth::id();
         if(isset($inputs['create_company'])){
@@ -56,6 +55,11 @@ class LoanApplicationController extends Controller
             $arr["success"] =  "New Company Created";
             return view("maker.editform")->with($arr);
 
+        }
+        else if(isset($inputs['update_ind']) and $inputs['update_ind']=="update_ind") {
+            $applicant = ApplicantData::find($inputs['applicant_id']);
+            $applicant->update($inputs);
+            $this->showAttachAA($request);
         }
 
     }
@@ -79,7 +83,7 @@ class LoanApplicationController extends Controller
     public function attachIndAA(Request $request){
         $inputs = $request->all();
         $applicant = ApplicantData::find($inputs["id"]);
-        if(count($applicant)>0) {
+        if($applicant) {
             $loan = LoanApplication::create([
                 "la_applicant_id" => $inputs['la_applicant_id'],
                 "applicant_id" => $applicant->id,
@@ -90,6 +94,19 @@ class LoanApplicationController extends Controller
             return json_encode(["error"=>"No Data Found"]);
         }
 
+    }
+
+
+    public function deleteIndAA(Request $request){
+        $inputs = $request->all();
+        if(LoanApplication::where("applicant_id","=",$inputs['applicant_id'])
+            ->where("la_applicant_id","=",$inputs["la_applicant_id"])->delete()){
+            return json_encode(["success"=>"Application Removed Successfully"]);
+        } else
+        {
+            return json_encode(["error"=>"No Data Found To Delete"]);
+
+        }
     }
     /**
      * Display the specified resource.
@@ -108,9 +125,25 @@ class LoanApplicationController extends Controller
      * @param  \App\loan_application  $loan_application
      * @return \Illuminate\Http\Response
      */
-    public function edit(loan_application $loan_application)
+    public function showAttachAA(Request $request)
     {
-        //
+        $inputs= $request->all();
+
+        $arr['la_applicant_id'] =  $id = $inputs['la_applicant_id'];
+        $arr["applicant"] = ApplicantData::find($id);
+        $arr["applicant_data"] = ApplicantData::find($inputs['applicant_id']);
+
+        $attached_applicants = LoanApplication::select('applicant_id')
+            ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
+        $attached_applicants_id = implode(",",$attached_applicants);
+        if($attached_applicants_id!="")
+            $arr['attached_applicants'] = ApplicantData::whereRaw("id in (". $attached_applicants_id .")")->get();
+        $arr["options"]  = AASource::whereRaw(
+            'type in ("income_primary_docs","income_support_docs","wealth_primary_docs","wealth_support_docs", "property_primary_docs","property_support_docs", "salutation","position","nature_of_business")')->get();
+        echo "<pre>";
+        print_r($arr);
+        exit();
+        return view("maker.editform")->with($arr);
     }
 
     /**

@@ -8,7 +8,11 @@ class ApplicantData extends Model
 {
     protected $table = "applicant_data";
     protected $fillable = [
-        'aacategory','aabranch','aasource','aaprogramcode','serial_no','name','unique_id','mobile','consent','status','user_id'
+        'aacategory','aabranch','aasource','aaprogramcode',
+        'serial_no','name','unique_id','mobile',
+        'consent','status',
+        'salutation','position','ownership','email','address',
+        'user_id'
     ];
 
     public function facilityInfo(){

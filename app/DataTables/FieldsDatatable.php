@@ -49,6 +49,18 @@ class FieldsDatatable extends DataTable
      *
      * @return array
      */
+    public function getBuilderParameters()
+    {
+        return [
+        'dom'     => 'Bfrtip',
+        'order'   => [[0, 'desc']],
+        'buttons' => [
+            'create',
+            'reload',
+        ],
+    ];
+    }
+
     protected function getColumns()
     {
         return [

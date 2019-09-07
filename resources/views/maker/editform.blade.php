@@ -67,11 +67,12 @@
                                     </div>
                                 </li>
                             </ul>
+                            <input type="hidden" id="la_applicant_id" value="{{ $la_applicant_id }}" name="la_applicant_id">
                             <div class="tab-content col-md-11">
                                 <div class="tab-pane active" id="lA"><!--style="padding-left: 60px; padding-right:100px"-->
                                     <div class="row" style="line-height: 14px; margin-bottom: 34.5px">
                                         <input type="hidden" id="applicant_id" value="{{ $applicant->id }}" name="applicant_id">
-                                             @include('maker.applicantkyc',['applicant_data'=>$applicant->applicantApplicants]);
+                                             @include('maker.applicantkyc');
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="lB">
@@ -80,7 +81,7 @@
                                             @csrf
                                             <input type="hidden" name="formname" value="incomeform">
                                             <input type="hidden" name="income_id" value="" id="income_id">
-                                            @include('maker.incomekycedit',['income'=>$applicant->applicantIncome])
+                                            @include('maker.incomekycedit',['income'=>$applicant_data->applicantIncome])
                                         </form>
                                     </div>
                                 </div>
@@ -90,7 +91,7 @@
                                             @csrf
                                             <input type="hidden" name="formname" value="wealthform">
                                             <input type="hidden" name="wealth_id" id="wealth_id">
-                                            @include('maker.wealthkycedit',['wealth'=>$applicant->applicantWealth])
+                                            @include('maker.wealthkycedit',['wealth'=>$applicant_data->applicantWealth])
                                         </form>
                                     </div>
                                 </div>
@@ -98,7 +99,7 @@
                                     <div class="row" style="line-height: 14px; margin-bottom: 34.5px">
                                         <form id="propertyform" name="propertyform">
                                             <input type="hidden" name="property_id" id="property_id">
-                                            @include('maker.propertykycedit',['properties'=>$applicant->applicantProperty])
+                                            @include('maker.propertykycedit',['properties'=>$applicant_data->applicantProperty])
                                         </form>
                                     </div>
                                 </div>

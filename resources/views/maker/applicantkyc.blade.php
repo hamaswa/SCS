@@ -1,24 +1,65 @@
 <fieldset id="applicantkyc" class="tab-action-main">
     <?php
-    if (!(isset($applicant_data) and $applicant_data != "")) {
-        $applicant_data = $applicant;
-    }
+
     ?>
     <div class="col-sm-12 col-md-10 col-lg-10 col-lg-offset-1 border-light no-padding">
         <div class="box">
             <div class="box-body">
-                <form id="newaa" name="newaa" action="{{ route("la.store") }}" method="post">
-                    @csrf
-                    <input type="hidden" name="applicant_id" value="{{$applicant->id}}">
-                    <input type="hidden" value="{{$applicant->aacategory}}" name="aacategory">
-                    <input type="hidden" value="{{isset($applicant_data->id)?$applicant_data->id:"0"}}" name="id">
+                @if($applicant->aacategory=="C")
+                    <form id="newaa" name="newaa" action="{{ route("la.store") }}" method="post">
+                        @csrf
+                        <input type="hidden" name="applicant_id" value="{{$applicant->id}}">
+                        <input type="hidden" value="{{$applicant->aacategory}}" name="aacategory">
+                        <input type="hidden" value="{{isset($applicant_data->id)?$applicant_data->id:"0"}}" name="id">
+
+
+                        <div class="col-sm-6 col-md-6 form-group">
+                            <label>Company Name</label>
+                            <input type="text" value="{{$applicant_data->name}}" name="name" class="form-control"
+                                   autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Company Reg No</label>
+                            <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id"
+                                   class="form-control"
+                                   autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Office Phone No</label>
+                            <input type="text" value="{{$applicant_data->mobile}}" name="mobile" class="form-control"
+                                   autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Date Established</label>
+                            <input type="date" name="date_established"
+                                   value="{{(isset($applicant_data->date_established)?$applicant_data->date_established:"")}}"
+                                   class="form-control" autocomplete="off"/>
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Nature of Business</label>
+                            <input type="text" name="nature_of_business" id="nature_of_business"
+                                   value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}"
+                                   class="form-control" autocomplete="off"/>
+
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Office Address</label>
+                            <textarea name="address"
+                                      value="{{isset($applicant_data->address)?$applicant_data->address:""}}"
+                                      class="form-control"></textarea>
+                        </div>
+                        <input type="submit" name="create_company" value="Submit">
+                    </form>
+                @else
+
                     <div class="bg-gray-light padding-5">
 
                         <div id="applicant_buttons">
-                            <div class="col-lg-12 col-md-12" id="applicants">
-                                <div class="btn-group margin-bottom border-black-1 incomekyc-action-btn" id="btn-air">
-                                    <button type="button" class="btn btn-default btn-flat"
-                                            data-value="air">{{$applicant_data->name}}</button>
+                            <div class="col-lg-12 col-md-12 applicants">
+                                <div class="btn-group margin-bottom border-black-1" id="btn-air">
+                                    <button type="button" class="btn btn-default btn-flat la_aa"
+                                            data-la="{{$applicant->id}}"
+                                            data-id="{{$applicant->id}}">{{$applicant->name}}</button>
                                     <button type="button" class="btn btn-default btn-flat dropdown-toggle"
                                             data-toggle="dropdown"
                                             aria-expanded="false">
@@ -31,18 +72,24 @@
                             </div>
                             @if(isset($attached_applicants))
                                 @foreach($attached_applicants as $applicant_sub)
-                                    <div class="col-lg-12 col-md-12" id="applicants">
-                                        <div class="btn-group margin-bottom border-black-1 incomekyc-action-btn"
+                                    <div class="col-lg-12 col-md-12 applicants">
+                                        <div class="btn-group margin-bottom border-black-1"
                                              id="btn-air">
-                                            <button type="button" class="btn btn-default btn-flat load"
-                                                    data-la="{{$applicant_data->id}}"
-                                                    data-value="{{$applicant_sub->id}}">{{$applicant_sub->name}}</button>
+                                            <button type="button" class="btn btn-default btn-flat la_aa"
+                                                    data-la="{{$applicant->id}}"
+                                                    data-id="{{$applicant_sub->id}}">{{$applicant_sub->name}}</button>
                                             <button type="button" class="btn btn-default btn-flat dropdown-toggle"
                                                     data-toggle="dropdown"
                                                     aria-expanded="false">
                                                 <i class="fa fa-list"></i>
                                                 <span class="sr-only">Toggle Dropdown</span>
                                             </button>
+                                            <ul class="dropdown-menu position-relative" id="" role="menu">
+                                                {{--<li><a href="#"  data-value="air" class="editincome">Edit</a></li>--}}
+                                                <li><a href="#" data-la="{{$la_applicant_id}}"
+                                                       data-id="{{$applicant_sub->id}}" class="deleteInd">Delete</a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
 
@@ -52,55 +99,67 @@
                         <input class="form-control" name="attachIndAA" id="attachIndAASearch">
                         <input type="submit" class="attachIndAASearch">
                     </div>
-                    <div class="col-sm-12 col-md-4 form-group">
-                        <label>Salutation</label>
-                        <input type="text" name="salutation" id="salutation"
-                               value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}"
-                               class="form-control" autocomplete="off"/>
-                    </div>
-                    <div class="col-sm-12 col-md-4 form-group">
-                        <label>Position</label>
-                        <input type="text" name="position" id="position"
-                               value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}"
-                               class="form-control" autocomplete="off"/>
-
-                    </div>
-                    <div class="col-sm-12 col-md-4 form-group">
-                        <label class="clearfix">Ownership</label>
-                        <div class="col-sm-11 no-margin no-padding">
-                            <input type="text" name="ownership"
-                                   {{(isset($applicant_data->ownership)?$applicant_data->ownership:"")}} class="form-control">
+                    <form  action="{{ route("la.store") }}" method="post">
+                        @csrf
+                        <input type="hidden" name="update_ind" value="update_ind">
+                        <input type="hidden" name="la_applicant_id" value="{{$la_applicant_id}}">
+                        <input type="hidden" name="aacategory" value="{{$applicant_data->aacategory}}" >
+                        <input type="hidden" name="applicant_id" value="{{isset($applicant_data->id)?$applicant_data->id:"0"}}"
+                               >
+                        <div class="col-sm-12 col-md-4 form-group">
+                            <label>Salutation</label>
+                            <input type="text" name="salutation" id="salutation"
+                                   value="{{(isset($applicant_data->salutation)?$applicant_data->salutation:"")}}"
+                                   class="form-control" autocomplete="off"/>
                         </div>
-                        <div class="col-sm-1 no-margin no-padding">%</div>
+                        <div class="col-sm-12 col-md-4 form-group">
+                            <label>Position</label>
+                            <input type="text" name="position" id="position"
+                                   value="{{(isset($applicant_data->position)?$applicant_data->position:"")}}"
+                                   class="form-control" autocomplete="off"/>
 
-                    </div>
-                    <div class="col-sm-12 col-md-6 form-group">
-                        <label>Full Name as Per NRIC / Passport</label>
-                        <input type="text" value="{{$applicant_data->name}}" name="name" class="form-control"
-                               autocomplete="off">
-                    </div>
-                    <div class="col-sm-12 col-md-6 form-group">
-                        <label>NRIC No. / Passport No.</label>
-                        <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id"
-                               class="form-control" autocomplete="off">
-                    </div>
-                    <div class="col-sm-12 col-md-6 form-group">
-                        <label>Mobile No.</label>
-                        <input type="text" value="{{$applicant_data->mobile}}" name="mobile" class="form-control"
-                               autocomplete="off">
-                    </div>
-                    <div class="col-sm-12 col-md-6 form-group">
-                        <label>Email</label>
-                        <input type="email" name="email"
-                               value="{{(isset($applicant_data->email)?$applicant_data->email:"")}}"
-                               class="form-control" autocomplete="off">
-                    </div>
-                    <div class="col-sm-12 col-md-6 form-group">
-                        <label>Residential Address</label>
-                        <textarea name="address" class="form-control">
-                            {{(isset($applicant_data->address)?$applicant_data->residential_address:"")}}</textarea>
-                    </div>
-                </form>
+                        </div>
+                        <div class="col-sm-12 col-md-4 form-group">
+                            <label class="clearfix">Ownership</label>
+                            <div class="col-sm-11 no-margin no-padding">
+                                <input type="text" name="ownership"
+                                       value={{(isset($applicant_data->ownership)?$applicant_data->ownership:"")}} class="form-control">
+                            </div>
+                            <div class="col-sm-1 no-margin no-padding">%</div>
+
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Full Name as Per NRIC / Passport</label>
+                            <input type="text" value="{{$applicant_data->name}}" name="name" class="form-control"
+                                   autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>NRIC No. / Passport No.</label>
+                            <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id"
+                                   class="form-control" autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Mobile No.</label>
+                            <input type="text" value="{{$applicant_data->mobile}}" name="mobile" class="form-control"
+                                   autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Email</label>
+                            <input type="email" name="email"
+                                   value="{{(isset($applicant_data->email)?$applicant_data->email:"")}}"
+                                   class="form-control" autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Residential Address</label>
+                            <textarea name="address" class="form-control">
+                            {{(isset($applicant_data->address)?$applicant_data->address:"")}}</textarea>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12 form-group pull-right">
+                            <input type="submit" value="Update" class="btn btn-default">
+                        </div>
+
+                    </form>
+                @endif
 
             </div>
 
@@ -143,6 +202,45 @@
             $("#incomekyc").removeClass("hide");
         })
 
+        $(document.body).on("click", ".la_aa", function (e) {
+            form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "{{ route("showAttachAA") }}");
+            csrf = $('{{ csrf_field() }}')
+            $(form).append(csrf);
+            $(form).append($("#la_applicant_id").clone())
+            $(form).append($("<input name='applicant_id' value=" + $(this).data("id") + ">"))
+            type = document.createElement("input");
+            type.setAttribute("name", "aacategory");
+            type.value = "I";
+            $(form).append($(type))
+            div = $("<div style=\"display=none\"></div>")
+            $(div).append(form)
+            document.body.appendChild(form);
+            form.submit();
+
+        });
+
+        $(document.body).on("click", ".deleteInd", function (e) {
+            that = this;
+            $.ajax({
+                url: '{{ route('deleteIndAA') }}',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: "applicant_id=" + $(this).data("id") + "&la_applicant_id=" + $("#la_applicant_id").val()
+            }).done(function (response) {
+                response = JSON.parse(response)
+                if (response.error) {
+
+                } else {
+                    $(that).parent("li").parent("ul").parent("div").parent(".applicants").remove();
+                    alert(response.success);
+
+                }
+            })
+        })
         $(document.body).on("click", "#aa_attach", function () {
             $.ajax({
                 url: '{{ route('attachIndAA') }}',
@@ -158,9 +256,9 @@
 
                 }
                 else {
-                    html = "<div class=\"col-lg-12 col-md-12\" id=\"applicants\">\n" +
+                    html = "<div class=\"col-lg-12 col-md-12 applicants\">\n" +
                         "                                <div class=\"btn-group margin-bottom border-black-1 incomekyc-action-btn\" id=\"btn-air\">\n" +
-                        "                                    <button type=\"button\" class=\"btn btn-default btn-flat\"\n" +
+                        "                                    <button type=\"button\" class=\"btn btn-default btn-flat la_aa\"\n" +
                         "                                            data-value=\"air\">" + response.applicant.name + "</button>\n" +
                         "                                    <button type=\"button\" class=\"btn btn-default btn-flat dropdown-toggle\"\n" +
                         "                                            data-toggle=\"dropdown\"\n" +
@@ -168,6 +266,10 @@
                         "                                        <i class=\"fa fa-list\"></i>\n" +
                         "                                        <span class=\"sr-only\">Toggle Dropdown</span>\n" +
                         "                                    </button>\n" +
+                        "                                     <ul class=\"dropdown-menu position-relative\" id=\"\" role=\"menu\">\n" +
+                        "                                       {{--<li><a href=\"#\"  data-value=\"air\" class=\"editincome\">Edit</a></li>--}}\n" +
+                        "                                       <li><a href=\"#\" data-la=\"{{$la_applicant_id}}\" data-id=\"" + response.applicant.id + "\" class=\"deleteInd\">Delete</a></li>\n" +
+                        "                                    </ul>" +
                         "                                </div>\n" +
                         "\n" +
                         "                            </div>";
@@ -180,7 +282,8 @@
                 }
             })
         })
-        $(document.body).on("click", ".attachIndAASearch", function () {
+        $(document.body).on("click", ".attachIndAASearch", function (e) {
+            e.preventDefault();
             $.ajax({
                 url: '{{ route('attachIndAASearch') }}',
                 type: 'POST',

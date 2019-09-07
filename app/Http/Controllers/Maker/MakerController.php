@@ -115,7 +115,8 @@ class MakerController extends Controller
     public function edit($id)
     {
 
-        $arr["applicant"] = ApplicantData::find($id);
+        $arr["applicant_data"] =  $arr["applicant"] = ApplicantData::find($id);
+        $arr['la_applicant_id']=$id;
         $attached_applicants = LoanApplication::select('applicant_id')
             ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
         $attached_applicants_id = implode(",",$attached_applicants);

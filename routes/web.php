@@ -51,15 +51,17 @@ Route::group(['middleware' => 'role:maker'], function() {
     Route::get("/maker/newla/{id}",'Maker\MakerController@newla')->name("maker.newla");
     Route::post("/maker/storela",'Maker\MakerController@storela')->name("maker.storela");
     Route::resource('maker', 'Maker\MakerController');
-
+    Route::resource('/la', 'LoanApplicationController');
+    Route::post('/maker/la', 'LoanApplicationController@showAttachAA')->name("showAttachAA");
+    Route::post('/maker/attachIndAA', 'LoanApplicationController@attachIndAA')->name("attachIndAA");
+    Route::post('/maker/attachIndAASearch', 'LoanApplicationController@attachIndAASearch')->name("attachIndAASearch");
 });
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/home', 'ApplicantDataController@index')->name('home');
     Route::resource('/aa', 'ApplicationAccountController');
-    Route::resource('/la', 'LoanApplicationController');
-    Route::post('/attachIndAA', 'LoanApplicationController@attachIndAA')->name("attachIndAA");
-    Route::post('/attachIndAASearch', 'LoanApplicationController@attachIndAASearch')->name("attachIndAASearch");
+
+    Route::post('/deleteIndAA',"LoanApplicationController@deleteIndAA")->name("deleteIndAA");
     Route::resource('/aafields', 'AASourceController');
     Route::post('/aadata/create', 'ApplicantDataController@create');
     Route::resource('/aadata', 'ApplicantDataController');
