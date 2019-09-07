@@ -7,7 +7,7 @@
     {{--</div>--}}
     <?php
     $data = json_decode($wealth->form_data);
-    print_r($data->saving_amount)    ?>
+    ?>
     <div class="col-md-6 col-sm-12 col-lg-6 col-lg-offset-1">
         <div class="box">
 
@@ -130,20 +130,20 @@
                     </select>
                 </div>
                 <div class="form-group col-md-4 col-sm-4 bg-gray-light">
-                    <label class="control-label">Primary Document</label>
+                    <label class="control-label">Primary Docs</label>
                     @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'property_support_docs','options'=>$options,'class'=>'form-control select2'])
 
 
                 </div>
                 <div class="form-group col-md-4 col-sm-4 bg-gray-light">
-                    <label class="control-label">Supporting Document</label>
+                    <label class="control-label">Supporting Docs</label>
 
                     @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'wealth_support_docs','options'=>$options,'class'=>'form-control select2'])
 
                 </div>
                     <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right">
 
-                        <input type="file" name="wealth_doc" id="wealth_doc" />
+                        <input type="file" class="form-control btn btn-primary" name="wealth_doc" id="wealth_doc" />
                     </div>
                 </div>
             </div>

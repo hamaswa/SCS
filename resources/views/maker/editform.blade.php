@@ -127,7 +127,7 @@
         });
 
         $(document).ready(function () {
-            $(".applicant").text("{{ $applicant->name }}");
+            $(".applicant").text("{{ $applicant_data->name }}");
             $('.select2').select2();
 
             $(".d_pdf").click(function (e) {

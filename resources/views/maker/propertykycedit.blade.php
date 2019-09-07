@@ -1,27 +1,10 @@
 <fieldset id="propertykyc" class="tab-action-main">
-    {{--<div class="col-md-2 col-sm-3">--}}
-    {{--<a href="javascript:void(0);" data-id="applicantkyc" id="backapplicantkyc" class="bg-white padding-5 pull-left vericaltext tab-action border-black-1">APPLICATION <br> KYC</a>--}}
-    {{--<a href="javascript:void(0);" data-id="incomekyc" id="nextincomekyc" class="bg-white padding-5 pull-left vericaltext tab-action border-black-1"><br>INCOME <br> KYC</a>--}}
-    {{--<a href="javascript:void(0);" data-id="wealthkyc" id="backwealthkyc" class="bg-white padding-5 pull-left vericaltext tab-action border-black-1"><br><br>WEALTH <br> KYC</a>--}}
-    {{--<a href="javascript:void(0);" data-id="propertykyc" id="nextpropertykyc" class="bg-gray-light padding-5 pull-left vericaltext tab-action border-black-1"><br><br><br>PROPERTY <br> KYC</a>--}}
-    {{--</div>--}}
+
     <div class="col-md-6 col-sm-12 col-lg-6 col-lg-offset-1">
         <div class="box">
             <input type="hidden" name="number" id="number" value="0">
             <div class="box-header bg-gray">
                 <strong class="applicant padding-5"></strong>
-                {{--<div class="form-group col-md-12 bg-gray padding-5">--}}
-                {{--<div class="col-md-5 col-sm-12 bg-white">--}}
-                {{--<strong class="padding-5 pull-left margin-r-5 applicant"></strong>--}}
-                {{--</div>--}}
-                {{--<div class="col-md-7 col-sm-12">--}}
-                {{--<a class="bg-white padding-5 pull-left margin-r-5 d_pdf" id="d_pdf" title="CTOS Report Download"><img src="{{ asset("img/save.jpeg") }}" /></a>--}}
-                {{--<a class="bg-white padding-5 pull-left" href="javascript:void(0)"  onclick = "$('#propertyform').trigger('reset')"  title="Refresh"><img src="{{ asset("img/refresh.jpeg") }}" /></a>--}}
-
-                {{--</div>--}}
-
-                {{--</div>--}}
-
 
             </div>
             <div class="box-body bg-gray-light">
@@ -48,18 +31,18 @@
                         <div class="form-group col-md-12 col-sm-12" id="property_doc_form">
                             <input type="hidden" name="doc_hint" value="Property+{{$i}}">
                             <div class="form-group col-md-4 col-sm-4 bg-gray-light">
-                                <label class="control-label">Primary Document</label>
+                                <label class="control-label">Primary Docs</label>
                                 @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'Property_primary_docs','options'=>$options,'class'=>'form-control select2'])
 
 
                             </div>
                             <div class="form-group col-md-4 col-sm-4 bg-gray-light">
-                                <label class="control-label">Supporting Document</label>
+                                <label class="control-label">Supporting Docs</label>
                                 @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'property_support_docs','options'=>$options,'class'=>'form-control select2'])
 
                             </div>
                             <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right">
-                                <input type="file" name="property_doc" id="property_doc"/>
+                                <input type="file" class="form-control btn btn-primary" name="property_doc" id="property_doc"/>
                             </div>
                         </div>
                 </div>

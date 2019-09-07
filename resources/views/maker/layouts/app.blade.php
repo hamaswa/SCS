@@ -46,23 +46,21 @@
 <?php
 
 
-        if(!isset($applicant_data)){
-            $applicant_data = $applicant;
-        }
+    if (!isset($applicant_data)) {
+        $applicant_data = $applicant;
+    }
     if (isset($applicant_data)) {
-    $income = $applicant_data->applicantIncome;
-}
+        $income = $applicant_data->applicantIncome;
 
-if (isset($applicant_data)) {
-    $wealth = $applicant_data->applicantWealth;
-}
+        $wealth = $applicant_data->applicantWealth;
 
-if (isset($applicant_data)) {
-    $properties = $applicant_data->applicantProperty;
-}
+        $properties = $applicant_data->applicantProperty;
+
+        $comments = $applicant_data->applicantComments;
+    }
 
 
-?>
+    ?>
 </pre>
 <div class="wrapper" id="app">
 
@@ -305,6 +303,41 @@ if (isset($applicant_data)) {
             </div>
             <div id="control-sidebar-theme-demo-options-tab" class="tab-pane active tap-width">
                 <div id="tab-2" class="bg-yellow-light">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover bg-white">
+                            <thead>
+                            <tr class="bg-light-blue-gradient">
+                                <th colspan="4" class="text-center">All Comments</th>
+                            </tr>
+                            <tr class="bg-aqua">
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>By</th>
+                            </tr>
+
+                            </thead>
+                            <tbody>
+                            @if(isset($comments))
+                                @foreach($comments as $comment)
+                                    <tr>
+                                        <td>{{ date("Y-m-d",strtotime($comment->created_at))}}</td>
+                                        <td></td>
+                                        <td>{{$comment->user->first_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><b>Comments:</b><br>{!! $comment->comments !!}</td>
+                                    </tr>
+                                @endforeach
+                            @endif
+
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <!-- /.tab-pane -->

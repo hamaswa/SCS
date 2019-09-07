@@ -134,14 +134,14 @@
                     </div>
 
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
-                        <label class="control-label">Primary Document</label>
+                        <label class="control-label">Primary Docs</label>
                         @include("layouts.select", ['name'=>'primary_doc','id'=>'support_doc','type'=>'income_support_docs','options'=>$options])
 
                     </div>
 
 
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
-                        <label class="control-label">Supporting Document</label>
+                        <label class="control-label">Supporting Docs</label>
                         @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'income_support_docs','options'=>$options])
                     </div>
                     <div class="form-group col-md-4 col-sm-3 pull-right">
@@ -556,9 +556,7 @@
                     $(form).append(csrf);
                     $(form).append($("#income_doc_form").clone(true));
                     $(form).append($("#applicant_id").clone(true));
-
                      div = $("<div style=\"display=hidden\"></div>")
-
                     $(div).append(form)
                     document.body.appendChild(form);
                     form.submit();
