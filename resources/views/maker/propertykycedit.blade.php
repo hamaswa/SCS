@@ -49,7 +49,7 @@
                             <input type="hidden" name="doc_hint" value="Property+{{$i}}">
                             <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                                 <label class="control-label">Primary Document</label>
-                                @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'property_primary_docs','options'=>$options,'class'=>'form-control select2'])
+                                @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'Property_primary_docs','options'=>$options,'class'=>'form-control select2'])
 
 
                             </div>

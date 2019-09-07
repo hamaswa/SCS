@@ -42,23 +42,28 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-open">
+<pre>
 <?php
 
-if (isset($applicant) and !isset($income)) {
-    $income = $applicant->applicantIncome;
 
+        if(!isset($applicant_data)){
+            $applicant_data = $applicant;
+        }
+    if (isset($applicant_data)) {
+    $income = $applicant_data->applicantIncome;
 }
 
-if (isset($applicant) and !isset($wealth)) {
-    $wealth = $applicant->applicantWealth;
+if (isset($applicant_data)) {
+    $wealth = $applicant_data->applicantWealth;
 }
 
-if (isset($applicant) and !isset($properties)) {
-    $properties = $applicant->applicantProperty;
+if (isset($applicant_data)) {
+    $properties = $applicant_data->applicantProperty;
 }
 
 
 ?>
+</pre>
 <div class="wrapper" id="app">
 
     <!-- Main Header -->
@@ -280,8 +285,8 @@ if (isset($applicant) and !isset($properties)) {
                             </tr>
                             </thead>
                             <tbody>
-                            @if(isset($applicant->applicantDocuments))
-                                @foreach($applicant->applicantDocuments as $document)
+                            @if(isset($applicant_data->applicantDocuments))
+                                @foreach($applicant_data->applicantDocuments as $document)
                                     <tr>
                                         <td>{{ date("Y-m-d",strtotime($document->created_at))}}</td>
                                         <td>{{ $document->doc_name }}</td>

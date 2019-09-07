@@ -125,6 +125,7 @@ class MakerController extends Controller
         $arr["options"]  = AASource::whereRaw(
             'type in ("income_primary_docs","income_support_docs","wealth_primary_docs",
             "wealth_support_docs", "property_primary_docs","property_support_docs" )')->get();
+
         return view("maker.editform")->with($arr);
     }
 

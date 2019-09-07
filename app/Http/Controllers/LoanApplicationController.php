@@ -59,7 +59,19 @@ class LoanApplicationController extends Controller
         else if(isset($inputs['update_ind']) and $inputs['update_ind']=="update_ind") {
             $applicant = ApplicantData::find($inputs['applicant_id']);
             $applicant->update($inputs);
-            $this->showAttachAA($request);
+            $arr['la_applicant_id'] =  $id = $inputs['la_applicant_id'];
+            $arr["applicant"] = ApplicantData::find($id);
+            $arr["applicant_data"] = ApplicantData::find($inputs['applicant_id']);
+
+            $attached_applicants = LoanApplication::select('applicant_id')
+                ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
+            $attached_applicants_id = implode(",",$attached_applicants);
+            if($attached_applicants_id!="")
+                $arr['attached_applicants'] = ApplicantData::whereRaw("id in (". $attached_applicants_id .")")->get();
+            $arr["options"]  = AASource::whereRaw(
+                'type in ("income_primary_docs","income_support_docs","wealth_primary_docs","wealth_support_docs", "property_primary_docs","property_support_docs", "salutation","position","nature_of_business")')->get();
+
+            return view("maker.editform")->with($arr);
         }
 
     }
