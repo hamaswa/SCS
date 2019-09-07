@@ -13,7 +13,6 @@ class CreateApplicantDataTable extends Migration
      */
     public function up()
     {
-
         Schema::create('applicant_data', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('serial_no')->nullable();
@@ -21,8 +20,8 @@ class CreateApplicantDataTable extends Migration
             $table->string('aabranch')->nullable();
             $table->string('aasource')->nullable();
             $table->string('aaprogramcode')->nullable();
-            $table->string("name")->nullable();
             $table->string("unique_id")->nullable();
+            $table->string("name")->nullable();
             $table->string("mobile")->nullable();
             $table->string("consent")->default("0");
             $table->string("status")->default("Appointment");

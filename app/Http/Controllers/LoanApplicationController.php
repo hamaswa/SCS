@@ -140,9 +140,7 @@ class LoanApplicationController extends Controller
             $arr['attached_applicants'] = ApplicantData::whereRaw("id in (". $attached_applicants_id .")")->get();
         $arr["options"]  = AASource::whereRaw(
             'type in ("income_primary_docs","income_support_docs","wealth_primary_docs","wealth_support_docs", "property_primary_docs","property_support_docs", "salutation","position","nature_of_business")')->get();
-        echo "<pre>";
-        print_r($arr);
-        exit();
+
         return view("maker.editform")->with($arr);
     }
 
