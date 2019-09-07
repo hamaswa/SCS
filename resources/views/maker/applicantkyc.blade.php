@@ -204,10 +204,8 @@
 
         $(document.body).on("click", ".la_aa", function (e) {
             form = document.createElement("form");
-            form.setAttribute("method", "post");
-            form.setAttribute("action", "{{ route("showAttachAA") }}");
-            csrf = $('{{ csrf_field() }}')
-            $(form).append(csrf);
+            form.setAttribute("method", "get");
+            form.setAttribute("action", "{{ route("maker.index")}}/"+$(this).data("id")+"/edit");
             $(form).append($("#la_applicant_id").clone())
             $(form).append($("<input name='applicant_id' value=" + $(this).data("id") + ">"))
             type = document.createElement("input");
@@ -293,10 +291,11 @@
                 },
                 data: "unique_id=" + $("#attachIndAASearch").val() + "&la_applicant_id=" + $("#applicant_id").val()
             }).done(function (response) {
-                //response = JSON.parse(response);
+                resp = JSON.parse(response);
 
-                if (response == "No Data Found") {
-
+                if (resp.error) {
+                    $("#aa_attach_form_body").html($(resp.error));
+                    $("#aa_attach_form").modal('show');
                 }
                 else {
 

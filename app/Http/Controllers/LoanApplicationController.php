@@ -87,7 +87,13 @@ class LoanApplicationController extends Controller
         if (count($data) > 0) {
             return view("maker.aa_attach_form")->with("data", $data);
         } else {
-            return json_encode(["error" => "No Data Found"]);
+            $html = "<table class='table'><tr><td>No Date Found. Create New Application</td></tr>
+                    <tr><td>
+                    <li class=\"nav-item\">
+                            <a class=\"nav-link\" href=\"". route("aadata.index")."\">New AA</a>
+                        </li>
+                </td></tr></table>";
+            return json_encode(["error" => $html]);
         }
 
     }

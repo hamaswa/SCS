@@ -112,11 +112,20 @@ class MakerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,Request $request)
     {
 
-        $arr["applicant_data"] =  $arr["applicant"] = ApplicantData::find($id);
-        $arr['la_applicant_id']=$id;
+        $inputs=$request->all();
+        if(isset($inputs['la_applicant_id'])) {
+            $arr['la_applicant_id'] = $id = $inputs['la_applicant_id'];
+            $arr["applicant"] = ApplicantData::find($id);
+            $arr["applicant_data"] = ApplicantData::find($inputs['applicant_id']);
+        }
+        else {
+
+            $arr["applicant_data"] = $arr["applicant"] = ApplicantData::find($id);
+            $arr['la_applicant_id'] = $id;
+        }
         $attached_applicants = LoanApplication::select('applicant_id')
             ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
         $attached_applicants_id = implode(",",$attached_applicants);

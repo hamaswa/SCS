@@ -55,13 +55,11 @@ class ApplicantDocumentsController extends Controller
     public function store(Request $request)
     {
 
-        echo "<pre>";
         try {
             $inputs = $request->all();
             if ($request->file("income_doc")) {
                 $income_doc = rand(1, 1000) . $request->file("income_doc")->getClientOriginalName();
                 if($request->file("income_doc")->storeAs("uploads/application_docs", $income_doc)) {
-
                     $inputs['file_name'] = $income_doc;
                     $inputs['doc_name'] = $inputs['primary_doc'];
                     $inputs['doc_type'] = $inputs['support_doc'];
@@ -69,7 +67,7 @@ class ApplicantDocumentsController extends Controller
                     $inputs['doc_status'] = "Optional";
                     $inputs['user_id'] = Auth::id();
                     $document = ApplicantDocuments::create($inputs);
-                    return back()->with("success", $inputs['incometype'] . " document successfully uploaded");
+                    return redirect()->back()->with("success", $inputs['incometype'] . " document successfully uploaded");
                 }
             }
 

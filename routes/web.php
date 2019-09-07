@@ -51,8 +51,8 @@ Route::group(['middleware' => 'role:maker'], function() {
     Route::get("/maker/newla/{id}",'Maker\MakerController@newla')->name("maker.newla");
     Route::post("/maker/storela",'Maker\MakerController@storela')->name("maker.storela");
     Route::resource('maker', 'Maker\MakerController');
-    Route::resource('/la', 'LoanApplicationController');
-    Route::post('/maker/la', 'LoanApplicationController@showAttachAA')->name("showAttachAA");
+    Route::resource('maker/la', 'LoanApplicationController', [ 'names' => 'la' ]);
+    Route::post('/sub_la', 'LoanApplicationController@showAttachAA')->name("showAttachAA");
     Route::post('/maker/attachIndAA', 'LoanApplicationController@attachIndAA')->name("attachIndAA");
     Route::post('/maker/attachIndAASearch', 'LoanApplicationController@attachIndAASearch')->name("attachIndAASearch");
 });
