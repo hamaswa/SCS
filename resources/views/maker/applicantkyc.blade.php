@@ -274,7 +274,7 @@
                         "\n" +
                         "                            </div>";
 
-                    $("#applicant_buttons").append(html);
+                    $("#applicant_buttons").append($(html));
                     $(".message").append("<div class=\"alert alert-success\">\n" +
                         "                        <p>Applicant Successfully Attached</p>\n" +
                         "                    </div>");
