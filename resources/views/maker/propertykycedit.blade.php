@@ -156,13 +156,6 @@
 
         </div>
     </div>
-    <div class="form-group col-md-12 col-sm-12 col-lg-12 col-lg-offset-2">
-        <ul class="pager">
-            <li><a href="{{ route("pipeline.index") }}" class="bg-yellow-gradient btn-finish"> Submit >></a></li>
-        </ul>
-    </div>
-    </div>
-
     <div class="col-md-4 col-sm-12">
         <div class="box">
             <div class="box-body bg-chocolate border-shadlebrown min-height left-box">
@@ -215,6 +208,14 @@
 
         </div>
     </div>
+    <div class="form-group col-md-12 col-sm-12 col-lg-12 col-lg-offset-2">
+        <ul class="pager">
+            <li><a href="{{ route("pipeline.index") }}" class="bg-yellow-gradient btn-finish"> Submit >></a></li>
+        </ul>
+    </div>
+    </div>
+
+
 
 
 </fieldset>
