@@ -1,17 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="content-header">
-        <h1>Data Entry</h1>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-            <li class="active">Here</li>
-        </ol>
-    </section>
+
     <section class="content">
         <div class="box">
             <div id="response"></div>
-            <div class="box-header"><h3>{{ __('Register') }}</h3></div>
+            <div class="box-header"></div>
             <form method="POST" id="aafields" action="{{ route('aafields.store') }}">
                 @csrf
                 <div class="card-body">

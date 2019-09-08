@@ -64,6 +64,10 @@
                                         <i class="fa fa-list"></i>
                                         <span class="sr-only">Toggle Dropdown</span>
                                     </button>
+                                    <ul class="dropdown-menu position-relative" id="" role="menu">
+                                        <li><a href="#" class="">Edit</a></li>
+                                        <li><a href="#" class="deleteInd">Delete</a></li>
+                                    </ul>
                                 </div>
 
 
@@ -94,8 +98,15 @@
                                 @endforeach
                             @endif
                         </div>
-                        <input class="form-control" name="attachIndAA" id="attachIndAASearch">
-                        <input type="submit" class="attachIndAASearch">
+
+                        <div class="col-md-6 form-group">
+                            <input class="form-control" name="attachIndAA" id="attachIndAASearch">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <input type="submit" class="attachIndAASearch btn btn-primary">
+                        </div>
+
+                        <div class="clearfix"></div>
                     </div>
                     <form  action="{{ route("la.store") }}" method="post">
                         @csrf
@@ -290,14 +301,14 @@
                 data: "unique_id=" + $("#attachIndAASearch").val() + "&la_applicant_id=" + $("#applicant_id").val()
             }).done(function (response) {
                 resp = JSON.parse(response);
-
+                console.log(resp);
                 if (resp.error) {
                     $("#aa_attach_form_body").html($(resp.error));
                     $("#aa_attach_form").modal('show');
                 }
                 else {
 
-                    $("#aa_attach_form_body").html($(response));
+                    $("#aa_attach_form_body").html(response);
                     $("#aa_attach_form").modal('show');
 
                 }
