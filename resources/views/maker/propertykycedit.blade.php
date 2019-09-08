@@ -213,7 +213,7 @@
             <li><a href="{{ route("pipeline.index") }}" class="bg-yellow-gradient btn-finish"> Submit >></a></li>
         </ul>
     </div>
-    </div>
+    
 
 
 
