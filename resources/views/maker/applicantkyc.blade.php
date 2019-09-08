@@ -1,7 +1,5 @@
 <fieldset id="applicantkyc" class="tab-action-main">
-    <?php
 
-    ?>
     <div class="col-sm-12 col-md-10 col-lg-10 col-lg-offset-1 border-light no-padding">
         <div class="box">
             <div class="box-body">
