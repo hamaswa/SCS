@@ -45,9 +45,10 @@
                                 <input type="file" class="form-control btn btn-primary" name="property_doc" id="property_doc"/>
                             </div>
                         </div>
-                </div>
+
                 <?php $i++ ?>
                 @endforeach
+                </div>
                 <label class="col-lg-12 col-md-12 col-sm-12 form-group bg-gray-light">Property</label>
                 <div class="form-group col-md-12 col-sm-12">
                     <label class="radio-inline">
