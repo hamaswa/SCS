@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="box">
-        <div class="box-header">Dropdown Data</div>
+        <div class="box-header"><h3>Dropdown Data</h3></div>
         <div class="box-body">
 
 

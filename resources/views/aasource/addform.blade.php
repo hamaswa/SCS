@@ -11,129 +11,108 @@
     <section class="content">
         <div class="box">
             <div id="response"></div>
-            <div class="box-header">{{ __('Register') }}</div>
+            <div class="box-header"><h3>{{ __('Register') }}</h3></div>
             <form method="POST" id="aafields" action="{{ route('aafields.store') }}">
                 @csrf
                 <div class="card-body">
 
 
-                    <div class="form-group row">
-                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Slug') }}</label>
+                    <div class="form-group col-md-4">
+                        <label for="name" class="">{{ __('Name') }}</label>
+                        <input id="name" type="text"
+                               class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
+                               name="name" placeholder="Name" value="{{ old('name') }}" required autofocus>
 
-                        <div class="col-md-6">
-                            <input id="name" type="text"
-                                   class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                   name="name" placeholder="slug" value="{{ old('name') }}" required autofocus>
-
-                            @if ($errors->has('name'))
-                                <span class="invalid-feedback" role="alert">
+                        @if ($errors->has('name'))
+                            <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('name') }}</strong>
                                     </span>
-                            @endif
-                        </div>
-
-
+                        @endif
                     </div>
 
 
-                    <div class="form-group row">
-                        <label for="description"
-                               class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                    <div class="form-group col-md-4">
+                        <label for="description">{{ __('Description') }}</label>
+                        <input id="description" placeholder="Description"
+                               class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"
+                               name="description" required autofocus
+                               value ="{{ old('description') }}" />
 
-                        <div class="col-md-6">
-                            <input id="description" placeholder="name"
-                                   class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"
-                                   name="description" required autofocus
-                                   value ="{{ old('description') }}"
-                            />
-
-                            @if ($errors->has('description'))
-                                <span class="invalid-feedback" role="alert">
+                        @if ($errors->has('description'))
+                            <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('description') }}</strong>
                                     </span>
-                            @endif
-                        </div>
+                        @endif
                     </div>
+                    <div class="form-group col-md-4">
+                        <label for="description" class="">{{ __('Type') }}</label>
+                        <select id="type" class="form-control" name="type">
+                            <option value="income_primary_docs">
+                                Income Primary Docs
+                            </option>
+
+                            <option value="income_support_docs">
+                                Income Supporting Docs
+                            </option>
 
 
-                    <div class="form-group row">
-                        <label for="description"
-                               class="col-md-4 col-form-label text-md-right">{{ __('Type') }}</label>
+                            <option value="wealth_primary_docs">
+                                Wealth Primary Docs
+                            </option>
 
-                        <div class="col-md-6">
-                            <select id="type" class="form-control" name="type">
-                                <option value="income_primary_docs">
-                                    Income Primary Docs
-                                </option>
+                            <option value="wealth_support_docs">
+                                Wealth Supporting Docs
+                            </option>
 
-                                <option value="income_support_docs">
-                                    Income Supporting Docs
-                                </option>
+                            <option value="Property_primary_docs">
+                                Property Primary Docs
+                            </option>
 
+                            <option value="property_support_docs">
+                                Property Supporting Docs
+                            </option>
 
-                                <option value="wealth_primary_docs">
-                                    Wealth Primary Docs
-                                </option>
+                            <option value="facility_type">
+                                Facility Type
+                            </option>
 
-                                <option value="wealth_support_docs">
-                                    Wealth Supporting Docs
-                                </option>
+                            {{--<option value="nature_of_business">--}}
+                            {{--Nature of Business--}}
+                            {{--</option>--}}
 
-                                <option value="Property_primary_docs">
-                                    Property Primary Docs
-                                </option>
+                            {{--<option value="position">--}}
+                            {{--Applicantio KYC Position--}}
+                            {{--</option>--}}
+                            {{--<option value="salutation">--}}
+                            {{--Salutation--}}
+                            {{--</option>--}}
+                            {{--<option value="aasource">--}}
+                            {{--AASource--}}
+                            {{--</option>--}}
+                            {{--<option value="aabranch">--}}
+                            {{--AABranch--}}
+                            {{--</option>--}}
+                            {{--<option value="aacategory">--}}
+                            {{--AACategory--}}
+                            {{--</option>--}}
+                            {{--<option value="aatype">--}}
+                            {{--AAType--}}
+                            {{--</option>--}}
 
-                                <option value="property_support_docs">
-                                    Property Supporting Docs
-                                </option>
+                        </select>
 
-                                <option value="facility_type">
-                                    Facility Type
-                                </option>
-
-                                {{--<option value="nature_of_business">--}}
-                                    {{--Nature of Business--}}
-                                {{--</option>--}}
-
-                                {{--<option value="position">--}}
-                                    {{--Applicantio KYC Position--}}
-                                {{--</option>--}}
-                                {{--<option value="salutation">--}}
-                                    {{--Salutation--}}
-                                {{--</option>--}}
-                                {{--<option value="aasource">--}}
-                                    {{--AASource--}}
-                                {{--</option>--}}
-                                {{--<option value="aabranch">--}}
-                                    {{--AABranch--}}
-                                {{--</option>--}}
-                                {{--<option value="aacategory">--}}
-                                    {{--AACategory--}}
-                                {{--</option>--}}
-                                {{--<option value="aatype">--}}
-                                    {{--AAType--}}
-                                {{--</option>--}}
-
-                            </select>
-
-                            @if ($errors->has('description'))
-                                <span class="invalid-feedback" role="alert">
+                        @if ($errors->has('description'))
+                            <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('description') }}</strong>
                                     </span>
-                            @endif
-                        </div>
+                        @endif
                     </div>
-
-
+                    <div class="clearfix"></div>
                 </div>
                 <div class="box-footer">
-                    <div class="form-group row mb-0">
-                        <div class="col-md-10 offset-md-4">
-                            <button type="submit" id="submit" class="btn btn-primary pull-right">
-                                {{ __('Submit') }}
-                            </button>
-                        </div>
-                    </div>
+                    <button type="submit" id="submit" class="btn btn-primary">
+                        {{ __('Submit') }}
+                    </button>
                 </div>
             </form>
         </div>
