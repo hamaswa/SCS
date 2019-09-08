@@ -41,11 +41,11 @@
                                 @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'property_support_docs','options'=>$options,'class'=>'form-control select2'])
 
                             </div>
-                            <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right margin-top-15">
+                            <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right">
                                 <input type="file" class="form-control btn btn-primary" name="property_doc" id="property_doc"/>
                             </div>
                         </div>
-                        <div class="clearfix"></div>
+
 
                 <?php $i++ ?>
                 @endforeach
