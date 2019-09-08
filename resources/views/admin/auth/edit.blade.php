@@ -43,9 +43,9 @@
             <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('Code') }}</label>
                 <select class="form-control" name="code" required>
-                    <option {{ $user->code="PG"?"selected=selected":"" }} value="PG">PG</option>
-                    <option {{ $user->code="REA"?"selected=selected":"" }} value="REA">REA</option>
-                    <option {{ $user->code="INS"?"selected=selected":"" }} value="INS">INS</option>
+                    <option {{ $user->code=="PG"?"selected":"" }} value="PG">PG</option>
+                    <option {{ $user->code=="REA"?"selected":"" }} value="REA">REA</option>
+                    <option {{ $user->code=="INS"?"selected":"" }} value="INS">INS</option>
                 </select>
 
                 @if ($errors->has('code'))
@@ -57,9 +57,9 @@
             <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('Area') }}</label>
                 <select class="form-control" name="area" required>
-                    <option {{ $user->area="KL"?"selected=selected":"" }} value="KL">KL</option>
-                    <option {{ $user->area="JB"?"selected=selected":"" }} value="JB">JB</option>
-                    <option {{ $user->area="PN"?"selected=selected":"" }} value="PN">PN</option>
+                    <option {{ $user->area=="KL"?"selected":"" }} value="KL">KL</option>
+                    <option {{ $user->area=="JB"?"selected":"" }} value="JB">JB</option>
+                    <option {{ $user->area=="PN"?"selected":"" }} value="PN">PN</option>
                 </select>
 
                 @if ($errors->has('area'))
@@ -141,9 +141,20 @@
             ?>
 
             <div class="form-group has-feedback col-md-6 col-sm-12">
-                <label>{{ __('Bank') }}</label>
-                <input id="bank" type="text" class="form-control"
-                       name="bank" required autocomplete="off" value="{{$user->bank}}">
+                <label>{{ __('Bank Group') }}</label>
+                <select name="bank" id="bank" class="form-control" required>
+                    <option value=""></option>
+                    <option value="ABMB" {{ $user->bank=="ABMB"?"selected":"" }}>ABMB</option>
+                    <option value="HLBB" {{ $user->bank=="HLBB"?"selected":"" }}>HLBB</option>
+                    <option value="MBB" {{ $user->bank=="MBB"?"selected":"" }}>MBB</option>
+                    <option value="SCB" {{ $user->bank=="SCB"?"selected":"" }}>SCB</option>
+                    <option value="OCBC" {{ $user->bank=="OCBC"?"selected":"" }}>OCBC</option>
+                    <option value="MBSB" {{ $user->bank=="MBSB"?"selected":"" }}>MBSB</option>
+                    <option value="SCB" {{ $user->bank=="SCB"?"selected":"" }}>SCB</option>
+                    <option value="PBB" {{ $user->bank=="SCB"?"selected":"" }}>PBB</option>
+                </select>
+                {{--<input id="bank" type="text" class="form-control"--}}
+                       {{--name="bank" required autocomplete="off" value="{{$user->bank}}">--}}
                 @if ($errors->has('bank'))
                     <span class="help-block">
                                         <strong>{{ $errors->first('bank') }}</strong>

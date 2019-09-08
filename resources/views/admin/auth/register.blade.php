@@ -43,6 +43,7 @@
             <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('Code') }}</label>
                 <select class="form-control" name="code" required>
+                    <option value=""></option>
                     <option value="PG">PG</option>
                     <option value="REA">REA</option>
                     <option value="INS">INS</option>
@@ -57,6 +58,7 @@
             <div class="form-group has-feedback col-md-6 col-sm-12">
                 <label>{{ __('Area') }}</label>
                 <select class="form-control" name="area" required>
+                    <option value=""></option>
                     <option value="KL">KL</option>
                     <option value="JB">JB</option>
                     <option value="PN">PN</option>
@@ -137,9 +139,20 @@
             </div>
 
             <div class="form-group has-feedback col-md-6 col-sm-12">
-                <label>{{ __('Bank') }}</label>
-                <input id="bank" type="text" class="form-control"
-                       name="bank" required autocomplete="off">
+                <label>{{ __('Bank Group') }}</label>
+                <select name="bank" id="bank" class="form-control" required>
+                    <option value=""></option>
+                    <option value="ABMB">ABMB</option>
+                    <option value="HLBB">HLBB</option>
+                    <option value="MBB">MBB</option>
+                    <option value="SCB">SCB</option>
+                    <option value="OCBC">OCBC</option>
+                    <option value="MBSB">MBSB</option>
+                    <option value="SCB">SCB</option>
+                    <option value="PBB">PBB</option>
+                </select>
+                {{--<input id="bank" type="text" class="form-control"--}}
+                       {{--name="bank" required autocomplete="off">--}}
                 @if ($errors->has('bank'))
                     <span class="help-block">
                                         <strong>{{ $errors->first('bank') }}</strong>
@@ -256,7 +269,7 @@
                     <select class="chosen-select form-control" data-placeholder="Select Position"
                             id="position_id" name="position_id" required>
                         @foreach($positions as $position)
-                            <option value="{{$position->id}}">{{$position->name}}</option>
+                            <option value="{{$position->id}}"  {{ $position->id==3?"selected=selected":"" }}>{{$position->name}}</option>
                         @endforeach
                     </select>
                 </div>

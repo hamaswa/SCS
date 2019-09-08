@@ -41,7 +41,7 @@
                         <tr class="bg-light-blue-gradient">
                             <th>Code</th>
                             <th>Area</th>
-                            <th>User ID</th>
+                            <th>User Name</th>
                             <th>Status</th>
                             <th>Upline</th>
                             <th>Position</th>
