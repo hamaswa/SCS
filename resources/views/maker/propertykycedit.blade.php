@@ -28,7 +28,7 @@
                             </ul>
                         </div>
 
-                        <div class="form-group col-md-12 col-sm-12" id="property_doc_form">
+                        <div class="form-group" id="property_doc_form">
                             <input type="hidden" name="doc_hint" value="Property+{{$i}}">
                             <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                                 <label class="control-label">Primary Docs</label>
@@ -48,21 +48,20 @@
                 </div>
                 <?php $i++ ?>
                 @endforeach
-            </div>
-            <label class="col-lg-12 col-md-12 col-sm-12 form-group bg-gray-light">Property</label>
-            <div class="form-group col-md-12 col-sm-12">
-                <label class="radio-inline">
-                    <input type="radio" name="property_type" value="bank" id="property_type_bank"> Bank
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="property_type" value="free" id="property_type_free"> Free
-                </label>
-            </div>
-            <div class="form-group col-md-12 col-sm-12">
-                <label for="market_value">Market value</label>
-                <input type="number" name="property_market_value" class="form-control" id="property_market_value">
-            </div>
-            <?php /*
+                <label class="col-lg-12 col-md-12 col-sm-12 form-group bg-gray-light">Property</label>
+                <div class="form-group col-md-12 col-sm-12">
+                    <label class="radio-inline">
+                        <input type="radio" name="property_type" value="bank" id="property_type_bank"> Bank
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="property_type" value="free" id="property_type_free"> Free
+                    </label>
+                </div>
+                <div class="form-group col-md-12 col-sm-12">
+                    <label for="market_value">Market value</label>
+                    <input type="number" name="property_market_value" class="form-control" id="property_market_value">
+                </div>
+                <?php /*
                     <div class="form-group col-md-12 col-sm-12">
                         <h4 class="bg-gray-dark padding-5 text-center">Property Details</h4>
                     </div>
@@ -97,42 +96,42 @@
                         <textarea name="property_reno_details" id="property_reno_details" class="form-control" value=""></textarea>
                     </div>
                     */ ?>
-            <div class="form-group col-md-6 col-sm-12">
-                <label for="property_address">Property Type</label>
-                <select name="property_owner_type" id="property_owner_type" class="form-control">
-                    <option value="Terrace House">Terrace House</option>
-                    <option value="Semi detached">Semi detached</option>
-                    <option value="Bangalow House">Bangalow House</option>
-                    <option value="Condominium">Condominium</option>
-                    <option value="Service Suite">Service Suite</option>
-                    <option value="Shoplot">Shoplot</option>
-                    <option value="Office Lot">Office Lot</option>
-                    <option value="Factory">Factory</option>
-                    <option value="Residental Land">Residental Land</option>
-                    <option value="Commercial Land">Commercial Land</option>
-                    <option value="Agriculture Land">Agriculture Land</option>
-                    <option value="Others">Others</option>
-                    {{--<option value="rent">Rent</option>--}}
-                    {{--<option value="landed">Landed</option>--}}
-                </select>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label for="property_address">Property Type</label>
+                    <select name="property_owner_type" id="property_owner_type" class="form-control">
+                        <option value="Terrace House">Terrace House</option>
+                        <option value="Semi detached">Semi detached</option>
+                        <option value="Bangalow House">Bangalow House</option>
+                        <option value="Condominium">Condominium</option>
+                        <option value="Service Suite">Service Suite</option>
+                        <option value="Shoplot">Shoplot</option>
+                        <option value="Office Lot">Office Lot</option>
+                        <option value="Factory">Factory</option>
+                        <option value="Residental Land">Residental Land</option>
+                        <option value="Commercial Land">Commercial Land</option>
+                        <option value="Agriculture Land">Agriculture Land</option>
+                        <option value="Others">Others</option>
+                        {{--<option value="rent">Rent</option>--}}
+                        {{--<option value="landed">Landed</option>--}}
+                    </select>
 
-            </div>
-            <div class="form-group col-md-6 col-sm-12">
-                <label for="property_storey">Storey</label>
-                <input type="number" name="property_storey" id="property_storey" class="form-control"/>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label for="property_storey">Storey</label>
+                    <input type="number" name="property_storey" id="property_storey" class="form-control"/>
 
-            </div>
-            <div class="form-group col-md-6 col-sm-12">
-                <label for="property_owner">Owner</label>
-                <input type="number" name="property_owner" id="property_owner" class="form-control"/>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label for="property_owner">Owner</label>
+                    <input type="number" name="property_owner" id="property_owner" class="form-control"/>
 
-            </div>
-            <div class="form-group col-md-6 col-sm-12">
-                <label for="property_loan_outstanding">Loan Outstanding</label>
-                <input type="number" name="property_loan_outstanding" id="property_loan_outstanding"
-                       class="form-control" value="">
-            </div>
-            <?php /*
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label for="property_loan_outstanding">Loan Outstanding</label>
+                    <input type="number" name="property_loan_outstanding" id="property_loan_outstanding"
+                           class="form-control" value="">
+                </div>
+                <?php /*
                     <div class="form-group col-md-6 col-sm-12">
                         <label for="property_bank">Bank</label>
                         <select name="property_bank" id="property_bank" class="form-control" >
@@ -150,10 +149,11 @@
                     </div>
                     */ ?>
 
-            <div class="form-group col-lg-12" id="propertykyc-submit-btn">
-                <button type="button" class="btn btn-primary" id="add_property">Add Property</button>
-            </div>
+                <div class="form-group col-lg-12" id="propertykyc-submit-btn">
+                    <button type="button" class="btn btn-primary" id="add_property">Add Property</button>
+                </div>
 
+            </div>
         </div>
     </div>
     <div class="col-md-4 col-sm-12">
