@@ -45,6 +45,7 @@
                                 <input type="file" class="form-control btn btn-primary" name="property_doc" id="property_doc"/>
                             </div>
                         </div>
+                        <div class="clearfix"></div>
 
                 <?php $i++ ?>
                 @endforeach
