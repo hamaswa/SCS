@@ -208,16 +208,9 @@
 
         </div>
     </div>
-    <div class="form-group">
-        <ul class="pager">
-            <li><a href="{{ route("pipeline.index") }}" class="bg-yellow-gradient btn-finish"> Submit >></a></li>
-        </ul>
+    <div class="form-group clearfix">
+        <a href="{{ route("pipeline.index") }}" class="bg-yellow-gradient btn-finish btn pull-left"> Submit >></a>
     </div>
-
-
-
-
-
 </fieldset>
 @push("scripts")
     <script type="text/javascript">
@@ -279,7 +272,7 @@
 
         $(document.body).on("click", ".propertykyc-action-btn button.view", function (e) {
             form = forms[$(this).data('number')];
-            console.log(form)
+            console.log(form);
             $("form#propertyform :input").each(function () {
                 $(this).val(form[$(this).attr('id')]);
             })
