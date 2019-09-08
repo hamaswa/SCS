@@ -85,15 +85,9 @@ class LoanApplicationController extends Controller
             " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='I' and status = 'Documentation' and id!=".$inputs['la_applicant_id'])->paginate(5);
 
         if (count($data) > 0) {
-            return view("maker.aa_attach_form")->with("data", $data);
+            return  view("maker.aa_attach_form")->with("data", $data);
         } else {
-            $html = "<table class='table'><tr><td>No Date Found. Create New Application</td></tr>
-                    <tr><td>
-                    <li class=\"nav-item\">
-                            <a class=\"nav-link\" href=\"". route("aadata.index")."\">New AA</a>
-                        </li>
-                </td></tr></table>";
-            return json_encode(["error" => $html]);
+            return "nodata";
         }
 
     }

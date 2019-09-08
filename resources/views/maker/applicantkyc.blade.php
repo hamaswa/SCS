@@ -132,7 +132,7 @@
                             <label class="clearfix">Ownership</label>
                             <div class="col-sm-11 no-margin no-padding">
                                 <input type="text" name="ownership"
-                                       value={{(isset($applicant_data->ownership)?$applicant_data->ownership:"")}} class="form-control">
+                                       value="{{(isset($applicant_data->ownership)?$applicant_data->ownership:"")}}" class="form-control">
                             </div>
                             <div class="col-sm-1 no-margin no-padding">%</div>
 
@@ -300,10 +300,14 @@
                 },
                 data: "unique_id=" + $("#attachIndAASearch").val() + "&la_applicant_id=" + $("#applicant_id").val()
             }).done(function (response) {
-                resp = JSON.parse(response);
-                console.log(resp);
-                if (resp.error) {
-                    $("#aa_attach_form_body").html($(resp.error));
+                if (response=="nodata") {
+                    html = "<table class='table'><tr><td>No Date Found. Create New Application</td></tr>\n" +
+                        "<tr><td>" +
+                        "<li class=\"nav-item\">" +
+                        "<a class=\"nav-link\" href=\"{{ route("aadata.index")}}\">New AA</a>" +
+                        "</li>" +
+                        "                </td></tr></table>";
+                    $("#aa_attach_form_body").html(html);
                     $("#aa_attach_form").modal('show');
                 }
                 else {
