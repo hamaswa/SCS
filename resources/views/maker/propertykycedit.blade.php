@@ -209,8 +209,10 @@
 
         </div>
     </div>
-    <div class="form-group clearfix">
-        <a href="{{ route("pipeline.index") }}" class="bg-yellow-gradient btn-finish btn pull-left"> Submit >></a>
+    <div class="form-group">
+        <ul class="pager">
+            <li><a href="{{ route("pipeline.index") }}" class="bg-yellow-gradient btn-finish"> Submit >></a></li>
+        </ul>
     </div>
 </fieldset>
 @push("scripts")
