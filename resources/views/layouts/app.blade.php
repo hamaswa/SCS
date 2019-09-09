@@ -151,6 +151,10 @@ if (isset($applicant)) {
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route("users.index") }}">Users</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route("aafields.index") }}">Dropdown Options</a>
+                        </li>
                     @endif
                     @if(request()->user()->hasRole("processor") or request()->user()->hasRole("maker"))
                         <li class="nav-item">

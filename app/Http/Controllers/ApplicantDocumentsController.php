@@ -67,7 +67,7 @@ class ApplicantDocumentsController extends Controller
                     $inputs['doc_status'] = "Optional";
                     $inputs['user_id'] = Auth::id();
                     $document = ApplicantDocuments::create($inputs);
-                    return redirect()->back()->with("success", $inputs['incometype'] . " document successfully uploaded");
+                    return view("maker.docs_upload")->with("success", $inputs['incometype'] . " document successfully uploaded");
                 }
             }
 
@@ -82,7 +82,7 @@ class ApplicantDocumentsController extends Controller
                     $inputs['doc_status'] = "Optional";
                     $inputs['user_id'] = Auth::id();
                     $document = ApplicantDocuments::create($inputs);
-                    return back()->with("success", $inputs['wealthtype'] . " document successfully uploaded");
+                    return view("maker.docs_upload")->with("success", $inputs['wealthtype'] . " document successfully uploaded");
                 }
             }
 
@@ -97,12 +97,14 @@ class ApplicantDocumentsController extends Controller
                     $inputs['doc_status'] = "Optional";
                     $inputs['user_id'] = Auth::id();
                     $document = ApplicantDocuments::create($inputs);
-                    return back()->with("success", $inputs['doc_hint'] . " document successfully uploaded");
+                    return view("maker.docs_upload")->with("success", $inputs['doc_hint'] . " document successfully uploaded");
                 }
             }
+            return view("docs_upload",["success","Document Successfully Uploaded"]);
+
         }
         catch (\Exception $exception){
-           return back()->with("error", $exception->getMessage());
+           return view("maker.docs_upload",["error","Error Occured Uploading Document","details"=>$exception->getMessage()]);
         }
     }
 

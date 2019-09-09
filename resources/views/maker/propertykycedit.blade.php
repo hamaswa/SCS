@@ -224,6 +224,8 @@
             var fileName = e.target.files[0].name;
             form = document.createElement("form");
             form.setAttribute("method", "post");
+            form.setAttribute("target", "_blank");
+
             form.setAttribute("enctype","multipart/form-data")
             form.setAttribute("action", "{{ route("documents.store") }}");
             csrf = $('{{ csrf_field() }}')

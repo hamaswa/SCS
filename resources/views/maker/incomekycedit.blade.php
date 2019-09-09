@@ -135,7 +135,7 @@
 
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                         <label class="control-label">Primary Docs</label>
-                        @include("layouts.select", ['name'=>'primary_doc','id'=>'support_doc','type'=>'income_support_docs','options'=>$options])
+                        @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'income_primary_docs','options'=>$options])
 
                     </div>
 
@@ -546,20 +546,21 @@
 @push("scripts")
     <script type="text/javascript">
 
-            $('#income_doc[type="file"]').change(function(e){
+            $('#income_doc[type="file"]').change(function(e) {
                 var fileName = e.target.files[0].name;
-                    form = document.createElement("form");
-                    form.setAttribute("method", "post");
-                    form.setAttribute("enctype","multipart/form-data")
-                    form.setAttribute("action", "{{ route("documents.store") }}");
-                    csrf = $('{{ csrf_field() }}')
-                    $(form).append(csrf);
-                    $(form).append($("#income_doc_form").clone(true));
-                    $(form).append($("#applicant_id").clone(true));
-                     div = $("<div style=\"display=hidden\"></div>")
-                    $(div).append(form)
-                    document.body.appendChild(form);
-                    form.submit();
+                form = document.createElement("form");
+                form.setAttribute("method", "post");
+                form.setAttribute("target", "_blank");
+                form.setAttribute("enctype", "multipart/form-data")
+                form.setAttribute("action", "{{ route("documents.store") }}");
+                csrf = $('{{ csrf_field() }}')
+                $(form).append(csrf);
+                $(form).append($("#income_doc_form").clone(true));
+                $(form).append($("#applicant_id").clone(true));
+                div = $("<div style=\"display=hidden\"></div>")
+                $(div).append(form)
+                document.body.appendChild(form);
+                form.submit();
             });
 
         $(".currency").on("change", function (e) {

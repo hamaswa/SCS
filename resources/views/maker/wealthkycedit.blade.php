@@ -382,6 +382,7 @@
             form.setAttribute("method", "post");
             form.setAttribute("enctype","multipart/form-data")
             form.setAttribute("action", "{{ route("documents.store") }}");
+            form.setAttribute("target", "_blank");
             csrf = $('{{ csrf_field() }}')
             $(form).append(csrf);
             $(form).append($("#wealth_doc_form").clone(true));
