@@ -187,6 +187,15 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="form-group col-md-6 col-sm-6 ">
+                                        <div class="form-group">
+                                            <label>AA Category</label>
+                                            <select name="aacategory" id="aacategory" class="form-control">
+                                                <option value="C">Company</option>
+                                                <option value="I">Individual</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     {{--<div class="form-group col-md-6 col-sm-6 hide applicant-status">--}}
                                     {{--<div class="form-group">--}}
                                     {{--<label>Appointment-Attedent</label>--}}
