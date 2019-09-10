@@ -125,15 +125,18 @@
                                     @elseif($d->status=="Consent Obtained")
                                         <a href="{{route("aadata.create", ["id" => $d->id])  }}"
                                            class="btn btn-xs bg-light-blue-gradient">KYC</a>
-                                    {{--@else--}}
 
                                     @endif
-                                    @if(request()->user()->hasRole("maker"))
-                                        <a href="{{ route("maker.newla", $d->id) }}"
-                                           class="btn btn-xs bg-light-blue-gradient">Import</a>
+
+                                    @if($d->status=="Consent Obtained" or $d->status=="Documentation")
+                                        @if(request()->user()->hasRole("maker"))
+                                            <a href="{{ route("maker.newla", $d->id) }}"
+                                               class="btn btn-xs bg-light-blue-gradient">Import</a>
 
 
-                                    @endif
+                                        @endif
+                                     @endif
+
 
                                 </td>
                             </tr>

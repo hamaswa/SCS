@@ -30,7 +30,7 @@
                     <div class="col-md-12" style="overflow:auto">
                         <div id="MyAccountsTab" class="tabbable tabs-left">
                             <!-- Account selection for desktop - I -->
-                            <ul  class="nav nav-tabs col-md-1 col-sm-12 col-xs-12">
+                            <ul class="nav nav-tabs col-md-1 col-sm-12 col-xs-12">
                                 <li class="active">
                                     <div id="BK" data-target="#lA" data-toggle="tab">
                                         <div class="ellipsis">
@@ -67,12 +67,19 @@
                                     </div>
                                 </li>
                             </ul>
-                            <input type="hidden" id="la_applicant_id" value="{{ $la_applicant_id }}" name="la_applicant_id">
+                            <input type="hidden" id="la_applicant_id" value="{{ $la_applicant_id }}"
+                                   name="la_applicant_id">
                             <div class="tab-content col-md-11">
-                                <div class="tab-pane active" id="lA"><!--style="padding-left: 60px; padding-right:100px"-->
+                                <div class="tab-pane active" id="lA">
+                                    <!--style="padding-left: 60px; padding-right:100px"-->
                                     <div class="row" style="line-height: 14px; margin-bottom: 34.5px">
-                                        <input type="hidden" id="applicant_id" value="{{ $applicant->id }}" name="applicant_id">
-                                             @include('maker.applicantkyc');
+                                        <input type="hidden" id="applicant_id" value="{{ $applicant->id }}"
+                                               name="applicant_id">
+                                        @if($applicant->aacategory=="I")
+                                            @include('maker.applicantkyc');
+                                        @else
+                                            @include("maker.company_aa_info")
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="lB">
@@ -81,7 +88,9 @@
                                             @csrf
                                             <input type="hidden" name="formname" value="incomeform">
                                             <input type="hidden" name="income_id" value="" id="income_id">
-                                            @include('maker.incomekycedit',['income'=>$applicant_data->applicantIncome])
+                                            @if($applicant->aacategory=="I")
+                                                @include('maker.incomekycedit',['income'=>$applicant_data->applicantIncome])
+                                            @endif
                                         </form>
                                     </div>
                                 </div>
@@ -91,7 +100,9 @@
                                             @csrf
                                             <input type="hidden" name="formname" value="wealthform">
                                             <input type="hidden" name="wealth_id" id="wealth_id">
-                                            @include('maker.wealthkycedit',['wealth'=>$applicant_data->applicantWealth])
+                                            @if($applicant->aacategory=="I")
+                                                @include('maker.wealthkycedit',['wealth'=>$applicant_data->applicantWealth])
+                                            @endif
                                         </form>
                                     </div>
                                 </div>
@@ -99,7 +110,9 @@
                                     <div class="row" style="line-height: 14px; margin-bottom: 34.5px">
                                         <form id="propertyform" name="propertyform">
                                             <input type="hidden" name="property_id" id="property_id">
-                                            @include('maker.propertykycedit',['properties'=>$applicant_data->applicantProperty])
+                                            @if($applicant->aacategory)
+                                                @include('maker.propertykycedit',['properties'=>$applicant_data->applicantProperty])
+                                            @endif
                                         </form>
                                     </div>
                                 </div>
@@ -119,11 +132,11 @@
 
 @push("scripts")
     <script type="text/javascript">
-        $(".tab-action").on('click',function(){
+        $(".tab-action").on('click', function () {
             var mainId = $(this).attr('data-id');
-            console.log('test '+mainId);
+            console.log('test ' + mainId);
             $(".tab-action-main").addClass('hide');
-            $("#"+mainId).removeClass('hide');
+            $("#" + mainId).removeClass('hide');
         });
 
         $(document).ready(function () {
@@ -168,7 +181,7 @@
                         $.ajax({
                             url: '{{ route('pipeline.store') }}',
                             type: 'POST',
-                            data: $("#business_form").serialize()+"&formname=APICall&applicant_id="+ response.applicant_id
+                            data: $("#business_form").serialize() + "&formname=APICall&applicant_id=" + response.applicant_id
                         }).done(function (response) {
                             response = JSON.parse(response);
                             if (response.error) {
@@ -182,21 +195,21 @@
             });
         })
 
-        function  submitincomekyc (){
+        function submitincomekyc() {
             $.ajax({
                 url: '{{ route('incomekyc.store') }}',
                 type: 'POST',
-                data: $("#incomeform").serialize() + "&applicant_id="+ $("#applicant_id").val()
+                data: $("#incomeform").serialize() + "&applicant_id=" + $("#applicant_id").val()
             }).done(function (response) {
                 response = JSON.parse(response);
                 console.log(response);
-                if(response.error){
+                if (response.error) {
                 }
                 else {
                     console.log('wk');
-                    if(!isNaN(response.income_id)){
+                    if (!isNaN(response.income_id)) {
                         console.log($("#WK"));
-                        $(".wk").attr("data-toggle","tab");
+                        $(".wk").attr("data-toggle", "tab");
                     }
                     $("#income_id").val(response.income_id);
                 }
@@ -204,29 +217,29 @@
 
         }
 
-        function  submitwealthkyc() {
+        function submitwealthkyc() {
             $.ajax({
                 url: '{{ route('wealthkyc.store') }}',
                 type: 'POST',
-                data: $("#wealthform").serialize() + "&applicant_id="+ $("#applicant_id").val()
+                data: $("#wealthform").serialize() + "&applicant_id=" + $("#applicant_id").val()
             }).done(function (response) {
                 response = JSON.parse(response);
-                if(response.error){
+                if (response.error) {
                 }
                 else {
 
-                    if(!isNaN(response.wealth_id)){
-                        $("#PK").attr("data-toggle","tab");
+                    if (!isNaN(response.wealth_id)) {
+                        $("#PK").attr("data-toggle", "tab");
                     }
                     $("#wealth_id").val(response.wealth_id);
                 }
             })
         }
 
-        function  submitpropertykyc() {
+        function submitpropertykyc() {
             let data = {};
-            data['form']  = forms;
-            data['formname']  = 'propertyform';
+            data['form'] = forms;
+            data['formname'] = 'propertyform';
             data['applicant_id'] = $("#applicant_id").val()
             $.ajax({
                 url: '{{ route('propertykyc.store') }}',
@@ -237,7 +250,7 @@
                 data: data
             }).done(function (response) {
                 response = JSON.parse(response);
-                if(response.error){
+                if (response.error) {
                 }
                 else {
                     $("#property_id").val(response.property_id);
@@ -246,10 +259,10 @@
             })
         }
 
-        function  submitbusinesskyc() {
+        function submitbusinesskyc() {
             let data = {};
-            data['business_forms']  = business_forms;
-            data['formname']  = 'business_forms';
+            data['business_forms'] = business_forms;
+            data['formname'] = 'business_forms';
             data['applicant_id'] = $("#applicant_id").val();
             $.ajax({
                 url: '{{ route('businesskyc.store') }}',
@@ -261,11 +274,11 @@
             }).done(function (response) {
                 response = JSON.parse(response);
                 console.log(response);
-                if(response.error){
+                if (response.error) {
                 }
                 else {
-                    if(!isNaN(response.business_id)){
-                        $("#IK").attr("data-toggle","tab");
+                    if (!isNaN(response.business_id)) {
+                        $("#IK").attr("data-toggle", "tab");
                     }
                     $("#business_id").val(response.business_id);
                 }

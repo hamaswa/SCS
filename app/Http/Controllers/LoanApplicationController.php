@@ -79,10 +79,21 @@ class LoanApplicationController extends Controller
     public function attachIndAASearch(Request $request)
     {
         $inputs = $request->all();
+        $la_app = ApplicantData::find($inputs['la_applicant_id']);
+
 
         $applicant = new  ApplicantData();
-        $data = $applicant->whereRaw("(unique_id = '" . $inputs['unique_id'] . "' or name = '" . $inputs['unique_id'] . "')
-            " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='I' and status = 'Documentation' and id!=".$inputs['la_applicant_id'])->paginate(5);
+        if($la_app->aacategory=="I") {
+            $data = $applicant->whereRaw("(unique_id = '" . $inputs['unique_id'] . "' or name = '" . $inputs['unique_id'] . "')
+            " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='I' and status = 'Documentation' and id!=" . $inputs['la_applicant_id'])->paginate(5);
+
+        }
+        else
+        {
+            $data = $applicant->whereRaw("(unique_id = '" . $inputs['unique_id'] . "' or name = '" . $inputs['unique_id'] . "')
+            " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='C' and status in ('Documentation','Consent Obtained') and id!=" . $inputs['la_applicant_id'])->paginate(5);
+
+        }
 
         if (count($data) > 0) {
             return  view("maker.aa_attach_form")->with("data", $data);
@@ -108,7 +119,6 @@ class LoanApplicationController extends Controller
 
     }
 
-
     public function deleteIndAA(Request $request){
         $inputs = $request->all();
         if(LoanApplication::where("applicant_id","=",$inputs['applicant_id'])
@@ -120,6 +130,7 @@ class LoanApplicationController extends Controller
 
         }
     }
+
     /**
      * Display the specified resource.
      *

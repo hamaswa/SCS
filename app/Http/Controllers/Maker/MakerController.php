@@ -144,9 +144,17 @@ class MakerController extends Controller
     {
         $arr['income'] = ApplicantIncome::where("applicant_id","=",$id)->first();
         $arr['wealth'] = ApplicantWealth::where("applicant_id","=",$id)->first();
+        if(!isset($arr["income"])){
+            $arr['income'] =  new \stdClass();
+
+        }
+        if(!isset($arr["wealth"])){
+            $arr['wealth'] =  new \stdClass();
+
+        }
         $arr['properties'] = ApplicantProperty::where("applicant_id","=",$id)->get();
-        $arr['income']->form_data = json_decode($arr['income']->form_data);
-        $arr['wealth']->form_data = json_decode($arr['wealth']->form_data);
+        $arr['income']->form_data = json_decode(isset($arr['income']->form_data)?$arr['income']->form_data:"");
+        $arr['wealth']->form_data = json_decode(isset($arr['wealth']->form_data)?$arr['wealth']->form_data:"");
         $applicant = ApplicantData::find($id);
         $arr["applicant"] = $applicant;
 
