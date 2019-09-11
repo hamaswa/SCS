@@ -90,6 +90,8 @@
                                             <input type="hidden" name="income_id" value="" id="income_id">
                                             @if($applicant->aacategory=="I")
                                                 @include('maker.incomekycedit',['income'=>$applicant_data->applicantIncome])
+                                            @else
+                                                @include("maker.company_incomekycedit");
                                             @endif
                                         </form>
                                     </div>
