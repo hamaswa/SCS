@@ -131,9 +131,7 @@ class MakerController extends Controller
         $attached_applicants_id = implode(",",$attached_applicants);
         if($attached_applicants_id!="")
        $arr['attached_applicants'] = ApplicantData::whereRaw("id in (". $attached_applicants_id .")")->get();
-        $arr["options"]  = AASource::whereRaw(
-            'type in ("income_primary_docs","income_support_docs","wealth_primary_docs",
-            "wealth_support_docs", "property_primary_docs","property_support_docs" )')->get();
+        $arr["options"]  = AASource::all();
 
         return view("maker.editform")->with($arr);
     }

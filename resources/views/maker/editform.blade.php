@@ -104,6 +104,8 @@
                                             <input type="hidden" name="wealth_id" id="wealth_id">
                                             @if($applicant->aacategory=="I")
                                                 @include('maker.wealthkycedit',['wealth'=>$applicant_data->applicantWealth])
+                                            @else
+                                                @include('maker.company_wealthkycedit')
                                             @endif
                                         </form>
                                     </div>
@@ -112,8 +114,10 @@
                                     <div class="row" style="line-height: 14px; margin-bottom: 34.5px">
                                         <form id="propertyform" name="propertyform">
                                             <input type="hidden" name="property_id" id="property_id">
-                                            @if($applicant->aacategory)
+                                            @if($applicant->aacategory=="I")
                                                 @include('maker.propertykycedit',['properties'=>$applicant_data->applicantProperty])
+                                            @else
+                                                @include('maker.company_propertykycedit')
                                             @endif
                                         </form>
                                     </div>

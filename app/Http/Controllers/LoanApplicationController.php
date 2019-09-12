@@ -42,17 +42,19 @@ class LoanApplicationController extends Controller
         $inputs = $request->all();
 
         $inputs['user_id']=Auth::id();
-        if(isset($inputs['create_company'])){
-            $applicant_count = ApplicantData::selectRaw("count(*) as count")->whereRaw("created_at BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 day)")
-                ->get()->ToArray();
-            $inputs['serial_no'] = date('Ymdhis') . "" . $applicant_count[0]["count"];
-            $applicant = ApplicantData::create($inputs);
+        if(isset($inputs['update_company'])){
+            $applicant = ApplicantData::find($inputs['applicant_id']);
+            $applicant->update($inputs);
+            $arr['la_applicant_id'] =  $id = $inputs['la_applicant_id'];
+            $arr["applicant"] = ApplicantData::find($id);
+            $arr["applicant_data"] = ApplicantData::find($inputs['applicant_id']);
 
-            $arr["applicant"] = $applicant;
-            $arr["options"]  = AASource::whereRaw(
-                'type in ("income_primary_docs","income_support_docs","wealth_primary_docs","wealth_support_docs", "property_primary_docs","property_support_docs", "salutation","position","nature_of_business")')->get();
-
-            $arr["success"] =  "New Company Created";
+            $attached_applicants = LoanApplication::select('applicant_id')
+                ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
+            $attached_applicants_id = implode(",",$attached_applicants);
+            if($attached_applicants_id!="")
+                $arr['attached_applicants'] = ApplicantData::whereRaw("id in (". $attached_applicants_id .")")->get();
+            $arr["options"]  = AASource::all();//->get();
             return view("maker.editform")->with($arr);
 
         }

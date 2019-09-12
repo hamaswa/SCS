@@ -55,8 +55,12 @@ class ApplicantDocumentsController extends Controller
     public function store(Request $request)
     {
 
+
         try {
             $inputs = $request->all();
+            echo "<pre>";
+            print_r($inputs);
+            exit();
             if ($request->file("income_doc")) {
                 $income_doc = rand(1, 1000) . $request->file("income_doc")->getClientOriginalName();
                 if($request->file("income_doc")->storeAs("uploads/application_docs", $income_doc)) {
