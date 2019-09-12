@@ -126,6 +126,15 @@ class MakerController extends Controller
             $arr["applicant_data"] = $arr["applicant"] = ApplicantData::find($id);
             $arr['la_applicant_id'] = $id;
         }
+        if($arr["applicant_data"]->aacategory=="C"){
+
+            $attached_applicants = LoanApplication::select('applicant_id')
+                ->where("la_applicant_id","=",$arr["applicant_data"]->id)
+                ->Pluck("applicant_id")->ToArray();
+            $attached_applicants_id = implode(",",$attached_applicants);
+            if($attached_applicants_id!="")
+                $arr['com_attached_applicants'] = ApplicantData::whereRaw("aacategory='I' and id in (". $attached_applicants_id .")")->get();
+        }
         $attached_applicants = LoanApplication::select('applicant_id')
             ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
         $attached_applicants_id = implode(",",$attached_applicants);

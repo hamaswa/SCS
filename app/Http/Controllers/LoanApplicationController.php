@@ -48,7 +48,13 @@ class LoanApplicationController extends Controller
             $arr['la_applicant_id'] =  $id = $inputs['la_applicant_id'];
             $arr["applicant"] = ApplicantData::find($id);
             $arr["applicant_data"] = ApplicantData::find($inputs['applicant_id']);
-
+            if($arr["applicant_data"]->aacategory=="C"){
+                $attached_applicants = LoanApplication::select('applicant_id')
+                    ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
+                $attached_applicants_id = implode(",",$attached_applicants);
+                if($attached_applicants_id!="")
+                    $arr['com_attached_applicants'] = ApplicantData::whereRaw("id in (". $attached_applicants_id .")")->get();
+            }
             $attached_applicants = LoanApplication::select('applicant_id')
                 ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
             $attached_applicants_id = implode(",",$attached_applicants);
@@ -64,7 +70,13 @@ class LoanApplicationController extends Controller
             $arr['la_applicant_id'] =  $id = $inputs['la_applicant_id'];
             $arr["applicant"] = ApplicantData::find($id);
             $arr["applicant_data"] = ApplicantData::find($inputs['applicant_id']);
-
+            if($arr["applicant_data"]->aacategory=="C"){
+                $attached_applicants = LoanApplication::select('applicant_id')
+                    ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
+                $attached_applicants_id = implode(",",$attached_applicants);
+                if($attached_applicants_id!="")
+                    $arr['com_attached_applicants'] = ApplicantData::whereRaw("id in (". $attached_applicants_id .")")->get();
+            }
             $attached_applicants = LoanApplication::select('applicant_id')
                 ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
             $attached_applicants_id = implode(",",$attached_applicants);
@@ -78,7 +90,7 @@ class LoanApplicationController extends Controller
 
     }
 
-    public function attachIndAASearch(Request $request)
+    public function attachAASearch(Request $request)
     {
         $inputs = $request->all();
         $la_app = ApplicantData::find($inputs['la_applicant_id']);
@@ -98,14 +110,14 @@ class LoanApplicationController extends Controller
         }
 
         if (count($data) > 0) {
-            return  view("maker.aa_attach_form")->with("data", $data);
+            return  view("maker.aa_attach_form")->with(["target"=>"Com","data"=> $data]);
         } else {
             return "nodata";
         }
 
     }
 
-    public function attachIndAA(Request $request){
+    public function attachAA(Request $request){
         $inputs = $request->all();
         $applicant = ApplicantData::find($inputs["id"]);
         if($applicant) {
@@ -121,7 +133,7 @@ class LoanApplicationController extends Controller
 
     }
 
-    public function deleteIndAA(Request $request){
+    public function deleteAA(Request $request){
         $inputs = $request->all();
         if(LoanApplication::where("applicant_id","=",$inputs['applicant_id'])
             ->where("la_applicant_id","=",$inputs["la_applicant_id"])->delete()){
@@ -136,24 +148,14 @@ class LoanApplicationController extends Controller
     public function attachComAASearch(Request $request)
     {
         $inputs = $request->all();
-        $la_app = ApplicantData::find($inputs['la_applicant_id']);
-
+        //$la_app = ApplicantData::find($inputs['applicant_id']);
 
         $applicant = new  ApplicantData();
-        if($la_app->aacategory=="I") {
             $data = $applicant->whereRaw("(unique_id = '" . $inputs['unique_id'] . "' or name = '" . $inputs['unique_id'] . "')
-            " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='I' and status = 'Documentation' and id!=" . $inputs['la_applicant_id'])->paginate(5);
-
-        }
-        else
-        {
-            $data = $applicant->whereRaw("(unique_id = '" . $inputs['unique_id'] . "' or name = '" . $inputs['unique_id'] . "')
-            " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='C' and status in ('Documentation','Consent Obtained') and id!=" . $inputs['la_applicant_id'])->paginate(5);
-
-        }
+            " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='I' and status in ('Documentation','Consent Obtained') and id!=" . $inputs['applicant_id'])->paginate(5);
 
         if (count($data) > 0) {
-            return  view("maker.aa_attach_form")->with("data", $data);
+            return  view("maker.aa_attach_form")->with(["target"=>"Com","data"=> $data]);
         } else {
             return "nodata";
         }
@@ -212,6 +214,13 @@ class LoanApplicationController extends Controller
         $arr["applicant"] = ApplicantData::find($id);
         $arr["applicant_data"] = ApplicantData::find($inputs['applicant_id']);
 
+        if($arr["applicant_data"]->aacategory=="C"){
+            $attached_applicants = LoanApplication::select('applicant_id')
+                ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
+            $attached_applicants_id = implode(",",$attached_applicants);
+            if($attached_applicants_id!="")
+                $arr['com_attached_applicants'] = ApplicantData::whereRaw("id in (". $attached_applicants_id .")")->get();
+        }
         $attached_applicants = LoanApplication::select('applicant_id')
             ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
         $attached_applicants_id = implode(",",$attached_applicants);

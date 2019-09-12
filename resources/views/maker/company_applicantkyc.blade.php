@@ -89,7 +89,7 @@
 
         $(document.body).on("click", "#aa_attach", function () {
             $.ajax({
-                url: '{{ route('attachIndAA') }}',
+                url: '{{ route('attachAA') }}',
                 type: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -124,14 +124,14 @@
                 }
             })
         })
-        $(document.body).on("click", ".attachIndAASearch", function () {
+        $(document.body).on("click", ".attachAASearch", function () {
             $.ajax({
-                url: '{{ route('attachIndAASearch') }}',
+                url: '{{ route('attachAASearch') }}',
                 type: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
-                data: "unique_id=" + $("#attachIndAASearch").val() + "&la_applicant_id=" + $("#applicant_id").val()
+                data: "unique_id=" + $("#attachAASearch").val() + "&la_applicant_id=" + $("#applicant_id").val()
             }).done(function (response) {
                 //response = JSON.parse(response);
 
