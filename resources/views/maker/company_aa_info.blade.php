@@ -109,11 +109,16 @@
 
             </div>
 
+            <div class="col-md-6 form-group">
+                <input class="form-control" name="attachComAA" id="attachComAASearch">
+            </div>
+            <div class="col-md-6 form-group">
+                <input type="submit" class="attachComAASearch btn btn-primary">
+            </div>
+
         </div>
 
-
     </div>
-
 
     <div id="aa_attach_form" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -218,10 +223,10 @@
                 }
             })
         })
-        $(document.body).on("click", ".attachIndAASearch", function (e) {
+        $(document.body).on("click", ".attachComAASearch", function (e) {
             e.preventDefault();
             $.ajax({
-                url: '{{ route('attachIndAASearch') }}',
+                url: '{{ route('attachComAASearch') }}',
                 type: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),

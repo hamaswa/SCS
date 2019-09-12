@@ -73,7 +73,7 @@
                                 <div class="tab-pane active" id="lA">
                                     <!--style="padding-left: 60px; padding-right:100px"-->
                                     <div class="row" style="line-height: 14px; margin-bottom: 34.5px">
-                                        <input type="hidden" id="applicant_id" value="{{ $applicant->id }}"
+                                        <input type="hidden" id="applicant_id" value="{{ $applicant_data->id }}"
                                                name="applicant_id">
                                         @if($applicant->aacategory=="I")
                                             @include('maker.applicantkyc');
@@ -114,11 +114,8 @@
                                     <div class="row" style="line-height: 14px; margin-bottom: 34.5px">
                                         <form id="propertyform" name="propertyform">
                                             <input type="hidden" name="property_id" id="property_id">
-                                            @if($applicant->aacategory=="I")
                                                 @include('maker.propertykycedit',['properties'=>$applicant_data->applicantProperty])
-                                            @else
-                                                @include('maker.company_propertykycedit')
-                                            @endif
+
                                         </form>
                                     </div>
                                 </div>

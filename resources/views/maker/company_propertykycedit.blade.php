@@ -3,34 +3,159 @@
     <div class="col-md-6 col-sm-12 col-lg-6 col-lg-offset-1">
         <div class="box">
             <input type="hidden" name="number" id="number" value="0">
-            <div class="form-group col-md-12 bg-gray padding-5">
-                <div class="col-md-5 col-sm-12 bg-white">
-                    <strong class="padding-5 pull-left margin-r-5 applicant"></strong>
+            <div class="box-header bg-gray">
+                <strong class="applicant padding-5"></strong>
+
+            </div>
+            <div class="box-body bg-gray-light">
+                <div class="col-lg-12 col-md-12 col-sm-12" id="properties">
+                    <?php $i = 0; ?>
+                    @foreach($properties as $property)
+
+                        <div class="btn-group margin-bottom border-black-1 propertykyc-action-btn">
+                            <button type="button" data-number='{{$i}}' class="btn btn-default btn-flat view">
+                                Property{{$i+1}}</button>
+                            <button type="button" class="btn btn-default btn-flat dropdown-toggle"
+                                    data-toggle="dropdown"/>
+
+                            <i class="fa fa-list"></i>
+                            <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu position-relative" id="" role="menu">
+                                <li><a href="#" id='delproperty{{$i}}' data-number='{{$i}}'
+                                       class='editproperty'>Edit</a></li>
+                                <li><a href="#" class='delproperty' data-number='{{ $i }}'>Delete</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="form-group" id="property_doc_form">
+                            <input type="hidden" name="doc_hint" value="Property+{{$i}}">
+                            <div class="form-group col-md-4 col-sm-4 bg-gray-light">
+                                <label class="control-label">Primary Docs</label>
+                                @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'com_property_primary_docs','options'=>$options,'class'=>'form-control select2'])
+
+
+                            </div>
+                            <div class="form-group col-md-4 col-sm-4 bg-gray-light">
+                                <label class="control-label">Supporting Docs</label>
+                                @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'com_property_support_docs','options'=>$options,'class'=>'form-control select2'])
+
+                            </div>
+                            <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right margin-top-15">
+                                <input type="file" class="form-control btn btn-primary" name="property_doc" id="property_doc"/>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                <?php $i++ ?>
+                @endforeach
+                </div>
+                <label class="col-lg-12 col-md-12 col-sm-12 form-group bg-gray-light">Property</label>
+                <div class="form-group col-md-12 col-sm-12">
+                    <label class="radio-inline">
+                        <input type="radio" name="property_type" value="bank" id="property_type_bank"> Bank
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="property_type" value="free" id="property_type_free"> Free
+                    </label>
+                </div>
+                <div class="form-group col-md-12 col-sm-12">
+                    <label for="market_value">Market value</label>
+                    <input type="number" name="property_market_value" class="form-control" id="property_market_value">
+                </div>
+                <?php /*
+                    <div class="form-group col-md-12 col-sm-12">
+                        <h4 class="bg-gray-dark padding-5 text-center">Property Details</h4>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="radio-inline">
+                            <input type="radio" name="property_master_individual" value="master"> Master Title
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="property_master_individual" value="individual"> Individual
+                        </label>
+                        <div class="clearfix"></div><br>
+                        <label class="radio-inline">
+                            <input type="radio" name="property_hold" value="freehold"> Free Hold
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="property_hold" value="leasehold"> Lease Hold
+                        </label>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label for="property_reno_cost">Reno Cost</label>
+                        <input type="number" name="property_reno_cost" id="property_reno_cost" value="" class="form-control">
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label for="property_labu">LA/BU</label>
+                        <input type="text" name="property_labu" id="property_labu" value="" class="form-control">
+                    </div>
+
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label for="property_reno_details">Renovation details</label>
+                        <textarea name="property_reno_details" id="property_reno_details" class="form-control" value=""></textarea>
+                    </div>
+                    */ ?>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label for="property_address">Property Type</label>
+                    <select name="property_owner_type" id="property_owner_type" class="form-control">
+                        <option value="Terrace House">Terrace House</option>
+                        <option value="Semi detached">Semi detached</option>
+                        <option value="Bangalow House">Bangalow House</option>
+                        <option value="Condominium">Condominium</option>
+                        <option value="Service Suite">Service Suite</option>
+                        <option value="Shoplot">Shoplot</option>
+                        <option value="Office Lot">Office Lot</option>
+                        <option value="Factory">Factory</option>
+                        <option value="Residental Land">Residental Land</option>
+                        <option value="Commercial Land">Commercial Land</option>
+                        <option value="Agriculture Land">Agriculture Land</option>
+                        <option value="Others">Others</option>
+                        {{--<option value="rent">Rent</option>--}}
+                        {{--<option value="landed">Landed</option>--}}
+                    </select>
+
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label for="property_storey">Storey</label>
+                    <input type="number" name="property_storey" id="property_storey" class="form-control"/>
+
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label for="property_owner">Owner</label>
+                    <input type="number" name="property_owner" id="property_owner" class="form-control"/>
+
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label for="property_loan_outstanding">Loan Outstanding</label>
+                    <input type="number" name="property_loan_outstanding" id="property_loan_outstanding"
+                           class="form-control" value="">
+                </div>
+                <?php /*
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label for="property_bank">Bank</label>
+                        <select name="property_bank" id="property_bank" class="form-control" >
+                            <option value="ABMB">ABMB</option>
+                            <option value="REA">REA</option>
+                            <option value="DEVP">DEVP</option>
+                            <option value="INS">INS</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label for="property_address">Property Address</label>
+                        <textarea name="property_address" id="property_address" value="" class="form-control">
+                        </textarea>
+                    </div>
+                    */ ?>
+
+                <div class="form-group col-lg-12" id="propertykyc-submit-btn">
+                    <button type="button" class="btn btn-primary" id="add_property">Add Property</button>
                 </div>
 
             </div>
-            <div class="box-header bg-gray-light">
-
-                <div class="form-group" id="property_doc_form">
-                    <input type="hidden" name="doc_hint" value="Property">
-                    <div class="form-group col-md-4 col-sm-4 bg-gray-light">
-                        <label class="control-label">Primary Docs</label>
-                        @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'com_Property_primary_docs','options'=>$options,'class'=>'form-control select2'])
-
-
-                    </div>
-                    <div class="form-group col-md-4 col-sm-4 bg-gray-light">
-                        <label class="control-label">Supporting Docs</label>
-                        @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'com_property_support_docs','options'=>$options,'class'=>'form-control select2'])
-
-                    </div>
-                    <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right margin-top-15">
-                        <input type="file" class="form-control btn btn-primary" name="property_doc" id="property_doc"/>
-                    </div>
-                </div>
-
-            </div>
-
         </div>
     </div>
     <div class="col-md-4 col-sm-12">
@@ -56,26 +181,26 @@
                         $total_co = 0;
 
                         ?>
-                        {{--@foreach($properties as  $property)--}}
-                            {{--<?php--}}
-                            {{--$total_mv += $property->property_market_value;--}}
-                            {{--$total_os += $property->property_loan_outstanding;--}}
+                        @foreach($properties as  $property)
+                            <?php
+                            $total_mv += $property->property_market_value;
+                            $total_os += $property->property_loan_outstanding;
 
-                            {{--?>--}}
-                            {{--<tr>--}}
-                                {{--<td>{{$property->property_market_value}}</td>--}}
-                                {{--<td>{{$property->property_loan_outstanding}}</td>--}}
-                                {{--<td>{{ ($property->property_market_value * (0.9) - $property->property_loan_outstanding*1) }}</td>--}}
-                            {{--</tr>--}}
-                        {{--@endforeach--}}
+                            ?>
+                            <tr>
+                                <td>{{$property->property_market_value}}</td>
+                                <td>{{$property->property_loan_outstanding}}</td>
+                                <td>{{ ($property->property_market_value * (0.9) - $property->property_loan_outstanding*1) }}</td>
+                            </tr>
+                        @endforeach
                         <tr class='bg-green'>
                             <td colspan=3>Total</td>
                         </tr>
-                        {{--<tr class=bg-green>--}}
-                            {{--<td>{{$total_mv}}</td>--}}
-                            {{--<td>{{$total_os}}</td>--}}
-                            {{--<td>{{ $total_mv * (0.9) - $total_os }}</td>--}}
-                        {{--</tr>--}}
+                        <tr class=bg-green>
+                            <td>{{$total_mv}}</td>
+                            <td>{{$total_os}}</td>
+                            <td>{{ $total_mv * (0.9) - $total_os }}</td>
+                        </tr>
 
                         </tbody>
 
@@ -119,6 +244,7 @@
             $("#propertykyc").addClass("hide");
         })
 
+        let forms = <?php print_r(json_encode(json_decode($properties, true))); ?>;
 
         $(document.body).on("click", "#add_property,#btn-finish", function () {
             //propertycount = forms.count();

@@ -129,7 +129,61 @@ class LoanApplicationController extends Controller
         } else
         {
             return json_encode(["error"=>"No Data Found To Delete"]);
+        }
+    }
 
+
+    public function attachComAASearch(Request $request)
+    {
+        $inputs = $request->all();
+        $la_app = ApplicantData::find($inputs['la_applicant_id']);
+
+
+        $applicant = new  ApplicantData();
+        if($la_app->aacategory=="I") {
+            $data = $applicant->whereRaw("(unique_id = '" . $inputs['unique_id'] . "' or name = '" . $inputs['unique_id'] . "')
+            " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='I' and status = 'Documentation' and id!=" . $inputs['la_applicant_id'])->paginate(5);
+
+        }
+        else
+        {
+            $data = $applicant->whereRaw("(unique_id = '" . $inputs['unique_id'] . "' or name = '" . $inputs['unique_id'] . "')
+            " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='C' and status in ('Documentation','Consent Obtained') and id!=" . $inputs['la_applicant_id'])->paginate(5);
+
+        }
+
+        if (count($data) > 0) {
+            return  view("maker.aa_attach_form")->with("data", $data);
+        } else {
+            return "nodata";
+        }
+
+    }
+
+    public function attachComAA(Request $request){
+        $inputs = $request->all();
+        $applicant = ApplicantData::find($inputs["id"]);
+        if($applicant) {
+            $loan = LoanApplication::create([
+                "la_applicant_id" => $inputs['la_applicant_id'],
+                "applicant_id" => $applicant->id,
+            ]);
+            return json_encode(["success"=>"success","applicant"=>$applicant]);
+        }
+        else {
+            return json_encode(["error"=>"No Data Found"]);
+        }
+
+    }
+
+    public function deleteComAA(Request $request){
+        $inputs = $request->all();
+        if(LoanApplication::where("applicant_id","=",$inputs['applicant_id'])
+            ->where("la_applicant_id","=",$inputs["la_applicant_id"])->delete()){
+            return json_encode(["success"=>"Application Removed Successfully"]);
+        } else
+        {
+            return json_encode(["error"=>"No Data Found To Delete"]);
         }
     }
 
