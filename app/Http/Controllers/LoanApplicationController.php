@@ -110,7 +110,7 @@ class LoanApplicationController extends Controller
         }
 
         if (count($data) > 0) {
-            return  view("maker.aa_attach_form")->with(["target"=>"Com","data"=> $data]);
+            return  view("maker.aa_attach_form")->with(["target"=>"I","data"=> $data]);
         } else {
             return "nodata";
         }
