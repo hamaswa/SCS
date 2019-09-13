@@ -78,7 +78,6 @@ class ApplicantDataController extends Controller
 
             $applicant = ApplicantData::find($inputs['applicant_id']);
             if ($request->file("consent") and isset($inputs['is-consent']) and $inputs['is-consent']=='consent') {
-                echo "else";exit;
                 $concent_form_name = rand(1, 1000) . $request->file("consent")->getClientOriginalName();
                 $concent_form = $request->file("consent")->storeAs("uploads/application_docs", $concent_form_name);
                 if ($concent_form != "") {
@@ -95,7 +94,7 @@ class ApplicantDataController extends Controller
                 $this->ctos_api->CTOSpdf($inputs);
                 $this->ctos_api->CTOSFacilityData($inputs);
                 if($applicant->aacategory=="I")
-                return redirect()->route("aadata.create", ["id" => $applicant->id]);
+                    return redirect()->route("aadata.create", ["id" => $applicant->id]);
                 else
                     return redirect()->route("pipeline.index");
 
