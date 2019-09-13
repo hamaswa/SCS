@@ -162,6 +162,14 @@ class MakerController extends Controller
     }
 
     /**
+     * @param $id
+     */
+    public function create_aa($id){
+        $arr['applicant_maker_id'] = $id;
+        return view("maker.maker_create_aa")->with($arr);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

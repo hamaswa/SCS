@@ -292,6 +292,8 @@
         })
         $(document.body).on("click", ".attachIndAASearch", function (e) {
             e.preventDefault();
+            var url = '{{ route("maker.create_aa", ":applicant_maker_id") }}';
+            url = url.replace(':applicant_maker_id', $("#applicant_id").val());
             $.ajax({
                 url: '{{ route('attachIndAASearch') }}',
                 type: 'POST',
@@ -301,10 +303,10 @@
                 data: "unique_id=" + $("#attachIndAASearch").val() + "&la_applicant_id=" + $("#applicant_id").val()
             }).done(function (response) {
                 if (response=="nodata") {
-                    html = "<table class='table'><tr><td>No Date Found. Create New Application</td></tr>\n" +
+                    html = "<table class='table'><tr><td>No Data Found. Create New Application</td></tr>\n" +
                         "<tr><td>" +
-                        "<li class=\"nav-item\">" +
-                        "<a class=\"nav-link\" href=\"{{ route("aadata.index")}}\">New AA</a>" +
+                        "<li class='nav-item'>" +
+                        "<a class='nav-link' target='_blank' href='"+url+"'>New AA</a>" +
                         "</li>" +
                         "                </td></tr></table>";
                     $("#aa_attach_form_body").html(html);
