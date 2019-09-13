@@ -65,6 +65,7 @@ class ApplicantDataController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
+
         $inputs['user_id']=Auth::id();
         if (isset($inputs['form']) and $inputs['form'] == 'new_application') {
             $applicant_count = ApplicantData::selectRaw("count(*) as count")->whereRaw("created_at BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 day)")
@@ -77,6 +78,7 @@ class ApplicantDataController extends Controller
 
             $applicant = ApplicantData::find($inputs['applicant_id']);
             if ($request->file("consent") and isset($inputs['is-consent']) and $inputs['is-consent']=='consent') {
+                echo "else";exit;
                 $concent_form_name = rand(1, 1000) . $request->file("consent")->getClientOriginalName();
                 $concent_form = $request->file("consent")->storeAs("uploads/application_docs", $concent_form_name);
                 if ($concent_form != "") {
@@ -98,6 +100,7 @@ class ApplicantDataController extends Controller
                     return redirect()->route("pipeline.index");
 
             } else {
+
                 try {
                     $applicant->update($inputs);
                     if($applicant->status=="Appointment"){
@@ -176,5 +179,80 @@ class ApplicantDataController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function storeAA(Request $request)
+    {
+        $inputs = $request->all();
+        $inputs['user_id']=Auth::id();
+
+        if (isset($inputs['form']) and $inputs['form'] == 'new_application') {
+
+            $applicant_count = ApplicantData::selectRaw("count(*) as count")->whereRaw("created_at BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 day)")
+                ->get()->ToArray();
+            $inputs['serial_no'] = date('Ymdhis') . "" . $applicant_count[0]["count"];
+            $applicant = ApplicantData::create($inputs);
+            $return_data = array(
+                            'msg' => 'New Appointment Created',
+                            'data' => $applicant
+                           );
+            return back()->with("success", $return_data);
+
+        } else {
+            $applicant = ApplicantData::find($inputs['applicant_id']);
+            if ($request->file("consent") and isset($inputs['is-consent']) and $inputs['is-consent']=='consent') {
+
+                $concent_form_name = rand(1, 1000) . $request->file("consent")->getClientOriginalName();
+                $concent_form = $request->file("consent")->storeAs("uploads/application_docs", $concent_form_name);
+                if ($concent_form != "") {
+                    $applicant->consent = "1";
+                    $applicant->status = "Consent Obtained";
+                    $applicant->save();
+                }
+                $inputs['file_name'] = $concent_form_name;
+                $inputs['doc_name'] = "Consent form";
+                $inputs['doc_type'] = "consent";
+                $inputs['doc_status'] = "Mandatory";
+                $inputs['aacategory'] = "I";
+                $document = ApplicantDocuments::create($inputs);
+                $this->ctos_api->CTOSpdf($inputs);
+                $this->ctos_api->CTOSFacilityData($inputs);
+//                $return_data = array(
+//                    'msg' => 'Consent Uploaded Successfully',
+//                    'data' => $inputs
+//                );
+//                return back()->with("success", $return_data);
+                return redirect()->route("aadata.create", ["id" => $applicant->id]);
+            }
+            else {
+                try {
+                    $applicant->update($inputs);
+                    if($applicant->status=="Appointment"){
+                        $return_data = array(
+                            'msg' => "Data Updated Successfully",
+                            'data' => $inputs
+                        );
+                        return back()->with("success", $return_data);
+                    }
+                    else if (isset($inputs['status']) and $inputs['status'] == "Appointment-Attended") {
+                        $return_data = array(
+                            'msg' => 'Attendent Status Updated',
+                            'data' => $inputs
+                        );
+                        return back()->with("success", $return_data);
+
+                        //return json_encode(["status" => $applicant->status,"success"=>"Attendent Status Updated"]);
+                    } else {
+                        return back()->with("error", "Data is saved without consent form. but you can't proceed");
+                    }
+                } catch (\Exception $e) {
+                    return back()->with("error",$e->getMessage());
+                    //return json_encode(["error" => $e->getMessage()]);
+
+                }
+            }
+
+        }
     }
 }

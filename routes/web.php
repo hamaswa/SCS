@@ -49,6 +49,7 @@ Route::group(['middleware' => 'role:maker'], function() {
 
     Route::post("/maker/search",'Maker\MakerController@search')->name("maker.search");
     Route::get("/maker/newla/{id}",'Maker\MakerController@newla')->name("maker.newla");
+    Route::get("/maker/create_aa/{id}",'Maker\MakerController@create_aa')->name("maker.create_aa");
     Route::post("/maker/storela",'Maker\MakerController@storela')->name("maker.storela");
     Route::resource('maker', 'Maker\MakerController');
     Route::resource('maker/la', 'LoanApplicationController', [ 'names' => 'la' ]);
@@ -66,6 +67,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/deleteAA',"LoanApplicationController@deleteAA")->name("deleteAA");
     Route::resource('/aafields', 'AASourceController');
     Route::post('/aadata/create', 'ApplicantDataController@create');
+    Route::post('/aadata/storeAA', 'ApplicantDataController@storeAA')->name("aadata.storeAA");
     Route::resource('/aadata', 'ApplicantDataController');
     Route::resource('/applicantcomments', 'ApplicantCommentsController');
     Route::post('/applicantcomments/comments', 'ApplicantCommentsController@index')->name("comments");
