@@ -122,14 +122,9 @@
                 <div class="col-md-12 col-sm-12 bg-gray-light" id="com_income_doc_form">
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                     <label class="control-label">Type</label>
-                    <select id="incometype" class="form-control select2" name="incometype" style="width: 100%;">
-                        <option value="salary"> Monthly Fixed</option>
-                        <option value="business">Monthly Variable</option>
-                        <option value="incometax">Annual Tax Declared</option>
-                        <option value="iif">Industry Income Factor</option>
-                        <option value="monthlyrental">Monthly Rental</option>
-                        <option value="air">Annual Investment Return</option>
-                    </select>
+                        @include("layouts.select", ['name'=>'incometype','id'=>'incometype',
+                        'type'=>'com_income_type','options'=>$options])
+
                     </div>
 
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">

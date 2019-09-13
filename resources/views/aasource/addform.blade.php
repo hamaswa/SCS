@@ -67,7 +67,11 @@
                             </option>
 
                             <option value="com_income_primary_docs">
-                               Company Income Primary Docs
+                                Company Income Primary Docs
+                            </option>
+
+                            <option value="com_income_types">
+                                Company Income Type
                             </option>
 
                             <option value="com_income_support_docs">
@@ -77,6 +81,10 @@
 
                             <option value="wealth_primary_docs">
                                 Company Wealth Primary Docs
+                            </option>
+
+                            <option value="com_wealth_type">
+                                Company  Wealth Type
                             </option>
 
                             <option value="com_wealth_support_docs">

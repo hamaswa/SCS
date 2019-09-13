@@ -16,19 +16,12 @@
                 <div class="form-group col-md-12 col-sm-12 bg-gray-light" id="com_wealth_doc_form">
                 <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                     <label class="control-label">Type</label>
-                    <select id="wealthtype" class="form-control select2" name="wealthtype" style="width:100%;">
-                        <option value="saving">Saving</option>
-                        <option value="epf">EPF Account Balance</option>
-                        <option value="tpf">Total Fixed Deposits</option>
-                        <option value="tsv">Total Shares Value</option>
-                        <option value="utv">Unit Trust Value
-                        </option>
+                    @include("layouts.select", ['name'=>'wealthtype','id'=>'wealthtype','type'=>'com_wealth_type','options'=>$options,'class'=>'form-control select2'])
 
-                    </select>
                 </div>
                 <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                     <label class="control-label">Primary Docs</label>
-                    @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'property_support_docs','options'=>$options,'class'=>'form-control select2'])
+                    @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'com_wealth_primary_docs','options'=>$options,'class'=>'form-control select2'])
 
 
                 </div>
