@@ -144,14 +144,14 @@
                 }).done(function(response){ //
                     if(response=="success"){
                         $("#response").html($("<div class=\"alert alert-success alert-dismissable\">\n" +
-                            "                Record Successfully Added\n" +
+                                         $("#description").val() + " Successfully Added\n" +
                             "                <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>\n" +
                             "\n" +
                             "            </div>")).show();
                     }
                     else {
                         $("#response").html($("<div class=\"alert alert-danger alert-dismissable\">\n" +
-                            "                Error Occured.\n" +
+                            $("#description").val() +  " Not Added. Error Occured.\n" +
                             "                <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>\n" +
                             "\n" +
                             "            </div>"))
