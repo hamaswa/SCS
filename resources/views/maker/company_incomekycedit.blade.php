@@ -123,7 +123,7 @@
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                     <label class="control-label">Type</label>
                         @include("layouts.select", ['name'=>'incometype','id'=>'incometype',
-                        'type'=>'com_income_type','options'=>$options])
+                        'type'=>'com_income_types','options'=>$options])
 
                     </div>
 
