@@ -126,14 +126,21 @@ class MakerController extends Controller
             $arr["applicant_data"] = $arr["applicant"] = ApplicantData::find($id);
             $arr['la_applicant_id'] = $id;
         }
+        if($arr["applicant_data"]->aacategory=="C"){
+
+            $attached_applicants = LoanApplication::select('applicant_id')
+                ->where("la_applicant_id","=",$arr["applicant_data"]->id)
+                ->Pluck("applicant_id")->ToArray();
+            $attached_applicants_id = implode(",",$attached_applicants);
+            if($attached_applicants_id!="")
+                $arr['com_attached_applicants'] = ApplicantData::whereRaw("aacategory='I' and id in (". $attached_applicants_id .")")->get();
+        }
         $attached_applicants = LoanApplication::select('applicant_id')
             ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
         $attached_applicants_id = implode(",",$attached_applicants);
         if($attached_applicants_id!="")
        $arr['attached_applicants'] = ApplicantData::whereRaw("id in (". $attached_applicants_id .")")->get();
-        $arr["options"]  = AASource::whereRaw(
-            'type in ("income_primary_docs","income_support_docs","wealth_primary_docs",
-            "wealth_support_docs", "property_primary_docs","property_support_docs" )')->get();
+        $arr["options"]  = AASource::all();
 
         return view("maker.editform")->with($arr);
     }

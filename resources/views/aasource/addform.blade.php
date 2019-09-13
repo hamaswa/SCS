@@ -66,32 +66,44 @@
                                 Property Supporting Docs
                             </option>
 
+                            <option value="com_income_primary_docs">
+                                Company Income Primary Docs
+                            </option>
+
+                            <option value="com_income_types">
+                                Company Income Type
+                            </option>
+
+                            <option value="com_income_support_docs">
+                               Company Income Supporting Docs
+                            </option>
+
+
+                            <option value="wealth_primary_docs">
+                                Company Wealth Primary Docs
+                            </option>
+
+                            <option value="com_wealth_type">
+                                Company  Wealth Type
+                            </option>
+
+                            <option value="com_wealth_support_docs">
+                                Company  Wealth Supporting Docs
+                            </option>
+
+                            <option value="com_Property_primary_docs">
+                                Company Property Primary Docs
+                            </option>
+
+                            <option value="com_property_support_docs">
+                                Company Property Supporting Docs
+                            </option>
+
                             <option value="facility_type">
                                 Facility Type
                             </option>
 
-                            {{--<option value="nature_of_business">--}}
-                            {{--Nature of Business--}}
-                            {{--</option>--}}
 
-                            {{--<option value="position">--}}
-                            {{--Applicantio KYC Position--}}
-                            {{--</option>--}}
-                            {{--<option value="salutation">--}}
-                            {{--Salutation--}}
-                            {{--</option>--}}
-                            {{--<option value="aasource">--}}
-                            {{--AASource--}}
-                            {{--</option>--}}
-                            {{--<option value="aabranch">--}}
-                            {{--AABranch--}}
-                            {{--</option>--}}
-                            {{--<option value="aacategory">--}}
-                            {{--AACategory--}}
-                            {{--</option>--}}
-                            {{--<option value="aatype">--}}
-                            {{--AAType--}}
-                            {{--</option>--}}
 
                         </select>
 

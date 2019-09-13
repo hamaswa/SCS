@@ -42,17 +42,25 @@ class LoanApplicationController extends Controller
         $inputs = $request->all();
 
         $inputs['user_id']=Auth::id();
-        if(isset($inputs['create_company'])){
-            $applicant_count = ApplicantData::selectRaw("count(*) as count")->whereRaw("created_at BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 day)")
-                ->get()->ToArray();
-            $inputs['serial_no'] = date('Ymdhis') . "" . $applicant_count[0]["count"];
-            $applicant = ApplicantData::create($inputs);
-
-            $arr["applicant"] = $applicant;
-            $arr["options"]  = AASource::whereRaw(
-                'type in ("income_primary_docs","income_support_docs","wealth_primary_docs","wealth_support_docs", "property_primary_docs","property_support_docs", "salutation","position","nature_of_business")')->get();
-
-            $arr["success"] =  "New Company Created";
+        if(isset($inputs['update_company'])){
+            $applicant = ApplicantData::find($inputs['applicant_id']);
+            $applicant->update($inputs);
+            $arr['la_applicant_id'] =  $id = $inputs['la_applicant_id'];
+            $arr["applicant"] = ApplicantData::find($id);
+            $arr["applicant_data"] = ApplicantData::find($inputs['applicant_id']);
+            if($arr["applicant_data"]->aacategory=="C"){
+                $attached_applicants = LoanApplication::select('applicant_id')
+                    ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
+                $attached_applicants_id = implode(",",$attached_applicants);
+                if($attached_applicants_id!="")
+                    $arr['com_attached_applicants'] = ApplicantData::whereRaw("id in (". $attached_applicants_id .")")->get();
+            }
+            $attached_applicants = LoanApplication::select('applicant_id')
+                ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
+            $attached_applicants_id = implode(",",$attached_applicants);
+            if($attached_applicants_id!="")
+                $arr['attached_applicants'] = ApplicantData::whereRaw("id in (". $attached_applicants_id .")")->get();
+            $arr["options"]  = AASource::all();//->get();
             return view("maker.editform")->with($arr);
 
         }
@@ -62,7 +70,13 @@ class LoanApplicationController extends Controller
             $arr['la_applicant_id'] =  $id = $inputs['la_applicant_id'];
             $arr["applicant"] = ApplicantData::find($id);
             $arr["applicant_data"] = ApplicantData::find($inputs['applicant_id']);
-
+            if($arr["applicant_data"]->aacategory=="C"){
+                $attached_applicants = LoanApplication::select('applicant_id')
+                    ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
+                $attached_applicants_id = implode(",",$attached_applicants);
+                if($attached_applicants_id!="")
+                    $arr['com_attached_applicants'] = ApplicantData::whereRaw("id in (". $attached_applicants_id .")")->get();
+            }
             $attached_applicants = LoanApplication::select('applicant_id')
                 ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
             $attached_applicants_id = implode(",",$attached_applicants);
@@ -76,7 +90,7 @@ class LoanApplicationController extends Controller
 
     }
 
-    public function attachIndAASearch(Request $request)
+    public function attachAASearch(Request $request)
     {
         $inputs = $request->all();
         $la_app = ApplicantData::find($inputs['la_applicant_id']);
@@ -96,14 +110,14 @@ class LoanApplicationController extends Controller
         }
 
         if (count($data) > 0) {
-            return  view("maker.aa_attach_form")->with("data", $data);
+            return  view("maker.aa_attach_form")->with(["target"=>"Com","data"=> $data]);
         } else {
             return "nodata";
         }
 
     }
 
-    public function attachIndAA(Request $request){
+    public function attachAA(Request $request){
         $inputs = $request->all();
         $applicant = ApplicantData::find($inputs["id"]);
         if($applicant) {
@@ -119,7 +133,7 @@ class LoanApplicationController extends Controller
 
     }
 
-    public function deleteIndAA(Request $request){
+    public function deleteAA(Request $request){
         $inputs = $request->all();
         if(LoanApplication::where("applicant_id","=",$inputs['applicant_id'])
             ->where("la_applicant_id","=",$inputs["la_applicant_id"])->delete()){
@@ -127,7 +141,51 @@ class LoanApplicationController extends Controller
         } else
         {
             return json_encode(["error"=>"No Data Found To Delete"]);
+        }
+    }
 
+
+    public function attachComAASearch(Request $request)
+    {
+        $inputs = $request->all();
+        //$la_app = ApplicantData::find($inputs['applicant_id']);
+
+        $applicant = new  ApplicantData();
+            $data = $applicant->whereRaw("(unique_id = '" . $inputs['unique_id'] . "' or name = '" . $inputs['unique_id'] . "')
+            " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='I' and status in ('Documentation','Consent Obtained') and id!=" . $inputs['applicant_id'])->paginate(5);
+
+        if (count($data) > 0) {
+            return  view("maker.aa_attach_form")->with(["target"=>"Com","data"=> $data]);
+        } else {
+            return "nodata";
+        }
+
+    }
+
+    public function attachComAA(Request $request){
+        $inputs = $request->all();
+        $applicant = ApplicantData::find($inputs["id"]);
+        if($applicant) {
+            $loan = LoanApplication::create([
+                "la_applicant_id" => $inputs['la_applicant_id'],
+                "applicant_id" => $applicant->id,
+            ]);
+            return json_encode(["success"=>"success","applicant"=>$applicant]);
+        }
+        else {
+            return json_encode(["error"=>"No Data Found"]);
+        }
+
+    }
+
+    public function deleteComAA(Request $request){
+        $inputs = $request->all();
+        if(LoanApplication::where("applicant_id","=",$inputs['applicant_id'])
+            ->where("la_applicant_id","=",$inputs["la_applicant_id"])->delete()){
+            return json_encode(["success"=>"Application Removed Successfully"]);
+        } else
+        {
+            return json_encode(["error"=>"No Data Found To Delete"]);
         }
     }
 
@@ -156,6 +214,13 @@ class LoanApplicationController extends Controller
         $arr["applicant"] = ApplicantData::find($id);
         $arr["applicant_data"] = ApplicantData::find($inputs['applicant_id']);
 
+        if($arr["applicant_data"]->aacategory=="C"){
+            $attached_applicants = LoanApplication::select('applicant_id')
+                ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
+            $attached_applicants_id = implode(",",$attached_applicants);
+            if($attached_applicants_id!="")
+                $arr['com_attached_applicants'] = ApplicantData::whereRaw("id in (". $attached_applicants_id .")")->get();
+        }
         $attached_applicants = LoanApplication::select('applicant_id')
             ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
         $attached_applicants_id = implode(",",$attached_applicants);

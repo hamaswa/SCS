@@ -53,20 +53,21 @@
                     </div>
 
                     <div class="col-md-6 form-group">
-                        <input class="form-control" name="attachIndAA" id="attachIndAASearch">
+                        <input class="form-control" name="attachAA" id="attachAASearch">
                     </div>
                     <div class="col-md-6 form-group">
-                        <input type="submit" class="attachIndAASearch btn btn-primary">
+                        <input type="submit" class="attachAASearch btn btn-primary">
                     </div>
 
                     <div class="clearfix"></div>
                 </div>
                 <form id="newaa" name="newaa" action="{{ route("la.store") }}" method="post">
                     @csrf
-                    <input type="hidden" name="applicant_id" value="{{$applicant->id}}">
-                    <input type="hidden" value="{{$applicant->aacategory}}" name="aacategory">
-                    <input type="hidden" value="{{isset($applicant_data->id)?$applicant_data->id:"0"}}" name="id">
-
+                    <input type="hidden" name="update_company" value="update_company">
+                    <input type="hidden" name="la_applicant_id" value="{{$la_applicant_id}}">
+                    <input type="hidden" name="aacategory" value="{{$applicant_data->aacategory}}" >
+                    <input type="hidden" name="applicant_id"
+                           value="{{isset($applicant_data->id)?$applicant_data->id:"0"}}">
 
                     <div class="col-sm-6 col-md-6 form-group">
                         <label>Company Name</label>
@@ -100,19 +101,50 @@
                     <div class="col-sm-12 col-md-6 form-group">
                         <label>Office Address</label>
                         <textarea name="address"
-                                  value="{{isset($applicant_data->address)?$applicant_data->address:""}}"
-                                  class="form-control"></textarea>
+                                
+                                  class="form-control">{{isset($applicant_data->address)?$applicant_data->address:""}}</textarea>
                     </div>
                     <input type="submit" name="create_company" value="Submit">
                 </form>
+                <div id="com_applicant_buttons">
+                    @if(isset($com_attached_applicants))
+                        @foreach($com_attached_applicants as $applicant_sub)
+                            <div class="col-lg-12 col-md-12 applicants">
+                                <div class="btn-group margin-bottom border-black-1"
+                                     id="btn-air">
+                                    <button type="button" class="btn btn-default btn-flat la_aa"
+                                            data-la="{{$applicant->id}}"
+                                            data-id="{{$applicant_sub->id}}">{{$applicant_sub->name}}</button>
+                                    <button type="button" class="btn btn-default btn-flat dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-expanded="false">
+                                        <i class="fa fa-list"></i>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu position-relative" id="" role="menu">
+                                        {{--<li><a href="#"  data-value="air" class="editincome">Edit</a></li>--}}
+                                        <li><a href="#" data-la="{{$la_applicant_id}}"
+                                               data-id="{{$applicant_sub->id}}" class="deleteInd">Delete</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
 
+                        @endforeach
+                    @endif
+                </div>
+            </div>
+
+            <div class="col-md-6 form-group">
+                <input class="form-control" name="attachComAA" id="attachComAASearch">
+            </div>
+            <div class="col-md-6 form-group">
+                <input type="submit" class="attachComAASearch btn btn-primary">
             </div>
 
         </div>
 
-
     </div>
-
 
     <div id="aa_attach_form" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -158,7 +190,7 @@
         $(document.body).on("click", ".deleteInd", function (e) {
             that = this;
             $.ajax({
-                url: '{{ route('deleteIndAA') }}',
+                url: '{{ route('deleteAA') }}',
                 type: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -176,56 +208,129 @@
             })
         })
         $(document.body).on("click", "#aa_attach", function () {
-            $.ajax({
-                url: '{{ route('attachIndAA') }}',
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                data: "id=" + $(this).data("id") + "&la_applicant_id=" + $("#applicant_id").val()
-            }).done(function (response) {
-                response = JSON.parse(response);
+            if($(this).data("target")=="Com"){
+                $.ajax({
+                    url: '{{ route('attachAA') }}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    data: "id=" + $(this).data("id") + "&la_applicant_id=" + $("#applicant_id").val()
+                }).done(function (response) {
+                    response = JSON.parse(response);
+                    if (response.error) {
 
-                if (response.error) {
+                    }
+                    else {
+                        html = "<div class=\"col-lg-12 col-md-12 applicants\">\n" +
+                        "<div class=\"btn-group margin-bottom border-black-1 \" id=\"btn-air\">\n" +
+                        "    <button type=\"button\" class=\"btn btn-default btn-flat com_ind_act_btn\"\n" +
+                        "            data-la=\"" + response.applicant.id + "\"\n" +
+                        "                    data-id=\"" + response.applicant.id + "\">" + response.applicant.name + "</button>\n" +
+                        "    <button type=\"button\" class=\"btn btn-default btn-flat dropdown-toggle\"\n" +
+                        "        data-toggle=\"dropdown\"\n" +
+                        "           aria-expanded=\"false\">\n" +
+                        "        <i class=\"fa fa-list\"></i>\n" +
+                        "    <span class=\"sr-only\">Toggle Dropdown</span>\n" +
+                        "    </button>\n" +
+                        "   <ul class=\"dropdown-menu position-relative\" id=\"\" role=\"menu\">\n" +
+                        "   <li><a href=\"#\" data-la=\"{{$la_applicant_id}}\" data-id=\"" + response.applicant.id + "\" class=\"deleteInd\">Delete</a></li>\n" +
+                        "   </ul>" +
+                        "</div>\n" +
+                        "</div>";
 
-                }
-                else {
-                    html = "<div class=\"col-lg-12 col-md-12 applicants\">\n" +
-                        "                                <div class=\"btn-group margin-bottom border-black-1 incomekyc-action-btn\" id=\"btn-air\">\n" +
-                        "                                    <button type=\"button\" class=\"btn btn-default btn-flat la_aa\"\n" +
-                        "                                            data-la=\"" + response.applicant.id + "\"\n" +
-                        "                                                    data-id=\"" + response.applicant.id + "\">" + response.applicant.name + "</button>\n" +
-                        "                                    <button type=\"button\" class=\"btn btn-default btn-flat dropdown-toggle\"\n" +
-                        "                                            data-toggle=\"dropdown\"\n" +
-                        "                                            aria-expanded=\"false\">\n" +
-                        "                                        <i class=\"fa fa-list\"></i>\n" +
-                        "                                        <span class=\"sr-only\">Toggle Dropdown</span>\n" +
-                        "                                    </button>\n" +
-                        "                                     <ul class=\"dropdown-menu position-relative\" id=\"\" role=\"menu\">\n" +
-                        "                                       {{--<li><a href=\"#\"  data-value=\"air\" class=\"editincome\">Edit</a></li>--}}\n" +
-                        "                                       <li><a href=\"#\" data-la=\"{{$la_applicant_id}}\" data-id=\"" + response.applicant.id + "\" class=\"deleteInd\">Delete</a></li>\n" +
-                        "                                    </ul>" +
-                        "                                </div>\n" +
-                        "\n" +
-                        "                            </div>";
+                        $("#com_applicant_buttons").append($(html));
+                        $(".message").append("<div class=\"alert alert-success\">\n" +
+                            "                        <p>Applicant Successfully Attached</p>\n" +
+                            "                    </div>");
+                        $("#aa_attach_form").modal("hide");
+                    }
+                })
+            }
+            else {
+                $.ajax({
+                    url: '{{ route('attachAA') }}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    data: "id=" + $(this).data("id") + "&la_applicant_id=" + $("#applicant_id").val()
+                }).done(function (response) {
+                    response = JSON.parse(response);
+                    if (response.error) {
 
-                    $("#applicant_buttons").append($(html));
-                    $(".message").append("<div class=\"alert alert-success\">\n" +
-                        "                        <p>Applicant Successfully Attached</p>\n" +
-                        "                    </div>");
-                    $("#aa_attach_form").modal("hide");
-                }
-            })
+                    }
+                    else {
+                        html = "<div class=\"col-lg-12 col-md-12 applicants\">\n" +
+                            "                                <div class=\"btn-group margin-bottom border-black-1 incomekyc-action-btn\" id=\"btn-air\">\n" +
+                            "                                    <button type=\"button\" class=\"btn btn-default btn-flat la_aa\"\n" +
+                            "                                            data-la=\"" + response.applicant.id + "\"\n" +
+                            "                                                    data-id=\"" + response.applicant.id + "\">" + response.applicant.name + "</button>\n" +
+                            "                                    <button type=\"button\" class=\"btn btn-default btn-flat dropdown-toggle\"\n" +
+                            "                                            data-toggle=\"dropdown\"\n" +
+                            "                                            aria-expanded=\"false\">\n" +
+                            "                                        <i class=\"fa fa-list\"></i>\n" +
+                            "                                        <span class=\"sr-only\">Toggle Dropdown</span>\n" +
+                            "                                    </button>\n" +
+                            "                                     <ul class=\"dropdown-menu position-relative\" id=\"\" role=\"menu\">\n" +
+                            "                                       {{--<li><a href=\"#\"  data-value=\"air\" class=\"editincome\">Edit</a></li>--}}\n" +
+                            "                                       <li><a href=\"#\" data-la=\"{{$la_applicant_id}}\" data-id=\"" + response.applicant.id + "\" class=\"deleteInd\">Delete</a></li>\n" +
+                            "                                    </ul>" +
+                            "                                </div>\n" +
+                            "\n" +
+                            "                            </div>";
+
+                        $("#applicant_buttons").append($(html));
+                        $(".message").append("<div class=\"alert alert-success\">\n" +
+                            "                        <p>Applicant Successfully Attached</p>\n" +
+                            "                    </div>");
+                        $("#aa_attach_form").modal("hide");
+                    }
+                })
+            }
         })
-        $(document.body).on("click", ".attachIndAASearch", function (e) {
+
+
+        $(document.body).on("click", ".attachAASearch", function (e) {
             e.preventDefault();
             $.ajax({
-                url: '{{ route('attachIndAASearch') }}',
+                url: '{{ route('attachAASearch') }}',
                 type: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
-                data: "unique_id=" + $("#attachIndAASearch").val() + "&la_applicant_id=" + $("#applicant_id").val()
+                data: "unique_id=" + $("#attachAASearch").val() + "&la_applicant_id=" + $("#la_applicant_id").val()
+            }).done(function (response) {
+                if (response == "nodata") {
+                    html = "<table class='table'><tr><td>No Date Found. Create New Application</td></tr>\n" +
+                        "<tr><td>" +
+                        "<li class=\"nav-item\">" +
+                        "<a class=\"nav-link\" href=\"{{ route("aadata.index")}}\">New AA</a>" +
+                        "</li>" +
+                        "</td></tr></table>";
+                    $("#aa_attach_form_body").html(html);
+                    $("#aa_attach_form").modal('show');
+                }
+                else {
+
+                    $("#aa_attach_form_body").html(response);
+                    $("#aa_attach_form").modal('show');
+
+                }
+
+
+            })
+        })
+
+        $(document.body).on("click", ".attachComAASearch", function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '{{ route('attachComAASearch') }}',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: "unique_id=" + $("#attachComAASearch").val() + "&applicant_id=" + $("#applicant_id").val()
             }).done(function (response) {
                 if (response == "nodata") {
                     html = "<table class='table'><tr><td>No Data Found. Create New Application</td></tr>\n" +

@@ -12,7 +12,7 @@ class ApplicantData extends Model
         'serial_no','name','unique_id','mobile',
         'consent','status',
         'salutation','position','ownership','email','address',
-        'user_id','applicant_maker_id'
+        'user_id'
     ];
 
     public function facilityInfo(){

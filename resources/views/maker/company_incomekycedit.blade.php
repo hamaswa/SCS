@@ -119,32 +119,27 @@
                 {{--</div>--}}
                 */
                 ?>
-                <div class="col-md-12 col-sm-12 bg-gray-light" id="income_doc_form">
+                <div class="col-md-12 col-sm-12 bg-gray-light" id="com_income_doc_form">
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                     <label class="control-label">Type</label>
-                    <select id="incometype" class="form-control select2" name="incometype" style="width: 100%;">
-                        <option value="salary"> Monthly Fixed</option>
-                        <option value="business">Monthly Variable</option>
-                        <option value="incometax">Annual Tax Declared</option>
-                        <option value="iif">Industry Income Factor</option>
-                        <option value="monthlyrental">Monthly Rental</option>
-                        <option value="air">Annual Investment Return</option>
-                    </select>
+                        @include("layouts.select", ['name'=>'incometype','id'=>'incometype',
+                        'type'=>'com_income_type','options'=>$options])
+
                     </div>
 
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                         <label class="control-label">Primary Docs</label>
-                        @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'income_primary_docs','options'=>$options])
+                        @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'com_income_primary_docs','options'=>$options])
 
                     </div>
 
 
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                         <label class="control-label">Supporting Docs</label>
-                        @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'income_support_docs','options'=>$options])
+                        @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'com_income_support_docs','options'=>$options])
                     </div>
                     <div class="form-group col-md-4 col-sm-3 pull-right">
-                        <input type="file" class="form-control btn btn-primary" name="income_doc" id="income_doc" />
+                        <input type="file" class="form-control btn btn-primary" name="income_doc" id="com_income_doc" />
                     </div>
                 </div>
 
@@ -403,14 +398,14 @@
 
                 {{--<div class="form-group col-md-12 col-sm-12">--}}
                     {{--<label class="control-label">Income Factor</label>--}}
-                    {{--<input type="number" name="iif_income_factor" id="iif_income_factor"--}}
-                           {{--value="{{ (isset($data['iif_income_factor']) and $data['iif_income_factor']!="")?$data['iif_income_factor']:"" }}"--}}
+                    {{--<input type="number" name="iif_com_income_factor" id="iif_com_income_factor"--}}
+                           {{--value="{{ (isset($data['iif_com_income_factor']) and $data['iif_com_income_factor']!="")?$data['iif_com_income_factor']:"" }}"--}}
                            {{--class="form-control">--}}
                 {{--</div>--}}
                 {{--<div class="form-group col-md-12 col-sm-12">--}}
                     {{--<label class="control-label">Share Holding</label>--}}
                     {{--<input type="number" name="iif_share_holding" id="iif_share_holding"--}}
-                           {{--value="{{ (isset($data['iif_income_factor']) and $data['iif_income_factor']!="")?$data['iif_income_factor']:"" }}"--}}
+                           {{--value="{{ (isset($data['iif_com_income_factor']) and $data['iif_com_income_factor']!="")?$data['iif_com_income_factor']:"" }}"--}}
                            {{--class="form-control">--}}
                 {{--</div>--}}
                 {{--<div class="form-group">--}}
@@ -548,7 +543,7 @@
 {{--<input type=hidden class="kyctotalnet" value="{{ (isset($data['net']) and $data['net']!=0)?$data['net']:0 }}" name=net id=net>--}}
 @push("scripts")
     <script type="text/javascript">
-        $('#income_doc[type="file"]').change(function(e) {
+        $('#com_income_doc[type="file"]').change(function(e) {
                 var fileName = e.target.files[0].name;
                 form = document.createElement("form");
                 form.setAttribute("method", "post");
@@ -557,7 +552,7 @@
                 form.setAttribute("action", "{{ route("documents.store") }}");
                 csrf = $('{{ csrf_field() }}')
                 $(form).append(csrf);
-                $(form).append($("#income_doc_form").clone(true));
+                $(form).append($("#com_income_doc_form").clone(true));
                 $(form).append($("#applicant_id").clone(true));
                 div = $("<div style=\"display=hidden\"></div>")
                 $(div).append(form)
@@ -716,7 +711,7 @@
             month5 = $("#month5_iif").val();
             month6 = $("#month6_iif").val();
             basic = Math.round(((month1 * 1) + (month2 * 1) + (month3 * 1) + (month4 * 1) + (month5 * 1) + (month6 * 1)) / 6);
-            incomefactor = $("#iif_income_factor").val();
+            incomefactor = $("#iif_com_income_factor").val();
             shareholding = $("#iif_share_holding").val();
             if (!(isNaN(incomefactor)) && incomefactor != "")
                 basic = basic * incomefactor / 100;
@@ -765,12 +760,12 @@
             net6 = $("#monthly_rental_net").val();
             nettotal = Math.round((net1 * 1) + (net2 * 1) + (net3 * 1) + (net4 * 1) + (net5 * 1) + (net6 * 1));
             if (grosstotal == 0 && nettotal == 0)
-                $(".income_kyc_total_right_bar").html("");//<td>Total</td><td>"+ Math.round(grosstotal) + "</td><td>"+nettotal+"</td>");
+                $(".com_income_kyc_total_right_bar").html("");//<td>Total</td><td>"+ Math.round(grosstotal) + "</td><td>"+nettotal+"</td>");
             else
-                $(".income_kyc_total_right_bar").html("<td>Total</td><td>" + Math.round(grosstotal) + "</td><td>" + nettotal + "</td>");
+                $(".com_income_kyc_total_right_bar").html("<td>Total</td><td>" + Math.round(grosstotal) + "</td><td>" + nettotal + "</td>");
 
 
-            //$("#income_kyc_total_right_bar").text(grosstotal + "/"+ nettotal);
+            //$("#com_income_kyc_total_right_bar").text(grosstotal + "/"+ nettotal);
             $("#gross").val(grosstotal);
             $("#net").val(nettotal);
             $(".incomekyc_right").html($("#incomekyc_right").html())

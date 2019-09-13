@@ -3,52 +3,6 @@
     <div class="col-sm-12 col-md-10 col-lg-10 col-lg-offset-1 border-light no-padding">
         <div class="box">
             <div class="box-body">
-                @if($applicant->aacategory=="C")
-                    <form id="newaa" name="newaa" action="{{ route("la.store") }}" method="post">
-                        @csrf
-                        <input type="hidden" name="applicant_id" value="{{$applicant->id}}">
-                        <input type="hidden" value="{{$applicant->aacategory}}" name="aacategory">
-                        <input type="hidden" value="{{isset($applicant_data->id)?$applicant_data->id:"0"}}" name="id">
-
-
-                        <div class="col-sm-6 col-md-6 form-group">
-                            <label>Company Name</label>
-                            <input type="text" value="{{$applicant_data->name}}" name="name" class="form-control"
-                                   autocomplete="off">
-                        </div>
-                        <div class="col-sm-12 col-md-6 form-group">
-                            <label>Company Reg No</label>
-                            <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id"
-                                   class="form-control"
-                                   autocomplete="off">
-                        </div>
-                        <div class="col-sm-12 col-md-6 form-group">
-                            <label>Office Phone No</label>
-                            <input type="text" value="{{$applicant_data->mobile}}" name="mobile" class="form-control"
-                                   autocomplete="off">
-                        </div>
-                        <div class="col-sm-12 col-md-6 form-group">
-                            <label>Date Established</label>
-                            <input type="date" name="date_established"
-                                   value="{{(isset($applicant_data->date_established)?$applicant_data->date_established:"")}}"
-                                   class="form-control" autocomplete="off"/>
-                        </div>
-                        <div class="col-sm-12 col-md-6 form-group">
-                            <label>Nature of Business</label>
-                            <input type="text" name="nature_of_business" id="nature_of_business"
-                                   value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}"
-                                   class="form-control" autocomplete="off"/>
-
-                        </div>
-                        <div class="col-sm-12 col-md-6 form-group">
-                            <label>Office Address</label>
-                            <textarea name="address"
-                                      value="{{isset($applicant_data->address)?$applicant_data->address:""}}"
-                                      class="form-control"></textarea>
-                        </div>
-                        <input type="submit" name="create_company" value="Submit">
-                    </form>
-                @else
 
                     <div class="bg-gray-light padding-5">
 
@@ -100,10 +54,10 @@
                         </div>
 
                         <div class="col-md-6 form-group">
-                            <input class="form-control" name="attachIndAA" id="attachIndAASearch">
+                            <input class="form-control" name="attachAA" id="attachAASearch">
                         </div>
                         <div class="col-md-6 form-group">
-                            <input type="submit" class="attachIndAASearch btn btn-primary">
+                            <input type="submit" class="attachAASearch btn btn-primary">
                         </div>
 
                         <div class="clearfix"></div>
@@ -168,7 +122,6 @@
                         </div>
 
                     </form>
-                @endif
 
             </div>
 
@@ -231,7 +184,7 @@
         $(document.body).on("click", ".deleteInd", function (e) {
             that = this;
             $.ajax({
-                url: '{{ route('deleteIndAA') }}',
+                url: '{{ route('deleteAA') }}',
                 type: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -250,7 +203,7 @@
         })
         $(document.body).on("click", "#aa_attach", function () {
             $.ajax({
-                url: '{{ route('attachIndAA') }}',
+                url: '{{ route('attachAA') }}',
                 type: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -290,17 +243,17 @@
                 }
             })
         })
-        $(document.body).on("click", ".attachIndAASearch", function (e) {
+        $(document.body).on("click", ".attachAASearch", function (e) {
             e.preventDefault();
             var url = '{{ route("maker.create_aa", ":applicant_maker_id") }}';
             url = url.replace(':applicant_maker_id', $("#applicant_id").val());
             $.ajax({
-                url: '{{ route('attachIndAASearch') }}',
+                url: '{{ route('attachAASearch') }}',
                 type: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
-                data: "unique_id=" + $("#attachIndAASearch").val() + "&la_applicant_id=" + $("#applicant_id").val()
+                data: "unique_id=" + $("#attachAASearch").val() + "&la_applicant_id=" + $("#applicant_id").val()
             }).done(function (response) {
                 if (response=="nodata") {
                     html = "<table class='table'><tr><td>No Data Found. Create New Application</td></tr>\n" +

@@ -94,7 +94,11 @@ class ApplicantDataController extends Controller
                 $document = ApplicantDocuments::create($inputs);
                 $this->ctos_api->CTOSpdf($inputs);
                 $this->ctos_api->CTOSFacilityData($inputs);
+                if($applicant->aacategory=="I")
                 return redirect()->route("aadata.create", ["id" => $applicant->id]);
+                else
+                    return redirect()->route("pipeline.index");
+
             } else {
 
                 try {

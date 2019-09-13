@@ -53,120 +53,133 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover bg-white">
-                        <thead>
-                        <tr class="bg-light-blue-gradient">
-                            <th></th>
-                            <th>IC/Com No.</th>
-                            <th>Applicant</th>
-                            <th>Loan Amount</th>
-                            <th>TAT</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @if(count($data)==0)
-                            <tr>
-                                <td colspan="7">
-                                    No Data Found
-                                </td>
-
+                        <table class="table table-bordered table-striped table-hover bg-white">
+                            <thead>
+                            <tr class="bg-light-blue-gradient">
+                                <th></th>
+                                <th>IC/Com No.</th>
+                                <th>Applicant</th>
+                                <th>Loan Amount</th>
+                                <th>TAT</th>
+                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
-                        @endif
-                        @foreach($data as $d)
-                            <tr>
-                                <td><input type="checkbox" name="applicant_id" value="{{$d->id}}"/></td>
-                                <td>
-                                    @if($d->status =="Documentation")
-                                        <a href="{{route("aadata.edit",  $d->id)  }}">
-                                            {{ $d->unique_id }}</a>
+                            </thead>
+                            <tbody>
+                            @if(count($data)==0)
+                                <tr>
+                                    <td colspan="7">
+                                        No Data Found
+                                    </td>
 
-                                    @elseif($d->status=="Consent Obtained")
-                                        <a href="{{route("aadata.create", ["id" => $d->id])  }}">
-                                            {{ $d->unique_id }}</a>
-                                    @else
-                                        {{ $d->unique_id }}
-                                    @endif
-                                </td>
-                                <td>{{ $d->name }}</td>
-                                <td>{{ $d->market_value }}</td>
-                                <td></td>
-                                <td>{{ $d->status }}
-                                    {{--<select class="form-control" id="singalaction{{$d->id}}">--}}
-                                    {{--<option value="Application" {{ ($d->status == "Application"?" selected":"") }}>Application</option>--}}
-                                    {{--<option value="Appointment" {{ ($d->status == "Appointment"?" selected":"") }}>Appointment</option>--}}
-                                    {{--<option value="Attended" {{ ($d->status == "Attended"?" selected":"") }}>Attended</option>--}}
-                                    {{--<option value="Consent" {{ ($d->status == "Consent"?" selected":"") }}>Consent</option>--}}
-                                    {{--<option value="Documentation" {{ ($d->status == "Documentation"?" selected":"") }}>Documentation</option>--}}
-                                    {{--</select>--}}
-                                </td>
-                                <td>
-                                    {{--<button class="btn bg-gray-dark updatesingle" data-id="{{$d->id}}">Update</button>--}}
-                                    <button class="btn setreminder" data-id="{{$d->id}}"><i
-                                                class="fa fa-calendar-o"></i></button>
-                                    <button class="btn commentsModal" data-id="{{$d->id}}"><i
-                                                class="fa fa-comment-o"></i></button>
-                                    <a href="javascript:void(0)" data-toggle="control-sidebar"
-                                       data-id="{{$d->id}}"
-                                       class="btn btn-xs bg-light-blue-gradient view-applicant">View</a>
-                                    @if($d->status=="Appointment")
-                                        <a href="javascript:void(0)" data-aaprogramcode="{{ $d->aaprogramcode }}"
-                                           data-id="{{$d->id}}" data-status="{{ $d->status }}"
-                                           data-name="{{ $d->name }}" data-unique_id="{{ $d->unique_id }}"
-                                           data-mobile="{{$d->mobile}}" class="btn btn-xs bg-light-blue-gradient edit">Appointment
-                                            Attended</a>
-                                    @elseif($d->status =="Appointment-Attended")
-                                        <a href="javascript:void(0)" data-aaprogramcode="{{ $d->aaprogramcode }}"
-                                           data-id="{{$d->id}}" data-status="{{ $d->status }}"
-                                           data-name="{{ $d->name }}" data-unique_id="{{ $d->unique_id }}"
-                                           data-mobile="{{$d->mobile}}" class="btn btn-xs bg-light-blue-gradient edit">Upload
-                                            Consent</a>
-                                    @elseif($d->status=="Consent Obtained")
-                                        <a href="{{route("aadata.create", ["id" => $d->id])  }}"
-                                           class="btn btn-xs bg-light-blue-gradient">KYC</a>
+                                </tr>
+                            @endif
+                            @foreach($data as $d)
+                                <tr>
+                                    <td><input type="checkbox" name="applicant_id" value="{{$d->id}}"/></td>
+                                    <td>
+                                        @if($d->status =="Documentation")
+                                            <a href="{{route("aadata.edit",  $d->id)  }}">
+                                                {{ $d->unique_id }}</a>
 
-                                    @endif
-
-                                    @if($d->status=="Consent Obtained" or $d->status=="Documentation")
-                                        @if(request()->user()->hasRole("maker"))
-                                            <a href="{{ route("maker.newla", $d->id) }}"
-                                               class="btn btn-xs bg-light-blue-gradient">Import</a>
-
+                                        @elseif($d->status=="Consent Obtained")
+                                            <a href="{{route("aadata.create", ["id" => $d->id])  }}">
+                                                {{ $d->unique_id }}</a>
+                                        @else
+                                            {{ $d->unique_id }}
+                                        @endif
+                                    </td>
+                                    <td>{{ $d->name }}</td>
+                                    <td>{{ $d->market_value }}</td>
+                                    <td></td>
+                                    <td>{{ $d->status }}
+                                        {{--<select class="form-control" id="singalaction{{$d->id}}">--}}
+                                        {{--<option value="Application" {{ ($d->status == "Application"?" selected":"") }}>Application</option>--}}
+                                        {{--<option value="Appointment" {{ ($d->status == "Appointment"?" selected":"") }}>Appointment</option>--}}
+                                        {{--<option value="Attended" {{ ($d->status == "Attended"?" selected":"") }}>Attended</option>--}}
+                                        {{--<option value="Consent" {{ ($d->status == "Consent"?" selected":"") }}>Consent</option>--}}
+                                        {{--<option value="Documentation" {{ ($d->status == "Documentation"?" selected":"") }}>Documentation</option>--}}
+                                        {{--</select>--}}
+                                    </td>
+                                    <td>
+                                        {{--<button class="btn bg-gray-dark updatesingle" data-id="{{$d->id}}">Update</button>--}}
+                                        <button class="btn setreminder" data-id="{{$d->id}}"><i
+                                                    class="fa fa-calendar-o"></i></button>
+                                        <button class="btn commentsModal" data-id="{{$d->id}}"><i
+                                                    class="fa fa-comment-o"></i></button>
+                                        <a href="javascript:void(0)" data-toggle="control-sidebar"
+                                           data-id="{{$d->id}}"
+                                           class="btn btn-xs bg-light-blue-gradient view-applicant">View</a>
+                                        @if($d->status=="Appointment")
+                                            <a href="javascript:void(0)" data-aaprogramcode="{{ $d->aaprogramcode }}"
+                                               data-id="{{$d->id}}" data-status="{{ $d->status }}"
+                                               data-name="{{ $d->name }}" data-unique_id="{{ $d->unique_id }}"
+                                               data-mobile="{{$d->mobile}}"
+                                               class="btn btn-xs bg-light-blue-gradient edit">Appointment
+                                                Attended</a>
+                                        @elseif($d->status =="Appointment-Attended")
+                                            <a href="javascript:void(0)" data-aaprogramcode="{{ $d->aaprogramcode }}"
+                                               data-id="{{$d->id}}" data-status="{{ $d->status }}"
+                                               data-name="{{ $d->name }}" data-unique_id="{{ $d->unique_id }}"
+                                               data-mobile="{{$d->mobile}}"
+                                               class="btn btn-xs bg-light-blue-gradient edit">Upload
+                                                Consent</a>
+                                        @elseif($d->status=="Consent Obtained" and $d->aacategory=="I")
+                                            <a href="{{route("aadata.create", ["id" => $d->id])  }}"
+                                               class="btn btn-xs bg-light-blue-gradient">KYC</a>
 
                                         @endif
-                                     @endif
 
+                                        @if($d->aacategory=="I")
+                                            @if($d->status=="Documentation" )
+                                                @if(request()->user()->hasRole("maker"))
+                                                    <a href="{{ route("maker.newla", $d->id) }}"
+                                                       class="btn btn-xs bg-light-blue-gradient">Import</a>
+
+
+                                                @endif
+                                            @endif
+                                        @else
+                                            @if($d->status=="Consent Obtained" or $d->status=="Documentation" )
+                                                @if(request()->user()->hasRole("maker"))
+                                                    <a href="{{ route("maker.newla", $d->id) }}"
+                                                       class="btn btn-xs bg-light-blue-gradient">Import</a>
+
+
+                                                @endif
+                                            @endif
+                                        @endif
+
+
+                                    </td>
+                                </tr>
+
+                            @endforeach
+
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td><input type="checkbox" id="checkall" name="checkall"/></td>
+                                <td colspan="2">
+                                    <select class="form-control select2" name="statusall">
+                                        <option value="KIV appointment">KIV appointment</option>
+                                        <option value="Dropped Appointment">Dropped Appointment</option>
+                                        <option value="Avoid Segment Appointment">Avoid Segment Appointment</option>
+                                        <option value="Archive">Archive</option>
+                                        <option value="Drop Pipeline">Drop Pipeline</option>
+
+                                    </select>
 
                                 </td>
+                                <td>
+                                    <button class="btn bg-gray-dark" id="moveall">Move</button>
+                                </td>
                             </tr>
-
-                        @endforeach
-
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <td><input type="checkbox" id="checkall" name="checkall"/></td>
-                            <td colspan="2">
-                                <select class="form-control select2" name="statusall">
-                                    <option value="KIV appointment">KIV appointment</option>
-                                    <option value="Dropped Appointment">Dropped Appointment</option>
-                                    <option value="Avoid Segment Appointment">Avoid Segment Appointment</option>
-                                    <option value="Archive">Archive</option>
-                                    <option value="Drop Pipeline">Drop Pipeline</option>
-
-                                </select>
-
-                            </td>
-                            <td>
-                                <button class="btn bg-gray-dark" id="moveall">Move</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="7">{{ $data->links() }}</td>
-                        </tr>
-                        </tfoot>
-                    </table>
+                            <tr>
+                                <td colspan="7">{{ $data->links() }}</td>
+                            </tr>
+                            </tfoot>
+                        </table>
                     </div>
                 </div>
 
@@ -256,10 +269,10 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/12.3.1/classic/ckeditor.js"></script>
     <script>
         ClassicEditor
-            .create( document.querySelector( '.editor' ) )
-            .catch( error => {
-                console.error( error );
-            } );
+            .create(document.querySelector('.editor'))
+            .catch(error => {
+                console.error(error);
+            });
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -340,14 +353,14 @@
             })
 
             $(".btn-newaa-submit").on("click", function (e) {
-                if($(this).data("value")=="consent")
-                $(".verify-newaa-input").each(function () {
-                    if (!($(this).prop("checked"))) {
-                        alert($(this).data("verify-error"));
-                        e.preventDefault();
-                        return false;
-                    }
-                })
+                if ($(this).data("value") == "consent")
+                    $(".verify-newaa-input").each(function () {
+                        if (!($(this).prop("checked"))) {
+                            alert($(this).data("verify-error"));
+                            e.preventDefault();
+                            return false;
+                        }
+                    })
                 $("#applicant_id").append($("<input type='hidden' name='is-consent' value='" + $(this).data("value") + "'>"))
 
             })

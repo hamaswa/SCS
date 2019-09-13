@@ -32,17 +32,10 @@
                     <td>{{ $d->market_value }}</td>
                     <td></td>
                     <td>{{ $d->status }}
-                        {{--<select class="form-control" id="singalaction{{$d->id}}">--}}
-                        {{--<option value="Application" {{ ($d->status == "Application"?" selected":"") }}>Application</option>--}}
-                        {{--<option value="Appointment" {{ ($d->status == "Appointment"?" selected":"") }}>Appointment</option>--}}
-                        {{--<option value="Attended" {{ ($d->status == "Attended"?" selected":"") }}>Attended</option>--}}
-                        {{--<option value="Consent" {{ ($d->status == "Consent"?" selected":"") }}>Consent</option>--}}
-                        {{--<option value="Documentation" {{ ($d->status == "Documentation"?" selected":"") }}>Documentation</option>--}}
-                        {{--</select>--}}
+
                     </td>
                     <td>
-                        {{--<button class="btn bg-gray-dark updatesingle" data-id="{{$d->id}}">Update</button>--}}
-                        <button class="btn btn-primary" id="aa_attach" data-id="{{$d->id}}">Attach</button>
+                        <button class="btn btn-primary" data-target="{{$target}}" id="aa_attach" data-id="{{$d->id}}">Attach</button>
 
                     </td>
                 </tr>
@@ -50,20 +43,7 @@
             @endforeach
 
             </tbody>
-            {{--<tfoot>--}}
-            {{--<tr>--}}
-                {{--<td></td>--}}
-                {{--<td colspan="2">--}}
 
-
-                {{--</td>--}}
-                {{--<td>--}}
-                    {{--<button class="btn bg-gray-dark" id="attach_selected">Move</button>--}}
-                {{--</td>--}}
-            {{--</tr>--}}
-            {{--<tr>--}}
-            {{--</tr>--}}
-            {{--</tfoot>--}}
         </table>
     </div>
 </div>
