@@ -117,7 +117,7 @@
 
                 </div>
                 <div class="form-group col-md-12 col-sm-12 bg-gray-light" id="wealth_doc_form">
-                    <div class="form-group col-md-6 col-sm-6 bg-gray-light">
+                    <div class="form-group col-md-4 col-sm-6 bg-gray-light">
                         <label class="control-label">Type</label>
                         <select id="wealthtype" class="form-control select2" name="wealthtype" style="width:100%;">
                             <option value="saving">Saving</option>
@@ -129,14 +129,14 @@
 
                         </select>
                     </div>
-                    <div class="form-group col-md-6 col-sm-6 bg-gray-light">
+                    <div class="form-group col-md-4 col-sm-6 bg-gray-light">
                         <label class="control-label">Primary Docs</label>
                         <div class="clearfix"></div>
                         @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'property_support_docs','options'=>$options,'class'=>'form-control select2'])
 
 
                     </div>
-                    <div class="form-group col-md-6 col-sm-6 bg-gray-light">
+                    <div class="form-group col-md-4 col-sm-6 bg-gray-light">
                         <label class="control-label">Supporting Docs</label>
                         <div class="clearfix"></div>
                         @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'wealth_support_docs','options'=>$options,'class'=>'form-control select2'])
