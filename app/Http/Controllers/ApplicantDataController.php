@@ -218,7 +218,7 @@ class ApplicantDataController extends Controller
                 $this->ctos_api->CTOSpdf($inputs);
                 $this->ctos_api->CTOSFacilityData($inputs);
 //                return redirect()->route("aadata.create", ["id" => $applicant->id]);
-                return view("maker.docs_upload")->with("success", " document successfully uploaded");
+                return view("maker.docs_upload")->with("success", "Consent successfully uploaded");
             }
             else {
                 try {
