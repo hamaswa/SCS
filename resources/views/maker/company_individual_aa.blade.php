@@ -1,13 +1,31 @@
-<div id="btn-air" class="btn-group margin-bottom border-black-1">
-    <button type="button" data-la="34" data-id="34" class="btn btn-default btn-flat la_aa">Mr ABC</button>
-    <button type="button" data-toggle="dropdown" aria-expanded="false" class="btn btn-default btn-flat dropdown-toggle">
-        <i class="fa fa-list"></i> <span class="sr-only">Toggle Dropdown</span></button>
+<div id="com_applicant_buttons">
+    @if(isset($com_attached_applicants))
+        @foreach($com_attached_applicants as $applicant_sub)
+            <div class="col-lg-12 col-md-12 applicants">
+                <div class="btn-group margin-bottom border-black-1"
+                     id="btn-air">
+                    <a type="button" target="_blank" class="btn btn-default btn-flat"
+                       href="{{route("aadata.create",["id"=>$applicant_sub->id])}}"
+                       data-id="{{$applicant_sub->id}}">{{$applicant_sub->name}}</a>
+                    <button type="button" class="btn btn-default btn-flat dropdown-toggle"
+                            data-toggle="dropdown"
+                            aria-expanded="false">
+                        <i class="fa fa-list"></i>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu position-relative" id="" role="menu">
+                        {{--<li><a href="#"  data-value="air" class="editincome">Edit</a></li>--}}
+                        <li><a href="#" data-la="{{$la_applicant_id}}"
+                               data-id="{{$applicant_sub->id}}" class="deleteInd">Delete</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        @endforeach
+    @endif
 </div>
-<div id="btn-air" class="btn-group margin-bottom border-black-1">
-    <button type="button" data-la="34" data-id="34" class="btn btn-default btn-flat la_aa">Mr XYZ</button>
-    <button type="button" data-toggle="dropdown" aria-expanded="false" class="btn btn-default btn-flat dropdown-toggle">
-        <i class="fa fa-list"></i> <span class="sr-only">Toggle Dropdown</span></button>
-</div>
+
 <div class="clearfix"></div>
 
 <div class="col-sm-12 col-md-4 form-group">

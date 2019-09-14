@@ -49,23 +49,22 @@
                         @endif
                     </div>
 
-                    <div class="col-md-6 form-group">
-                        <div class="col-md-7 col-sm-7">
-                            <input class="form-control" name="attachComAA" id="attachComAASearch">
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <input type="submit" class="attachComAASearch btn btn-primary" value="Company Search AA">
-                        </div>
-                    </div>
-
                     <div class="col-md-6 col-sm-12 form-group">
                         <div class="col-md-7 col-sm-7">
                             <input class="form-control" name="attachAA" id="attachAASearch">
                         </div>
                         <div class="col-md-3 col-sm-4">
-                            <input type="submit" class="attachAASearch btn btn-primary" value="Individual Search AA">
+                            <input type="submit" class="attachAASearch btn btn-primary" value="Com Search AA">
                         </div>
+                    </div>
 
+                    <div class="col-md-6 form-group">
+                        <div class="col-md-7 col-sm-7">
+                            <input class="form-control" name="attachComAA" id="attachComAASearch">
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="submit" class="attachComAASearch btn btn-primary" value="Ind Search AA">
+                        </div>
                     </div>
 
 
@@ -114,41 +113,13 @@
                                       class="form-control">{{isset($applicant_data->address)?$applicant_data->address:""}}</textarea>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-12 paddding-5 bg-gray-light">
-                        @include("maker.company_individual_aa")
-                    </div>
-
-
                     <div class="col-md-12 col-sm-12">
                         <input type="submit" name="create_company" value="Submit" class="btn btn-primary">
                     </div>
                 </form>
-                <div id="com_applicant_buttons">
-                    @if(isset($com_attached_applicants))
-                        @foreach($com_attached_applicants as $applicant_sub)
-                            <div class="col-lg-12 col-md-12 applicants">
-                                <div class="btn-group margin-bottom border-black-1"
-                                     id="btn-air">
-                                    <a type="button" target="_blank" class="btn btn-default btn-flat"
-                                            href="{{route("aadata.create",["id"=>$applicant_sub->id])}}"
-                                            data-id="{{$applicant_sub->id}}">{{$applicant_sub->name}}</a>
-                                    <button type="button" class="btn btn-default btn-flat dropdown-toggle"
-                                            data-toggle="dropdown"
-                                            aria-expanded="false">
-                                        <i class="fa fa-list"></i>
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <ul class="dropdown-menu position-relative" id="" role="menu">
-                                        {{--<li><a href="#"  data-value="air" class="editincome">Edit</a></li>--}}
-                                        <li><a href="#" data-la="{{$la_applicant_id}}"
-                                               data-id="{{$applicant_sub->id}}" class="deleteInd">Delete</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
 
-                        @endforeach
-                    @endif
+                <div class="col-md-6 col-sm-12 paddding-5 bg-gray-light">
+                    @include("maker.company_individual_aa")
                 </div>
             </div>
 
