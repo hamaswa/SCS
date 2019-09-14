@@ -2,7 +2,7 @@
 
     <div class="col-sm-12 col-md-10 col-lg-10 col-lg-offset-1 border-light no-padding">
         <div class="box">
-            <div class="box-body">
+            <div class="box-body bg-gray-light">
                 <div class="bg-gray-light padding-5">
 
                     <div id="applicant_buttons">
@@ -50,17 +50,24 @@
                     </div>
 
                     <div class="col-md-6 form-group">
-                        <input class="form-control" name="attachAA" id="attachAASearch">
+                        <div class="col-md-7 col-sm-7">
+                            <input class="form-control" name="attachComAA" id="attachComAASearch">
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="submit" class="attachComAASearch btn btn-primary" value="Company Search AA">
+                        </div>
                     </div>
-                    <div class="col-md-6 form-group">
-                        <input type="submit" class="attachAASearch btn btn-primary" value="Individual Search AA">
+
+                    <div class="col-md-6 col-sm-12 form-group">
+                        <div class="col-md-7 col-sm-7">
+                            <input class="form-control" name="attachAA" id="attachAASearch">
+                        </div>
+                        <div class="col-md-3 col-sm-4">
+                            <input type="submit" class="attachAASearch btn btn-primary" value="Individual Search AA">
+                        </div>
+
                     </div>
-                    <div class="col-md-6 form-group">
-                        <input class="form-control" name="attachComAA" id="attachComAASearch">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <input type="submit" class="attachComAASearch btn btn-primary" value="Company Search AA">
-                    </div>
+
 
                     <div class="clearfix"></div>
                 </div>
@@ -69,44 +76,49 @@
                     <input type="hidden" name="update_company" value="update_company">
                     <input type="hidden" name="la_applicant_id" value="{{$la_applicant_id}}">
                     <input type="hidden" name="aacategory" value="{{$applicant_data->aacategory}}" >
-                    <input type="hidden" name="applicant_id"
-                           value="{{isset($applicant_data->id)?$applicant_data->id:"0"}}">
+                    <input type="hidden" name="applicant_id" value="{{isset($applicant_data->id)?$applicant_data->id:"0"}}">
+                    <div class="col-md-6 col-sm-12 padding-5 bg-gray-light">
+                        <div class="col-sm-12 col-md-12 form-group">
+                            <label>Company Name</label>
+                            <input type="text" value="{{$applicant_data->name}}" name="name" class="form-control"
+                                   autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-12 form-group">
+                            <label>Company Reg No</label>
+                            <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id"
+                                   class="form-control"
+                                   autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-12 form-group">
+                            <label>Office Phone No</label>
+                            <input type="text" value="{{$applicant_data->mobile}}" name="mobile" class="form-control"
+                                   autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Date Established</label>
+                            <input type="date" name="date_established"
+                                   value="{{(isset($applicant_data->date_established)?$applicant_data->date_established:"")}}"
+                                   class="form-control" autocomplete="off"/>
+                        </div>
+                        <div class="col-sm-12 col-md-6 form-group">
+                            <label>Nature of Business</label>
+                            <input type="text" name="nature_of_business" id="nature_of_business"
+                                   value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}"
+                                   class="form-control" autocomplete="off"/>
 
-                    <div class="col-sm-6 col-md-6 form-group">
-                        <label>Company Name</label>
-                        <input type="text" value="{{$applicant_data->name}}" name="name" class="form-control"
-                               autocomplete="off">
-                    </div>
-                    <div class="col-sm-12 col-md-6 form-group">
-                        <label>Company Reg No</label>
-                        <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id"
-                               class="form-control"
-                               autocomplete="off">
-                    </div>
-                    <div class="col-sm-12 col-md-6 form-group">
-                        <label>Office Phone No</label>
-                        <input type="text" value="{{$applicant_data->mobile}}" name="mobile" class="form-control"
-                               autocomplete="off">
-                    </div>
-                    <div class="col-sm-12 col-md-6 form-group">
-                        <label>Date Established</label>
-                        <input type="date" name="date_established"
-                               value="{{(isset($applicant_data->date_established)?$applicant_data->date_established:"")}}"
-                               class="form-control" autocomplete="off"/>
-                    </div>
-                    <div class="col-sm-12 col-md-6 form-group">
-                        <label>Nature of Business</label>
-                        <input type="text" name="nature_of_business" id="nature_of_business"
-                               value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}"
-                               class="form-control" autocomplete="off"/>
+                        </div>
+                        <div class="col-sm-12 col-md-12 form-group">
+                            <label>Office Address</label>
+                            <textarea name="address"
 
+                                      class="form-control">{{isset($applicant_data->address)?$applicant_data->address:""}}</textarea>
+                        </div>
                     </div>
-                    <div class="col-sm-12 col-md-6 form-group">
-                        <label>Office Address</label>
-                        <textarea name="address"
-                                
-                                  class="form-control">{{isset($applicant_data->address)?$applicant_data->address:""}}</textarea>
+                    <div class="col-md-6 col-sm-12 paddding-5 bg-gray-light">
+                        @include("maker.company_individual_aa")
                     </div>
+
+
                     <div class="col-md-12 col-sm-12">
                         <input type="submit" name="create_company" value="Submit" class="btn btn-primary">
                     </div>
