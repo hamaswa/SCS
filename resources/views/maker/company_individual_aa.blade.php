@@ -9,6 +9,24 @@
         <i class="fa fa-list"></i> <span class="sr-only">Toggle Dropdown</span></button>
 </div>
 <div class="clearfix"></div>
+
+<div class="col-sm-12 col-md-4 form-group">
+    <label>Salution</label>
+    <input type="text" value="" class="form-control" autocomplete="off">
+</div>
+<div class="col-sm-12 col-md-4 form-group">
+    <label>Position</label>
+    <input type="text" value="" class="form-control" autocomplete="off">
+</div>
+<div class="col-sm-12 col-md-4 form-group">
+    <label class="clearfix">Ownership</label>
+    <div class="col-sm-10 no-padding">
+        <input type="text" value="" class="form-control" autocomplete="off">
+    </div>
+    <div class="col-sm-2 padding-5">
+        <strong>%</strong>
+    </div>
+</div>
 <div class="col-sm-12 col-md-12 form-group">
     <label>Full Name as Per NRIC / Passport</label>
     <input type="text" value="" name="name" class="form-control" autocomplete="off">
