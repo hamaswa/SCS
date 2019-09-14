@@ -69,54 +69,82 @@
                         <input type="hidden" name="aacategory" value="{{$applicant_data->aacategory}}" >
                         <input type="hidden" name="applicant_id" value="{{isset($applicant_data->id)?$applicant_data->id:"0"}}"
                                >
-                        <div class="col-sm-12 col-md-4 form-group">
+                        <div class="col-sm-12 col-md-3 form-group">
                             <label>Salutation</label>
                             <input type="text" name="salutation" id="salutation"
                                    value="{{(isset($applicant_data->salutation)?$applicant_data->salutation:"")}}"
                                    class="form-control" autocomplete="off"/>
                         </div>
-                        <div class="col-sm-12 col-md-4 form-group">
+                        <div class="col-sm-12 col-md-3 form-group">
                             <label>Position</label>
                             <input type="text" name="position" id="position"
                                    value="{{(isset($applicant_data->position)?$applicant_data->position:"")}}"
                                    class="form-control" autocomplete="off"/>
 
                         </div>
-                        <div class="col-sm-12 col-md-4 form-group">
-                            <label class="clearfix">Ownership</label>
-                            <div class="col-sm-11 no-margin no-padding">
-                                <input type="text" name="ownership"
-                                       value="{{(isset($applicant_data->ownership)?$applicant_data->ownership:"")}}" class="form-control">
+                        <div class="col-sm-12 col-md-3 form-group">
+                            <label class="clearfix">Applicant Status</label>
+                            <input type="text" value="" class="form-control" autocomplete="off" />
+                        </div>
+                        <div class="col-sm-12 col-md-3 form-group">
+                            <label class="clearfix">Employment Status</label>
+                            <input type="text" value="" class="form-control" autocomplete="off" />
+                        </div>
+                        <div class="col-md-6 col-sm-12 padding-5 bg-gray-light">
+                            <div class="col-sm-12 col-md-12 form-group">
+                                <label>Full Name as Per NRIC / Passport</label>
+                                <input type="text" value="{{$applicant_data->name}}" name="name" class="form-control"
+                                       autocomplete="off">
                             </div>
-                            <div class="col-sm-1 no-margin no-padding">%</div>
-
-                        </div>
-                        <div class="col-sm-12 col-md-6 form-group">
-                            <label>Full Name as Per NRIC / Passport</label>
-                            <input type="text" value="{{$applicant_data->name}}" name="name" class="form-control"
-                                   autocomplete="off">
-                        </div>
-                        <div class="col-sm-12 col-md-6 form-group">
-                            <label>NRIC No. / Passport No.</label>
-                            <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id"
-                                   class="form-control" autocomplete="off">
-                        </div>
-                        <div class="col-sm-12 col-md-6 form-group">
-                            <label>Mobile No.</label>
-                            <input type="text" value="{{$applicant_data->mobile}}" name="mobile" class="form-control"
-                                   autocomplete="off">
-                        </div>
-                        <div class="col-sm-12 col-md-6 form-group">
-                            <label>Email</label>
-                            <input type="email" name="email"
-                                   value="{{(isset($applicant_data->email)?$applicant_data->email:"")}}"
-                                   class="form-control" autocomplete="off">
-                        </div>
-                        <div class="col-sm-12 col-md-6 form-group">
-                            <label>Residential Address</label>
-                            <textarea name="address" class="form-control">
+                            <div class="col-sm-12 col-md-12 form-group">
+                                <label>NRIC No. / Passport No.</label>
+                                <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id"
+                                       class="form-control" autocomplete="off">
+                            </div>
+                            <div class="col-sm-12 col-md-12 form-group">
+                                <label>Mobile No.</label>
+                                <input type="text" value="{{$applicant_data->mobile}}" name="mobile" class="form-control"
+                                       autocomplete="off">
+                            </div>
+                            <div class="col-sm-12 col-md-12 form-group">
+                                <label>Email</label>
+                                <input type="email" name="email"
+                                       value="{{(isset($applicant_data->email)?$applicant_data->email:"")}}"
+                                       class="form-control" autocomplete="off">
+                            </div>
+                            <div class="col-sm-12 col-md-12 form-group">
+                                <label>Residential Address</label>
+                                <textarea name="address" class="form-control">
                             {{(isset($applicant_data->address)?$applicant_data->address:"")}}</textarea>
+                            </div>
                         </div>
+                        <div class="col-md-6 col-sm-12 bg-gray-light padding-5">
+                            <div class="col-sm-12 col-md-12 form-group">
+                                <label>Company Name</label>
+                                <input type="text" value="" class="form-control" autocomplete="off">
+                            </div>
+                            <div class="col-sm-12 col-md-12 form-group">
+                                <label>Position</label>
+                                <input type="text" value="" class="form-control" autocomplete="off">
+                            </div>
+                            <div class="col-sm-12 col-md-6 form-group">
+                                <label>Nature of Business</label>
+                                <input type="text" value="" class="form-control" autocomplete="off">
+                            </div>
+                            <div class="col-sm-12 col-md-6 form-group">
+                                <label>Date Joined</label>
+                                <input type="date" value="" class="form-control" autocomplete="off">
+                            </div>
+                            <div class="col-sm-12 col-md-12 form-group">
+                                <label>office Phone no.</label>
+                                <input type="text" value="" class="form-control" autocomplete="off">
+                            </div>
+                            <div class="col-sm-12 col-md-12 form-group">
+                                <label>Office Address</label>
+                                <textarea class="form-control"></textarea>
+                            </div>
+                        </div>
+
                         <div class="col-sm-12 col-md-12 col-lg-12 form-group pull-right">
                             <input type="submit" value="Update" class="btn btn-default">
                         </div>
