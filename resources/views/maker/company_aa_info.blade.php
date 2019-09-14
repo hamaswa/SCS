@@ -49,34 +49,24 @@
                         @endif
                     </div>
 
-                    <div class="col-md-6 col-sm-12 form-group">
-                        <div class="col-md-7 col-sm-7">
-                            <input class="form-control" name="attachAA" id="attachAASearch">
-                        </div>
-                        <div class="col-md-3 col-sm-4">
-                            <input type="submit" class="attachAASearch btn btn-primary" value="Com Search AA">
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 form-group">
-                        <div class="col-md-7 col-sm-7">
-                            <input class="form-control" name="attachComAA" id="attachComAASearch">
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <input type="submit" class="attachComAASearch btn btn-primary" value="Ind Search AA">
-                        </div>
-                    </div>
-
-
-                    <div class="clearfix"></div>
                 </div>
+                <div class="clearfix"></div>
+                <div class="col-md-6 col-sm-12 bg-gray-light">
+
+                    <div class="col-md-7 col-sm-7 form-group">
+                        <input class="form-control" name="attachAA" id="attachAASearch">
+                    </div>
+                    <div class="col-md-3 col-sm-4 form-group">
+                        <input type="submit" class="attachAASearch btn btn-primary" value="Com Search AA">
+                    </div>
+
                 <form id="newaa" name="newaa" action="{{ route("la.store") }}" method="post">
                     @csrf
                     <input type="hidden" name="update_company" value="update_company">
                     <input type="hidden" name="la_applicant_id" value="{{$la_applicant_id}}">
                     <input type="hidden" name="aacategory" value="{{$applicant_data->aacategory}}" >
                     <input type="hidden" name="applicant_id" value="{{isset($applicant_data->id)?$applicant_data->id:"0"}}">
-                    <div class="col-md-6 col-sm-12 padding-5 bg-gray-light">
+
                         <div class="col-sm-12 col-md-12 form-group">
                             <label>Company Name</label>
                             <input type="text" value="{{$applicant_data->name}}" name="name" class="form-control"
@@ -112,13 +102,21 @@
 
                                       class="form-control">{{isset($applicant_data->address)?$applicant_data->address:""}}</textarea>
                         </div>
-                    </div>
+
                     <div class="col-md-12 col-sm-12">
                         <input type="submit" name="create_company" value="Submit" class="btn btn-primary">
                     </div>
                 </form>
+                </div>
+                <div class="col-md-6 col-sm-12 bg-gray-light">
 
-                <div class="col-md-6 col-sm-12 paddding-5 bg-gray-light">
+                    <div class="col-md-7 col-sm-7 form-group">
+                        <input class="form-control" name="attachComAA" id="attachComAASearch">
+                    </div>
+                    <div class="col-md-4 col-sm-4 form-group">
+                        <input type="submit" class="attachComAASearch btn btn-primary" value="Ind Search AA">
+                    </div>
+
                     @include("maker.company_individual_aa")
                 </div>
             </div>
