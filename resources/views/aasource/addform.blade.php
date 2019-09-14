@@ -11,7 +11,7 @@
                 <div class="card-body">
 
 
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-4 col-sm-12">
                         <label for="name" class="">{{ __('Name') }}</label>
                         <input id="name" type="text"
                                class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
@@ -25,7 +25,7 @@
                     </div>
 
 
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-4 col-sm-12">
                         <label for="description">{{ __('Description') }}</label>
                         <input id="description" placeholder="Description"
                                class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"
@@ -38,7 +38,7 @@
                                     </span>
                         @endif
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-4 col-sm-12">
                         <label for="description" class="">{{ __('Type') }}</label>
                         <select id="type" class="form-control" name="type">
                             <option value="income_primary_docs">
@@ -148,6 +148,7 @@
                             "                <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>\n" +
                             "\n" +
                             "            </div>")).show();
+                        $("#aafields")[0].reset();
                     }
                     else {
                         $("#response").html($("<div class=\"alert alert-danger alert-dismissable\">\n" +
