@@ -299,7 +299,7 @@
                 data: "unique_id=" + $("#attachAASearch").val() + "&la_applicant_id=" + $("#la_applicant_id").val()
             }).done(function (response) {
                 if (response == "nodata") {
-                    html = "<table class='table'><tr><td>No Date Found. Create New Application</td></tr>\n" +
+                    html = "<table class='table'><tr><td>No Data Found. Create New Application</td></tr>\n" +
                         "<tr><td>" +
                         "<li class=\"nav-item\">" +
                         "<a class=\"nav-link\" href=\"{{ route("aadata.index")}}\">New AA</a>" +
