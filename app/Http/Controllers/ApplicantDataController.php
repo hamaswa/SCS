@@ -217,12 +217,8 @@ class ApplicantDataController extends Controller
                 $document = ApplicantDocuments::create($inputs);
                 $this->ctos_api->CTOSpdf($inputs);
                 $this->ctos_api->CTOSFacilityData($inputs);
-//                $return_data = array(
-//                    'msg' => 'Consent Uploaded Successfully',
-//                    'data' => $inputs
-//                );
-//                return back()->with("success", $return_data);
-                return redirect()->route("aadata.create", ["id" => $applicant->id]);
+//                return redirect()->route("aadata.create", ["id" => $applicant->id]);
+                return view("maker.docs_upload")->with("success", " document successfully uploaded");
             }
             else {
                 try {
