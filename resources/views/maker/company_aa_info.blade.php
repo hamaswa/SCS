@@ -292,65 +292,81 @@
 
 
         $(document.body).on("click", ".attachAASearch", function (e) {
-            e.preventDefault();
-            $.ajax({
-                url: '{{ route('attachAASearch') }}',
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                data: "unique_id=" + $("#attachAASearch").val() + "&la_applicant_id=" + $("#la_applicant_id").val()
-            }).done(function (response) {
-                if (response == "nodata") {
-                    html = "<table class='table'><tr><td>No Date Found. Create New Application</td></tr>\n" +
-                        "<tr><td>" +
-                        "<li class=\"nav-item\">" +
-                        "<a class=\"nav-link\" href=\"{{ route("aadata.index")}}\">New AA</a>" +
-                        "</li>" +
-                        "</td></tr></table>";
-                    $("#aa_attach_form_body").html(html);
-                    $("#aa_attach_form").modal('show');
-                }
-                else {
+            if($("#attachAASearch").val()=="")
+            {
+                <?php
+                 echo ($applicant->aacategory=="I"?"alert(\"Please input IC number to Search IND AA\")":"alert(\"Please input IC number to Search Com AA\")")
+                 ?>
 
-                    $("#aa_attach_form_body").html(response);
-                    $("#aa_attach_form").modal('show');
+            }
+            else
+            {
+                e.preventDefault();
+                $.ajax({
+                    url: '{{ route('attachAASearch') }}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    data: "unique_id=" + $("#attachAASearch").val() + "&la_applicant_id=" + $("#la_applicant_id").val()
+                }).done(function (response) {
+                    if (response == "nodata") {
+                        html = "<table class='table'><tr><td>No Date Found. Create New Application</td></tr>\n" +
+                            "<tr><td>" +
+                            "<li class=\"nav-item\">" +
+                            "<a class=\"nav-link\" href=\"{{ route("aadata.index")}}\">New AA</a>" +
+                            "</li>" +
+                            "</td></tr></table>";
+                        $("#aa_attach_form_body").html(html);
+                        $("#aa_attach_form").modal('show');
+                    }
+                    else {
 
-                }
+                        $("#aa_attach_form_body").html(response);
+                        $("#aa_attach_form").modal('show');
+
+                    }
 
 
-            })
+                })
+            }
         })
 
         $(document.body).on("click", ".attachComAASearch", function (e) {
-            e.preventDefault();
-            $.ajax({
-                url: '{{ route('attachComAASearch') }}',
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                data: "unique_id=" + $("#attachComAASearch").val() + "&applicant_id=" + $("#applicant_id").val()
-            }).done(function (response) {
-                if (response == "nodata") {
-                    html = "<table class='table'><tr><td>No Data Found. Create New Application</td></tr>\n" +
-                        "<tr><td>" +
-                        "<li class=\"nav-item\">" +
-                        "<a class=\"nav-link\" href=\"{{ route("aadata.index")}}\">New AA</a>" +
-                        "</li>" +
-                        "                </td></tr></table>";
-                    $("#aa_attach_form_body").html(html);
-                    $("#aa_attach_form").modal('show');
-                }
-                else {
+            if($("#attachComAASearch").val()=="")
+            {
+               alert("Please input IC number to Search IND AA");
+            }
+            else {
+                e.preventDefault();
+                $.ajax({
+                    url: '{{ route('attachComAASearch') }}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    data: "unique_id=" + $("#attachComAASearch").val() + "&applicant_id=" + $("#applicant_id").val()
+                }).done(function (response) {
+                    if (response == "nodata") {
+                        html = "<table class='table'><tr><td>No Data Found. Create New Application</td></tr>\n" +
+                            "<tr><td>" +
+                            "<li class=\"nav-item\">" +
+                            "<a class=\"nav-link\" href=\"{{ route("aadata.index")}}\">New AA</a>" +
+                            "</li>" +
+                            "                </td></tr></table>";
+                        $("#aa_attach_form_body").html(html);
+                        $("#aa_attach_form").modal('show');
+                    }
+                    else {
 
-                    $("#aa_attach_form_body").html(response);
-                    $("#aa_attach_form").modal('show');
+                        $("#aa_attach_form_body").html(response);
+                        $("#aa_attach_form").modal('show');
 
-                }
+                    }
 
 
-            })
+                })
+            }
         })
         let business_forms = [];
 
