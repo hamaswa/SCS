@@ -53,13 +53,13 @@
                         <input class="form-control" name="attachAA" id="attachAASearch">
                     </div>
                     <div class="col-md-6 form-group">
-                        <input type="submit" class="attachAASearch btn btn-primary" value="Individual Search">
+                        <input type="submit" class="attachAASearch btn btn-primary" value="Individual Search AA">
                     </div>
                     <div class="col-md-6 form-group">
                         <input class="form-control" name="attachComAA" id="attachComAASearch">
                     </div>
                     <div class="col-md-6 form-group">
-                        <input type="submit" class="attachComAASearch btn btn-primary" value="Company Search">
+                        <input type="submit" class="attachComAASearch btn btn-primary" value="Company Search AA">
                     </div>
 
                     <div class="clearfix"></div>
