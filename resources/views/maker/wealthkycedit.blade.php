@@ -117,31 +117,32 @@
 
                 </div>
                 <div class="form-group col-md-12 col-sm-12 bg-gray-light" id="wealth_doc_form">
-                <div class="form-group col-md-4 col-sm-4 bg-gray-light">
-                    <label class="control-label">Type</label>
-                    <select id="wealthtype" class="form-control select2" name="wealthtype" style="width:100%;">
-                        <option value="saving">Saving</option>
-                        <option value="epf">EPF Account Balance</option>
-                        <option value="tpf">Total Fixed Deposits</option>
-                        <option value="tsv">Total Shares Value</option>
-                        <option value="utv">Unit Trust Value
-                        </option>
+                    <div class="form-group col-md-6 col-sm-6 bg-gray-light">
+                        <label class="control-label">Type</label>
+                        <select id="wealthtype" class="form-control select2" name="wealthtype" style="width:100%;">
+                            <option value="saving">Saving</option>
+                            <option value="epf">EPF Account Balance</option>
+                            <option value="tpf">Total Fixed Deposits</option>
+                            <option value="tsv">Total Shares Value</option>
+                            <option value="utv">Unit Trust Value
+                            </option>
 
-                    </select>
-                </div>
-                <div class="form-group col-md-4 col-sm-4 bg-gray-light">
-                    <label class="control-label">Primary Docs</label>
-                    @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'property_support_docs','options'=>$options,'class'=>'form-control select2'])
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-6 bg-gray-light">
+                        <label class="control-label">Primary Docs</label>
+                        <div class="clearfix"></div>
+                        @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'property_support_docs','options'=>$options,'class'=>'form-control select2'])
 
 
-                </div>
-                <div class="form-group col-md-4 col-sm-4 bg-gray-light">
-                    <label class="control-label">Supporting Docs</label>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-6 bg-gray-light">
+                        <label class="control-label">Supporting Docs</label>
+                        <div class="clearfix"></div>
+                        @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'wealth_support_docs','options'=>$options,'class'=>'form-control select2'])
 
-                    @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'wealth_support_docs','options'=>$options,'class'=>'form-control select2'])
-
-                </div>
-                    <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right margin-top-15">
 
                         <input type="file" class="form-control btn btn-primary" name="wealth_doc" id="wealth_doc" />
                     </div>
