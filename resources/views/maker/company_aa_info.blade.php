@@ -53,7 +53,13 @@
                         <input class="form-control" name="attachAA" id="attachAASearch">
                     </div>
                     <div class="col-md-6 form-group">
-                        <input type="submit" class="attachAASearch btn btn-primary">
+                        <input type="submit" class="attachAASearch btn btn-primary" value="Individual Search">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <input class="form-control" name="attachComAA" id="attachComAASearch">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <input type="submit" class="attachComAASearch btn btn-primary" value="Company Search">
                     </div>
 
                     <div class="clearfix"></div>
@@ -101,7 +107,9 @@
                                 
                                   class="form-control">{{isset($applicant_data->address)?$applicant_data->address:""}}</textarea>
                     </div>
-                    <input type="submit" name="create_company" value="Submit">
+                    <div class="col-md-12 col-sm-12">
+                        <input type="submit" name="create_company" value="Submit" class="btn btn-primary">
+                    </div>
                 </form>
                 <div id="com_applicant_buttons">
                     @if(isset($com_attached_applicants))
@@ -132,12 +140,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6 form-group">
-                <input class="form-control" name="attachComAA" id="attachComAASearch">
-            </div>
-            <div class="col-md-6 form-group">
-                <input type="submit" class="attachComAASearch btn btn-primary">
-            </div>
+
 
         </div>
 
@@ -299,7 +302,7 @@
                 data: "unique_id=" + $("#attachAASearch").val() + "&la_applicant_id=" + $("#la_applicant_id").val()
             }).done(function (response) {
                 if (response == "nodata") {
-                    html = "<table class='table'><tr><td>No Data Found. Create New Application</td></tr>\n" +
+                    html = "<table class='table'><tr><td>No Date Found. Create New Application</td></tr>\n" +
                         "<tr><td>" +
                         "<li class=\"nav-item\">" +
                         "<a class=\"nav-link\" href=\"{{ route("aadata.index")}}\">New AA</a>" +
