@@ -142,7 +142,7 @@
                         @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'wealth_support_docs','options'=>$options,'class'=>'form-control select2'])
 
                     </div>
-                    <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right margin-top-15">
+                    <div class="form-group col-md-4 col-sm-6 bg-gray-light pull-right">
 
                         <input type="file" class="form-control btn btn-primary" name="wealth_doc" id="wealth_doc" />
                     </div>
