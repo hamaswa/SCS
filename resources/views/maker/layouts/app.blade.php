@@ -42,7 +42,7 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-open">
-<pre>
+
 <?php
 
 
@@ -61,7 +61,7 @@
 
 
     ?>
-</pre>
+
 <div class="wrapper" id="app">
 
     <!-- Main Header -->
@@ -69,7 +69,8 @@
 
         <!-- Logo -->
         <a class="logo" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+{{--            {{ config('app.name', 'Laravel') }}--}}
+            <img src="{{asset('img/logo.png')}}" class="img-responsive" />
         </a>
         <!--a href="index2.html" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels ->
