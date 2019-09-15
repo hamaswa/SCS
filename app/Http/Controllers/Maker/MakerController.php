@@ -146,7 +146,6 @@ class MakerController extends Controller
     }
 
 
-
     public function newla($id)
     {
         $arr['income'] = ApplicantIncome::where("applicant_id","=",$id)->first();

@@ -113,8 +113,8 @@
                                 <div class="tab-pane" id="lD">
                                     <div class="row" style="line-height: 14px; margin-bottom: 34.5px">
                                         <form id="propertyform" name="propertyform">
-                                            <input type="hidden" name="property_id" id="property_id">
-                                                @include('maker.propertykycedit',['properties'=>$applicant_data->applicantProperty])
+                                            <input type="hidden" name="id" id="property_id">
+                                            @include('maker.propertykycedit',['properties'=>$applicant_data->applicantProperty])
 
                                         </form>
                                     </div>

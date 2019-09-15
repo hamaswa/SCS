@@ -4,9 +4,8 @@
             <div class="col-lg-12 col-md-12 applicants">
                 <div class="btn-group margin-bottom border-black-1"
                      id="btn-air">
-                    <a type="button" target="_blank" class="btn btn-default btn-flat"
-                       href="{{route("aadata.create",["id"=>$applicant_sub->id])}}"
-                       data-id="{{$applicant_sub->id}}">{{$applicant_sub->name}}</a>
+                    <button type="button" class="btn btn-default btn-flat edit_com_ind"
+                            data-id="{{$applicant_sub->id}}">{{$applicant_sub->name}}</button>
                     <button type="button" class="btn btn-default btn-flat dropdown-toggle"
                             data-toggle="dropdown"
                             aria-expanded="false">
@@ -26,42 +25,36 @@
     @endif
 </div>
 
-<div class="clearfix"></div>
+<div id="com_ind_aa">
 
-<div class="col-sm-12 col-md-4 form-group">
-    <label>Salution</label>
-    <input type="text" value="" class="form-control" autocomplete="off">
 </div>
-<div class="col-sm-12 col-md-4 form-group">
-    <label>Position</label>
-    <input type="text" value="" class="form-control" autocomplete="off">
-</div>
-<div class="col-sm-12 col-md-4 form-group">
-    <label class="clearfix">Ownership</label>
-    <div class="col-sm-10 no-padding">
-        <input type="text" value="" class="form-control" autocomplete="off">
-    </div>
-    <div class="col-sm-2 padding-5">
-        <strong>%</strong>
-    </div>
-</div>
-<div class="col-sm-12 col-md-12 form-group">
-    <label>Full Name as Per NRIC / Passport</label>
-    <input type="text" value="" name="name" class="form-control" autocomplete="off">
-</div>
-<div class="col-sm-12 col-md-12 form-group">
-    <label>NRIC No. / Passport No.</label>
-    <input type="text" value="" name="unique_id" class="form-control" autocomplete="off">
-</div>
-<div class="col-sm-12 col-md-12 form-group">
-    <label>Mobile No.</label>
-    <input type="text" value="" name="mobile" class="form-control" autocomplete="off">
-</div>
-<div class="col-sm-12 col-md-12 form-group">
-    <label>Email</label>
-    <input type="email" name="email" value="" class="form-control" autocomplete="off">
-</div>
-<div class="col-sm-12 col-md-12 form-group">
-    <label>Residential Address</label>
-    <textarea name="address" class="form-control"></textarea>
-</div>
+
+
+@push("scripts")
+    <script type="text/javascript">
+        $(document.body).on("click",".edit_com_ind",function (e) {
+            $.ajax({
+                url:"{{ route("comIndAA") }}",
+                type:"POST",
+                data:"id="+$(this).data("id"),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                }).done(function (response) {
+                $("#com_ind_aa").html($(response));
+            });
+        })
+
+        $(document.body).on("submit","#com_ind_update",function (e) {
+            e.preventDefault();
+            $.ajax({
+                url:$(this).attr("action"),
+                type:"POST",
+                data: $("#com_ind_update").serializeArray()
+
+            }).done(function (response) {
+                alert(response);
+            });
+        })
+    </script>
+@endpush

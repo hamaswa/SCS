@@ -90,6 +90,12 @@ class LoanApplicationController extends Controller
 
     }
 
+    public function comIndAA(Request $request){
+        $input = $request->all();
+        $id=$input["id"];
+        $applicant = ApplicantData::find($id);
+        return view("maker.com_ind_aa")->with("applicant_data",$applicant);
+    }
     public function attachAASearch(Request $request)
     {
         $inputs = $request->all();

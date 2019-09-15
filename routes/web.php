@@ -54,6 +54,7 @@ Route::group(['middleware' => 'role:maker'], function() {
     Route::resource('maker', 'Maker\MakerController');
     Route::resource('maker/la', 'LoanApplicationController', [ 'names' => 'la' ]);
     Route::post('/sub_la', 'LoanApplicationController@showAttachAA')->name("showAttachAA");
+    Route::post('/maker/comIndAA', 'LoanApplicationController@comIndAA')->name("comIndAA");
     Route::post('/maker/attachAA', 'LoanApplicationController@attachAA')->name("attachAA");
     Route::post('/maker/attachAASearch', 'LoanApplicationController@attachAASearch')->name("attachAASearch");
     Route::post('/maker/attachComAA', 'LoanApplicationController@attachComAA')->name("attachComAA");

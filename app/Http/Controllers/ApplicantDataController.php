@@ -166,7 +166,16 @@ class ApplicantDataController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+        $inputs = $request->all();
+        $applicant = ApplicantData::find($id);
+        $applicant->update($inputs);
+        echo "Succesfully Updated";
+        }
+        catch (\Exception $exception){
+            echo "Error Occured ". $exception->getMessage();
+        }
+        exit();
     }
 
     /**

@@ -12,7 +12,8 @@
                     <?php $i = 0; ?>
                     @foreach($properties as $property)
                         <div class="btn-group margin-bottom border-black-1 propertykyc-action-btn">
-                            <button type="button" data-number='{{$i}}' class="btn btn-default btn-flat view">
+                            <button type="button" data-number='{{$i}}' class="btn btn-default btn-flat view"
+                            data-id="{{$property->id}}">
                                 Property{{$i+1}}</button>
                             <button type="button" class="btn btn-default btn-flat dropdown-toggle"
                                     data-toggle="dropdown"/>
@@ -22,8 +23,8 @@
                             </button>
                             <ul class="dropdown-menu position-relative" id="" role="menu">
                                 <li><a href="#" id='delproperty{{$i}}' data-number='{{$i}}'
-                                       class='editproperty'>Edit</a></li>
-                                <li><a href="#" class='delproperty' data-number='{{ $i }}'>Delete</a></li>
+                                       class='editproperty' data-id="{{$property->id}}">Edit</a></li>
+                                <li><a href="#" class='delproperty' data-id="{{$property->id}}" data-number='{{ $i }}'>Delete</a></li>
                             </ul>
                         </div>
                 <?php $i++ ?>
@@ -257,7 +258,7 @@
 
         $(document.body).on("click", ".editproperty", function () {
             form = forms[$(this).data('number')];
-            $("#doc_hint").val("Property"+$(this).data('number'))
+            //$("#doc_hint").val("Property"+$(this).data('number'))
             $("form#propertyform :input").not("[type=radio]").each(function () {
                 $(this).val(form[$(this).attr('id')]);
             })
