@@ -9,6 +9,7 @@ class ApplicantProperty extends Model
     protected $table = "applicant_property";
 
     protected $fillable = [
+        'id',
         'property_type',
         'property_master_individual',
         'property_market_value',
