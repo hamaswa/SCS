@@ -205,9 +205,8 @@
                     else {
                         html = "<div class=\"col-lg-12 col-md-12 applicants\">\n" +
                         "<div class=\"btn-group margin-bottom border-black-1 \" id=\"btn-air\">\n" +
-                        "    <a  target=\"_blank\"  class=\"btn btn-default btn-flat com_ind_act_btn\"\n" +
-                        "            href=\"{{route("aadata.index")}}/create?id="+ response.applicant.id + "\"\n" +
-                        "                    data-id=\"" + response.applicant.id + "\">" + response.applicant.name + "</button>\n" +
+                        "    <button    class=\"btn btn-default btn-flat edit_com_ind\"\n" +
+                        "            data-id=\"" + response.applicant.id + "\">" + response.applicant.name + "</button>\n" +
                         "    <button type=\"button\" class=\"btn btn-default btn-flat dropdown-toggle\"\n" +
                         "        data-toggle=\"dropdown\"\n" +
                         "           aria-expanded=\"false\">\n" +
