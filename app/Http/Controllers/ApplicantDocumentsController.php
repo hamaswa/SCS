@@ -55,9 +55,6 @@ class ApplicantDocumentsController extends Controller
     public function store(Request $request)
     {
 
-
-        print_r($request->all());
-        exit();
         try {
             $inputs = $request->all();
             if ($request->file("income_doc")) {
