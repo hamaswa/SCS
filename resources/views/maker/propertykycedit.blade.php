@@ -11,8 +11,9 @@
                 <div class="col-lg-12 col-md-12 col-sm-12" id="properties">
                     <?php $i = 0; ?>
                     @foreach($properties as $property)
+
                         <div class="btn-group margin-bottom border-black-1 propertykyc-action-btn">
-                            <button type="button" data-number='{{$i}}' class="btn btn-default btn-flat view">
+                            <button type="button" data-number='{{$i}}'  data-id="{{$property->id}}" class="btn btn-default btn-flat view">
                                 Property{{$i+1}}</button>
                             <button type="button" class="btn btn-default btn-flat dropdown-toggle"
                                     data-toggle="dropdown"/>
@@ -21,9 +22,9 @@
                             <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <ul class="dropdown-menu position-relative" id="" role="menu">
-                                <li><a href="#" id='delproperty{{$i}}' data-number='{{$i}}'
+                                <li><a href="javascript:void(0);" id='delproperty{{$i}}' data-number='{{$i}}' data-id="{{$property->id}}"
                                        class='editproperty'>Edit</a></li>
-                                <li><a href="#" class='delproperty' data-number='{{ $i }}'>Delete</a></li>
+                                <li><a href="javascript:void(0);" class='delproperty' data-number='{{ $i }}' data-id="{{$property->id}}">Delete</a></li>
                             </ul>
                         </div>
                 <?php $i++ ?>
@@ -45,8 +46,9 @@
                                 <input type="file" class="form-control btn btn-primary" name="property_doc" id="property_doc"/>
                             </div>
                         </div>
-                        <div class="clearfix"></div>
+
                 </div>
+                <div class="clearfix"></div>
                 <label class="col-lg-12 col-md-12 col-sm-12 form-group bg-gray-light">Property</label>
                 <div class="form-group col-md-12 col-sm-12">
                     <label class="radio-inline">
@@ -246,6 +248,7 @@
         $(document.body).on("click", "#add_property,#btn-finish", function () {
             //propertycount = forms.count();
             //$("#number").val(propertycount);
+            $("#property_id").val('');
             let form = {};
             $("#propertyform")
                 .serializeArray()
@@ -268,29 +271,32 @@
                     console.log("1");
                 }
             })
-
+            $("#property_id").val($(this).attr('data-id'));
             $('#property_owner_type option[value="' + form['property_owner_type'] + '"]').attr('selected', 'selected');
             $("#number").val($(this).data('number'))
-            $("#propertykyc-submit-btn").html($("<button type=\"button\" class=\"btn btn-primary\" data-id=\"" + $(this).data('number') + "\" id=\"update_property\">Update Property</button>"))
+            $("#propertykyc-submit-btn").html($("<button type=\"button\" class=\"btn btn-primary\" data-id=\"" + $(this).data('number') + "\" id=\"update_property\">Update Property</button>"));
+            showDocsHtml();
         });
 
         $(document.body).on("click", ".propertykyc-action-btn button.view", function (e) {
             form = forms[$(this).data('number')];
-            $("#doc_hint").val("Property"+$(this).data('number'))
-            console.log(form);
-            $("form#propertyform :input").each(function () {
+            //$("#doc_hint").val("Property"+$(this).data('number'))
+
+            $("form#propertyform :input").not("[type=radio]").each(function () {
                 $(this).val(form[$(this).attr('id')]);
             })
-            $("input[type='radio']").each(function () {
+            $("#propertyform input[type='radio']").each(function () {
                 if ($(this).val() == form[$(this).attr('name')]) {
-                    console.log($(this).val())
+                    $(this).attr("checked", "checked");
                 } else {
                     console.log("1");
                 }
             })
+            $("#property_id").val($(this).attr('data-id'));
             $('#property_owner_type option[value="' + form['property_owner_type'] + '"]').attr('selected', 'selected');
             $("#number").val($(this).data('number'))
-            $("#propertykyc-submit-btn").html($("<button type=\"button\" class=\"btn btn-primary\" data-id=\"" + $(this).data('number') + "\" id=\"update_property\">Update Property</button>"))
+            $("#propertykyc-submit-btn").html($("<button type=\"button\" class=\"btn btn-primary\" data-id=\"" + $(this).data('number') + "\" id=\"update_property\">Update Property</button>"));
+            showDocsHtml();
         })
 
         $(document.body).on("click", "#update_property", function (e) {
@@ -318,14 +324,14 @@
                 property_market_value += (form['property_market_value'] * 1);
                 property_loan_outstanding += (form['property_loan_outstanding'] * 1);
                 property_action_buttons = " <div class=\"btn-group margin-bottom border-black-1 propertykyc-action-btn\">\n" +
-                    "                        <button type=\"button\" class=\"btn btn-default btn-flat view\" data-number='" + i + "'>Property " + (i + 1) + "</button>\n" +
+                    "                        <button type=\"button\" class=\"btn btn-default btn-flat view\" data-id='"+form['id']+"' data-number='" + i + "'>Property " + (i + 1) + "</button>\n" +
                     "                        <button type=\"button\" class=\"btn btn-default btn-flat dropdown-toggle\" data-toggle=\"dropdown\">\n" +
                     "                            <i class=\"fa fa-list\"></i>\n" +
                     "                            <span class=\"sr-only\">Toggle Dropdown</span>\n" +
                     "                        </button>\n" +
                     "                        <ul class=\"dropdown-menu position-relative\" id=\"\" role=\"menu\">\n" +
-                    "                            <li><a href=\"#\" id='property" + i + "' data-number='" + i + "' class='editproperty'>Edit</a></li>\n" +
-                    "                            <li><a href=\"#\" class='delproperty' data-number='" + i + "'>Delete</a></li>\n" +
+                    "                            <li><a href=\"javascript:void(0);\" id='property" + i + "' data-id='"+form['id']+"' data-number='" + i + "' class='editproperty'>Edit</a></li>\n" +
+                    "                            <li><a href=\"javascript:void(0);\" class='delproperty' data-id='"+form['id']+"' data-number='" + i + "'>Delete</a></li>\n" +
                     "                        </ul>\n" +
                     "                    </div>"
                 $("#properties").append($(property_action_buttons));
@@ -336,6 +342,9 @@
             $(".propertykyc_right").html($("#propertykyc_right").html());
             submitpropertykyc();
 
+        }
+        function showDocsHtml(){
+            $("#property_doc_form").removeClass('hide');
         }
 
 

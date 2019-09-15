@@ -113,7 +113,7 @@
                                 <div class="tab-pane" id="lD">
                                     <div class="row" style="line-height: 14px; margin-bottom: 34.5px">
                                         <form id="propertyform" name="propertyform">
-                                            <input type="hidden" name="property_id" id="property_id">
+                                            <input type="hidden" name="id" id="property_id">
                                                 @include('maker.propertykycedit',['properties'=>$applicant_data->applicantProperty])
 
                                         </form>
@@ -257,6 +257,9 @@
                 }
                 else {
                     $("#property_id").val(response.property_id);
+                    $(".propertykyc-action-btn").last().find('button.view').attr('data-id',response.property_id);
+                    $(".propertykyc-action-btn").last().find('a.editproperty').attr('data-id',response.property_id);
+                    $(".propertykyc-action-btn").last().find('a.delproperty').attr('data-id',response.property_id);
                     //document.location.href = "{{ route("aadata.index") }}"
                 }
             })
