@@ -29,24 +29,25 @@
                         </div>
                 <?php $i++ ?>
                 @endforeach
-                        <div class="form-group hide" id="property_doc_form">
-                            <input type="hidden" name="doc_hint" id="doc_hint" value="">
-                            <div class="form-group col-md-4 col-sm-4 bg-gray-light">
-                                <label class="control-label">Primary Docs</label>
-                                @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'Property_primary_docs','options'=>$options,'class'=>'form-control select2'])
 
 
-                            </div>
-                            <div class="form-group col-md-4 col-sm-4 bg-gray-light">
-                                <label class="control-label">Supporting Docs</label>
-                                @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'property_support_docs','options'=>$options,'class'=>'form-control select2'])
+                </div>
+                <div class="form-group hide" id="property_doc_form">
+                    <input type="hidden" name="doc_hint" id="doc_hint" value="">
+                    <div class="form-group col-md-4 col-sm-4 bg-gray-light">
+                        <label class="control-label">Primary Docs</label>
+                        @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'Property_primary_docs','options'=>$options,'class'=>'form-control select2'])
 
-                            </div>
-                            <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right margin-top-15">
-                                <input type="file" class="form-control btn btn-primary" name="property_doc" id="property_doc"/>
-                            </div>
-                        </div>
 
+                    </div>
+                    <div class="form-group col-md-4 col-sm-4 bg-gray-light">
+                        <label class="control-label">Supporting Docs</label>
+                        @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'property_support_docs','options'=>$options,'class'=>'form-control select2'])
+
+                    </div>
+                    <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right margin-top-15">
+                        <input type="file" class="form-control btn btn-primary" name="property_doc" id="property_doc"/>
+                    </div>
                 </div>
                 <div class="clearfix"></div>
                 <label class="col-lg-12 col-md-12 col-sm-12 form-group bg-gray-light">Property</label>
@@ -256,6 +257,7 @@
             forms.push(form);
             $("#propertyform").trigger("reset")
             formActionButtions();
+            $("#property_doc_form").addClass('hide');
         });
 
         $(document.body).on("click", ".editproperty", function () {
@@ -307,6 +309,7 @@
             forms[$(this).data("id")] = form;
             $("#propertyform").trigger("reset")
             formActionButtions();
+            $("#property_doc_form").addClass('hide');
             $("#propertykyc-submit-btn").html($("<button type=\"button\" class=\"btn btn-primary\"  id=\"add_property\">Add Property</button>"))
         });
         $(document.body).on("click", ".delproperty", function (e) {
