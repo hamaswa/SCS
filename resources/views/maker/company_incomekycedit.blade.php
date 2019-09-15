@@ -133,7 +133,6 @@
 
                     </div>
 
-
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                         <label class="control-label">Supporting Docs</label>
                         @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'com_income_support_docs','options'=>$options])

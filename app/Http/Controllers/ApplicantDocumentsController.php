@@ -62,9 +62,9 @@ class ApplicantDocumentsController extends Controller
                 $income_doc = rand(1, 1000) . $request->file("income_doc")->getClientOriginalName();
                 if($request->file("income_doc")->storeAs("uploads/application_docs", $income_doc)) {
                     $inputs['file_name'] = $income_doc;
-                    $inputs['doc_name'] = $inputs['primary_doc'];
-                    $inputs['doc_type'] = $inputs['support_doc'];
-                    $inputs['doc_hint'] = "income+" . $inputs['incometype'];
+                    $inputs['doc_name'] = (isset($inputs['primary_doc'])?$inputs['primary_doc']:$inputs['support_doc']);
+                    $inputs['doc_type'] = $request->file("income_doc")->getMimeType();
+                    $inputs['doc_hint'] = "income++" . $inputs['incometype'];
                     $inputs['doc_status'] = "Optional";
                     $inputs['user_id'] = Auth::id();
                     $document = ApplicantDocuments::create($inputs);
@@ -77,9 +77,9 @@ class ApplicantDocumentsController extends Controller
                 if($request->file("wealth_doc")->storeAs("uploads/application_docs", $wealth_doc)) {
 
                     $inputs['file_name'] = $wealth_doc;
-                    $inputs['doc_name'] = $inputs['primary_doc'];
-                    $inputs['doc_type'] = $inputs['support_doc'];
-                    $inputs['doc_hint'] = "wealth+" . $inputs['wealthtype'];
+                    $inputs['doc_name'] = (isset($inputs['primary_doc'])?$inputs['primary_doc']:$inputs['support_doc']);
+                    $inputs['doc_type'] = $request->file("wealth_doc")->getMimeType();
+                    $inputs['doc_hint'] = "wealth++" . $inputs['wealthtype'];
                     $inputs['doc_status'] = "Optional";
                     $inputs['user_id'] = Auth::id();
                     $document = ApplicantDocuments::create($inputs);
@@ -92,8 +92,8 @@ class ApplicantDocumentsController extends Controller
                 if($request->file("property_doc")->storeAs("uploads/application_docs", $property_doc)) {
 
                     $inputs['file_name'] = $property_doc;
-                    $inputs['doc_name'] = $inputs['primary_doc'];
-                    $inputs['doc_type'] = $inputs['support_doc'];
+                    $inputs['doc_name'] = (isset($inputs['primary_doc'])?$inputs['primary_doc']:$inputs['support_doc']);
+                    $inputs['doc_type'] = $request->file("property_doc")->getMimeType();
                     $inputs['doc_hint'] = $inputs['doc_hint'];
                     $inputs['doc_status'] = "Optional";
                     $inputs['user_id'] = Auth::id();
