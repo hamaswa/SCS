@@ -56,6 +56,8 @@ class ApplicantDocumentsController extends Controller
     {
 
 
+        print_r($request->all());
+        exit();
         try {
             $inputs = $request->all();
             if ($request->file("income_doc")) {
