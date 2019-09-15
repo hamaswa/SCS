@@ -11,9 +11,9 @@
                 <div class="col-lg-12 col-md-12 col-sm-12" id="properties">
                     <?php $i = 0; ?>
                     @foreach($properties as $property)
+
                         <div class="btn-group margin-bottom border-black-1 propertykyc-action-btn">
-                            <button type="button" data-number='{{$i}}' class="btn btn-default btn-flat view"
-                            data-id="{{$property->id}}">
+                            <button type="button" data-number='{{$i}}' class="btn btn-default btn-flat view">
                                 Property{{$i+1}}</button>
                             <button type="button" class="btn btn-default btn-flat dropdown-toggle"
                                     data-toggle="dropdown"/>
@@ -23,14 +23,13 @@
                             </button>
                             <ul class="dropdown-menu position-relative" id="" role="menu">
                                 <li><a href="#" id='delproperty{{$i}}' data-number='{{$i}}'
-                                       class='editproperty' data-id="{{$property->id}}">Edit</a></li>
-                                <li><a href="#" class='delproperty' data-id="{{$property->id}}" data-number='{{ $i }}'>Delete</a></li>
+                                       class='editproperty'>Edit</a></li>
+                                <li><a href="#" class='delproperty' data-number='{{ $i }}'>Delete</a></li>
                             </ul>
                         </div>
-                <?php $i++ ?>
-                @endforeach
-                        <div class="form-group hide" id="property_doc_form">
-                            <input type="hidden" name="doc_hint" id="doc_hint" value="">
+
+                        <div class="form-group" id="property_doc_form">
+                            <input type="hidden" name="doc_hint" value="Property+{{$i}}">
                             <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                                 <label class="control-label">Primary Docs</label>
                                 @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'Property_primary_docs','options'=>$options,'class'=>'form-control select2'])
@@ -47,6 +46,9 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
+
+                        <?php $i++ ?>
+                    @endforeach
                 </div>
                 <label class="col-lg-12 col-md-12 col-sm-12 form-group bg-gray-light">Property</label>
                 <div class="form-group col-md-12 col-sm-12">
@@ -222,8 +224,6 @@
             var fileName = e.target.files[0].name;
             form = document.createElement("form");
             form.setAttribute("method", "post");
-            form.setAttribute("target", "_blank");
-
             form.setAttribute("enctype","multipart/form-data")
             form.setAttribute("action", "{{ route("documents.store") }}");
             csrf = $('{{ csrf_field() }}')
@@ -258,7 +258,6 @@
 
         $(document.body).on("click", ".editproperty", function () {
             form = forms[$(this).data('number')];
-            //$("#doc_hint").val("Property"+$(this).data('number'))
             $("form#propertyform :input").not("[type=radio]").each(function () {
                 $(this).val(form[$(this).attr('id')]);
             })
@@ -277,7 +276,6 @@
 
         $(document.body).on("click", ".propertykyc-action-btn button.view", function (e) {
             form = forms[$(this).data('number')];
-            $("#doc_hint").val("Property"+$(this).data('number'))
             console.log(form);
             $("form#propertyform :input").each(function () {
                 $(this).val(form[$(this).attr('id')]);
