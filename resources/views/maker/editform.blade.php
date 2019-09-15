@@ -142,6 +142,13 @@
             $("#" + mainId).removeClass('hide');
         });
 
+        $(document).on("change", "select", function(){
+            var val = $(this).val(); //get new value
+            //find selected option
+            $("option", this).removeAttr("selected").filter(function(){
+                return $(this).attr("value") == val;
+            }).first().attr("selected", "selected"); //add selected attribute to selected option
+        });
         $(document).ready(function () {
             $(".applicant").text("{{ $applicant_data->name }}");
             $('.select2').select2();

@@ -1,5 +1,5 @@
 <select name="{{$name}}" id="{{$name}}"  class="{{isset($class)?$class:"form-control"}}">
-    {{--<option>{{$default}}</option>--}}
+    <option value="">{{$default}}</option>
     @foreach($options as $option)
         @if($option->type==$type)
             <option value="{{$option->name}}" {{ (isset($value) and $option->name==$value)?"selected":"" }}>

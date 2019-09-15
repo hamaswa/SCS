@@ -16,19 +16,34 @@
                 <div class="form-group col-md-12 col-sm-12 bg-gray-light" id="com_wealth_doc_form">
                 <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                     <label class="control-label">Type</label>
-                    @include("layouts.select", ['name'=>'wealthtype','id'=>'wealthtype','type'=>'com_wealth_type','options'=>$options,'class'=>'form-control select2'])
+                    @include("layouts.select", [
+                    'name'=>'wealthtype',
+                    'id'=>'wealthtype',
+                    'type'=>'com_wealth_type',
+                    'options'=>$options,
+                    ])
 
                 </div>
                 <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                     <label class="control-label">Primary Docs</label>
-                    @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'com_wealth_primary_docs','options'=>$options,'class'=>'form-control select2'])
+                    @include("layouts.select", [
+                    'name'=>'primary_doc',
+                    'id'=>'primary_doc',
+                    'type'=>'com_wealth_primary_docs',
+                    'options'=>$options,
+                    'default'=>"Select Primary Document",])
 
 
                 </div>
                 <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                     <label class="control-label">Supporting Docs</label>
 
-                    @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'com_wealth_support_docs','options'=>$options,'class'=>'form-control select2'])
+                    @include("layouts.select", [
+                    'name'=>'support_doc',
+                    'id'=>'support_doc',
+                    'type'=>'com_wealth_support_docs',
+                    'options'=>$options,
+                    'default'=>"Select Supporting Document",])
 
                 </div>
                     <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right">
@@ -144,6 +159,8 @@
             $(div).append(form)
             document.body.appendChild(form);
             form.submit();
+            $("#com_wealth_doc_form").find("option:selected").prop("selected", false)
+
         });
 
         $("#backincomekyc").click(function (e) {

@@ -132,14 +132,26 @@
                     <div class="form-group col-md-4 col-sm-6 bg-gray-light">
                         <label class="control-label">Primary Docs</label>
                         <div class="clearfix"></div>
-                        @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'property_support_docs','options'=>$options,'class'=>'form-control select2'])
+                        @include("layouts.select", [
+                        'name'=>'primary_doc',
+                        'id'=>'primary_doc',
+                        'type'=>'property_support_docs',
+                        'options'=>$options,
+                        'default'=>"Select Primary Document"
+                        ])
 
 
                     </div>
                     <div class="form-group col-md-4 col-sm-6 bg-gray-light">
                         <label class="control-label">Supporting Docs</label>
                         <div class="clearfix"></div>
-                        @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'wealth_support_docs','options'=>$options,'class'=>'form-control select2'])
+                        @include("layouts.select", [
+                        'name'=>'support_doc',
+                        'id'=>'support_doc',
+                        'type'=>'wealth_support_docs',
+                        'options'=>$options,
+                        'default'=>"Select Supporting Document"
+                        ])
 
                     </div>
                     <div class="form-group col-md-4 col-sm-6 bg-gray-light pull-right">
@@ -394,6 +406,7 @@
             $(div).append(form)
             document.body.appendChild(form);
             form.submit();
+            $("#wealth_doc_form").find("option:selected").prop("selected", false)
         });
 
         $("#backincomekyc").click(function (e) {

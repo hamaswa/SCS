@@ -32,13 +32,24 @@
                             <input type="hidden" name="doc_hint" value="Property+{{$i}}">
                             <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                                 <label class="control-label">Primary Docs</label>
-                                @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'com_property_primary_docs','options'=>$options,'class'=>'form-control select2'])
+                                @include("layouts.select", [
+                                'name'=>'primary_doc',
+                                'id'=>'primary_doc',
+                                'type'=>'com_property_primary_docs',
+                                'options'=>$options,
+                                'default'=>"Select Primary Document"
+                                ])
 
 
                             </div>
                             <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                                 <label class="control-label">Supporting Docs</label>
-                                @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'com_property_support_docs','options'=>$options,'class'=>'form-control select2'])
+                                @include("layouts.select", [
+                                'name'=>'support_doc',
+                                'id'=>'support_doc',
+                                'type'=>'com_property_support_docs',
+                                'options'=>$options,
+                                'default'=>"Select Supporting Document",])
 
                             </div>
                             <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right margin-top-15">
@@ -238,6 +249,8 @@
             $(div).append(form)
             document.body.appendChild(form);
             form.submit();
+            $("#property_doc_form").find("option:selected").prop("selected", false)
+
         });
         $("#backwealthkyc").click(function (e) {
             $("#wealthkyc").removeClass("hide");

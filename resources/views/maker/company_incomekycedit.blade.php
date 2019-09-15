@@ -129,13 +129,24 @@
 
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                         <label class="control-label">Primary Docs</label>
-                        @include("layouts.select", ['name'=>'primary_doc','id'=>'primary_doc','type'=>'com_income_primary_docs','options'=>$options])
+                        @include("layouts.select", [
+                        'name'=>'primary_doc',
+                        'id'=>'primary_doc',
+                        'type'=>'com_income_primary_docs',
+                        'default'=>"Select Primary Document",
+                        'options'=>$options
+                        ])
 
                     </div>
 
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                         <label class="control-label">Supporting Docs</label>
-                        @include("layouts.select", ['name'=>'support_doc','id'=>'support_doc','type'=>'com_income_support_docs','options'=>$options])
+                        @include("layouts.select", [
+                        'name'=>'support_doc',
+                        'id'=>'support_doc',
+                        'type'=>'com_income_support_docs',
+                        'default'=>"Select Supporting Document",
+                        'options'=>$options])
                     </div>
                     <div class="form-group col-md-4 col-sm-3 pull-right">
                         <input type="file" class="form-control btn btn-primary" name="income_doc" id="com_income_doc" />
@@ -557,7 +568,9 @@
                 $(div).append(form)
                 document.body.appendChild(form);
                 form.submit();
-            });
+            $("#com_income_doc_form").find("option:selected").prop("selected", false)
+
+        });
         $(".currency").on("change", function (e) {
             if ($(this).val() == "myr")
                 $($(this).data("target")).val(1)
