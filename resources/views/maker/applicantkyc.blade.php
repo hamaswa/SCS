@@ -76,7 +76,7 @@
                                    class="form-control" autocomplete="off"/>
                         </div>
                         <div class="col-sm-12 col-md-3 form-group">
-                            <label>Position</label>
+                            <label>Residency Status</label>
                             <input type="text" name="position" id="position"
                                    value="{{(isset($applicant_data->position)?$applicant_data->position:"")}}"
                                    class="form-control" autocomplete="off"/>
