@@ -13,8 +13,9 @@ class ApplicantData extends Model
         'consent','status',
         'salutation','position','ownership','email','address',
         'user_id','nature_of_business','date_established','applicant_maker_id',
-        'date_joined','office_phone_no','office_address'
-        
+        'date_joined','office_phone_no','office_address',
+        'residency_status','applicant_status','employment_status',
+        'company_name','office_phone_no','office_address'
     ];
 
     public function facilityInfo(){

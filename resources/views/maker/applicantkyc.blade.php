@@ -62,13 +62,13 @@
 
                         <div class="clearfix"></div>
                     </div>
+
                     <form  action="{{ route("la.store") }}" method="post">
                         @csrf
                         <input type="hidden" name="update_ind" value="update_ind">
                         <input type="hidden" name="la_applicant_id" value="{{$la_applicant_id}}">
                         <input type="hidden" name="aacategory" value="{{$applicant_data->aacategory}}" >
-                        <input type="hidden" name="applicant_id" value="{{isset($applicant_data->id)?$applicant_data->id:"0"}}"
-                               >
+                        <input type="hidden" name="applicant_id" value="{{isset($applicant_data->id)?$applicant_data->id:"0"}}" >
                         <div class="col-sm-12 col-md-3 form-group">
                             <label>Salutation</label>
                             <input type="text" name="salutation" id="salutation"
@@ -77,18 +77,18 @@
                         </div>
                         <div class="col-sm-12 col-md-3 form-group">
                             <label>Residency Status</label>
-                            <input type="text" name="position" id="position"
-                                   value="{{(isset($applicant_data->position)?$applicant_data->position:"")}}"
+                            <input type="text" name="residency_status" id="residency_status"
+                                   value="{{(isset($applicant_data->residency_status)?$applicant_data->residency_status:"")}}"
                                    class="form-control" autocomplete="off"/>
 
                         </div>
                         <div class="col-sm-12 col-md-3 form-group">
                             <label class="clearfix">Applicant Status</label>
-                            <input type="text" value="" class="form-control" autocomplete="off" />
+                            <input type="text" name="applicant_status" id="applicant_status" value="{{(isset($applicant_data->applicant_status)?$applicant_data->applicant_status:"")}}" class="form-control" autocomplete="off" />
                         </div>
                         <div class="col-sm-12 col-md-3 form-group">
                             <label class="clearfix">Employment Status</label>
-                            <input type="text" value="" class="form-control" autocomplete="off" />
+                            <input type="text" name="employment_status" id="employment_status" value="{{(isset($applicant_data->employment_status)?$applicant_data->employment_status:"")}}" class="form-control" autocomplete="off" />
                         </div>
                         <div class="col-md-6 col-sm-12 padding-5 bg-gray-light">
                             <div class="col-sm-12 col-md-12 form-group">
@@ -114,34 +114,33 @@
                             </div>
                             <div class="col-sm-12 col-md-12 form-group">
                                 <label>Residential Address</label>
-                                <textarea name="address" class="form-control">
-                            {{(isset($applicant_data->address)?$applicant_data->address:"")}}</textarea>
+                                <textarea name="address" class="form-control">{{(isset($applicant_data->address)?$applicant_data->address:"")}}</textarea>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12 bg-gray-light padding-5">
                             <div class="col-sm-12 col-md-12 form-group">
                                 <label>Company Name</label>
-                                <input type="text" value="" class="form-control" autocomplete="off">
+                                <input type="text" name="company_name" value="{{(isset($applicant_data->company_name)?$applicant_data->company_name:"")}}" class="form-control" autocomplete="off">
                             </div>
                             <div class="col-sm-12 col-md-12 form-group">
                                 <label>Position</label>
-                                <input type="text" value="" class="form-control" autocomplete="off">
+                                <input type="text" name="position" value="{{(isset($applicant_data->position)?$applicant_data->position:"")}}" class="form-control" autocomplete="off">
                             </div>
                             <div class="col-sm-12 col-md-6 form-group">
                                 <label>Nature of Business</label>
-                                <input type="text" value="" class="form-control" autocomplete="off">
+                                <input type="text" name="nature_of_business" value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}" name="nature_of_business" class="form-control" autocomplete="off">
                             </div>
                             <div class="col-sm-12 col-md-6 form-group">
                                 <label>Date Joined</label>
-                                <input type="date" value="" class="form-control" autocomplete="off">
+                                <input type="date" name="date_established" value="{{(isset($applicant_data->date_established)?$applicant_data->date_established:"")}}" class="form-control" autocomplete="off">
                             </div>
                             <div class="col-sm-12 col-md-12 form-group">
                                 <label>office Phone no.</label>
-                                <input type="text" value="" class="form-control" autocomplete="off">
+                                <input type="text" name="office_phone_no" value="{{(isset($applicant_data->office_phone_no)?$applicant_data->office_phone_no:"")}}" class="form-control" autocomplete="off">
                             </div>
                             <div class="col-sm-12 col-md-12 form-group">
                                 <label>Office Address</label>
-                                <textarea class="form-control"></textarea>
+                                <textarea name="office_address" class="form-control">{{(isset($applicant_data->office_address)?$applicant_data->office_address:"")}}</textarea>
                             </div>
                         </div>
 
