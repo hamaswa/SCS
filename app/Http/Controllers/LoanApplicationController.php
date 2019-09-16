@@ -105,7 +105,7 @@ class LoanApplicationController extends Controller
         $applicant = new  ApplicantData();
         if($la_app->aacategory=="I") {
             $data = $applicant->whereRaw("(unique_id = '" . $inputs['unique_id'] . "' or name = '" . $inputs['unique_id'] . "')
-            " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='I' and status = 'Documentation' and id!=" . $inputs['la_applicant_id'])->paginate(5);
+            " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='I' and status in ('Documentation','Consent Obtained') and id!=" . $inputs['la_applicant_id'])->paginate(5);
 
         }
         else
