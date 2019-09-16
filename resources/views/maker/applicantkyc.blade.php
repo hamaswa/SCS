@@ -177,7 +177,7 @@
                         </div>
 
                     </form>
-                    <form id="business_form" action="" method="post">
+                    <form id="business_form" action="" method="post" class="hide">
                         <div class="form-group col-md-4 col-sm-12">
                             <label class="control-label">Nature of Business</label>
                             <input name="business_nature" id="business_nature"
@@ -352,6 +352,7 @@
         // let business_forms = [];
         let business_forms = <?php print_r(json_encode(json_decode($businesses,true))); ?>;
         $(document.body).on("click", "#add_business", function () {
+
             let form = {};
             $("#business_form")
                 .serializeArray()
@@ -363,6 +364,7 @@
 
 
         $(document.body).on("click", ".editbusiness", function () {
+            $("#business_form").removeClass('hide');
             form = business_forms[$(this).data('number')];
             console.log(form);
             $("form#business_form :input").each(function () {
