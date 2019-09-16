@@ -61,6 +61,34 @@
                         </div>
 
                         <div class="clearfix"></div>
+                        <div id="businesses" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                            <?php
+                            $i=0;
+                            $b=$s=1;
+
+                            ?>
+                            @foreach($businesses as $business)
+                                <?php
+                                if($business->business_type=='Salaried')
+                                    $i_no= $s++;
+                                else
+                                    $i_no=$b++;
+                                ?>
+                                <div class="btn-group margin-bottom border-black-1 businesskyc-action-btn">
+                                    <button type="button"  data-number='{{$i}}'  class="btn btn-default btn-flat view editbusiness">{{  $business->business_type."".$i_no }}</button>
+                                    <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown" />
+
+                                    <i class="fa fa-list"></i>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    {{--<ul class="dropdown-menu position-relative" id="" role="menu">--}}
+                                        {{--<li><a href="#" id='business{{$i}}' data-number='{{$i}}' class='editbusiness'>Edit</a></li>--}}
+                                        {{--<li><a href="#" class='delbusiness' data-number='{{ $i }}'>Delete</a></li>--}}
+                                    {{--</ul>--}}
+                                </div>
+                                <?php $i++ ?>
+                            @endforeach
+                        </div>
                     </div>
 
                     <form  action="{{ route("la.store") }}" method="post">
@@ -149,7 +177,26 @@
                         </div>
 
                     </form>
-
+                    <form id="business_form" action="" method="post">
+                        <div class="form-group col-md-4 col-sm-12">
+                            <label class="control-label">Nature of Business</label>
+                            <input name="business_nature" id="business_nature"
+                                   {{--                               value = "{{$business->business_nature}}"--}}
+                                   class="form-control" type="text">
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <label class="control-label">Position</label>
+                            <input name="business_position" id="business_position"
+                                   {{--                               value = "{{$business->business_position}}"--}}
+                                   class="form-control" type="text">
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <label class="control-label"><em class="text-danger">*</em>Email</label>
+                            <input name="business_email" id="business_email"
+                                   {{--                               value = "{{$business->business_email}}"--}}
+                                   class="form-control" type="email">
+                        </div>
+                    </form>
             </div>
 
         </div>
@@ -302,8 +349,8 @@
 
             })
         })
-        let business_forms = [];
-
+        // let business_forms = [];
+        let business_forms = <?php print_r(json_encode(json_decode($businesses,true))); ?>;
         $(document.body).on("click", "#add_business", function () {
             let form = {};
             $("#business_form")
