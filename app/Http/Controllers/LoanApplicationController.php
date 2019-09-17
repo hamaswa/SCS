@@ -99,19 +99,25 @@ class LoanApplicationController extends Controller
     public function attachAASearch(Request $request)
     {
         $inputs = $request->all();
-        $la_app = ApplicantData::find($inputs['la_applicant_id']);
+        $la_app = ApplicantData::find($inputs['la_applicant_id'])->where("user_id","=",Auth::id());
 
 
         $applicant = new  ApplicantData();
         if($la_app->aacategory=="I") {
             $data = $applicant->whereRaw("(unique_id = '" . $inputs['unique_id'] . "' or name = '" . $inputs['unique_id'] . "')
-            " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='I' and status in ('Documentation','Consent Obtained') and id!=" . $inputs['la_applicant_id'])->paginate(5);
+            " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='I' 
+            and status in ('Documentation','Consent Obtained')
+            and user_id = ". Auth::id(). "
+            and id!=" . $inputs['la_applicant_id'])->paginate(5);
 
         }
         else
         {
             $data = $applicant->whereRaw("(unique_id = '" . $inputs['unique_id'] . "' or name = '" . $inputs['unique_id'] . "')
-            " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='C' and status in ('Documentation','Consent Obtained') and id!=" . $inputs['la_applicant_id'])->paginate(5);
+            " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='C' 
+            and status in ('Documentation','Consent Obtained') 
+             and user_id = ". Auth::id(). "
+           and id!=" . $inputs['la_applicant_id'])->paginate(5);
 
         }
 

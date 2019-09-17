@@ -126,7 +126,7 @@ class PipelineController extends Controller
 
             $applicantdata =new  ApplicantData();
                 $data = $applicantdata->whereRaw("(unique_id = '" . $inputs['term'] . "' or name = '" . $inputs['term'] . "')
-            ". ($inputs['term']==""?" OR" : " and ") . " status = '" . $inputs['status'] . "'")->paginate(5);
+            ". ($inputs['term']==""?" OR" : " and ") . " status = '" . $inputs['status'] . "' and user_id='".Auth::id()."'")->paginate(5);
 
 
 
@@ -134,7 +134,9 @@ class PipelineController extends Controller
 
         }
         else if(isset($inputs['submit']) and $inputs['submit']=='Search'){
-            $applicantdata = ApplicantData::where('unique_id','=',$inputs['search'])->paginate(5);
+            $applicantdata = ApplicantData::where('unique_id','=',$inputs['search'])
+                ->where("user_id","=",Auth::id())
+                ->paginate(5);
             return view("aadata.index")->with("data",$applicantdata);
         }
 

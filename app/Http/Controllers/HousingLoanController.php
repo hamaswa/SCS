@@ -19,7 +19,8 @@ class HousingLoanController extends Controller
      */
     public function index()
     {
-        $applicantdata = ApplicantData::paginate(5);
+        $applicantdata = ApplicantData::where("user_id","=",Auth::id())
+            ->paginate(5);
 
         $capacity_types_data  = AASource::where("type","capacity_type")->get();
         $capacity_type = [];
@@ -54,7 +55,8 @@ class HousingLoanController extends Controller
         $data['user_id']=Auth::id();
 
         if(isset($data['submit']) and $data['submit']=='Search') {
-            $applicantdata = ApplicantData::where($data['searchfield'], '=', $data['search'])->paginate(5);
+            $applicantdata = ApplicantData::where($data['searchfield'], '=', $data['search'])
+                ->where("user_id","=",Auth::id())->paginate(5);
             return view("deview")->with(['applicantdata'=>$applicantdata]);
         }
         else {

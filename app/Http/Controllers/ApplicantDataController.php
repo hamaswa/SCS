@@ -50,7 +50,7 @@ class ApplicantDataController extends Controller
 
         $inputs = $request->all();
         //SELECT count(*) FROM applicant_data WHERE ;
-        $applicant = ApplicantData::find($inputs['id']);
+        $applicant = ApplicantData::find($inputs['id'])->where("user_id","=",Auth::id());
         return view("aadata.addform")->with("applicant", $applicant);
     }
 
