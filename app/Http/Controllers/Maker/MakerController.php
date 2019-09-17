@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Maker;
 
+use App\ApplicantBusiness;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\ApplicantData;
@@ -141,6 +142,8 @@ class MakerController extends Controller
         if($attached_applicants_id!="")
        $arr['attached_applicants'] = ApplicantData::whereRaw("aacategory=\"". $arr["applicant_data"]->aacategory ."\" and id in (". $attached_applicants_id .")")->get();
         $arr["options"]  = AASource::all();
+
+        $arr['businesses'] = ApplicantBusiness::where("applicant_id","=",$id)->get();
 
         return view("maker.editform")->with($arr);
     }

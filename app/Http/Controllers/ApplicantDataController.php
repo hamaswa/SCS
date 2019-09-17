@@ -215,7 +215,7 @@ class ApplicantDataController extends Controller
                 $concent_form = $request->file("consent")->storeAs("uploads/application_docs", $concent_form_name);
                 if ($concent_form != "") {
                     $applicant->consent = "1";
-                    $applicant->status = "Consent Obtained";
+                    $applicant->status = "Documentation";
                     $applicant->save();
                 }
                 $inputs['file_name'] = $concent_form_name;

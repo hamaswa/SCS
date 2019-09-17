@@ -45,7 +45,7 @@
                                             NRIC No./Passport No.(e.g.12345678)
                                         </label>
                                         <input name="unique_id" id="unique_id" placeholder="" class="form-control"
-                                               minlength="12" type="number">
+                                               minlength="12" type="text">
 
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6">
@@ -88,6 +88,7 @@
                 </form>
             </div>
         </div>
+        @if ($message = Session::get('success'))
         <div class="col-md-4 col-sm-12 col-lg-4">
             <form id="edit-aa" name="edit-aa" action="{{ route("aadata.storeAA") }}" method="post" enctype="multipart/form-data">
 
@@ -154,7 +155,7 @@
 
             </form>
         </div>
-
+        @endif
     </div>
 @endsection
 @push("scripts")
