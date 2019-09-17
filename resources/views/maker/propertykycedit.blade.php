@@ -236,6 +236,7 @@
             form = document.createElement("form");
             form.setAttribute("method", "post");
             form.setAttribute("enctype","multipart/form-data")
+            form.setAttribute("target","_blank")
             form.setAttribute("action", "{{ route("documents.store") }}");
             csrf = $('{{ csrf_field() }}')
             $(form).append(csrf);

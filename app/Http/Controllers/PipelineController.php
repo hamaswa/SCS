@@ -31,6 +31,7 @@ class PipelineController extends Controller
         $data = DB::table("applicant_data")
                         ->leftjoin("applicant_property","applicant_data.id","=","applicant_property.applicant_id")
                         ->select(DB::raw("applicant_data.*, sum(applicant_property.property_market_value)* .9 as market_value"))
+                        ->where("applicant_data.user_id","=",Auth::id())
                         ->orderBy("id","desc")
                         ->groupBy("applicant_data.id")
                         ->paginate(5);

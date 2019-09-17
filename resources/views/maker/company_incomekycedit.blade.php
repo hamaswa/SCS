@@ -122,7 +122,8 @@
                 <div class="col-md-12 col-sm-12 bg-gray-light" id="com_income_doc_form">
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
                     <label class="control-label">Type</label>
-                        @include("layouts.select", ['name'=>'incometype','id'=>'incometype',
+                        @include("layouts.select", [
+                        'name'=>'incometype','id'=>'incometype',
                         'type'=>'com_income_types','options'=>$options])
 
                     </div>
