@@ -137,7 +137,7 @@
                             <div class="col-sm-12 col-md-12 form-group">
                                 <label>Email</label>
                                 <input type="email" name="email"
-                                       value="{{(isset($applicant_data->email)?$applicant_data->email:"")}}"
+                                       value="{{(isset($applicant_data->email)?$applicant_data->email:$businesses[0]['business_email'])}}"
                                        class="form-control" autocomplete="off">
                             </div>
                             <div class="col-sm-12 col-md-12 form-group">
