@@ -66,6 +66,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('/aa', 'ApplicationAccountController');
 
     Route::post('/deleteAA',"LoanApplicationController@deleteAA")->name("deleteAA");
+    Route::post('/selectoptions','AASourceController@selectoptions')->name("selectoptions");
     Route::resource('/aafields', 'AASourceController');
     Route::post('/aadata/create', 'ApplicantDataController@create');
     Route::post('/aadata/storeAA', 'ApplicantDataController@storeAA')->name("aadata.storeAA");

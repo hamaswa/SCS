@@ -71,6 +71,7 @@ class ApplicantDataController extends Controller
             $applicant_count = ApplicantData::selectRaw("count(*) as count")->whereRaw("created_at BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 day)")
                 ->get()->ToArray();
             $inputs['serial_no'] = date('Ymdhis') . "" . $applicant_count[0]["count"];
+
             $applicant = ApplicantData::create($inputs);
             return back()->with("success", "New Appointment Created");
 

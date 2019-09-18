@@ -155,7 +155,7 @@
                         'options'=>$options])
                     </div>
                     <div class="form-group col-md-4 col-sm-3 pull-right">
-                        <input type="file" class="form-control btn btn-primary" name="income_doc" id="income_doc" />
+                        <input type="file" class="form-control btn btn-primary" multiple="multiple" name="income_doc[] " id="income_doc" />
                     </div>
                 </div>
 
@@ -557,9 +557,11 @@
     <script type="text/javascript">
 
             $('#income_doc[type="file"]').change(function(e) {
+
                 var fileName = e.target.files[0].name;
                 form = document.createElement("form");
                 form.setAttribute("method", "post");
+
                 form.setAttribute("target", "_blank");
                 form.setAttribute("enctype", "multipart/form-data")
                 form.setAttribute("action", "{{ route("documents.store") }}");
@@ -599,6 +601,16 @@
             $("#incomekyc .box .incometype").addClass("hide");
             id = $(this).val();
             $("#incomekyc").find("#" + id).removeClass("hide").show();
+            $.ajax({
+                url:"{{ route("selectoptions") }}",
+                type:"POST",
+                data:"type="+id,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+            }).done(function (response) {
+                alert(resonse);
+            });
         })
 
         $(".incomekyc-action-btn button.view").on("click", function (e) {
