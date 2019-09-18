@@ -29,7 +29,7 @@
                             NRIC No./Passport No.(e.g.12345678)
                         </label>
                         <input name="unique_id" value="{{isset($applicant_data->unique_id)?$applicant_data->unique_id:""}}" id="unique_id" placeholder="" class="form-control"
-                               minlength="12" type="number">
+                               minlength="12">
                         <input type="checkbox" data-verify-error="Please Verify IC"
                                class="verify-newaa-input"> Verified
                     </div>
