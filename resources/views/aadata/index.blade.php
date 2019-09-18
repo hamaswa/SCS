@@ -165,7 +165,7 @@
                                             NRIC No./Passport No.(e.g.12345678)
                                         </label>
                                         <input name="unique_id" id="unique_id" placeholder="" class="form-control"
-                                               minlength="12" type="number">
+                                               minlength="12">
 
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6">
@@ -555,43 +555,15 @@
         });
         $(document).ready(function () {
             $('.select2').select2();
-            {{--$("#newaa").on("submit",function (e) {--}}
-            {{--if($("#applicant_status").val()=="Appointment"){--}}
-            {{--$.ajax({--}}
-            {{--url : "{{ route("aadata.store") }}",--}}
-            {{--type:"POST",--}}
-            {{--headers: {--}}
-            {{--'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),--}}
-            {{--},--}}
-            {{--data: $("#newaa").serializeArray(),--}}
-            {{--success:function (response) {--}}
-            {{--response = JSON.parse(response)--}}
-            {{--if(response.status =="Appointment-Attended"){--}}
-            {{--$("#applicant_status").val("Appointment-Attended")--}}
-            {{--$("#form").val("applicant_consent");//.prop("disabled",true);--}}
-            {{--$(".consent-field").removeClass("hide");--}}
-            {{--$(".applicant-status").addClass("hide");--}}
-            {{--$("#status").attr("disabled",true);--}}
-            {{--$("#consent").attr("disabled",false);--}}
-            {{--}--}}
-            {{--msg= "";--}}
-            {{--if(response.error){--}}
-            {{--msg = " <div class=\"alert alert-success\">\n" +--}}
-            {{--"                    <p>" + response.success + "</p>\n" +--}}
-            {{--"                </div>";--}}
-            {{--}--}}
-            {{--else if(response.success){--}}
-            {{--msg = " <div class=\"alert alert-success\">\n" +--}}
-            {{--"                    <p>" + response.success + "</p>\n" +--}}
-            {{--"                </div>";--}}
-            {{--}--}}
-            {{--$(".msg").html($(msg));--}}
-            {{--},--}}
-            {{--error: function () {--}}
-            {{--}--}}
-            {{--})--}}
-            {{--}--}}
-            {{--})--}}
+            $("#newaa").on("submit",function (e) {
+                if(!(IsIC($("#unique_id").val()))){
+               e.preventDefault();
+               alert("IC can only contain numbers or Letters")
+                }
+
+
+            })
+
             $(".edit").on("click", function (e) {
                 $("#aa_title").html("Edit Profile");
                 $("#name").val($(this).data("name"));//.prop("disabled",true);
@@ -618,6 +590,14 @@
                 }
             })
         });
+        function IsIC(val) {
+            var regex = /^([a-zA-Z0-9+])+$/;
+            if(!regex.test(val)) {
+                return false;
+            }else{
+                return true;
+            }
+        }
         function showData(id) {
             $('.detail-box').addClass('hide');
             $("#" + id).removeClass('hide');

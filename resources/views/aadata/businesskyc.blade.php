@@ -35,19 +35,19 @@
                             </select>
                         </div>
                     </div>
-                    {{--<div class="form-group clearfix for_business" >--}}
-                        {{--<div class="col-md-11 col-sm-11">--}}
-                            {{--<label class="control-label">Shareholding</label>--}}
-                            {{--<input name="business_shareholding" id="business_shareholding" placeholder="" class="form-control" type="text">--}}
-                        {{--</div>--}}
-                        {{--<div class="col-md-1 col-sm-1">--}}
-                            {{--<h2>%</h2>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="form-group col-md-12 col-sm-12 for_business">--}}
-                        {{--<label class="control-label">Business Turnover (Monthly)</label>--}}
-                        {{--<input name="business_turnover" id="business_turnover" placeholder="" class="form-control" type="text">--}}
-                    {{--</div>--}}
+                    <div class="form-group clearfix for_business" >
+                        <div class="col-md-11 col-sm-11">
+                            <label class="control-label">Shareholding</label>
+                            <input name="business_shareholding" id="business_shareholding" placeholder="" class="form-control" type="text">
+                        </div>
+                        <div class="col-md-1 col-sm-1">
+                            <h2>%</h2>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12 for_business">
+                        <label class="control-label">Business Turnover (Monthly)</label>
+                        <input name="business_turnover" id="business_turnover" placeholder="" class="form-control" type="text">
+                    </div>
                     <div class="form-group col-md-12 col-sm-12">
                         <label class="control-label">Nature of Business</label>
                         <input name="business_nature" id="business_nature" placeholder="" class="form-control" type="text">
@@ -181,14 +181,14 @@
         })
 
 
-        // $("#business_type").on('change',function (e) {
-        //     if($(this).val()=="Business"){
-        //         $(".for_business").show();
-        //     }
-        //     else {
-        //         $(".for_business").val("").hide();
-        //     }
-        // })
+        $("#business_type").on('change',function (e) {
+            if($(this).val()=="Business"){
+                $(".for_business").show();
+            }
+            else {
+                $(".for_business").val("").hide();
+            }
+        })
 
 
         let business_forms=[];

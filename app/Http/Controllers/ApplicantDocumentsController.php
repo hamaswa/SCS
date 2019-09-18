@@ -54,6 +54,10 @@ class ApplicantDocumentsController extends Controller
      */
     public function store(Request $request)
     {
+        //print_r($request->all());
+        echo "<pre>";
+        print_r($_FILES);
+        exit();
 
         try {
             $inputs = $request->all();

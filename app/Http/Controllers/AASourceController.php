@@ -19,6 +19,19 @@ class AASourceController extends Controller
       return    $datatable->render("aasource.index");
     }
 
+
+    /**
+     * return select options on cretaria
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function selectoptions(Request $request){
+        $inputs = $request->all();
+        $data = AASource::whereRaw("type like '".$inputs['type']."%'")->get();
+
+        print_r($data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
