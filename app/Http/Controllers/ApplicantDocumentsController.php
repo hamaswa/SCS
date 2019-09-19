@@ -98,19 +98,23 @@ class ApplicantDocumentsController extends Controller
                 }
                 return view("maker.docs_upload")->with("success", $inputs['wealthtype'] . " document successfully uploaded");
 
-            } else if ($request->file("property_doc")) {
-                $property_doc = rand(1, 1000) . $request->file("property_doc")->getClientOriginalName();
-                if ($request->file("property_doc")->storeAs("uploads/application_docs", $property_doc)) {
+            } else if ($request->property_doc) {
+                foreach ($request->property_doc as $file) {
 
-                    $inputs['file_name'] = $property_doc;
-                    $inputs['doc_name'] = (isset($inputs['primary_doc']) ? $inputs['primary_doc'] : $inputs['support_doc']);
-                    $inputs['doc_type'] = $request->file("property_doc")->getMimeType();
-                    $inputs['doc_hint'] = $inputs['doc_hint'];
-                    $inputs['doc_status'] = "Optional";
-                    $inputs['user_id'] = Auth::id();
-                    $document = ApplicantDocuments::create($inputs);
-                    return view("maker.docs_upload")->with("success", $inputs['doc_hint'] . " document successfully uploaded");
+                    $property_doc = rand(1, 1000) . $file->getClientOriginalName();
+                    if ($file->storeAs("uploads/application_docs", $property_doc)) {
+
+                        $inputs['file_name'] = $property_doc;
+                        $inputs['doc_name'] = "Property".(($inputs['number']*1)+1). "_".$property_doc;//(isset($inputs['primary_doc']) ? $inputs['primary_doc'] : $inputs['support_doc']);
+                        $inputs['doc_type'] = $file->getMimeType();
+                        $inputs['doc_hint'] = $inputs['doc_hint'];
+                        $inputs['doc_status'] = "Optional";
+                        $inputs['user_id'] = Auth::id();
+                        $document = ApplicantDocuments::create($inputs);
+                    }
                 }
+                return view("maker.docs_upload")->with("success", $inputs['doc_hint'] . " document successfully uploaded");
+
             }
             return view("docs_upload", ["success", "Document Successfully Uploaded"]);
 

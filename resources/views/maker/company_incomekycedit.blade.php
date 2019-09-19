@@ -150,7 +150,7 @@
                         'options'=>$options])
                     </div>
                     <div class="form-group col-md-4 col-sm-3 pull-right">
-                        <input type="file" class="form-control btn btn-primary" name="income_doc" id="com_income_doc" />
+                        <input type="file" class="form-control btn btn-primary" name="income_doc[]" multiple id="com_income_doc" />
                     </div>
                 </div>
 

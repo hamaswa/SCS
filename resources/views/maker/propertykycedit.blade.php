@@ -28,39 +28,42 @@
                             </ul>
                         </div>
 
-                        <div class="form-group" id="property_doc_form">
-                            <input type="hidden" name="doc_hint" value="Property+{{$i}}">
-                            <div class="form-group col-md-4 col-sm-4 bg-gray-light">
-                                <label class="control-label">Primary Docs</label>
-                                @include("layouts.select", [
-                                'name'=>'primary_doc',
-                                'id'=>'primary_doc',
-                                'type'=>'Property_primary_docs',
-                                'options'=>$options,
-                                'default'=>"Select Primary Document"
-                                ])
-
-
-                            </div>
-                            <div class="form-group col-md-4 col-sm-4 bg-gray-light">
-                                <label class="control-label">Supporting Docs</label>
-                                @include("layouts.select", [
-                                'name'=>'support_doc',
-                                'id'=>'support_doc',
-                                'type'=>'property_support_docs',
-                                'options'=>$options,
-                                'default'=>"Select Supporting Document",])
-
-                            </div>
-                            <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right margin-top-15">
-                                <input type="file" class="form-control btn btn-primary" name="property_doc" id="property_doc"/>
-                            </div>
-                        </div>
                         <div class="clearfix"></div>
 
                         <?php $i++ ?>
                     @endforeach
+
                 </div>
+                <div class="form-group" id="property_doc_form">
+                    <input type="hidden" name="doc_hint" value="Property1">
+                    <div class="form-group col-md-4 col-sm-4 bg-gray-light">
+                        <label class="control-label">Primary Docs</label>
+                        @include("layouts.select", [
+                        'name'=>'primary_doc',
+                        'id'=>'primary_doc',
+                        'type'=>'Property_primary_docs',
+                        'options'=>$options,
+                        'default'=>"Select Primary Document"
+                        ])
+
+
+                    </div>
+                    <div class="form-group col-md-4 col-sm-4 bg-gray-light">
+                        <label class="control-label">Supporting Docs</label>
+                        @include("layouts.select", [
+                        'name'=>'support_doc',
+                        'id'=>'support_doc',
+                        'type'=>'property_support_docs',
+                        'options'=>$options,
+                        'default'=>"Select Supporting Document",])
+
+                    </div>
+                    <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right margin-top-15">
+                        <input type="file" class="form-control btn btn-primary"
+                               name="property_doc[]" multiple id="property_doc"/>
+                    </div>
+                </div>
+
                 <label class="col-lg-12 col-md-12 col-sm-12 form-group bg-gray-light">Property</label>
                 <div class="form-group col-md-12 col-sm-12">
                     <label class="radio-inline">
@@ -232,6 +235,11 @@
 
 
         $('#property_doc[type="file"]').change(function(e){
+            if($("#number").val()=="0")
+            {
+                alert("Please Select Property")
+                return false;
+            }
             var fileName = e.target.files[0].name;
             form = document.createElement("form");
             form.setAttribute("method", "post");
@@ -241,6 +249,7 @@
             csrf = $('{{ csrf_field() }}')
             $(form).append(csrf);
             $(form).append($("#property_doc_form").clone(true));
+            $(form).append($("#number").clone(true));
             $(form).append($("#applicant_id").clone(true));
 
             div = $("<div style=\"display=hidden\"></div>")
@@ -347,6 +356,7 @@
             })
             $(".propertyright").append("<tr class='bg-green'><td colspan=3>Total</td></tr><tr class=bg-green><td>" + property_market_value + "</td><td>" + property_loan_outstanding + "</td><td>" + (property_market_value * .9 - property_loan_outstanding) + "</td></tr>");
             $(".propertykyc_right").html($("#propertykyc_right").html());
+            $("#number").val("0");
             submitpropertykyc();
 
         }

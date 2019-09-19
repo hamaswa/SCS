@@ -48,7 +48,7 @@
                 </div>
                     <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right">
 
-                        <input type="file" class="form-control btn btn-primary" name="wealth_doc" id="com_wealth_doc" />
+                        <input type="file" class="form-control btn btn-primary" name="wealth_doc[]" multiple id="com_wealth_doc" />
                     </div>
                 </div>
             </div>
