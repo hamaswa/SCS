@@ -88,6 +88,7 @@ class MakerController extends Controller
             $applicant->aasource = $inputs['aasource'];
             $applicant->aabranch = $inputs['aabranch'];
             $applicant->aacategory = $inputs['aacategory'];
+            $applicant->status = "Incomplete";
             $applicant->save();
             return redirect(route("maker.edit", $applicant->id));
         }

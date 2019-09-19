@@ -137,6 +137,8 @@ class LoanApplicationController extends Controller
                 "la_applicant_id" => $inputs['la_applicant_id'],
                 "applicant_id" => $applicant->id,
             ]);
+            $applicant->status = "Incomplete";
+            $applicant->save();
             return json_encode(["success"=>"success","applicant"=>$applicant]);
         }
         else {
@@ -149,6 +151,9 @@ class LoanApplicationController extends Controller
         $inputs = $request->all();
         if(LoanApplication::where("applicant_id","=",$inputs['applicant_id'])
             ->where("la_applicant_id","=",$inputs["la_applicant_id"])->delete()){
+            $applicant = ApplicantData::find($inputs["applicant_id"]);
+            $applicant->status = "Documentation";
+            $applicant->save();
             return json_encode(["success"=>"Application Removed Successfully"]);
         } else
         {
@@ -182,6 +187,9 @@ class LoanApplicationController extends Controller
                 "la_applicant_id" => $inputs['la_applicant_id'],
                 "applicant_id" => $applicant->id,
             ]);
+            //$applicant = ApplicantData::find($inputs["applicant_id"]);
+            $applicant->status = "Incomeplete";
+            $applicant->save();
             return json_encode(["success"=>"success","applicant"=>$applicant]);
         }
         else {
@@ -194,6 +202,9 @@ class LoanApplicationController extends Controller
         $inputs = $request->all();
         if(LoanApplication::where("applicant_id","=",$inputs['applicant_id'])
             ->where("la_applicant_id","=",$inputs["la_applicant_id"])->delete()){
+            $applicant = ApplicantData::find($inputs["applicant_id"]);
+            $applicant->status = "Documentation";
+            $applicant->save();
             return json_encode(["success"=>"Application Removed Successfully"]);
         } else
         {
