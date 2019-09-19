@@ -181,7 +181,7 @@ if (isset($applicant)) {
                     @endif
                     @if(!request()->user()->hasRole("admin1") and !request()->user()->hasRole("admin1") and !request()->user()->hasRole("admin1"))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route("members.index") }}">Facility Info</a>
+                            <a class="nav-link" href="{{ route("members.index") }}">Group Structure</a>
                         </li>
                 @endif
                 {{--<li class="nav-item">--}}
