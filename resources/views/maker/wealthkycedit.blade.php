@@ -129,26 +129,26 @@
 
                         </select>
                     </div>
-                    <div class="form-group col-md-4 col-sm-6 bg-gray-light">
+                    <div class="form-group col-md-4 col-sm-6 bg-gray-light primary_docs">
                         <label class="control-label">Primary Docs</label>
                         <div class="clearfix"></div>
                         @include("layouts.select", [
                         'name'=>'primary_doc',
                         'id'=>'primary_doc',
-                        'type'=>'property_support_docs',
+                        'type'=>'saving_p',
                         'options'=>$options,
                         'default'=>"Select Primary Document"
                         ])
 
 
                     </div>
-                    <div class="form-group col-md-4 col-sm-6 bg-gray-light">
+                    <div class="form-group col-md-4 col-sm-6 bg-gray-light support_docs">
                         <label class="control-label">Supporting Docs</label>
                         <div class="clearfix"></div>
                         @include("layouts.select", [
                         'name'=>'support_doc',
                         'id'=>'support_doc',
-                        'type'=>'wealth_support_docs',
+                        'type'=>'saving_s',
                         'options'=>$options,
                         'default'=>"Select Supporting Document"
                         ])
@@ -156,7 +156,7 @@
                     </div>
                     <div class="form-group col-md-4 col-sm-6 bg-gray-light pull-right">
 
-                        <input type="file" class="form-control btn btn-primary" name="wealth_doc" id="wealth_doc" />
+                        <input type="file" class="form-control btn btn-primary" name="wealth_doc[]" multiple id="wealth_doc" />
                     </div>
                 </div>
             </div>
@@ -419,8 +419,27 @@
         });
         $("#wealthtype").change(function (e) {
             $("#wealthkyc .box .wealthtype").addClass("hide");
-            id = $(this).val();
-            $("#wealthkyc").find("#" + id).removeClass("hide").show();
+            type = $(this).val();
+            $("#wealthkyc").find("#" + type).removeClass("hide").show();
+            getDocs(type+"_p","primary_docs","primary_docs",".primary_docs","Primary Docs")
+            getDocs(type+"_s","support_docs","support_docs",".support_docs","Supporting Docs")
+
+            function getDocs(type,name,id,target,label) {
+                $.ajax({
+                    url: "{{ route("selectoptions") }}",
+                    type: "POST",
+                    data: "type=" + type + "&name=" + name + "&id=" + id + "&label=" + label,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                }).done(function (response) {
+                    if (response == "")
+                        alert("No Document types found");
+                    else
+                        $(target).html("").append(response);
+                });
+            }
+
         })
 
         $(".wealthkyc-action-btn button.view").on("click", function (e) {

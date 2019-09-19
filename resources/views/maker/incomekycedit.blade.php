@@ -133,29 +133,29 @@
                     </select>
                     </div>
 
-                    <div class="form-group col-md-4 col-sm-4 bg-gray-light">
+                    <div class="form-group col-md-4 col-sm-4 bg-gray-light primary_docs">
                         <label class="control-label">Primary Docs</label>
                         @include("layouts.select", [
                         'name'=>'primary_doc',
                         'id'=>'primary_doc',
                         'default'=>"Select Primary Document",
-                        'type'=>'income_primary_docs',
+                        'type'=>'salary_p',
                         'options'=>$options])
 
                     </div>
 
 
-                    <div class="form-group col-md-4 col-sm-4 bg-gray-light">
+                    <div class="form-group col-md-4 col-sm-4 bg-gray-light support_docs">
                         <label class="control-label">Supporting Docs</label>
                         @include("layouts.select", [
                         'name'=>'support_doc',
                         'id'=>'support_doc',
                         'default'=>"Select Supporting Document",
-                        'type'=>'income_support_docs',
+                        'type'=>'salary_s',
                         'options'=>$options])
                     </div>
                     <div class="form-group col-md-4 col-sm-3 pull-right">
-                        <input type="file" class="form-control btn btn-primary" multiple="multiple" name="income_doc[] " id="income_doc" />
+                        <input type="file" class="form-control btn btn-primary" multiple name="income_doc[]" id="income_doc" />
                     </div>
                 </div>
 
@@ -599,18 +599,26 @@
 
         $("#incometype").change(function (e) {
             $("#incomekyc .box .incometype").addClass("hide");
-            id = $(this).val();
-            $("#incomekyc").find("#" + id).removeClass("hide").show();
-            $.ajax({
-                url:"{{ route("selectoptions") }}",
-                type:"POST",
-                data:"type="+id,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-            }).done(function (response) {
-                alert(resonse);
-            });
+            type = $(this).val();
+            $("#incomekyc").find("#" + type).removeClass("hide").show();
+            getDocs(type+"_p","primary_docs","primary_docs",".primary_docs","Primary Docs")
+            getDocs(type+"_s","support_docs","support_docs",".support_docs","Supporting Docs")
+
+            function getDocs(type,name,id,target,label){
+                $.ajax({
+                    url:"{{ route("selectoptions") }}",
+                    type:"POST",
+                    data:"type="+type+"&name="+name+"&id="+id+"&label="+label,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                }).done(function (response) {
+                    if(response=="")
+                        alert("No Document types found");
+                    else
+                        $(target).html("").append(response);
+                });
+            }
         })
 
         $(".incomekyc-action-btn button.view").on("click", function (e) {

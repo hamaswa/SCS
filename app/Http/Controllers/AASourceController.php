@@ -27,9 +27,13 @@ class AASourceController extends Controller
      */
     public function selectoptions(Request $request){
         $inputs = $request->all();
-        $data = AASource::whereRaw("type like '".$inputs['type']."%'")->get();
+        $arr["options"] = AASource::whereRaw("type like '".$inputs['type']."%'")->get();
+        $arr["name"]=$inputs["name"];
+        $arr["id"] = $inputs["id"];
+        $arr["label"] = $inputs["label"];
+        $arr["type"] = $inputs['type'];
 
-        print_r($data);
+        return view("maker.docs")->with($arr);
     }
 
     /**

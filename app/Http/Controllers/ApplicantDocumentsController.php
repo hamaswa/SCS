@@ -18,19 +18,21 @@ class ApplicantDocumentsController extends Controller
     }
 
 
-    public function documents(Request $request){
+    public function documents(Request $request)
+    {
         $inputs = $request->all();
-        $inputs['user_id']=Auth::id();
-        $arr['documents'] = ApplicantDocuments::where("applicant_id",$inputs['id'])->get();
+        $inputs['user_id'] = Auth::id();
+        $arr['documents'] = ApplicantDocuments::where("applicant_id", $inputs['id'])->get();
         return view("aadata.documents")->with($arr);
     }
 
 
-    public function download(Request $request){
+    public function download(Request $request)
+    {
         $inputs = $request->all();
-        $id= $inputs["id"];
+        $id = $inputs["id"];
         $document = ApplicantDocuments::find($id);
-        return response()->download(storage_path("app/uploads/application_docs/". $document->file_name));
+        return response()->download(storage_path("app/uploads/application_docs/" . $document->file_name));
         // Storage::download($document->file_name);
         //echo $document->file_name;
 
@@ -49,53 +51,59 @@ class ApplicantDocumentsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         //print_r($request->all());
-        echo "<pre>";
-        print_r($_FILES);
-        exit();
 
+
+//foreach ($request->income_doc as $k=>$v){
+//    echo $k;
+//}
+//exit();
         try {
             $inputs = $request->all();
-            if ($request->file("income_doc")) {
-                $income_doc = rand(1, 1000) . $request->file("income_doc")->getClientOriginalName();
-                if($request->file("income_doc")->storeAs("uploads/application_docs", $income_doc)) {
-                    $inputs['file_name'] = $income_doc;
-                    $inputs['doc_name'] = (isset($inputs['primary_doc'])?$inputs['primary_doc']:$inputs['support_doc']);
-                    $inputs['doc_type'] = $request->file("income_doc")->getMimeType();
-                    $inputs['doc_hint'] = "income++" . $inputs['incometype'];
-                    $inputs['doc_status'] = "Optional";
-                    $inputs['user_id'] = Auth::id();
-                    $document = ApplicantDocuments::create($inputs);
-                    return view("maker.docs_upload")->with("success", $inputs['incometype'] . " document successfully uploaded");
+            if ($request->income_doc) {
+                foreach ($request->income_doc as $file) {
+                    $income_doc = $inputs['incometype'] ."_". $file->getClientOriginalName();
+                    if ($file->storeAs("uploads/application_docs", $income_doc)) {
+                        $inputs['file_name'] = $income_doc;
+                        $inputs['doc_name'] = $income_doc;//(isset($inputs['primary_doc'])?$inputs['primary_doc']:$inputs['support_doc']);
+                        $inputs['doc_type'] = $file->getMimeType();
+                        $inputs['doc_hint'] = "income++" . $inputs['incometype'];
+                        $inputs['doc_status'] = "Optional";
+                        $inputs['user_id'] = Auth::id();
+                        $document = ApplicantDocuments::create($inputs);
+                    }
+
                 }
+                return view("maker.docs_upload")->with("success", $inputs['incometype'] . " document successfully uploaded");
+
             }
+            else if ($request->wealth_doc) {
+                foreach ($request->wealth_doc as $file) {
+                    $wealth_doc = $inputs['wealthtype'] . "_" . $file->getClientOriginalName();
+                    if ($file->storeAs("uploads/application_docs", $wealth_doc)) {
 
-            else if ($request->file("wealth_doc")) {
-                $wealth_doc = rand(1, 1000) . $request->file("wealth_doc")->getClientOriginalName();
-                if($request->file("wealth_doc")->storeAs("uploads/application_docs", $wealth_doc)) {
-
-                    $inputs['file_name'] = $wealth_doc;
-                    $inputs['doc_name'] = (isset($inputs['primary_doc'])?$inputs['primary_doc']:$inputs['support_doc']);
-                    $inputs['doc_type'] = $request->file("wealth_doc")->getMimeType();
-                    $inputs['doc_hint'] = "wealth++" . $inputs['wealthtype'];
-                    $inputs['doc_status'] = "Optional";
-                    $inputs['user_id'] = Auth::id();
-                    $document = ApplicantDocuments::create($inputs);
-                    return view("maker.docs_upload")->with("success", $inputs['wealthtype'] . " document successfully uploaded");
+                        $inputs['file_name'] = $wealth_doc;
+                        $inputs['doc_name'] = $wealth_doc;//(isset($inputs['primary_doc']) ? $inputs['primary_doc'] : $inputs['support_doc']);
+                        $inputs['doc_type'] = $file->getMimeType();
+                        $inputs['doc_hint'] = "wealth++" . $inputs['wealthtype'];
+                        $inputs['doc_status'] = "Optional";
+                        $inputs['user_id'] = Auth::id();
+                        $document = ApplicantDocuments::create($inputs);
+                    }
                 }
-            }
+                return view("maker.docs_upload")->with("success", $inputs['wealthtype'] . " document successfully uploaded");
 
-            else if ($request->file("property_doc")) {
+            } else if ($request->file("property_doc")) {
                 $property_doc = rand(1, 1000) . $request->file("property_doc")->getClientOriginalName();
-                if($request->file("property_doc")->storeAs("uploads/application_docs", $property_doc)) {
+                if ($request->file("property_doc")->storeAs("uploads/application_docs", $property_doc)) {
 
                     $inputs['file_name'] = $property_doc;
-                    $inputs['doc_name'] = (isset($inputs['primary_doc'])?$inputs['primary_doc']:$inputs['support_doc']);
+                    $inputs['doc_name'] = (isset($inputs['primary_doc']) ? $inputs['primary_doc'] : $inputs['support_doc']);
                     $inputs['doc_type'] = $request->file("property_doc")->getMimeType();
                     $inputs['doc_hint'] = $inputs['doc_hint'];
                     $inputs['doc_status'] = "Optional";
@@ -104,18 +112,17 @@ class ApplicantDocumentsController extends Controller
                     return view("maker.docs_upload")->with("success", $inputs['doc_hint'] . " document successfully uploaded");
                 }
             }
-            return view("docs_upload",["success","Document Successfully Uploaded"]);
+            return view("docs_upload", ["success", "Document Successfully Uploaded"]);
 
-        }
-        catch (\Exception $exception){
-           return view("maker.docs_upload",["error","Error Occured Uploading Document","details"=>$exception->getMessage()]);
+        } catch (\Exception $exception) {
+            print_r(["error", "Error Occured Uploading Document", "details" => $exception->getMessage()]);
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -126,7 +133,7 @@ class ApplicantDocumentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -137,8 +144,8 @@ class ApplicantDocumentsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -149,7 +156,7 @@ class ApplicantDocumentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

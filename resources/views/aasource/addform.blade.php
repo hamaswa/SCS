@@ -54,11 +54,17 @@
                             <option value="monthlyrental_s">Supporting Income Monthly Rental</option>
                             <option value="air_s">Supporting Income Annual Investment Return</option>
 
-                            <option value="saving">Wealth Saving</option>
-                            <option value="epf">Wealth EPF Account Balance</option>
-                            <option value="tpf">Wealth Total Fixed Deposits</option>
-                            <option value="tsv"> Wealth Total Shares Value</option>
-                            <option value="utv">Wealth Unit Trust Value</option>
+                            <option value="saving_p">Primary Wealth Saving</option>
+                            <option value="epf_p">Primary Wealth EPF Account Balance</option>
+                            <option value="tpf_p">Primary Wealth Total Fixed Deposits</option>
+                            <option value="tsv_p">Primary  Wealth Total Shares Value</option>
+                            <option value="utv_p">Primary Wealth Unit Trust Value</option>
+
+                            <option value="saving_s">Supporting Wealth Saving</option>
+                            <option value="epf_s">Supporting Wealth EPF Account Balance</option>
+                            <option value="tpf_s">Supporting Wealth Total Fixed Deposits</option>
+                            <option value="tsv_s">Supporting  Wealth Total Shares Value</option>
+                            <option value="utv_s">Supporting Wealth Unit Trust Value</option>
 
 
                             <option value="Property_primary_docs">
