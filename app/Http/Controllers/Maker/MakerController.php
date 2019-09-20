@@ -23,7 +23,15 @@ class MakerController extends Controller
      */
     public function index()
     {
-        $applicantdata = ApplicantData::paginate(5);
+        $applicantdata = DB::table("applicant_data")
+            ->leftjoin("applicant_property","applicant_data.id","=","applicant_property.applicant_id")
+            ->select(DB::raw("applicant_data.*, sum(applicant_property.property_market_value)* .9 as market_value"))
+            ->where("applicant_data.user_id","=",Auth::id())
+            ->where("applicant_data.status","=",'Incomplete')
+            ->orderBy("id","desc")
+            ->groupBy("applicant_data.id")
+            ->paginate(5);
+//        $applicantdata = ApplicantData::paginate(5);
         return view("maker.maker")->with("data", $applicantdata);
     }
 
