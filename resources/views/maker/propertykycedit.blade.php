@@ -2,7 +2,7 @@
 
     <div class="col-md-6 col-sm-12 col-lg-6 col-lg-offset-1">
         <div class="box">
-            <input type="hidden" name="number" id="number" value="0">
+            <input type="hidden" name="number" id="number" value="">
             <div class="box-header bg-gray">
                 <strong class="applicant padding-5"></strong>
 
@@ -235,7 +235,7 @@
 
 
         $('#property_doc[type="file"]').change(function(e){
-            if($("#number").val()=="0")
+            if($("#number").val()=="")
             {
                 alert("Please Select Property")
                 return false;
@@ -356,7 +356,7 @@
             })
             $(".propertyright").append("<tr class='bg-green'><td colspan=3>Total</td></tr><tr class=bg-green><td>" + property_market_value + "</td><td>" + property_loan_outstanding + "</td><td>" + (property_market_value * .9 - property_loan_outstanding) + "</td></tr>");
             $(".propertykyc_right").html($("#propertykyc_right").html());
-            $("#number").val("0");
+            $("#number").val("");
             submitpropertykyc();
 
         }
