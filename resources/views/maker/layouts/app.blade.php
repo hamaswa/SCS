@@ -194,7 +194,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route("members.index") }}">Facility Info</a>
                         </li>
-                @endif
+                    @endif
+                    @if(request()->user()->hasRole("admin3"))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route("maker.index") }}">Maker</a>
+                        </li>
+                    @endif
                 {{--<li class="nav-item">--}}
                 {{--<a class="nav-link" href="{{ route("aafields.create") }}">AA Fields</a>--}}
                 {{--</li>--}}

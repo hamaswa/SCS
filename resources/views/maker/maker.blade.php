@@ -75,6 +75,7 @@
                                 </tr>
                             @endif
                             @foreach($data as $d)
+                                @if($d->status !="Incomplete") @continue @endif
                                 <tr>
                                     <td><input type="checkbox" name="applicant_id" value="{{$d->id}}"/></td>
                                     <td>
@@ -85,11 +86,9 @@
                                         @elseif($d->status=="Consent Obtained")
                                             <a href="{{route("aadata.create", ["id" => $d->id])  }}">
                                                 {{ $d->unique_id }}</a>
-                                        @elseif($d->status == 'Incomplete')
+                                        @else
                                             <a href="{{route("maker.edit", ["id" => $d->id])  }}">
                                                 {{ $d->unique_id }}</a>
-                                        @else
-                                            {{ $d->unique_id }}
                                         @endif
                                     </td>
                                     <td>{{ $d->name }}</td>

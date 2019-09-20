@@ -24,7 +24,7 @@ class MakerController extends Controller
     public function index()
     {
         $applicantdata = ApplicantData::paginate(5);
-        return view("maker.index");//->with("data", $applicantdata);
+        return view("maker.maker")->with("data", $applicantdata);
     }
 
     public function search(Request $request){
