@@ -128,6 +128,9 @@
                                             <a href="{{route("aadata.create", ["id" => $d->id])  }}"
                                                class="btn btn-xs bg-light-blue-gradient">KYC</a>
 
+                                        @elseif($d->status =="Incomplete")
+                                            <a href="{{route("maker.edit", ["id" => $d->id])  }}"
+                                               class="btn btn-xs bg-light-blue-gradient">Maker View</a>
                                         @endif
 
                                         @if($d->aacategory=="I")
