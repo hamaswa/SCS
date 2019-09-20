@@ -61,11 +61,11 @@
                         </div>
 
                         <div class="clearfix"></div>
+                        @if(isset($businesses))
                         <div id="businesses" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <?php
                             $i=0;
                             $b=$s=1;
-
                             ?>
                             @foreach($businesses as $business)
                                 <?php
@@ -89,6 +89,7 @@
                                 <?php $i++ ?>
                             @endforeach
                         </div>
+                        @endif
                     </div>
 
                     <form  action="{{ route("la.store") }}" method="post">
@@ -137,13 +138,14 @@
                             <div class="col-sm-12 col-md-12 form-group">
                                 <label>Email</label>
                                 <input type="email" name="email"
-                                       value="{{(isset($applicant_data->email)?$applicant_data->email:$businesses[0]['business_email'])}}"
+                                       value="{{(isset($applicant_data->email)?$applicant_data->email:(isset($businesses[0]) ? $businesses[0]['business_email']: ''))}}"
                                        class="form-control" autocomplete="off">
                             </div>
                             <div class="col-sm-12 col-md-12 form-group">
                                 <label>Residential Address</label>
                                 <textarea name="address" class="form-control">{{(isset($applicant_data->address)?$applicant_data->address:"")}}</textarea>
                             </div>
+
                         </div>
                         <div class="col-md-6 col-sm-12 bg-gray-light padding-5">
                             <div class="col-sm-12 col-md-12 form-group">
@@ -152,11 +154,11 @@
                             </div>
                             <div class="col-sm-12 col-md-12 form-group">
                                 <label>Position</label>
-                                <input type="text" name="position" value="{{(isset($applicant_data->position)?$applicant_data->position:"")}}" class="form-control" autocomplete="off">
+                                <input type="text" name="position" value="{{(isset($applicant_data->position)?$applicant_data->position:(isset($businesses[0]) ? $bussiness[0]->business_position: ''))}}" class="form-control" autocomplete="off">
                             </div>
                             <div class="col-sm-12 col-md-6 form-group">
                                 <label>Nature of Business</label>
-                                <input type="text" name="nature_of_business" value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:"")}}" name="nature_of_business" class="form-control" autocomplete="off">
+                                <input type="text" name="nature_of_business" value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:(isset($businesses[0]) ? $bussiness[0]->business_nature: ''))}}" name="nature_of_business" class="form-control" autocomplete="off">
                             </div>
                             <div class="col-sm-12 col-md-6 form-group">
                                 <label>Date Joined</label>

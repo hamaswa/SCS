@@ -6,6 +6,7 @@
     {{--<a href="javascript:void(0);" data-id="propertykyc" id="nextpropertykyc" class="bg-white padding-5 pull-left vericaltext tab-action border-black-1"><br><br><br>PROPERTY <br> KYC</a>--}}
     {{--</div>--}}
     <?php
+    if(isset($wealth))
     $data = json_decode($wealth->form_data);
     ?>
     <div class="col-md-6 col-sm-12 col-lg-6 col-lg-offset-1">
@@ -308,6 +309,7 @@
                 <strong class="applicant"></strong>
                 <div class="table-responsive wealthkyc_right">
                     <?php
+                    if(isset($wealth))
                      $wealth->form_data = json_decode($wealth->form_data)
                     ?>
                     @include("aadata.right_info_wealth")

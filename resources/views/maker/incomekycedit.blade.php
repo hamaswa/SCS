@@ -13,7 +13,9 @@
                         <strong class="padding-5 pull-left margin-r-5 applicant"></strong>
                     </div>
                     <?php
+                    if(isset($income))
                     $data = json_decode($income->form_data, true);
+
                     ?>
                 </div>
 
@@ -515,6 +517,7 @@
                 <strong class="applicant"></strong>
                 <div class="table-responsive">
                     <?php
+                    if(isset($income))
                     $income->form_data = json_decode($income->form_data);
                     ?>
 
