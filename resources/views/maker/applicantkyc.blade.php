@@ -154,11 +154,11 @@
                             </div>
                             <div class="col-sm-12 col-md-12 form-group">
                                 <label>Position</label>
-                                <input type="text" name="position" value="{{(isset($applicant_data->position)?$applicant_data->position:(isset($businesses[0]) ? $bussiness[0]->business_position: ''))}}" class="form-control" autocomplete="off">
+                                <input type="text" name="position" value="{{(isset($applicant_data->position)?$applicant_data->position:(isset($businesses[0]) ? $businesses[0]->business_position: ''))}}" class="form-control" autocomplete="off">
                             </div>
                             <div class="col-sm-12 col-md-6 form-group">
                                 <label>Nature of Business</label>
-                                <input type="text" name="nature_of_business" value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:(isset($businesses[0]) ? $bussiness[0]->business_nature: ''))}}" name="nature_of_business" class="form-control" autocomplete="off">
+                                <input type="text" name="nature_of_business" value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:(isset($businesses[0]) ? $businesses[0]->business_nature: ''))}}" name="nature_of_business" class="form-control" autocomplete="off">
                             </div>
                             <div class="col-sm-12 col-md-6 form-group">
                                 <label>Date Joined</label>
