@@ -66,6 +66,8 @@
                             <option value="tsv_s">Supporting  Wealth Total Shares Value</option>
                             <option value="utv_s">Supporting Wealth Unit Trust Value</option>
 
+                            <option value="Business">Business</option>
+                            <option value="Salaried">Salaried</option>
 
                             <option value="Property_primary_docs">
                                 Property Primary Docs
@@ -111,7 +113,6 @@
                             <option value="facility_type">
                                 Facility Type
                             </option>
-
 
                         </select>
 

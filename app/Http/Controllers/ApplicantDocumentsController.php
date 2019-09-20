@@ -116,7 +116,23 @@ class ApplicantDocumentsController extends Controller
                 return view("maker.docs_upload")->with("success", $inputs['doc_hint'] . " document successfully uploaded");
 
             }
-            return view("docs_upload", ["success", "Document Successfully Uploaded"]);
+            else if ($request->business_doc) {
+                foreach ($request->business_doc as $file) {
+                    $business_doc = rand(1, 1000) . $file->getClientOriginalName();
+                    if ($file->storeAs("uploads/application_docs", $business_doc)) {
+                        $inputs['file_name'] = $business_doc;
+                        $inputs['doc_name'] = $inputs['business_type']. "_".$business_doc;//(isset($inputs['primary_doc']) ? $inputs['primary_doc'] : $inputs['support_doc']);
+                        $inputs['doc_type'] = $file->getMimeType();
+                        $inputs['doc_status'] = "Optional";
+                        $inputs['user_id'] = Auth::id();
+                        $document = ApplicantDocuments::create($inputs);
+                    }
+                }
+                return view("maker.docs_upload")->with("success", " documents successfully uploaded");
+
+            }
+
+
 
         } catch (\Exception $exception) {
             print_r(["error", "Error Occured Uploading Document", "details" => $exception->getMessage()]);

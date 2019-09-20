@@ -83,13 +83,53 @@
                                     </button>
                                     {{--<ul class="dropdown-menu position-relative" id="" role="menu">--}}
                                         {{--<li><a href="#" id='business{{$i}}' data-number='{{$i}}' class='editbusiness'>Edit</a></li>--}}
-                                        {{--<li><a href="#" class='delbusiness' data-number='{{ $i }}'>Delete</a></li>--}}
+                                        <li><a href="#" class='delbusiness' data-number='{{ $i }}'>Delete</a></li>
                                     {{--</ul>--}}
                                 </div>
                                 <?php $i++ ?>
                             @endforeach
                         </div>
                         @endif
+                        <div class="form-group clearfix business_doc_form" id="business_doc_form">
+                            <div class="col-md-12 col-sm-12">
+                                <label class="control-label">Income Source</label>
+                                <select id="business_type" name="business_type" class="form-control">
+                                    <option value="Business"
+                                    > Business </option>
+                                    <option value="Salaried"
+                                    > Salaried </option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4 col-sm-4 bg-gray-light primary_docs">
+                                <label class="control-label">Primary Docs</label>
+                                @include("layouts.select", [
+                                'name'=>'primary_doc',
+                                'id'=>'primary_doc',
+                                'type'=>'Buseness',
+                                'options'=>$options,
+                                'default'=>"Select Primary Document",])
+
+
+                            </div>
+                            <div class="form-group col-md-4 col-sm-4 bg-gray-light support_docs">
+                                <label class="control-label">Supporting Docs</label>
+
+                                @include("layouts.select", [
+                                'name'=>'support_doc',
+                                'id'=>'support_doc',
+                                'type'=>'Business',
+                                'options'=>$options,
+                                'default'=>"Select Supporting Document",])
+
+                            </div>
+                            <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right">
+
+                                <input type="file" class="form-control btn btn-primary" name="business_doc[]" multiple id="business_doc" />
+                            </div>
+
+
+
+                        </div>
                     </div>
 
                     <form  action="{{ route("la.store") }}" method="post">
@@ -233,7 +273,25 @@
 
 @push("scripts")
     <script type="text/javascript">
+        $('#business_doc[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("enctype","multipart/form-data")
+            form.setAttribute("action", "{{ route("documents.store") }}");
+            form.setAttribute("target", "_blank");
+            csrf = $('{{ csrf_field() }}')
+            $(form).append(csrf);
+            $(form).append($("#business_doc_form").clone(true));
+            $(form).append($("#applicant_id").clone(true));
 
+            div = $("<div style=\"display=hidden\"></div>")
+
+            $(div).append(form)
+            document.body.appendChild(form);
+            form.submit();
+            $("#wealth_doc_form").find("option:selected").prop("selected", false)
+        });
 
         $("#nextincomekyc").click(function (e) {
             $("#applicantkyc").addClass("hide");
@@ -256,6 +314,35 @@
             form.submit();
 
         });
+
+        $("#business_type").on('change',function (e) {
+            if($(this).val()=="Business"){
+                $(".for_business").show();
+            }
+            else {
+                $(".for_business").val("").hide();
+            }
+
+            type=$(this).val();
+            getDocs(type,"primary_docs","primary_docs",".primary_docs","Primary Docs")
+            getDocs(type,"support_docs","support_docs",".support_docs","Supporting Docs")
+
+            function getDocs(type,name,id,target,label){
+                $.ajax({
+                    url:"{{ route("selectoptions") }}",
+                    type:"POST",
+                    data:"type="+type+"&name="+name+"&id="+id+"&label="+label,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                }).done(function (response) {
+                    if(response=="")
+                        alert("No Document types found");
+                    else
+                        $(target).html("").append(response);
+                });
+            }
+        })
 
         $(document.body).on("click", ".deleteInd", function (e) {
             that = this;

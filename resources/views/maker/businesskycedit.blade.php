@@ -50,14 +50,55 @@
                             <label class="control-label">Income Source</label>
                             <select id="business_type" name="business_type" class="form-control">
                                 <option value="Business"
-{{--                                        {{ ($business->business_type=='Business'?"checked=checked":"") }}--}}
                                 > Business </option>
                                 <option value="Salaried"
-{{--                                        {{ ($business->business_type=='Salaried'?"checked=checked":"") }}--}}
                                 > Salaried </option>
                             </select>
                         </div>
+                        <div class="form-group col-md-4 col-sm-4 bg-gray-light primary_docs">
+                            <label class="control-label">Primary Docs</label>
+                            @include("layouts.select", [
+                            'name'=>'primary_doc',
+                            'id'=>'primary_doc',
+                            'type'=>'com_wealth_primary_docs',
+                            'options'=>$options,
+                            'default'=>"Select Primary Document",])
+
+
+                        </div>
+                        <div class="form-group col-md-4 col-sm-4 bg-gray-light support_docs">
+                            <label class="control-label">Supporting Docs</label>
+
+                            @include("layouts.select", [
+                            'name'=>'support_doc',
+                            'id'=>'support_doc',
+                            'type'=>'com_wealth_support_docs',
+                            'options'=>$options,
+                            'default'=>"Select Supporting Document",])
+
+                        </div>
+                        <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right">
+
+                            <input type="file" class="form-control btn btn-primary" name="business_doc[]" multiple id="business_doc" />
+                        </div>
+
+
+
                     </div>
+
+                        <div class="form-group clearfix for_business" >
+                            <div class="col-md-11 col-sm-11">
+                                <label class="control-label">Shareholding</label>
+                                <input name="business_shareholding" id="business_shareholding" placeholder="" class="form-control" type="text">
+                            </div>
+                            <div class="col-md-1 col-sm-1">
+                                <h2>%</h2>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 col-sm-12 for_business">
+                            <label class="control-label">Business Turnover (Monthly)</label>
+                            <input name="business_turnover" id="business_turnover" placeholder="" class="form-control" type="text">
+                        </div>
 
 
                     <div class="form-group col-md-12 col-sm-12">
@@ -198,14 +239,34 @@
             $("#incomekyc").removeClass("hide");
         })
 
-        // $("#business_type").on('change',function (e) {
-        //     if($(this).val()=="Business"){
-        //         $(".for_business").show();
-        //     }
-        //     else {
-        //         $(".for_business").val("").hide();
-        //     }
-        // })
+        $("#business_type").on('change',function (e) {
+            if($(this).val()=="Business"){
+                $(".for_business").show();
+            }
+            else {
+                $(".for_business").val("").hide();
+            }
+
+            type=$(this).val();
+            getDocs(type+"_p","primary_docs","primary_docs",".primary_docs","Primary Docs")
+            getDocs(type+"_s","support_docs","support_docs",".support_docs","Supporting Docs")
+
+            function getDocs(type,name,id,target,label){
+                $.ajax({
+                    url:"{{ route("selectoptions") }}",
+                    type:"POST",
+                    data:"type="+type+"&name="+name+"&id="+id+"&label="+label,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                }).done(function (response) {
+                    if(response=="")
+                        alert("No Document types found");
+                    else
+                        $(target).html("").append(response);
+                });
+            }
+        })
         //let business_forms = [];
        let business_forms = <?php print_r(json_encode(json_decode($businesses,true))); ?>
         //     console.log(business_data.lenght);
