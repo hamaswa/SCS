@@ -16,6 +16,7 @@
                 </div>
 
                 <div class="box-body bg-gray-light">
+                    @if(isset($businesses))
                     <div id="businesses" class="col-lg-12 col-md-12 col-sm-12 form-group">
                         <?php
                         $i=0;
@@ -43,6 +44,7 @@
                             <?php $i++ ?>
                         @endforeach
                     </div>
+                    @endif
                     <div class="form-group clearfix">
                         <div class="col-md-12 col-sm-12">
                             <label class="control-label">Income Source</label>
