@@ -13,6 +13,7 @@ use App\AASource;
 use App\Applicant_ApplicantData;
 use App\maker\LoanApplication;
 use Auth;
+use DB;
 
 class MakerController extends Controller
 {
