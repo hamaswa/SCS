@@ -117,7 +117,7 @@
                                 @include("layouts.select", [
                                 'name'=>'support_doc',
                                 'id'=>'support_doc',
-                                'type'=>'Business',
+                                'type'=>'Salaried',
                                 'options'=>$options,
                                 'default'=>"Select Supporting Document",])
 
@@ -273,6 +273,9 @@
 
 @push("scripts")
     <script type="text/javascript">
+        $(document).ready(function (e) {
+            $("#business_type").change();
+        })
         $('#business_doc[type="file"]').change(function(e){
             var fileName = e.target.files[0].name;
             form = document.createElement("form");
@@ -314,6 +317,7 @@
             form.submit();
 
         });
+
 
         $("#business_type").on('change',function (e) {
             if($(this).val()=="Business"){

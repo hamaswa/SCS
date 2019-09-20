@@ -3,7 +3,7 @@
         <option value="">{{$default}}</option>
     @endif
     @foreach($options as $option)
-        @if($option->type==$type)
+        @if(strtolower($option->type)==strtolower($type))
             <option value="{{$option->name}}" {{ (isset($value) and $option->name==$value)?"selected":"" }}>
                 {{ $option->description }}
             </option>
