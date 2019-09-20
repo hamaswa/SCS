@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ApplicantBusiness;
 use Illuminate\Http\Request;
 use App\ApplicantData;
 use App\AASource;
@@ -61,6 +62,7 @@ class LoanApplicationController extends Controller
             if($attached_applicants_id!="")
                 $arr['attached_applicants'] = ApplicantData::whereRaw("aacategory=\"". $arr["applicant_data"]->aacategory ."\" and id in (". $attached_applicants_id .")")->get();
             $arr["options"]  = AASource::all();//->get();
+            $arr['businesses'] = ApplicantBusiness::where("applicant_id","=",$inputs['applicant_id'])->get();
             return view("maker.editform")->with($arr);
 
         }
@@ -84,7 +86,7 @@ class LoanApplicationController extends Controller
                 $arr['attached_applicants'] = ApplicantData::whereRaw("aacategory=\"". $arr["applicant_data"]->aacategory ."\" and id in (". $attached_applicants_id .")")->get();
             $arr["options"]  = AASource::whereRaw(
                 'type in ("income_primary_docs","income_support_docs","wealth_primary_docs","wealth_support_docs", "property_primary_docs","property_support_docs", "salutation","position","nature_of_business")')->get();
-
+            $arr['businesses'] = ApplicantBusiness::where("applicant_id","=",$inputs['applicant_id'])->get();
             return view("maker.editform")->with($arr);
         }
 
@@ -99,7 +101,7 @@ class LoanApplicationController extends Controller
     public function attachAASearch(Request $request)
     {
         $inputs = $request->all();
-        $la_app = ApplicantData::find($inputs['la_applicant_id'])->where("user_id","=",Auth::id());
+        $la_app = ApplicantData::find($inputs['la_applicant_id']);
 
 
         $applicant = new  ApplicantData();

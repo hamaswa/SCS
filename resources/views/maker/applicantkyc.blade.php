@@ -81,17 +81,17 @@
                                     <i class="fa fa-list"></i>
                                     <span class="sr-only">Toggle Dropdown</span>
                                     </button>
-                                    {{--<ul class="dropdown-menu position-relative" id="" role="menu">--}}
+                                    <ul class="dropdown-menu position-relative" id="" role="menu">
                                         {{--<li><a href="#" id='business{{$i}}' data-number='{{$i}}' class='editbusiness'>Edit</a></li>--}}
                                         <li><a href="#" class='delbusiness' data-number='{{ $i }}'>Delete</a></li>
-                                    {{--</ul>--}}
+                                    </ul>
                                 </div>
                                 <?php $i++ ?>
                             @endforeach
                         </div>
                         @endif
                         <div class="form-group clearfix business_doc_form" id="business_doc_form">
-                            <div class="col-md-12 col-sm-12">
+                            <div class="col-md-6 col-sm-12 form-group">
                                 <label class="control-label">Income Source</label>
                                 <select id="business_type" name="business_type" class="form-control">
                                     <option value="Business"
@@ -100,6 +100,7 @@
                                     > Salaried </option>
                                 </select>
                             </div>
+                            <div class="clearfix"></div>
                             <div class="form-group col-md-4 col-sm-4 bg-gray-light primary_docs">
                                 <label class="control-label">Primary Docs</label>
                                 @include("layouts.select", [
@@ -122,7 +123,7 @@
                                 'default'=>"Select Supporting Document",])
 
                             </div>
-                            <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right">
+                            <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right margin-top-15 padding-5">
 
                                 <input type="file" class="form-control btn btn-primary" name="business_doc[]" multiple id="business_doc" />
                             </div>
@@ -443,7 +444,7 @@
             })
         })
         // let business_forms = [];
-        let business_forms = <?php print_r(json_encode(json_decode($businesses,true))); ?>;
+        let business_forms = <?php isset($businesses) ? print_r(json_encode(json_decode($businesses,true))) : []; ?>;
         $(document.body).on("click", "#add_business", function () {
 
             let form = {};
