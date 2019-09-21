@@ -3,9 +3,52 @@
     <div class="col-md-6 col-sm-12 col-lg-6 col-lg-offset-1">
         <div class="box">
             <input type="hidden" name="number" id="number" value="">
-            <div class="box-header bg-gray">
-                <strong class="applicant padding-5"></strong>
 
+                <div class="btn-group margin-bottom border-black-1" id="btn-air">
+                    <button type="button" class="btn btn-default btn-flat la_aa"
+                            data-la="{{$applicant->id}}"
+                            data-id="{{$applicant->id}}">{{$applicant->name}}</button>
+                    <button type="button" class="btn btn-default btn-flat dropdown-toggle"
+                            data-toggle="dropdown"
+                            aria-expanded="false">
+                        <i class="fa fa-list"></i>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu position-relative" id="" role="menu">
+                        <li><a href="#" class="">Edit</a></li>
+                        <li><a href="#" class="deleteInd">Delete</a></li>
+                    </ul>
+                </div>
+                @if(isset($attached_applicants))
+                    @foreach($attached_applicants as $applicant_sub)
+                        <div class="applicants form-group pull-left">
+                            <div class="btn-group margin-bottom border-black-1"
+                                 id="btn-air">
+                                <button type="button" class="btn btn-default btn-flat la_aa"
+                                        data-la="{{$applicant->id}}"
+                                        data-id="{{$applicant_sub->id}}">{{$applicant_sub->name}}</button>
+                                <button type="button" class="btn btn-default btn-flat dropdown-toggle"
+                                        data-toggle="dropdown"
+                                        aria-expanded="false">
+                                    <i class="fa fa-list"></i>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu position-relative" id="" role="menu">
+                                    {{--<li><a href="#"  data-value="air" class="editincome">Edit</a></li>--}}
+                                    <li><a href="#" data-la="{{$la_applicant_id}}"
+                                           data-id="{{$applicant_sub->id}}" class="deleteInd">Delete</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    @endforeach
+                @endif
+
+            <div class="box-header bg-gray">
+                <div class="col-md-12 col-sm-12">
+                    <strong class="applicant padding-5"></strong>
+                </div>
             </div>
             <div class="box-body bg-gray-light">
                 <div class="col-lg-12 col-md-12 col-sm-12" id="properties">

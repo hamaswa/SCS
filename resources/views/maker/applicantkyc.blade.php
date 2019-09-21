@@ -434,7 +434,7 @@
 
                 }
                 else {
-                    html = "<div class=\"col-lg-12 col-md-12 applicants\">\n" +
+                    html = "<div class=\"applicants form-group pull-left\">\n" +
                         "                                <div class=\"btn-group margin-bottom border-black-1 incomekyc-action-btn\" id=\"btn-air\">\n" +
                         "                                    <button type=\"button\" class=\"btn btn-default btn-flat la_aa\"\n" +
                         "                                            data-la=\"" + response.applicant.id + "\"\n" +
