@@ -515,6 +515,18 @@
         }
 
     });
+    $(document).on('click', '.showSearchBox',function() {
+        $("#searchBox").removeClass('hide');
+        $(this).removeClass('showSearchBox');
+        $(this).addClass('hideSearchBox');
+        $(this).text('-Applicant');
+    });
+    $(document).on('click', '.hideSearchBox',function() {
+        $("#searchBox").addClass('hide');
+        $(this).removeClass('hideSearchBox');
+        $(this).addClass('showSearchBox');
+        $(this).text('+Applicant');
+    });
 </script>
 
 </body>

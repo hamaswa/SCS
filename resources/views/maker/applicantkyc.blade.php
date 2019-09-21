@@ -2,12 +2,12 @@
 
     <div class="col-sm-12 col-md-10 col-lg-10 col-lg-offset-1 border-light no-padding">
         <div class="box">
-            <div class="box-body">
+            <div class="box-body bg-gray-light">
 
                     <div class="bg-gray-light padding-5">
 
-                        <div id="applicant_buttons">
-                            <div class="col-lg-12 col-md-12 applicants">
+                        <div id="applicant_buttons" class="col-md-12 col-lg-12 col-sm-12">
+                            <div class="applicants pull-left">
                                 <div class="btn-group margin-bottom border-black-1" id="btn-air">
                                     <button type="button" class="btn btn-default btn-flat la_aa"
                                             data-la="{{$applicant->id}}"
@@ -23,12 +23,10 @@
                                         <li><a href="#" class="deleteInd">Delete</a></li>
                                     </ul>
                                 </div>
-
-
                             </div>
                             @if(isset($attached_applicants))
                                 @foreach($attached_applicants as $applicant_sub)
-                                    <div class="col-lg-12 col-md-12 applicants">
+                                    <div class="applicants form-group pull-left">
                                         <div class="btn-group margin-bottom border-black-1"
                                              id="btn-air">
                                             <button type="button" class="btn btn-default btn-flat la_aa"
@@ -51,13 +49,26 @@
 
                                 @endforeach
                             @endif
-                        </div>
+                            <div class="btn-group margin-bottom border-black-1" id="btn-air">
+                                <button type="button" class="btn btn-default btn-flat showSearchBox">
+                                    +Applicant</button>
+                                <button type="button" class="btn btn-default btn-flat dropdown-toggle"
+                                        data-toggle="dropdown"
+                                        aria-expanded="false">
+                                    <i class="fa fa-list"></i>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
 
-                        <div class="col-md-6 form-group">
-                            <input class="form-control" name="attachAA" id="attachAASearch">
+                            </div>
                         </div>
-                        <div class="col-md-6 form-group">
-                            <input type="submit" class="attachAASearch btn btn-primary">
+                        <div class="clearfix"></div>
+                        <div id="searchBox" class="hide">
+                            <div class="col-md-6 form-group">
+                                <input class="form-control" name="attachAA" id="attachAASearch">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <input type="submit" class="attachAASearch btn btn-primary">
+                            </div>
                         </div>
 
                         <div class="clearfix"></div>
@@ -90,47 +101,7 @@
                             @endforeach
                         </div>
                         @endif
-                        <div class="form-group clearfix business_doc_form" id="business_doc_form">
-                            <div class="col-md-6 col-sm-12 form-group">
-                                <label class="control-label">Income Source</label>
-                                <select id="business_type" name="business_type" class="form-control">
-                                    <option value="Business"
-                                    > Business </option>
-                                    <option value="Salaried"
-                                    > Salaried </option>
-                                </select>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="form-group col-md-4 col-sm-4 bg-gray-light primary_docs">
-                                <label class="control-label">Primary Docs</label>
-                                @include("layouts.select", [
-                                'name'=>'primary_doc',
-                                'id'=>'primary_doc',
-                                'type'=>'Buseness',
-                                'options'=>$options,
-                                'default'=>"Select Primary Document",])
 
-
-                            </div>
-                            <div class="form-group col-md-4 col-sm-4 bg-gray-light support_docs">
-                                <label class="control-label">Supporting Docs</label>
-
-                                @include("layouts.select", [
-                                'name'=>'support_doc',
-                                'id'=>'support_doc',
-                                'type'=>'Salaried',
-                                'options'=>$options,
-                                'default'=>"Select Supporting Document",])
-
-                            </div>
-                            <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right margin-top-15 padding-5">
-
-                                <input type="file" class="form-control btn btn-primary" name="business_doc[]" multiple id="business_doc" />
-                            </div>
-
-
-
-                        </div>
                     </div>
 
                     <form  action="{{ route("la.store") }}" method="post">
@@ -220,26 +191,7 @@
                         </div>
 
                     </form>
-                    <form id="business_form" action="" method="post" class="hide">
-                        <div class="form-group col-md-4 col-sm-12">
-                            <label class="control-label">Nature of Business</label>
-                            <input name="business_nature" id="business_nature"
-                                   {{--                               value = "{{$business->business_nature}}"--}}
-                                   class="form-control" type="text">
-                        </div>
-                        <div class="form-group col-md-4 col-sm-12">
-                            <label class="control-label">Position</label>
-                            <input name="business_position" id="business_position"
-                                   {{--                               value = "{{$business->business_position}}"--}}
-                                   class="form-control" type="text">
-                        </div>
-                        <div class="form-group col-md-4 col-sm-12">
-                            <label class="control-label"><em class="text-danger">*</em>Email</label>
-                            <input name="business_email" id="business_email"
-                                   {{--                               value = "{{$business->business_email}}"--}}
-                                   class="form-control" type="email">
-                        </div>
-                    </form>
+
             </div>
 
         </div>
@@ -265,6 +217,74 @@
             </div>
             <div class="modal-body bg-white" id="aa_attach_form_body">
 
+            </div>
+
+        </div>
+    </div>
+
+    <div id="showBussinessModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="bussiness_modal_title"></h4>
+            </div>
+            <div class="modal-body bg-gray-light" id="bussiness_modal_body">
+                <form id="business_form" action="" method="post" class="hide">
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label class="control-label">Nature of Business</label>
+                        <input name="business_nature" id="business_nature"
+                               {{--                               value = "{{$business->business_nature}}"--}}
+                               class="form-control" type="text">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label class="control-label">Position</label>
+                        <input name="business_position" id="business_position"
+                               {{--                               value = "{{$business->business_position}}"--}}
+                               class="form-control" type="text">
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label class="control-label"><em class="text-danger">*</em>Email</label>
+                        <input name="business_email" id="business_email"
+                               {{--                               value = "{{$business->business_email}}"--}}
+                               class="form-control" type="email">
+                    </div>
+                </form>
+                <div class="form-group clearfix business_doc_form" id="business_doc_form">
+                    <div class="form-group col-md-6 col-sm-6">
+                        <label class="control-label">Income Source</label>
+                        <select id="business_type" name="business_type" class="form-control">
+                            <option value="Business"
+                            > Business </option>
+                            <option value="Salaried"
+                            > Salaried </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-6 primary_docs">
+                        <label class="control-label">Primary Docs</label>
+                        @include("layouts.select", [
+                        'name'=>'primary_doc',
+                        'id'=>'primary_doc',
+                        'type'=>'Buseness',
+                        'options'=>$options,
+                        'default'=>"Select Primary Document",])
+
+
+                    </div>
+                    <div class="form-group col-md-6 col-sm-6 support_docs">
+                        <label class="control-label">Supporting Docs</label>
+
+                        @include("layouts.select", [
+                        'name'=>'support_doc',
+                        'id'=>'support_doc',
+                        'type'=>'Salaried',
+                        'options'=>$options,
+                        'default'=>"Select Supporting Document",])
+
+                    </div>
+                    <div class="form-group col-md-6 col-sm-6 pull-right margin-top-15">
+                        <input type="file" class="form-control btn btn-primary" name="business_doc[]" multiple id="business_doc" />
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -458,6 +478,8 @@
 
 
         $(document.body).on("click", ".editbusiness", function () {
+            $("#bussiness_modal_title").text($(this).text());
+            $("#showBussinessModal").modal('show');
             $("#business_form").removeClass('hide');
             form = business_forms[$(this).data('number')];
             console.log(form);
