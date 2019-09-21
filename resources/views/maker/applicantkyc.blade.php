@@ -99,6 +99,17 @@
                                 </div>
                                 <?php $i++ ?>
                             @endforeach
+                                <div class="btn-group margin-bottom border-black-1" id="btn-air">
+                                    <button type="button" class="btn btn-default btn-flat" data-toggle="modal" data-target="#addIncomeSource">
+                                        +IncomeSource</button>
+                                    <button type="button" class="btn btn-default btn-flat dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-expanded="false">
+                                        <i class="fa fa-list"></i>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+
+                                </div>
                         </div>
                         @endif
 
@@ -223,7 +234,7 @@
     </div>
 
     <div id="showBussinessModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-header bg-primary">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 id="bussiness_modal_title"></h4>
@@ -232,25 +243,44 @@
                 <form id="business_form" action="" method="post" class="hide">
                     <div class="form-group col-md-4 col-sm-12">
                         <label class="control-label">Nature of Business</label>
-                        <input name="business_nature" id="business_nature"
-                               {{--                               value = "{{$business->business_nature}}"--}}
-                               class="form-control" type="text">
+                        <input name="business_nature" id="business_nature" class="form-control" type="text">
                     </div>
                     <div class="form-group col-md-4 col-sm-12">
                         <label class="control-label">Position</label>
-                        <input name="business_position" id="business_position"
-                               {{--                               value = "{{$business->business_position}}"--}}
-                               class="form-control" type="text">
+                        <input name="business_position" id="business_position" class="form-control" type="text">
                     </div>
                     <div class="form-group col-md-4 col-sm-12">
                         <label class="control-label"><em class="text-danger">*</em>Email</label>
-                        <input name="business_email" id="business_email"
-                               {{--                               value = "{{$business->business_email}}"--}}
-                               class="form-control" type="email">
+                        <input name="business_email" id="business_email" class="form-control" type="email">
+                    </div>
+                    <div class="col-sm-12 col-md-4 form-group">
+                        <label>Company Name</label>
+                        <input type="text" name="company_name" value="{{(isset($applicant_data->company_name)?$applicant_data->company_name:"")}}" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="col-sm-12 col-md-4 form-group">
+                        <label>Position</label>
+                        <input type="text" name="position" value="{{(isset($applicant_data->position)?$applicant_data->position:(isset($businesses[0]) ? $businesses[0]->business_position: ''))}}" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="col-sm-12 col-md-4 form-group">
+                        <label>Nature of Business</label>
+                        <input type="text" name="nature_of_business" value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:(isset($businesses[0]) ? $businesses[0]->business_nature: ''))}}" name="nature_of_business" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="col-sm-12 col-md-4 form-group">
+                        <label>Date Joined</label>
+                        <input type="date" name="date_established" value="{{(isset($applicant_data->date_established)?$applicant_data->date_established:"")}}" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="col-sm-12 col-md-4 form-group">
+                        <label>office Phone no.</label>
+                        <input type="text" name="office_phone_no" value="{{(isset($applicant_data->office_phone_no)?$applicant_data->office_phone_no:"")}}" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="col-sm-12 col-md-4 form-group">
+                        <label>Office Address</label>
+                        <textarea name="office_address" class="form-control">{{(isset($applicant_data->office_address)?$applicant_data->office_address:"")}}</textarea>
                     </div>
                 </form>
-                <div class="form-group clearfix business_doc_form" id="business_doc_form">
-                    <div class="form-group col-md-6 col-sm-6">
+                <div class="clearfix"></div>
+                <div class="form-group clearfix business_doc_form border-light padding-top-25" id="business_doc_form">
+                    <div class="form-group col-md-3 col-sm-12">
                         <label class="control-label">Income Source</label>
                         <select id="business_type" name="business_type" class="form-control">
                             <option value="Business"
@@ -259,7 +289,7 @@
                             > Salaried </option>
                         </select>
                     </div>
-                    <div class="form-group col-md-6 col-sm-6 primary_docs">
+                    <div class="form-group col-md-3 col-sm-12 primary_docs">
                         <label class="control-label">Primary Docs</label>
                         @include("layouts.select", [
                         'name'=>'primary_doc',
@@ -270,7 +300,7 @@
 
 
                     </div>
-                    <div class="form-group col-md-6 col-sm-6 support_docs">
+                    <div class="form-group col-md-3 col-sm-12 support_docs">
                         <label class="control-label">Supporting Docs</label>
 
                         @include("layouts.select", [
@@ -281,7 +311,7 @@
                         'default'=>"Select Supporting Document",])
 
                     </div>
-                    <div class="form-group col-md-6 col-sm-6 pull-right margin-top-15">
+                    <div class="form-group col-md-3 col-sm-12 pull-right margin-top-15">
                         <input type="file" class="form-control btn btn-primary" name="business_doc[]" multiple id="business_doc" />
                     </div>
                 </div>
