@@ -23,10 +23,7 @@
                         <i class="fa fa-list"></i>
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
-                    <ul class="dropdown-menu position-relative" id="" role="menu">
-                        <li><a href="#" class="">Edit</a></li>
-                        <li><a href="#" class="deleteInd">Delete</a></li>
-                    </ul>
+
                 </div>
                 @if(isset($attached_applicants))
                     @foreach($attached_applicants as $applicant_sub)
@@ -42,12 +39,7 @@
                                     <i class="fa fa-list"></i>
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
-                                <ul class="dropdown-menu position-relative" id="" role="menu">
-                                    {{--<li><a href="#"  data-value="air" class="editincome">Edit</a></li>--}}
-                                    <li><a href="#" data-la="{{$la_applicant_id}}"
-                                           data-id="{{$applicant_sub->id}}" class="deleteInd">Delete</a>
-                                    </li>
-                                </ul>
+
                             </div>
                         </div>
 
