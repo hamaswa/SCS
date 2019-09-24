@@ -48,18 +48,21 @@ class IncomekycController extends Controller
         $inputs = $request->all();
         $inputs['user_id']=Auth::id();
 
-        $income = ApplicantIncome::where("applicant_id",$inputs['applicant_id'])->first();
-        if($income){
+
+        if(isset($inputs['action']) and $inputs['action']=='delete'){
+            $income = ApplicantIncome::find($inputs['id']);
+            $income->delete();
+            echo json_encode(["success" => "Income Deleted Successfully"]);
+
+        }
+        else  if(isset($inputs['income_id']) and $inputs['income_id']!=""){
+            $income = ApplicantIncome::find($inputs['income_id']);
             $income->update($inputs);
             $income->form_data = json_encode($inputs);
             $income->save();
-            return json_encode(["applicant_id" => $income->applicant_id, "income_id" => $income->id]);
+            echo json_encode(["applicant_id" => $income->applicant_id, "income_id" => $income->id]);
         }
-        else if (isset($inputs['income_id']) and $inputs['income_id'] != "") {
-            $income= ApplicantIncome::find($inputs['income_id']);
-            $income->update($inputs);
-            return json_encode(["applicant_id" => $income->applicant_id, "income_id" => $income->id]);
-        } else {
+       else {
             if (isset($inputs['gross'])) {
                 $income = ApplicantIncome::create($inputs);
                 $income->form_data = json_encode($inputs);
@@ -70,6 +73,20 @@ class IncomekycController extends Controller
             }
 
         }
+    }
+
+    /**
+     * Display the action buttons for added incomes.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function actionbtns(Request $request){
+       $inputs = $request->all();
+       $id=$inputs['applicant_id'];
+        $incomes = ApplicantIncome::where("applicant_id","=",$id)->get();
+        return view("aadata.incomekyc_action_btns")->with("incomes",$incomes);
     }
     /**
      * Display the specified resource.
@@ -90,7 +107,11 @@ class IncomekycController extends Controller
      */
     public function edit($id)
     {
-        //
+        $inputs = request()->all();
+        $arr["income"] = ApplicantIncome::find($id);
+        $arr['type'] = $inputs["type"];
+        return view("aadata.income_edit")->with($arr);
+
     }
 
     /**

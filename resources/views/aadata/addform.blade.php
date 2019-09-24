@@ -222,28 +222,7 @@
             });
         })
 
-        function  submitincomekyc (){
-            $.ajax({
-                url: '{{ route('incomekyc.store') }}',
-                type: 'POST',
-                data: $("#incomeform").serialize() + "&applicant_id="+ $("#applicant_id").val()
-            }).done(function (response) {
-                response = JSON.parse(response);
-                console.log(response);
-                if(response.error){
-                }
-                else {
-                    if(!isNaN(response.income_id)){
-                        console.log($("#WK"));
-                        
-                        $(".wk").attr("data-toggle","tab");
 
-                    }
-                    $("#income_id").val(response.income_id);
-                }
-            })
-
-        }
 
         function  submitwealthkyc() {
             $.ajax({

@@ -76,6 +76,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('/pipeline', 'PipelineController');
     Route::resource('/applicantkyc', 'ApplicantDataController');
     Route::resource('/businesskyc', 'BusinesskycController');
+    Route::get("/incomekyc/action_btns","IncomekycController@actionbtns")->name("incomekyc.incomekyc_action_btns");
     Route::post('/incomekyc/incomedata', 'IncomekycController@index')->name("incomedata");
     Route::resource('/incomekyc', 'IncomekycController');
     Route::post('/wealthkyc/wealthdata', 'WealthkycController@index')->name("wealthdata");
@@ -88,7 +89,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/downloadpdf', 'PipelineController@downloadpdf')->name("downloadpdf");
     Route::post('/downloadpdf', 'PipelineController@downloadpdf')->name("downloadpdf");
     Route::resource('/orders', 'OrderController');
-//Route::post('/housingloan/create', 'HousingLoanController@create');
+
     Route::resource('/housingloan', 'HousingLoanController');
     Route::resource('/termloan', 'TermLoanController');
     Route::resource('/creditcard', 'CreditCardController');
