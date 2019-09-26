@@ -14,10 +14,10 @@ class AddFieldsToApplicantData extends Migration
     public function up()
     {
         Schema::table('applicant_data', function (Blueprint $table) {
-            //$table->date("date_joined")->nullable();
-            //$table->string("office_address")->nullable();
-           // $table->string("office_phone_no")->nullable();
-           // $table->string("aa_company_name")->nullable();
+            $table->date("date_joined")->nullable();
+            $table->string("office_address")->nullable();
+            $table->string("office_phone_no")->nullable();
+            $table->string("aa_company_name")->nullable();
         });
     }
 
