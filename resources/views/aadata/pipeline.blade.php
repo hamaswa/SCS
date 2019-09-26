@@ -403,14 +403,14 @@
                     }
                 });
                 $.ajax({
-                    url: "{{ route("incomedata") }}",
+                    url: "{{ route("applicant_sidebar") }}",
                     type: "POST",
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     },
-                    data: "id=" + id,
+                    data: "applicant_id=" + id,
                     success: function (response) {
-                        $("#tab-3").html(response);
+                        $("#tab-3").html("").append(response);
                     },
                     error: function () {
 

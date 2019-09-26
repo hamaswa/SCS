@@ -18,8 +18,8 @@ class IncomekycController extends Controller
     public function index(Request $request)
     {
         $inputs = $request->all();
-        $arr['income'] = ApplicantIncome::where("applicant_id","=",$inputs['id'])->first();
-        $arr['wealth'] = ApplicantWealth::where("applicant_id","=",$inputs['id'])->first();
+        $arr['income'] = ApplicantIncome::where("applicant_id","=",$inputs['id']);
+        $arr['wealth'] = ApplicantWealth::where("applicant_id","=",$inputs['id']);
         $arr['properties'] = ApplicantProperty::where("applicant_id","=",$inputs['id'])->get();
         $arr['income']->form_data = json_decode($arr['income']->form_data);
         $arr['wealth']->form_data = json_decode($arr['wealth']->form_data);

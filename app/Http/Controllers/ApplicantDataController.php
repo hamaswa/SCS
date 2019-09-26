@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use App\ApplicantData;
 use App\ApplicantDocuments;
 use App\Repository\SoapAPIRepo;
-use Illuminate\Support\Facades\Storage;
+//use Illuminate\Support\Facades\Storage;
+use App\ApplicantIncome;
+use App\ApplicantWealth;
+use App\ApplicantProperty;
 use Session;
 use DB;
 use Auth;
@@ -54,6 +57,31 @@ class ApplicantDataController extends Controller
         return view("aadata.addform")->with("applicant", $applicant);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+
+        public function  applicantSidebar(Request $request)
+        {
+            $inputs = $request->all();
+            $arr['incomes'] = ApplicantIncome::where("applicant_id","=",$inputs['applicant_id'])
+                ->orderby("type")
+                ->get();
+            $arr['wealths'] = ApplicantWealth::where("applicant_id","=",$inputs['applicant_id'])
+                //->orderby("type")
+                ->get();
+            $arr['income_total'] = DB::table('applicant_income')
+                ->select(DB::raw("sum(gross) as total_gross, sum(net) as total_net"))
+                ->where("applicant_id","=",$inputs['applicant_id'])
+                ->groupby("applicant_id")
+                ->first();
+
+            $arr['properties'] = ApplicantProperty::where("applicant_id","=",$inputs['applicant_id'])->get();
+            return view("aadata.applicant_sidebar")->with($arr);
+        }
     /**
      * Store a newly created resource in storage.
      *
