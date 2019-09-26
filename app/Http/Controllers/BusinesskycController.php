@@ -103,6 +103,44 @@ class BusinesskycController extends Controller
      */
     public function destroy($id)
     {
-        //
+       //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeIncomeSource(Request $request)
+    {
+        $inputs = $request->all();
+        if (isset($inputs['business_forms'])) {
+            $inputs['user_id']=Auth::id();
+            $business = ApplicantBusiness::create($inputs);
+            return back()->with("success", "Income Source Successfully Saved");
+        } elseif (isset($inputs['bussiness_id']) && $inputs['bussiness_id'] != ''){
+            $business = ApplicantBusiness::find($inputs['bussiness_id']);
+            $business['business_nature'] = $inputs['business_nature'];
+            $business['business_position'] = $inputs['business_position'];
+            $business['business_email'] = $inputs['business_email'];
+            $business['bussiness_company_name'] = $inputs['bussiness_company_name'];
+            $business['bussiness_date_established'] = $inputs['bussiness_date_established'];
+            $business['bussiness_office_phone_no'] = $inputs['bussiness_office_phone_no'];
+            $business['bussiness_office_address'] = $inputs['bussiness_office_address'];
+            $business->save();
+            return back()->with("success", "Income Source Successfully Updated");
+        } else {
+            return back()->with("error", "An error has occurred please try again later.");
+        }
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function deleteIncomeSource(Request $request){
+        $inputs = $request->all();
+        $business = ApplicantBusiness::findOrFail($inputs['id']);
+        $business->delete();
     }
 }

@@ -5,8 +5,8 @@
             <div class="box-body bg-gray-light">
                 <div class="bg-gray-light padding-5">
 
-                    <div id="applicant_buttons">
-                        <div class="col-lg-12 col-md-12 applicants">
+                    <div id="applicant_buttons col-md-12 col-lg-12 col-sm-12">
+                        <div class="applicants pull-left">
                             <div class="btn-group margin-bottom border-black-1" id="btn-air">
                                 <button type="button" class="btn btn-default btn-flat la_aa"
                                         data-la="{{$applicant->id}}"
@@ -24,7 +24,7 @@
                         </div>
                         @if(isset($attached_applicants))
                             @foreach($attached_applicants as $applicant_sub)
-                                <div class="col-lg-12 col-md-12 applicants">
+                                <div class="applicants pull-left">
                                     <div class="btn-group margin-bottom border-black-1"
                                          id="btn-air">
                                         <button type="button" class="btn btn-default btn-flat la_aa"
@@ -47,19 +47,30 @@
 
                             @endforeach
                         @endif
+                        <div class="btn-group margin-bottom border-black-1" id="btn-air">
+                            <button type="button" class="btn btn-default btn-flat showSearchBox">
+                                +Applicant</button>
+                            <button type="button" class="btn btn-default btn-flat dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    aria-expanded="false">
+                                <i class="fa fa-list"></i>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+
+                        </div>
                     </div>
 
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-md-6 col-sm-12 bg-gray-light">
-
-                    <div class="col-md-7 col-sm-7 form-group">
-                        <input class="form-control" name="attachAA" id="attachAASearch">
+                    <div id="searchBox" class="hide searchBox">
+                        <div class="col-md-7 col-sm-7 form-group">
+                            <input class="form-control" name="attachAA" id="attachAASearch">
+                        </div>
+                        <div class="col-md-3 col-sm-4 form-group">
+                            <input type="submit" class="attachAASearch btn btn-primary" value="Com Search AA">
+                        </div>
                     </div>
-                    <div class="col-md-3 col-sm-4 form-group">
-                        <input type="submit" class="attachAASearch btn btn-primary" value="Com Search AA">
-                    </div>
-
                 <form id="newaa" name="newaa" action="{{ route("la.store") }}" method="post">
                     @csrf
                     <input type="hidden" name="update_company" value="update_company">
@@ -109,14 +120,14 @@
                 </form>
                 </div>
                 <div class="col-md-6 col-sm-12 bg-gray-light">
-
-                    <div class="col-md-7 col-sm-7 form-group">
-                        <input class="form-control" name="attachComAA" id="attachComAASearch">
+                    <div id="searchBox" class="hide searchBox">
+                        <div class="col-md-7 col-sm-7 form-group">
+                            <input class="form-control" name="attachComAA" id="attachComAASearch">
+                        </div>
+                        <div class="col-md-4 col-sm-4 form-group">
+                            <input type="submit" class="attachComAASearch btn btn-primary" value="Ind Search AA">
+                        </div>
                     </div>
-                    <div class="col-md-4 col-sm-4 form-group">
-                        <input type="submit" class="attachComAASearch btn btn-primary" value="Ind Search AA">
-                    </div>
-
                     @include("maker.company_individual_aa")
                 </div>
             </div>
@@ -282,6 +293,9 @@
             else
             {
                 e.preventDefault();
+                var url = '{{ route("maker.create_aa", ":applicant_maker_id") }}';
+                url = url.replace(':applicant_maker_id', $("#applicant_id").val());
+
                 $.ajax({
                     url: '{{ route('attachAASearch') }}',
                     type: 'POST',
@@ -293,8 +307,8 @@
                     if (response == "nodata") {
                         html = "<table class='table'><tr><td>No Date Found. Create New Application</td></tr>\n" +
                             "<tr><td>" +
-                            "<li class=\"nav-item\">" +
-                            "<a class=\"nav-link\" href=\"{{ route("aadata.index")}}\">New AA</a>" +
+                            "<li class='nav-item'>" +
+                            "<a class='nav-link' href='"+url+"'>New AA</a>" +
                             "</li>" +
                             "</td></tr></table>";
                         $("#aa_attach_form_body").html(html);
@@ -319,6 +333,8 @@
             }
             else {
                 e.preventDefault();
+                var url = '{{ route("maker.create_aa", ":applicant_maker_id") }}';
+                url = url.replace(':applicant_maker_id', $("#applicant_id").val());
                 $.ajax({
                     url: '{{ route('attachComAASearch') }}',
                     type: 'POST',
@@ -330,8 +346,8 @@
                     if (response == "nodata") {
                         html = "<table class='table'><tr><td>No Data Found. Create New Application</td></tr>\n" +
                             "<tr><td>" +
-                            "<li class=\"nav-item\">" +
-                            "<a class=\"nav-link\" href=\"{{ route("aadata.index")}}\">New AA</a>" +
+                            "<li class='nav-item'>" +
+                            "<a class='nav-link' href='"+url+"'>New AA</a>" +
                             "</li>" +
                             "                </td></tr></table>";
                         $("#aa_attach_form_body").html(html);

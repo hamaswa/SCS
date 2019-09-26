@@ -76,6 +76,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('/pipeline', 'PipelineController');
     Route::resource('/applicantkyc', 'ApplicantDataController');
     Route::resource('/businesskyc', 'BusinesskycController');
+    Route::post("/businesskyc/storeIncomeSource",'BusinesskycController@storeIncomeSource')->name("bussiness.storeIncomeSource");
+    Route::post("/businesskyc/delete/",'BusinesskycController@deleteIncomeSource')->name("bussiness.delete");
     Route::get("/incomekyc/action_btns","IncomekycController@actionbtns")->name("incomekyc.incomekyc_action_btns");
     Route::post('/incomekyc/incomedata', 'IncomekycController@index')->name("incomedata");
     Route::resource('/incomekyc', 'IncomekycController');

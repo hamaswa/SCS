@@ -40,7 +40,7 @@
                                             </button>
                                             <ul class="dropdown-menu position-relative" id="" role="menu">
                                                 {{--<li><a href="#"  data-value="air" class="editincome">Edit</a></li>--}}
-                                                <li><a href="#" data-la="{{$la_applicant_id}}"
+                                                <li><a href='javascript:void(0)' data-la="{{$la_applicant_id}}"
                                                        data-id="{{$applicant_sub->id}}" class="deleteInd">Delete</a>
                                                 </li>
                                             </ul>
@@ -62,7 +62,7 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <div id="searchBox" class="hide">
+                        <div id="searchBox" class="hide searchBox">
                             <div class="col-md-6 form-group">
                                 <input class="form-control" name="attachAA" id="attachAASearch">
                             </div>
@@ -94,7 +94,7 @@
                                     </button>
                                     <ul class="dropdown-menu position-relative" id="" role="menu">
                                         {{--<li><a href="#" id='business{{$i}}' data-number='{{$i}}' class='editbusiness'>Edit</a></li>--}}
-                                        <li><a href="#" class='delbusiness' data-number='{{ $i }}'>Delete</a></li>
+                                        <li><a href="javascript:void(0)" class='delbusiness' data-number='{{ $i }}'>Delete</a></li>
                                     </ul>
                                 </div>
                                 <?php $i++ ?>
@@ -240,7 +240,9 @@
                 <h4 id="bussiness_modal_title"></h4>
             </div>
             <div class="modal-body bg-gray-light" id="bussiness_modal_body">
-                <form id="business_form" action="" method="post" class="hide">
+                <form id="business_form" action="{{ route('bussiness.storeIncomeSource') }}" method="post" class="hide">
+                    @csrf
+                    <input type="hidden" id="id" name="bussiness_id" value="">
                     <div class="form-group col-md-4 col-sm-12">
                         <label class="control-label">Nature of Business</label>
                         <input name="business_nature" id="business_nature" class="form-control" type="text">
@@ -255,27 +257,23 @@
                     </div>
                     <div class="col-sm-12 col-md-4 form-group">
                         <label>Company Name</label>
-                        <input type="text" name="company_name" value="{{(isset($applicant_data->company_name)?$applicant_data->company_name:"")}}" class="form-control" autocomplete="off">
+                        <input type="text" name="bussiness_company_name" id="bussiness_company_name" value="" class="form-control" autocomplete="off">
                     </div>
-                    <div class="col-sm-12 col-md-4 form-group">
-                        <label>Position</label>
-                        <input type="text" name="position" value="{{(isset($applicant_data->position)?$applicant_data->position:(isset($businesses[0]) ? $businesses[0]->business_position: ''))}}" class="form-control" autocomplete="off">
-                    </div>
-                    <div class="col-sm-12 col-md-4 form-group">
-                        <label>Nature of Business</label>
-                        <input type="text" name="nature_of_business" value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:(isset($businesses[0]) ? $businesses[0]->business_nature: ''))}}" name="nature_of_business" class="form-control" autocomplete="off">
-                    </div>
+
                     <div class="col-sm-12 col-md-4 form-group">
                         <label>Date Joined</label>
-                        <input type="date" name="date_established" value="{{(isset($applicant_data->date_established)?$applicant_data->date_established:"")}}" class="form-control" autocomplete="off">
+                        <input type="date" name="bussiness_date_established" id="bussiness_date_established" value="" class="form-control" autocomplete="off">
                     </div>
                     <div class="col-sm-12 col-md-4 form-group">
                         <label>office Phone no.</label>
-                        <input type="text" name="office_phone_no" value="{{(isset($applicant_data->office_phone_no)?$applicant_data->office_phone_no:"")}}" class="form-control" autocomplete="off">
+                        <input type="text" name="bussiness_office_phone_no" id="bussiness_office_phone_no" value="" class="form-control" autocomplete="off">
                     </div>
                     <div class="col-sm-12 col-md-4 form-group">
                         <label>Office Address</label>
-                        <textarea name="office_address" class="form-control">{{(isset($applicant_data->office_address)?$applicant_data->office_address:"")}}</textarea>
+                        <textarea name="bussiness_office_address" id="bussiness_office_address" class="form-control"></textarea>
+                    </div>
+                    <div class="col-sm-12 col-md-12 form-group">
+                        <button type="submit" name="updateIncomeSource" class="btn btn-success" >Update</button>
                     </div>
                 </form>
                 <div class="clearfix"></div>
@@ -516,10 +514,10 @@
             $("form#business_form :input").each(function () {
                 $(this).val(form[$(this).attr('id')]);
             })
-
+            $("form#business_form").find('input[name=_token]').val('{{ csrf_token() }}');
             //$("#business_owner_type option[value="+form['business_owner_type']+"]").attr('selected', 'selected');
             $("#number").val($(this).data('number'))
-            $("#btnsubmit").html($("<button type=\"button\" class=\"btn btn-primary\" data-id=\"" + $(this).data('number') + "\" id=\"update_business\">Update Business</button>"))
+            //$("#btnsubmit").html($("<button type=\"button\" class=\"btn btn-primary\" data-id=\"" + $(this).data('number') + "\" id=\"update_business\">Update Business</button>"))
         });
 
         $(document.body).on("click", "#update_business", function (e) {
@@ -533,32 +531,90 @@
             $("#btnsubmit").html($("<button type=\"button\" class=\"btn btn-primary\"  id=\"add_business\">Add business</button>"))
         });
         $(document.body).on("click", ".delbusiness", function (e) {
+            form = business_forms[$(this).data('number')];
             business_forms.splice($(this).data('number'), 1);
             businessActionButtions();
-        });
 
+            $.ajax({
+                url: '<?php echo e(route('bussiness.delete')); ?>',
+                type: 'post',
+                // headers: {
+                //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                // },
+                data: {
+                    '_token': "{{ csrf_token() }}",
+                    'id'    : form.id
+                }
+
+            }).done(function (response) {
+
+            })
+        });
 
         function businessActionButtions() {
             $("#businesses").html("");
-            i = 0;
-            business_forms.forEach(function (form) {
-                business_action_buttons = " <div class=\"btn-group margin-bottom border-black-1\">\n" +
-                    "                        <button type=\"button\" class=\"btn btn-default btn-flat\">Business " + (i + 1) + "</button>\n" +
+            business_type = $("#business_type :selected").val();
+            i=0;
+            s=0;
+            b=0;
+            business_forms.forEach(function(form){
+                n=0;
+                if(form.business_type=="Business") {
+                    b++;
+                    n=b;
+                }
+                else {
+                    s++;
+                    n=s;
+                }
+                business_action_buttons = " <div class=\"btn-group margin-bottom border-black-1 businesskyc-action-btn\">\n" +
+                    "                        <button type=\"button\"  data-number='"+i+"'  class=\"btn btn-default btn-flat editbusiness\"> " + form.business_type +n+"</button>\n" +
                     "                        <button type=\"button\" class=\"btn btn-default btn-flat dropdown-toggle\" data-toggle=\"dropdown\">\n" +
                     "                            <i class=\"fa fa-list\"></i>\n" +
                     "                            <span class=\"sr-only\">Toggle Dropdown</span>\n" +
                     "                        </button>\n" +
                     "                        <ul class=\"dropdown-menu position-relative\" id=\"\" role=\"menu\">\n" +
-                    "                            <li><a href=\"#\" id='business" + i + "' data-number='" + i + "' class='editbusiness'>Edit</a></li>\n" +
-                    "                            <li><a href=\"#\" class='delbusiness' data-number='" + i + "'>Delete</a></li>\n" +
-                    "                        </ul>\n" +
-                    "                    </div>"
+                    "                            <li><a href='javascript:void(0)' class='delbusiness' data-number='"+i+"'>Delete</a></li>\n" +
+                    "                        </ul></div>"
                 $("#businesses").append($(business_action_buttons));
 
                 i++;
             })
-
+            $("#businesses").append('<div class="btn-group margin-bottom border-black-1" id="btn-air">\n' +
+                '                                    <button type="button" class="btn btn-default btn-flat" data-toggle="modal" data-target="#addIncomeSource">\n' +
+                '                                        +IncomeSource</button>\n' +
+                '                                    <button type="button" class="btn btn-default btn-flat dropdown-toggle"\n' +
+                '                                            data-toggle="dropdown"\n' +
+                '                                            aria-expanded="false">\n' +
+                '                                        <i class="fa fa-list"></i>\n' +
+                '                                        <span class="sr-only">Toggle Dropdown</span>\n' +
+                '                                    </button>\n' +
+                '                                </div>');
         }
+
+        $("#business_form").submit(function(e) {
+
+            $.ajax({
+                url: '<?php echo e(route('bussiness.storeIncomeSource')); ?>',
+                type: 'POST',
+                // headers: {
+                //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                // },
+                data: $(this).serialize()
+
+            }).done(function (response) {
+                response = JSON.parse(response);
+                console.log(response);
+                if (response.error) {
+                }
+                else {
+                    if (!isNaN(response.business_id)) {
+                        $("#IK").attr("data-toggle", "tab");
+                    }
+                    $("#business_id").val(response.business_id);
+                }
+            })
+        });
 
     </script>
 @endpush

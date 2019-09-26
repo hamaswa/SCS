@@ -429,7 +429,8 @@
     <!-- modal income sources -->
     <div id="addIncomeSource" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
-
+            <form action="{{ route('bussiness.storeIncomeSource') }}" method="post">
+                @csrf
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
@@ -437,6 +438,9 @@
                     <h4 class="modal-title">Add Income Source</h4>
                 </div>
                 <div class="modal-body">
+                    <input type="hidden" name="business_forms" value="business_forms" />
+                    <input type="hidden" name="applicant_id" id="business_applicant_id" value="{{$applicant_data->id}}" />
+
                     <div class="col-md-4 col-sm-12 form-group ">
                         <label class="control-label">Income Source</label>
                         <select id="income_business_type" name="business_type" class="form-control" name="">
@@ -448,7 +452,7 @@
                     <div class="form-group col-md-6 col-sm-12 clearfix for_business">
                         <div class="col-md-11 col-sm-11 no-padding">
                             <label class="control-label">Shareholding</label>
-                            <input name="business_shareholding" id="business_shareholding" placeholder="" class="form-control" type="text">
+                            <input name="business_shareholding" id="business_shareholding" placeholder="" class="form-control for_business" type="text">
                         </div>
                         <div class="col-md-1 col-sm-1">
                             <h2>%</h2>
@@ -456,7 +460,7 @@
                     </div>
                     <div class="form-group col-md-6 col-sm-12 for_business">
                         <label class="control-label">Business Turnover (Monthly)</label>
-                        <input name="business_turnover" id="business_turnover" placeholder="" class="form-control" type="text">
+                        <input name="business_turnover" id="business_turnover" placeholder="" class="form-control for_business" type="text">
                     </div>
                     <div class="clearfix"></div>
                     <div class="form-group col-md-4 col-sm-12">
@@ -473,27 +477,19 @@
                     </div>
                     <div class="form-group col-md-4 col-sm-12">
                         <label>Company Name</label>
-                        <input type="text" name="company_name" value="{{(isset($applicant_data->company_name)?$applicant_data->company_name:"")}}" class="form-control" autocomplete="off">
-                    </div>
-                    <div class="form-group col-md-4 col-sm-12">
-                        <label>Position</label>
-                        <input type="text" name="position" value="{{(isset($applicant_data->position)?$applicant_data->position:(isset($businesses[0]) ? $businesses[0]->business_position: ''))}}" class="form-control" autocomplete="off">
-                    </div>
-                    <div class="form-group col-md-4 col-sm-12">
-                        <label>Nature of Business</label>
-                        <input type="text" name="nature_of_business" value="{{(isset($applicant_data->nature_of_business)?$applicant_data->nature_of_business:(isset($businesses[0]) ? $businesses[0]->business_nature: ''))}}" name="nature_of_business" class="form-control" autocomplete="off">
+                        <input type="text" name="bussiness_company_name" value="" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group col-md-4 col-sm-12">
                         <label>Date Joined</label>
-                        <input type="date" name="date_established" value="{{(isset($applicant_data->date_established)?$applicant_data->date_established:"")}}" class="form-control" autocomplete="off">
+                        <input type="date" name="bussiness_date_established" value="" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group col-md-4 col-sm-12">
                         <label>office Phone no.</label>
-                        <input type="text" name="office_phone_no" value="{{(isset($applicant_data->office_phone_no)?$applicant_data->office_phone_no:"")}}" class="form-control" autocomplete="off">
+                        <input type="text" name="bussiness_office_phone_no" value="" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group col-md-4 col-sm-12">
                         <label>Office Address</label>
-                        <textarea name="office_address" class="form-control">{{(isset($applicant_data->office_address)?$applicant_data->office_address:"")}}</textarea>
+                        <textarea name="bussiness_office_address" class="form-control"></textarea>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -502,7 +498,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
-
+            </form>
         </div>
     </div>
 </div>
@@ -596,13 +592,13 @@
 
     });
     $(document).on('click', '.showSearchBox',function() {
-        $("#searchBox").removeClass('hide');
+        $(".searchBox").removeClass('hide');
         $(this).removeClass('showSearchBox');
         $(this).addClass('hideSearchBox');
         $(this).text('-Applicant');
     });
     $(document).on('click', '.hideSearchBox',function() {
-        $("#searchBox").addClass('hide');
+        $(".searchBox").addClass('hide');
         $(this).removeClass('hideSearchBox');
         $(this).addClass('showSearchBox');
         $(this).text('+Applicant');
