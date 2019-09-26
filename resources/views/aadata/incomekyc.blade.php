@@ -349,8 +349,8 @@
         <div class="box">
             <div class="box-body bg-chocolate border-shadlebrown min-height left-box">
                 <strong class="applicant"></strong>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover bg-white incomekyc_right">
+                <div class="table-responsive incomekyc_right">
+                    <table class="table table-bordered table-striped table-hover bg-white">
                         <thead class="bg-light-blue">
                         <tr class="bg-light-blue-gradient">
                             <th colspan="3" class="text-center">Monthly Income</th>
@@ -412,6 +412,52 @@
             income_form["iif"] = $("#iif").html();
             income_form["monthlyrental"] = $("#monthlyrental").html();
             income_form["air"] = $("#air").html();
+            $.ajax({
+                url: "{{ route("comments") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: "id={{$applicant->id}}",
+                success: function (response) {
+                    $("#tab-2").html(response);
+                },
+                error: function () {
+
+                }
+
+            });
+            $.ajax({
+                url: "{{ route("documents") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: "id={{$applicant->id}}",
+                success: function (response) {
+                    $("#tab-1").html(response);
+
+                },
+                error: function () {
+
+                }
+            });
+            $.ajax({
+                url: "{{ route("applicant_sidebar") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data:"applicant_id="+$("#applicant_id").val(),
+                success: function (response) {
+                    $("#tab-3").html("").append($(response));
+                    $(".incomekyc_right").html("").append($("#incomekyc_right").html())
+                },
+                error: function () {
+
+                }
+
+            });
         })
 
         $(".currency").on("change",function (e) {
@@ -681,16 +727,34 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
             }).done(function (response) {
-            $.ajax({
-                url:'{{ route("incomekyc.incomekyc_action_btns")}}',
-                type:"GET",
-                data:"applicant_id="+$("#applicant_id").val(),
-                headers:{
-                    'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content'),
-                },
+                $.ajax({
+                    url:'{{ route("incomekyc.incomekyc_action_btns")}}',
+                    type:"GET",
+                    data:"applicant_id="+$("#applicant_id").val(),
+                    headers:{
+                        'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content'),
+                    },
                 }).done(function(response){
                     $("#incomekyc_action_btns").html("").append($(response))
-            })
+                })
+
+               $.ajax({
+                    url: "{{ route("applicant_sidebar") }}",
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                   data:"applicant_id="+$("#applicant_id").val(),
+                    success: function (response) {
+                        $("#tab-3").html("").append($(response));
+                        $(".incomekyc_right").html("").append($("#incomekyc_right").html())
+
+                    },
+                    error: function () {
+
+                    }
+
+                });
 
             })
 
