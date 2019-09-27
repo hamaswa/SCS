@@ -39,19 +39,22 @@ class WealthkycController extends Controller
         $inputs = $request->all();
         $inputs['user_id']=Auth::id();
 
-        $wealth = ApplicantWealth::where("applicant_id",$inputs['applicant_id'])->first();
-        if($wealth){
+        if(isset($inputs['action']) and $inputs['action']=='delete'){
+            $wealth = ApplicantWealth::find($inputs['id']);
+            $wealth->delete();
+            echo json_encode(["success" => "Wealth Deleted Successfully"]);
+
+        }
+        else  if(isset($inputs['wealth_id']) and $inputs['wealth_id']!=""){
+            $wealth = ApplicantWealth::find($inputs['wealth_id']);
             $wealth->update($inputs);
             $wealth->form_data = json_encode($inputs);
             $wealth->save();
             return json_encode(["applicant_id" => $wealth->applicant_id, "wealth_id" => $wealth->id]);
         }
-       else if (isset($inputs['welath_id']) and $inputs['welath_id'] != "") {
-            $wealth = ApplicantWealth::find($inputs['welath_id']);
-            $wealth->update($inputs);
-        } else {
+       else {
 
-            if (isset($inputs['total'])) {
+            if (isset($inputs['total']) and $inputs['total']!="") {
                 $wealth = ApplicantWealth::create($inputs);
                 $wealth->form_data = json_encode($inputs);
                 $wealth->save();
@@ -62,12 +65,29 @@ class WealthkycController extends Controller
 
         }
     }
+
+    /**
+     * Display the action buttons for added wealth data.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function actionbtns(Request $request){
+        $inputs = $request->all();
+        $id=$inputs['applicant_id'];
+        $wealths = ApplicantWealth::where("applicant_id","=",$id)->get();
+        return view("aadata.wealthkyc_action_btns")->with("wealths",$wealths);
+    }
+
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+
     public function show($id)
     {
         //

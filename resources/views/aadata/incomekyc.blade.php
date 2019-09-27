@@ -406,12 +406,12 @@
 
         $(document).ready(function(e) {
             income_form=[];
-            income_form["salary"] = $("#salary").html();
-            income_form["business"] = $("#business").html();
-            income_form["incometax"] = $("#incometax").html();
-            income_form["iif"] = $("#iif").html();
-            income_form["monthlyrental"] = $("#monthlyrental").html();
-            income_form["air"] = $("#air").html();
+            income_form["salary"] = $("#salary").children().clone(true,true)
+            income_form["business"] = $("#business").children().clone(true,true)
+            income_form["incometax"] = $("#incometax").children().clone(true,true)
+            income_form["iif"] = $("#iif").children().clone(true,true)
+            income_form["monthlyrental"] = $("#monthlyrental").children().clone(true,true)
+            income_form["air"] = $("#air").children().clone(true,true)
             $.ajax({
                 url: "{{ route("comments") }}",
                 type: "POST",
@@ -460,7 +460,7 @@
             });
         })
 
-        $(".currency").on("change",function (e) {
+        $(document.body).on("change","select.currency",function (e) {
             if($(this).val()=="myr")
                 $($(this).data("target")).val(1)
                     .parent("div").addClass("hide");
@@ -479,11 +479,11 @@
             $("#incomekyc").addClass("hide");
             $("#wealthkyc").removeClass("hide");
         });
-        $("#incometype").change(function (e) {
+        $("#incometype").on("change",function (e) {
             $("#incomekyc .box .incometype").addClass("hide");
             id = $(this).val();
-            $("#incomekyc").find("#" + id).html($(income_form[id]))
-            $("#incomekyc").find("#" + id).removeClass("hide").show();
+            $("#" + id).html("").append($(income_form[id]))
+            $("#" + id).removeClass("hide").show();
         })
 
         $("#addmonthlyfixed").on('click',function (e) {
@@ -593,6 +593,7 @@
 
         $("#monthly_rental_add").on('click',function (e) {
             $("#btn-monthlyrental").removeClass("hide");
+            exchange_rate = 1;
 
             basic = $("#monthly_rental_amount").val();
             tax = 20;//$("#monthly_fixed_m_deductions_tax").val();
@@ -666,7 +667,7 @@
             e.preventDefault();
         })
 
-        $(".editincome").on("click",function (e) {
+        $(document.body).on("click",".editincome",function (e) {
             type = $(this).data("type");
             url = $(this).data("url");
             $.ajax({
@@ -684,7 +685,7 @@
 
         })
 
-        $(".delincome").on("click",function (e) {
+        $(document.body).on("click",".delincome","click",function (e) {
             id = $(this).data("id");
             submitincomekyc("id="+id+"&action=delete");
         })
@@ -727,6 +728,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
             }).done(function (response) {
+                $("#WK").attr("data-toggle","tab");
                 $.ajax({
                     url:'{{ route("incomekyc.incomekyc_action_btns")}}',
                     type:"GET",

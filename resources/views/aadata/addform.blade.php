@@ -77,7 +77,7 @@
                                 </li>
                                 <li style="cursor: pointer;">
                                     {{--i removed word "tab" in data-doggle="tab" to disabled it--}}
-                                    <div id="IK" data-target="#lB" data-toggle="">
+                                    <div id="IK" data-target="#lB">
                                         <div>
                                             <span class="account-type">Income</span><br/>
                                             <span class="account-amount">KYC</span><br/>
@@ -86,7 +86,7 @@
                                 </li>
                                 <li style="cursor: pointer;">
                                     {{--i removed word "tab" in data-doggle="tab" to disabled it--}}
-                                    <div id=WK" class="wk" data-target="#lC" data-toggle="">
+                                    <div id="WK" class="wk" data-target="#lC" data-toggle="tab">
                                         <div>
                                             <span class="account-type">Wealth</span><br/>
                                             <span class="account-amount">KYC</span><br/>
@@ -95,7 +95,7 @@
                                 </li>
                                 <li style="cursor: pointer;">
                                     {{--i removed word "tab" in data-doggle="tab" to disabled it--}}
-                                    <div id="PK" data-target="#lD" data-toggle="">
+                                    <div id="PK" data-target="#lD">
                                         <div>
                                             <span class="account-type">Property</span><br/>
                                             <span class="account-amount">KYC</span>
@@ -221,26 +221,6 @@
                 })
             });
         })
-
-
-
-        function  submitwealthkyc() {
-            $.ajax({
-                url: '{{ route('wealthkyc.store') }}',
-                type: 'POST',
-                data: $("#wealthform").serialize() + "&applicant_id="+ $("#applicant_id").val()
-            }).done(function (response) {
-                response = JSON.parse(response);
-                if(response.error){
-                }
-                else {
-                    if(!isNaN(response.wealth_id)){
-                        $("#PK").attr("data-toggle","tab");
-                    }
-                    $("#wealth_id").val(response.wealth_id);
-                }
-            })
-        }
 
         function  submitpropertykyc() {
             let data = {};

@@ -23,76 +23,80 @@
                     {{--</div>--}}
 
                 </div>
-                <div id="" class="col-lg-12 col-md-12 col-sm-12">
-                    <div class="btn-group margin-bottom border-black-1 hide wealthkyc-action-btn" id="btn-saving">
-                        <button type="button" class="btn btn-default btn-flat view" data-value="saving">Saving</button>
-                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
-                                aria-expanded="false">
-                            <i class="fa fa-list"></i>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu position-relative" id="" role="menu">
-                            <li><a href="#" data-number="0" class="editwealth">Edit</a></li>
-                            <li><a href="#" data-number="0" data-value="saving" data-right="wealth_saving_right" data-action="saving_add"
-                                   class="delwealth">Delete</a></li>
-                        </ul>
-                    </div>
+                <div id="wealthkyc_action_btns" class="col-lg-12 col-md-12 col-sm-12">
+                    @include("aadata.wealthkyc_action_btns",["wealths"=>$applicant->applicantWealth()->get()])
+                </div>
+                <div id="">
 
-                    <div class="btn-group margin-bottom border-black-1 hide wealthkyc-action-btn" id="btn-epf">
-                        <button type="button" class="btn btn-default btn-flat view" data-value="epf">EPF Account Balance</button>
-                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
-                                aria-expanded="false">
-                            <i class="fa fa-list"></i>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu position-relative" id="" role="menu">
-                            <li><a href="#" data-number="0" class="editwealth">Edit</a></li>
-                            <li><a href="#" data-number="0" data-value="epf" data-action="epf_add" data-right="wealth_epf_right" class="delwealth">Delete</a>
-                            </li>
-                        </ul>
-                    </div>
+                    {{--<div class="btn-group margin-bottom border-black-1 hide wealthkyc-action-btn" id="btn-saving">--}}
+                        {{--<button type="button" class="btn btn-default btn-flat view" data-value="saving">Saving</button>--}}
+                        {{--<button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"--}}
+                                {{--aria-expanded="false">--}}
+                            {{--<i class="fa fa-list"></i>--}}
+                            {{--<span class="sr-only">Toggle Dropdown</span>--}}
+                        {{--</button>--}}
+                        {{--<ul class="dropdown-menu position-relative" id="" role="menu">--}}
+                            {{--<li><a href="#" data-number="0" class="editwealth">Edit</a></li>--}}
+                            {{--<li><a href="#" data-number="0" data-value="saving" data-right="wealth_saving_right" data-action="saving_add"--}}
+                                   {{--class="delwealth">Delete</a></li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
 
-                    <div class="btn-group margin-bottom border-black-1 hide wealthkyc-action-btn" id="btn-tpf">
-                        <button type="button" class="btn btn-default btn-flat view" data-value="tpf">Total Fixed Deposits</button>
-                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
-                                aria-expanded="false">
-                            <i class="fa fa-list"></i>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu position-relative" id="" role="menu">
-                            <li><a href="#" data-number="0" class="editwealth">Edit</a></li>
-                            <li><a href="#" data-number="0" data-value="tpf" data-action="tpf_add" data-right="wealth_tpf_right" class="delwealth">Delete</a>
-                            </li>
-                        </ul>
-                    </div>
+                    {{--<div class="btn-group margin-bottom border-black-1 hide wealthkyc-action-btn" id="btn-epf">--}}
+                        {{--<button type="button" class="btn btn-default btn-flat view" data-value="epf">EPF Account Balance</button>--}}
+                        {{--<button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"--}}
+                                {{--aria-expanded="false">--}}
+                            {{--<i class="fa fa-list"></i>--}}
+                            {{--<span class="sr-only">Toggle Dropdown</span>--}}
+                        {{--</button>--}}
+                        {{--<ul class="dropdown-menu position-relative" id="" role="menu">--}}
+                            {{--<li><a href="#" data-number="0" class="editwealth">Edit</a></li>--}}
+                            {{--<li><a href="#" data-number="0" data-value="epf" data-action="epf_add" data-right="wealth_epf_right" class="delwealth">Delete</a>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
 
-                    <div class="btn-group margin-bottom border-black-1 hide wealthkyc-action-btn" id="btn-tsv">
-                        <button type="button" class="btn btn-default btn-flat view" data-value="tsv">Total Shares Value</button>
-                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
-                                aria-expanded="false">
-                            <i class="fa fa-list"></i>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu position-relative" id="" role="menu">
-                            <li><a href="#" data-number="0" class="editwealth">Edit</a></li>
-                            <li><a href="#" data-number="0" data-value="tsv" data-action="tsv_add" data-right="wealth_tsv_right" class="delwealth">Delete</a>
-                            </li>
-                        </ul>
-                    </div>
+                    {{--<div class="btn-group margin-bottom border-black-1 hide wealthkyc-action-btn" id="btn-tpf">--}}
+                        {{--<button type="button" class="btn btn-default btn-flat view" data-value="tpf">Total Fixed Deposits</button>--}}
+                        {{--<button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"--}}
+                                {{--aria-expanded="false">--}}
+                            {{--<i class="fa fa-list"></i>--}}
+                            {{--<span class="sr-only">Toggle Dropdown</span>--}}
+                        {{--</button>--}}
+                        {{--<ul class="dropdown-menu position-relative" id="" role="menu">--}}
+                            {{--<li><a href="#" data-number="0" class="editwealth">Edit</a></li>--}}
+                            {{--<li><a href="#" data-number="0" data-value="tpf" data-action="tpf_add" data-right="wealth_tpf_right" class="delwealth">Delete</a>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
 
-                    <div class="btn-group margin-bottom border-black-1 hide wealthkyc-action-btn" id="btn-utv">
-                        <button type="button" class="btn btn-default btn-flat view" data-value="utv">Unit Trust Value</button>
-                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
-                                aria-expanded="false">
-                            <i class="fa fa-list"></i>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu position-relative" id="" role="menu">
-                            <li><a href="#" data-number="0" class="editwealth">Edit</a></li>
-                            <li><a href="#" data-number="0" data-value="utv" data-action="utv_add" data-right="wealth_utv_right" class="delwealth">Delete</a>
-                            </li>
-                        </ul>
-                    </div>
+                    {{--<div class="btn-group margin-bottom border-black-1 hide wealthkyc-action-btn" id="btn-tsv">--}}
+                        {{--<button type="button" class="btn btn-default btn-flat view" data-value="tsv">Total Shares Value</button>--}}
+                        {{--<button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"--}}
+                                {{--aria-expanded="false">--}}
+                            {{--<i class="fa fa-list"></i>--}}
+                            {{--<span class="sr-only">Toggle Dropdown</span>--}}
+                        {{--</button>--}}
+                        {{--<ul class="dropdown-menu position-relative" id="" role="menu">--}}
+                            {{--<li><a href="#" data-number="0" class="editwealth">Edit</a></li>--}}
+                            {{--<li><a href="#" data-number="0" data-value="tsv" data-action="tsv_add" data-right="wealth_tsv_right" class="delwealth">Delete</a>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
+
+                    {{--<div class="btn-group margin-bottom border-black-1 hide wealthkyc-action-btn" id="btn-utv">--}}
+                        {{--<button type="button" class="btn btn-default btn-flat view" data-value="utv">Unit Trust Value</button>--}}
+                        {{--<button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"--}}
+                                {{--aria-expanded="false">--}}
+                            {{--<i class="fa fa-list"></i>--}}
+                            {{--<span class="sr-only">Toggle Dropdown</span>--}}
+                        {{--</button>--}}
+                        {{--<ul class="dropdown-menu position-relative" id="" role="menu">--}}
+                            {{--<li><a href="#" data-number="0" class="editwealth">Edit</a></li>--}}
+                            {{--<li><a href="#" data-number="0" data-value="utv" data-action="utv_add" data-right="wealth_utv_right" class="delwealth">Delete</a>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
 
 
                 </div>
@@ -355,7 +359,7 @@
         })
         $("#saving_add").click(function (e) {
             $("#btn-saving").removeClass("hide");
-            amount = Math.round($("#saving_amount").val());
+            amount = gross = Math.round($("#saving_amount").val());
             if($("[name='saving_acctype']:checked").data("val")=="joint")
             {
                 $("[name='saving_acctype']:checked").val("joint")
@@ -366,58 +370,69 @@
                 $("[name='saving_acctype']:checked").val("own")
             }
 
-            html = "<td class=\"bg-yellow-light\">Saving</td><td>" + amount + "</td>";
-            //$("#saving_added").val("true");
-            $(".wealth_saving_right").html(html)
-
-            totalwealthkyc();
+            // html = "<td class=\"bg-yellow-light\">Saving</td><td>" + amount + "</td>";
+            // //$("#saving_added").val("true");
+            // $(".wealth_saving_right").html(html)
+            //
+            // totalwealthkyc();
+            data = $("#saving").find(":input").serialize()+"&type=saving&total="+amount+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
+            submitwealthkyc(data)
         })
         $("#epf_add").on('click', function (e) {
             $("#btn-epf").removeClass("hide");
 
-            amount = $("#epf_amount").val();
-            html = "<td class=\"bg-yellow-light\">EPF Account Balance</td><td>" + amount + "</td>";
-            $("#epf_added").val("true");
-            $(".wealth_epf_right").html(html)
-            totalwealthkyc();
+            amount = gross = $("#epf_amount").val();
+            // html = "<td class=\"bg-yellow-light\">EPF Account Balance</td><td>" + amount + "</td>";
+            // $("#epf_added").val("true");
+            // $(".wealth_epf_right").html(html)
+            // totalwealthkyc();
+            data = $("#epf").find(":input").serialize()+"&type=epf&total="+amount+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
+            submitwealthkyc(data)
         })
         $("#tpf_add").on('click', function (e) {
             $("#btn-tpf").removeClass("hide");
 
-            amount = $("#tpf_amount").val();
+            amount = gross = $("#tpf_amount").val();
             if($("[name='tpf_acctype']:checked").data("val")=="joint") {
                 $("[name='tpf_acctype']:checked").val("joint")
                 amount = Math.round($("#tpf_amount").val() / 2);
-            } else
+            }
+            else
             {
                 $("[name='tpf_acctype']:checked").val("own")
             }
 
-                html = "<td class=\"bg-yellow-light\">Total Fixed Deposits</td><td>" + amount + "</td>";
-            // $("#tpf_added").val("true");
-            $(".wealth_tpf_right").html(html)
+            //     html = "<td class=\"bg-yellow-light\">Total Fixed Deposits</td><td>" + amount + "</td>";
+            // // $("#tpf_added").val("true");
+            // $(".wealth_tpf_right").html(html)
+            data = $("#tpf").find(":input").serialize()+"&type=tpf&total="+amount+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
+            submitwealthkyc(data)
 
             totalwealthkyc();
         })
         $("#tsv_add").on('click', function (e) {
             $("#btn-tsv").removeClass("hide");
 
-            amount = $("#tsv_amount").val();
-            html = "<td class=\"bg-yellow-light\">Total Shares Value</td><td>" + amount + "</td>";
-            // $("#tsv_added").val("true");
-            $(".wealth_tsv_right").html(html)
-
-            totalwealthkyc();
+            amount = gross =  $("#tsv_amount").val();
+            // html = "<td class=\"bg-yellow-light\">Total Shares Value</td><td>" + amount + "</td>";
+            // // $("#tsv_added").val("true");
+            // $(".wealth_tsv_right").html(html)
+            //
+            // totalwealthkyc();
+            data = $("#tsv").find(":input").serialize()+"&type=tsv&total="+amount+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
+            submitwealthkyc(data)
         })
         $("#utv_add").on('click', function (e) {
             $("#btn-utv").removeClass("hide");
 
-            amount = $("#utv_amount").val();
-            html = "<td class=\"bg-yellow-light\">Unit Trust Value</td><td>" + amount + "</td>";
-            //$("#utv_added").val("true");
-            $(".wealth_utv_right").html(html)
-
-            totalwealthkyc();
+            amount = gross = $("#utv_amount").val();
+            // html = "<td class=\"bg-yellow-light\">Unit Trust Value</td><td>" + amount + "</td>";
+            // //$("#utv_added").val("true");
+            // $(".wealth_utv_right").html(html)
+            //
+            // totalwealthkyc();
+            data = $("#utv").find(":input").serialize()+"&type=utv&total="+amount+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
+            submitwealthkyc(data)
         })
 
         $(".editwealth").on("click", function (e) {
@@ -435,6 +450,50 @@
             $(this).parent("li").parent("ul").parent("div").addClass('hide');
 
         })
+
+        function  submitwealthkyc (form_data){
+            $.ajax({
+                url: '{{ route('wealthkyc.store') }}',
+                type: 'POST',
+                data: form_data,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+            }).done(function (response) {
+                $("#PK").attr("data-toggle","tab");
+
+                $.ajax({
+                    url:'{{ route("wealthkyc.wealthkyc_action_btns")}}',
+                    type:"GET",
+                    data:"applicant_id="+$("#applicant_id").val(),
+                    headers:{
+                        'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content'),
+                    },
+                }).done(function(response){
+                    $("#wealthkyc_action_btns").html("").append($(response))
+                })
+
+                {{--$.ajax({--}}
+                {{--url: "{{ route("applicant_sidebar") }}",--}}
+                {{--type: "POST",--}}
+                {{--headers: {--}}
+                {{--'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),--}}
+                {{--},--}}
+                {{--data:"applicant_id="+$("#applicant_id").val(),--}}
+                {{--success: function (response) {--}}
+                {{--$("#tab-3").html("").append($(response));--}}
+                {{--$(".incomekyc_right").html("").append($("#incomekyc_right").html())--}}
+
+                {{--},--}}
+                {{--error: function () {--}}
+
+                {{--}--}}
+
+                {{--});--}}
+
+            })
+
+        }
 
 
         function totalwealthkyc() {
@@ -457,7 +516,7 @@
             $(".wealth_total_right").html(html)
             $("#total").val(amounttotal)
             $(".wealthkyc_right").html($("#wealthkyc_right").html());
-            submitwealthkyc();
+            //submitwealthkyc();
         }
 
 

@@ -15,6 +15,7 @@
     @if(isset($incomes))
         @foreach($incomes as $income)
             @if($income->type=="salary")
+
                 <tr id="salary_right_bar" class="salary_right_bar">
                     <td>Monthly Fixed</td>
                     <td>{{$income->gross}}</td>
