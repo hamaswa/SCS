@@ -58,12 +58,12 @@
     @endif
     </tbody>
     <tfoot>
-    {{--<tr class="bg-yellow-light wealth_total_right" id="wealth_total_right">--}}
-    {{--@if(isset($wealth) and isset($wealth->form_data) and $wealth->form_data->total)--}}
-    {{--<td>Total</td>--}}
-    {{--<td>{{ $wealth->total }}</td>--}}
-    {{--@endif--}}
+    <tr class="bg-yellow-light wealth_total_right" id="wealth_total_right">
+    @if(isset($wealth_total) and isset($wealth_total->total_net))
+    <td>Total</td>
+    <td>{{ $wealth_total->total_net }}</td>
+    @endif
 
-    {{--</tr>--}}
+    </tr>
     </tfoot>
 </table>

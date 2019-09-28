@@ -78,6 +78,11 @@ class ApplicantDataController extends Controller
                 ->where("applicant_id","=",$inputs['applicant_id'])
                 ->groupby("applicant_id")
                 ->first();
+            $arr['wealth_total'] = DB::table('applicant_wealth')
+                ->select(DB::raw("sum(gross) as total_gross, sum(total) as total_net"))
+                ->where("applicant_id","=",$inputs['applicant_id'])
+                ->groupby("applicant_id")
+                ->first();
 
             $arr['properties'] = ApplicantProperty::where("applicant_id","=",$inputs['applicant_id'])->get();
             return view("aadata.applicant_sidebar")->with($arr);
