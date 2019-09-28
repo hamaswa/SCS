@@ -139,10 +139,10 @@
                     <div class="clearfix"></div>
 
                     <label class="checkbox-inline">
-                        <input type="checkbox"  value="epf" name="monthly_fixed_m_deductions[]"  id="monthly_fixed_m_deductions_epf" class="toggle" data-toggle="toggle"> EPF
+                        <input type="checkbox"  value="epf" name="monthly_fixed_m_deductions[]"  id="monthly_fixed_m_deductions_epf"> EPF
                     </label>
                     <label class="checkbox-inline">
-                        <input type="checkbox" value="tax" name="monthly_fixed_m_deductions[]" id="monthly_fixed_m_deductions_tax" class="toggle" data-toggle="toggle"> TAX
+                        <input type="checkbox" value="tax" name="monthly_fixed_m_deductions[]" id="monthly_fixed_m_deductions_tax"> TAX
                     </label>
                 </div>
                 <div class="form-group">
@@ -199,10 +199,10 @@
                     <label class="control-label">Mandatory Deductions</label>
                     <div class="clearfix"></div>
                     <label class="checkbox-inline">
-                        <input value="epf" type="checkbox" name="monthly_variable_m_deductions[]"  id="monthly_variable_m_deductions_epf" class="toggle" data-toggle="toggle"> EPF
+                        <input value="epf" type="checkbox" name="monthly_variable_m_deductions[]"  id="monthly_variable_m_deductions_epf"> EPF
                     </label>
                     <label class="checkbox-inline">
-                        <input value="tax" type="checkbox" name="monthly_variable_m_deductions[]"  id="monthly_variable_m_deductions_tax" class="toggle" data-toggle="toggle"> TAX
+                        <input value="tax" type="checkbox" name="monthly_variable_m_deductions[]"  id="monthly_variable_m_deductions_tax"> TAX
                     </label>
                 </div>
                 <div class="form-group">
@@ -236,10 +236,10 @@
                     <label class="control-label">Mandatory Deductions</label>
                     <div class="clearfix"></div>
                     <label class="checkbox-inline">
-                        <input value="epf" type="checkbox"  id="annual_tax_declared_m_deductions_epf" name="annual_tax_declared_m_deductions[]" class="toggle" data-toggle="toggle"> EPF
+                        <input value="epf" type="checkbox"  id="annual_tax_declared_m_deductions_epf" name="annual_tax_declared_m_deductions[]"> EPF
                     </label>
                     <label class="checkbox-inline">
-                        <input value="tax" type="checkbox"  id="annual_tax_declared_m_deductions_tax" name="annual_tax_declared_m_deductions[]" class="toggle" data-toggle="toggle"> TAX
+                        <input value="tax" type="checkbox"  id="annual_tax_declared_m_deductions_tax" name="annual_tax_declared_m_deductions[]"> TAX
                     </label>
                 </div>
                 <div class="form-group">
@@ -312,7 +312,7 @@
                     <div class="clearfix"></div>
 
                     <label class="checkbox-inline">
-                        <input value="tax" type="checkbox"  id="monthly_rental_deductions_tax" name="monthly_rental_m_deductions[]" class="toggle" data-toggle="toggle"> TAX
+                        <input value="tax" type="checkbox"  id="monthly_rental_deductions_tax" name="monthly_rental_m_deductions[]"> TAX
                     </label>
                 </div>
 

@@ -43,12 +43,12 @@ $form_data = json_decode($income->form_data, true);
         <label class="checkbox-inline">
             <input type="checkbox" value="epf" name="monthly_fixed_m_deductions[]"
                    {{(isset($form_data['monthly_fixed_m_deductions']) and in_array("epf",$form_data['monthly_fixed_m_deductions']))?"checked":""}}
-                   id="monthly_fixed_m_deductions_epf" class="toggle" data-toggle="toggle">EPF
+                   id="monthly_fixed_m_deductions_epf">EPF
         </label>
         <label class="checkbox-inline">
             <input type="checkbox" value="tax" name="monthly_fixed_m_deductions[]"
                    {{(isset($form_data['monthly_fixed_m_deductions']) and in_array("tax",$form_data['monthly_fixed_m_deductions']))?"checked":""}}
-                   id="monthly_fixed_m_deductions_tax" class="toggle" data-toggle="toggle">TAX
+                   id="monthly_fixed_m_deductions_tax">TAX
         </label>
     </div>
     <div class="form-group">
@@ -122,12 +122,12 @@ $form_data = json_decode($income->form_data, true);
         <label class="checkbox-inline">
             <input value="epf" type="checkbox" name="monthly_variable_m_deductions[]"
                    {{(isset($form_data['monthly_variable_m_deductions']) and in_array("epf",$form_data['monthly_variable_m_deductions']))?"checked":""}}
-                   id="monthly_variable_m_deductions_epf" class="toggle" data-toggle="toggle"> EPF
+                   id="monthly_variable_m_deductions_epf"> EPF
         </label>
         <label class="checkbox-inline">
             <input value="tax" type="checkbox" name="monthly_variable_m_deductions[]"
                    {{(isset($form_data['monthly_variable_m_deductions']) and in_array("tax",$form_data['monthly_variable_m_deductions']))?"checked":""}}
-                   id="monthly_variable_m_deductions_tax" class="toggle" data-toggle="toggle"> TAX
+                   id="monthly_variable_m_deductions_tax"> TAX
         </label>
     </div>
     <div class="form-group">
@@ -174,12 +174,12 @@ $form_data = json_decode($income->form_data, true);
         <label class="checkbox-inline">
             <input value="epf" type="checkbox" id="annual_tax_declared_m_deductions_epf"
                    {{(isset($form_data['annual_tax_declared_m_deductions']) and in_array("epf",$form_data['annual_tax_declared_m_deductions']))?"checked":""}}
-                   name="annual_tax_declared_m_deductions[]" class="toggle" data-toggle="toggle"> EPF
+                   name="annual_tax_declared_m_deductions[]"> EPF
         </label>
         <label class="checkbox-inline">
             <input value="tax" type="checkbox" id="annual_tax_declared_m_deductions_tax"
                    {{(isset($form_data['annual_tax_declared_m_deductions']) and in_array("tax",$form_data['annual_tax_declared_m_deductions']))?"checked":""}}
-                   name="annual_tax_declared_m_deductions[]" class="toggle" data-toggle="toggle"> TAX
+                   name="annual_tax_declared_m_deductions[]"> TAX
         </label>
     </div>
     <div class="form-group">
@@ -258,7 +258,7 @@ $form_data = json_decode($income->form_data, true);
         <label class="checkbox-inline">
             <input value="tax" type="checkbox" id="monthly_rental_deductions_tax"
                    {{(isset($form_data['monthly_rental_m_deductions']) and in_array("tax",$form_data['monthly_rental_m_deductions']))?"checked":""}}
-                   name="monthly_rental_m_deductions[]" class="toggle" data-toggle="toggle"> TAX
+                   name="monthly_rental_m_deductions[]"> TAX
         </label>
     </div>
 

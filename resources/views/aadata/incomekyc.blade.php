@@ -129,10 +129,10 @@
                     <div class="clearfix"></div>
 
                     <label class="checkbox-inline">
-                        <input type="checkbox"  value="epf" name="monthly_fixed_m_deductions[]"  id="monthly_fixed_m_deductions_epf" class="toggle" data-toggle="toggle"> EPF
+                        <input type="checkbox"  value="epf" name="monthly_fixed_m_deductions[]"  id="monthly_fixed_m_deductions_epf"> EPF
                     </label>
                     <label class="checkbox-inline">
-                        <input type="checkbox" value="tax" name="monthly_fixed_m_deductions[]" id="monthly_fixed_m_deductions_tax" class="toggle" data-toggle="toggle"> TAX
+                        <input type="checkbox" value="tax" name="monthly_fixed_m_deductions[]" id="monthly_fixed_m_deductions_tax"> TAX
                     </label>
                 </div>
                 <div class="form-group">
@@ -189,10 +189,10 @@
                     <label class="control-label">Mandatory Deductions</label>
                     <div class="clearfix"></div>
                     <label class="checkbox-inline">
-                        <input value="epf" type="checkbox" name="monthly_variable_m_deductions[]"  id="monthly_variable_m_deductions_epf" class="toggle" data-toggle="toggle"> EPF
+                        <input value="epf" type="checkbox" name="monthly_variable_m_deductions[]"  id="monthly_variable_m_deductions_epf"> EPF
                     </label>
                     <label class="checkbox-inline">
-                        <input value="tax" type="checkbox" name="monthly_variable_m_deductions[]"  id="monthly_variable_m_deductions_tax" class="toggle" data-toggle="toggle"> TAX
+                        <input value="tax" type="checkbox" name="monthly_variable_m_deductions[]"  id="monthly_variable_m_deductions_tax"> TAX
                     </label>
                 </div>
                 <div class="form-group">
@@ -226,10 +226,10 @@
                     <label class="control-label">Mandatory Deductions</label>
                     <div class="clearfix"></div>
                     <label class="checkbox-inline">
-                        <input value="epf" type="checkbox"  id="annual_tax_declared_m_deductions_epf" name="annual_tax_declared_m_deductions[]" class="toggle" data-toggle="toggle"> EPF
+                        <input value="epf" type="checkbox"  id="annual_tax_declared_m_deductions_epf" name="annual_tax_declared_m_deductions[]"> EPF
                     </label>
                     <label class="checkbox-inline">
-                        <input value="tax" type="checkbox"  id="annual_tax_declared_m_deductions_tax" name="annual_tax_declared_m_deductions[]" class="toggle" data-toggle="toggle"> TAX
+                        <input value="tax" type="checkbox"  id="annual_tax_declared_m_deductions_tax" name="annual_tax_declared_m_deductions[]"> TAX
                     </label>
                 </div>
                 <div class="form-group">
@@ -301,7 +301,7 @@
                     <div class="clearfix"></div>
 
                     <label class="checkbox-inline">
-                        <input value="tax" type="checkbox"  id="monthly_rental_deductions_tax" name="monthly_rental_m_deductions[]" class="toggle" data-toggle="toggle"> TAX
+                        <input value="tax" type="checkbox"  id="monthly_rental_deductions_tax" name="monthly_rental_m_deductions[]"> TAX
                     </label>
                 </div>
 
@@ -452,6 +452,8 @@
                 success: function (response) {
                     $("#tab-3").html("").append($(response));
                     $(".incomekyc_right").html("").append($("#incomekyc_right").html())
+                    $(".wealthkyc_right").html("").append($("#wealthkyc_right").html())
+                    $(".propertykyc_right").html("").append($("#propertykyc_right").html())
                 },
                 error: function () {
 
@@ -591,7 +593,7 @@
             e.preventDefault();
         });
 
-        $("#monthly_rental_add").on('click',function (e) {
+        $(document.body).on('click',"#monthly_rental_add",function (e) {
             $("#btn-monthlyrental").removeClass("hide");
             exchange_rate = 1;
 
@@ -616,7 +618,7 @@
             e.preventDefault();
         });
 
-        $("#annual_investment_return_add").on('click',function(){
+        $(document.body).on('click',"#annual_investment_return_add",function(){
             $("#btn-air").removeClass("hide");
 
             currency = $("#annual_investment_return_currency").val();
@@ -637,7 +639,7 @@
             e.preventDefault();
         });
 
-        $("#addiif").on('click',function(){
+        $(document.body).on('click',"#addiif",function(){
             $("#btn-iif").removeClass("hide");
 
             month1 = $("#month1_iif").val();

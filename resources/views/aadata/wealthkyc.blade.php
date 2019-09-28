@@ -354,9 +354,8 @@
             $("#wealthkyc").find("#" + id).removeClass("hide").show();
         })
 
-        $(".wealthkyc-action-btn button.view").on("click",function (e) {
-            $("#wealthtype").val($(this).data("value")).trigger("change");
-        })
+
+
         $("#saving_add").click(function (e) {
             $("#btn-saving").removeClass("hide");
             amount = gross = Math.round($("#saving_amount").val());
@@ -436,18 +435,26 @@
         })
 
         $(".editwealth").on("click", function (e) {
-            $("#wealthkyc .box .incometype").addClass("hide");
-            id = $(this).data("value");
-            $("#" + id).removeClass("hide");
+            type = $(this).data("type");
+            url = $(this).data("url");
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: "type="+type,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+            }).done(function (response) {
+                $("#wealthtype").val(type).trigger("change");
+                $(".wealthtype").removeClass("hide").addClass("hide");
+                $("#"+type).removeClass("hide").html("").append($(response));
+            })
 
         })
 
         $(".delwealth").on("click", function (e) {
-            id = $(this).data("value");
-            $("#" + id).find(" :input").not("[type='radio'],select,[type='checkbox']").val(0);
-            $("#" + $(this).data("action")).trigger("click");
-            $("."+$(this).data("right")).html("")
-            $(this).parent("li").parent("ul").parent("div").addClass('hide');
+            id = $(this).data("id");
+            submitincomekyc("id="+id+"&action=delete");
 
         })
 
@@ -473,23 +480,23 @@
                     $("#wealthkyc_action_btns").html("").append($(response))
                 })
 
-                {{--$.ajax({--}}
-                {{--url: "{{ route("applicant_sidebar") }}",--}}
-                {{--type: "POST",--}}
-                {{--headers: {--}}
-                {{--'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),--}}
-                {{--},--}}
-                {{--data:"applicant_id="+$("#applicant_id").val(),--}}
-                {{--success: function (response) {--}}
-                {{--$("#tab-3").html("").append($(response));--}}
-                {{--$(".incomekyc_right").html("").append($("#incomekyc_right").html())--}}
+                $.ajax({
+                url: "{{ route("applicant_sidebar") }}",
+                type: "POST",
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data:"applicant_id="+$("#applicant_id").val(),
+                success: function (response) {
+                $("#tab-3").html("").append($(response));
+                $(".wealthkyc_right").html("").append($("#wealthkyc_right").html())
 
-                {{--},--}}
-                {{--error: function () {--}}
+                },
+                error: function () {
 
-                {{--}--}}
+                }
 
-                {{--});--}}
+                });
 
             })
 
