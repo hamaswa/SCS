@@ -77,7 +77,7 @@
                                 </li>
                                 <li style="cursor: pointer;">
                                     {{--i removed word "tab" in data-doggle="tab" to disabled it--}}
-                                    <div id="IK" data-target="#lB">
+                                    <div id="IK" data-target="#lB" data-toggle="tab">
                                         <div>
                                             <span class="account-type">Income</span><br/>
                                             <span class="account-amount">KYC</span><br/>

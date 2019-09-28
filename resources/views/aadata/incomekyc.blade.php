@@ -484,11 +484,11 @@
         $("#incometype").on("change",function (e) {
             $("#incomekyc .box .incometype").addClass("hide");
             id = $(this).val();
-            $("#" + id).html("").append($(income_form[id]))
+            $("#" + id).html("").append($(income_form[id]).clone(true,true))
             $("#" + id).removeClass("hide").show();
         })
 
-        $("#addmonthlyfixed").on('click',function (e) {
+        $(document.body).on('click',"#addmonthlyfixed",function (e) {
 
             // $("#btn-incomekycsalary").removeClass("hide");
             //
@@ -521,7 +521,7 @@
             // totalincomekyc()
         });
 
-        $("#addmonthlyvariable").on('click',function (e) {
+        $(document.body).on('click',"#addmonthlyvariable",function (e) {
             $("#btn-business").removeClass("hide");
 
             currency = $("#monthly_variable_currency").val();
@@ -562,7 +562,7 @@
             e.preventDefault();
         });
 
-        $("#addannualtaxdeclared").on('click',function (e) {
+        $(document.body).on('click',"#addannualtaxdeclared",function (e) {
             $("#btn-incometax").removeClass("hide");
 
             currency = $("#annual_tax_declared_currency").val();
@@ -741,7 +741,6 @@
                 }).done(function(response){
                     $("#incomekyc_action_btns").html("").append($(response))
                 })
-
                $.ajax({
                     url: "{{ route("applicant_sidebar") }}",
                     type: "POST",
@@ -759,6 +758,11 @@
                     }
 
                 });
+
+                    //$("#incomekyc .box .incometype").addClass("hide");
+                    id = $("#incometype").val();
+                    $("#" + id).html("").append($(income_form[id]).clone(true,true))
+                   // $("#" + id).removeClass("hide").show();
 
             })
 

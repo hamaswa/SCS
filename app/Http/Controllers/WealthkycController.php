@@ -101,7 +101,10 @@ class WealthkycController extends Controller
      */
     public function edit($id)
     {
-        //
+        $inputs = request()->all();
+        $arr["wealth"] = ApplicantWealth::find($id);
+        $arr['type'] = $inputs["type"];
+        return view("aadata.wealth_edit")->with($arr);
     }
 
     /**

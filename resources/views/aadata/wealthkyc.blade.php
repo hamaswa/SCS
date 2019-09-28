@@ -340,6 +340,15 @@
 
 @push("scripts")
     <script type="text/javascript">
+        $(document).ready(function(e) {
+            wealth_form=[];
+            wealth_form["saving"] = $("#saving").children().clone(true,true)
+            wealth_form["tsv"] = $("#tsv").children().clone(true,true)
+            wealth_form["utv"] = $("#utv").children().clone(true,true)
+            wealth_form["tpf"] = $("#tpf").children().clone(true,true)
+            wealth_form["epf"] = $("#epf").children().clone(true,true)
+
+        })
         $("#backincomekyc").click(function (e) {
             $("#wealthkyc").addClass("hide");
             $("#incomekyc").removeClass("hide");
@@ -351,12 +360,13 @@
         $("#wealthtype").change(function (e) {
             $("#wealthkyc .box .wealthtype").addClass("hide");
             id = $(this).val();
+            $("#" + id).html("").append($(wealth_form[id]).clone(true,true))
             $("#wealthkyc").find("#" + id).removeClass("hide").show();
         })
 
 
 
-        $("#saving_add").click(function (e) {
+        $(document.body).on("click","#saving_add",function (e) {
             $("#btn-saving").removeClass("hide");
             amount = gross = Math.round($("#saving_amount").val());
             if($("[name='saving_acctype']:checked").data("val")=="joint")
@@ -377,7 +387,7 @@
             data = $("#saving").find(":input").serialize()+"&type=saving&total="+amount+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
             submitwealthkyc(data)
         })
-        $("#epf_add").on('click', function (e) {
+        $(document.body).on("click","#epf_add", function (e) {
             $("#btn-epf").removeClass("hide");
 
             amount = gross = $("#epf_amount").val();
@@ -388,7 +398,7 @@
             data = $("#epf").find(":input").serialize()+"&type=epf&total="+amount+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
             submitwealthkyc(data)
         })
-        $("#tpf_add").on('click', function (e) {
+        $(document.body).on("click","#tpf_add", function (e) {
             $("#btn-tpf").removeClass("hide");
 
             amount = gross = $("#tpf_amount").val();
@@ -409,7 +419,7 @@
 
             totalwealthkyc();
         })
-        $("#tsv_add").on('click', function (e) {
+        $(document.body).on("click","#tsv_add", function (e) {
             $("#btn-tsv").removeClass("hide");
 
             amount = gross =  $("#tsv_amount").val();
@@ -421,7 +431,7 @@
             data = $("#tsv").find(":input").serialize()+"&type=tsv&total="+amount+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
             submitwealthkyc(data)
         })
-        $("#utv_add").on('click', function (e) {
+        $(document.body).on("click","#utv_add", function (e) {
             $("#btn-utv").removeClass("hide");
 
             amount = gross = $("#utv_amount").val();
@@ -434,7 +444,7 @@
             submitwealthkyc(data)
         })
 
-        $(".editwealth").on("click", function (e) {
+        $(document.body).on("click",".editwealth", function (e) {
             type = $(this).data("type");
             url = $(this).data("url");
             $.ajax({
@@ -452,9 +462,9 @@
 
         })
 
-        $(".delwealth").on("click", function (e) {
+        $(document.body).on("click",".delwealth", function (e) {
             id = $(this).data("id");
-            submitincomekyc("id="+id+"&action=delete");
+            submitwealthkyc("id="+id+"&action=delete");
 
         })
 
@@ -499,6 +509,8 @@
                 });
 
             })
+            id = $("#wealthtype").val();
+            $("#" + id).html("").append($(wealth_form[id]).clone(true,true))
 
         }
 
