@@ -20,7 +20,7 @@ class CreateApplicantDataTable extends Migration
             $table->string('aabranch')->nullable();
             $table->string('aasource')->nullable();
             $table->string('aaprogramcode')->nullable();
-            $table->string("unique_id")->nullable();
+            $table->string("unique_id")->unique();
             $table->string("name")->nullable();
             $table->string("mobile")->nullable();
             $table->string("consent")->default("0");

@@ -14,7 +14,7 @@ class CompanyName extends Migration
     public function up()
     {
         Schema::table('applicant_data', function (Blueprint $table) {
-            $table->char('company_name',255)->nullable();
+            $table->char('company_name', 255)->nullable();
         });
     }
 
@@ -23,10 +23,4 @@ class CompanyName extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::table('applicant_data', function (Blueprint $table) {
-            $table->char('company_name',255)->nullable();
-        });
-    }
 }

@@ -64,29 +64,29 @@ class ApplicantDataController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-        public function  applicantSidebar(Request $request)
-        {
-            $inputs = $request->all();
-            $arr['incomes'] = ApplicantIncome::where("applicant_id","=",$inputs['applicant_id'])
-                ->orderby("type")
-                ->get();
-            $arr['wealths'] = ApplicantWealth::where("applicant_id","=",$inputs['applicant_id'])
-                //->orderby("type")
-                ->get();
-            $arr['income_total'] = DB::table('applicant_income')
-                ->select(DB::raw("sum(gross) as total_gross, sum(net) as total_net"))
-                ->where("applicant_id","=",$inputs['applicant_id'])
-                ->groupby("applicant_id")
-                ->first();
-            $arr['wealth_total'] = DB::table('applicant_wealth')
-                ->select(DB::raw("sum(gross) as total_gross, sum(total) as total_net"))
-                ->where("applicant_id","=",$inputs['applicant_id'])
-                ->groupby("applicant_id")
-                ->first();
+    public function  applicantSidebar(Request $request)
+    {
+        $inputs = $request->all();
+        $arr['incomes'] = ApplicantIncome::where("applicant_id","=",$inputs['applicant_id'])
+            ->orderby("type")
+            ->get();
+        $arr['wealths'] = ApplicantWealth::where("applicant_id","=",$inputs['applicant_id'])
+            //->orderby("type")
+            ->get();
+        $arr['income_total'] = DB::table('applicant_income')
+            ->select(DB::raw("sum(gross) as total_gross, sum(net) as total_net"))
+            ->where("applicant_id","=",$inputs['applicant_id'])
+            ->groupby("applicant_id")
+            ->first();
+        $arr['wealth_total'] = DB::table('applicant_wealth')
+            ->select(DB::raw("sum(gross) as total_gross, sum(total) as total_net"))
+            ->where("applicant_id","=",$inputs['applicant_id'])
+            ->groupby("applicant_id")
+            ->first();
 
-            $arr['properties'] = ApplicantProperty::where("applicant_id","=",$inputs['applicant_id'])->get();
-            return view("aadata.applicant_sidebar")->with($arr);
-        }
+        $arr['properties'] = ApplicantProperty::where("applicant_id","=",$inputs['applicant_id'])->get();
+        return view("aadata.applicant_sidebar")->with($arr);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -105,8 +105,11 @@ class ApplicantDataController extends Controller
                 ->get()->ToArray();
             $inputs['serial_no'] = date('Ymdhis') . "" . $applicant_count[0]["count"];
 
+            if(ApplicantData::where("unique_id","=",$inputs['unique_id'])->exists()){
+                return back()->with("error","Applicant Already Exists");
+            }
             $applicant = ApplicantData::create($inputs);
-           // return back()->with("success", "New Appointment Created");
+            // return back()->with("success", "New Appointment Created");
             return redirect()->route("pipeline.index")->with("success", "New Appointment Created");;
 
         } else {
@@ -202,10 +205,10 @@ class ApplicantDataController extends Controller
     public function update(Request $request, $id)
     {
         try{
-        $inputs = $request->all();
-        $applicant = ApplicantData::find($id);
-        $applicant->update($inputs);
-        echo "Succesfully Updated";
+            $inputs = $request->all();
+            $applicant = ApplicantData::find($id);
+            $applicant->update($inputs);
+            echo "Succesfully Updated";
         }
         catch (\Exception $exception){
             echo "Error Occured ". $exception->getMessage();
@@ -237,9 +240,9 @@ class ApplicantDataController extends Controller
             $inputs['serial_no'] = date('Ymdhis') . "" . $applicant_count[0]["count"];
             $applicant = ApplicantData::create($inputs);
             $return_data = array(
-                            'msg' => 'New Appointment Created',
-                            'data' => $applicant
-                           );
+                'msg' => 'New Appointment Created',
+                'data' => $applicant
+            );
             return back()->with("success", $return_data);
 
         } else {
