@@ -238,6 +238,9 @@ class ApplicantDataController extends Controller
             $applicant_count = ApplicantData::selectRaw("count(*) as count")->whereRaw("created_at BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 day)")
                 ->get()->ToArray();
             $inputs['serial_no'] = date('Ymdhis') . "" . $applicant_count[0]["count"];
+            if(ApplicantData::where("unique_id","=",$inputs['unique_id'])->exists()){
+                return back()->with("error","Applicant Already Exists");
+            }
             $applicant = ApplicantData::create($inputs);
             $return_data = array(
                 'msg' => 'New Appointment Created',

@@ -89,7 +89,7 @@
                                             <input type="hidden" name="formname" value="incomeform">
                                             <input type="hidden" name="income_id" value="" id="income_id">
                                             @if($applicant->aacategory=="I")
-                                                @include('maker.incomekycedit',['income'=>$applicant_data->applicantIncome])
+                                                @include('maker.incomekyc',['income'=>$applicant_data->applicantIncome])
                                             @else
                                                 @include("maker.company_incomekycedit");
                                             @endif
@@ -103,7 +103,7 @@
                                             <input type="hidden" name="formname" value="wealthform">
                                             <input type="hidden" name="wealth_id" id="wealth_id">
                                             @if($applicant->aacategory=="I")
-                                                @include('maker.wealthkycedit',['wealth'=>$applicant_data->applicantWealth])
+                                                @include('maker.wealthkyc',['wealth'=>$applicant_data->applicantWealth])
                                             @else
                                                 @include('maker.company_wealthkycedit')
                                             @endif
@@ -205,46 +205,7 @@
             });
         })
 
-        function submitincomekyc() {
-            $.ajax({
-                url: '{{ route('incomekyc.store') }}',
-                type: 'POST',
-                data: $("#incomeform").serialize() + "&applicant_id=" + $("#applicant_id").val()
-            }).done(function (response) {
-                response = JSON.parse(response);
-                console.log(response);
-                if (response.error) {
-                }
-                else {
-                    console.log('wk');
-                    if (!isNaN(response.income_id)) {
-                        console.log($("#WK"));
-                        $(".wk").attr("data-toggle", "tab");
-                    }
-                    $("#income_id").val(response.income_id);
-                }
-            })
 
-        }
-
-        function submitwealthkyc() {
-            $.ajax({
-                url: '{{ route('wealthkyc.store') }}',
-                type: 'POST',
-                data: $("#wealthform").serialize() + "&applicant_id=" + $("#applicant_id").val()
-            }).done(function (response) {
-                response = JSON.parse(response);
-                if (response.error) {
-                }
-                else {
-
-                    if (!isNaN(response.wealth_id)) {
-                        $("#PK").attr("data-toggle", "tab");
-                    }
-                    $("#wealth_id").val(response.wealth_id);
-                }
-            })
-        }
 
         function submitpropertykyc() {
             let data = {};

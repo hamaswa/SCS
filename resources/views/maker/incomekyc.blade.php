@@ -1,106 +1,50 @@
 <fieldset id="incomekyc" class=" tab-action-main">
-    {{--<div class="col-md-2 col-sm-3">--}}
-        {{--<a href="javascript:void(0);" data-id="applicantkyc" id="backapplicantkyc" class="bg-white padding-5 pull-left vericaltext tab-action border-black-1">APPLICATION <br> KYC</a>--}}
-        {{--<a href="javascript:void(0);" data-id="incomekyc" id="nextincomekyc" class="bg-gray-light padding-5 pull-left vericaltext tab-action border-black-1"><br>INCOME <br> KYC</a>--}}
-        {{--<a href="javascript:void(0);" data-id="wealthkyc" id="nextwealthkyc" class="bg-white padding-5 pull-left vericaltext tab-action border-black-1"><br><br>WEALTH <br> KYC</a>--}}
-        {{--<a href="javascript:void(0);" data-id="propertykyc" id="nextpropertykyc" class="bg-white padding-5 pull-left vericaltext tab-action border-black-1"><br><br><br>PROPERTY <br> KYC</a>--}}
-    {{--</div>--}}
     <div class="col-lg-6 col-lg-offset-1 col-md-6 col-sm-12">
         <div class="box">
             <div class="box-header bg-gray-light">
+                <div class="btn-group margin-bottom border-black-1">
+                    <button type="button" class="btn btn-default btn-flat la_aa"
+                            data-la="{{$applicant->id}}"
+                            data-id="{{$applicant->id}}">{{$applicant->name}}</button>
+                    <button type="button" class="btn btn-default btn-flat dropdown-toggle"
+                            data-toggle="dropdown"
+                            aria-expanded="false">
+                        <i class="fa fa-list"></i>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+
+                </div>
+                @if(isset($attached_applicants))
+                    @foreach($attached_applicants as $applicant_sub)
+                        <div class="applicants form-group pull-left">
+                            <div class="btn-group margin-bottom border-black-1"
+                                 id="btn-air">
+                                <button type="button" class="btn btn-default btn-flat la_aa"
+                                        data-la="{{$applicant->id}}"
+                                        data-id="{{$applicant_sub->id}}">{{$applicant_sub->name}}</button>
+                                <button type="button" class="btn btn-default btn-flat dropdown-toggle"
+                                        data-toggle="dropdown"
+                                        aria-expanded="false">
+                                    <i class="fa fa-list"></i>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+
+                            </div>
+                        </div>
+
+                    @endforeach
+                @endif
                 <div class="form-group col-md-12 bg-gray padding-5">
                     <div class="col-md-5 col-sm-12 bg-white">
                         <strong class="padding-5 pull-left margin-r-5 applicant"></strong>
                     </div>
-                    {{--<div class="col-md-7 col-sm-12">--}}
-                        {{--<a class="bg-white padding-5 pull-left margin-r-5 d_pdf" id="d_pdf" title="CTOS Report Download">--}}
-                            {{--<img src="{{ asset("img/save.jpeg") }}" />--}}
-                        {{--</a>--}}
-                        {{--<a class="bg-white padding-5 pull-left" href="javascript:void(0)"  onclick = "$('#incomeform').trigger('reset')"  title="Refresh"><img src="{{ asset("img/refresh.jpeg") }}" /></a>--}}
-
-                    {{--</div>--}}
-
                 </div>
-                <div id="" class="col-lg-12 col-md-12 col-sm-12">
-                    <div class="btn-group margin-bottom border-black-1 incomekyc-action-btn hide" id="btn-salary">
-                        <button type="button" class="btn btn-default btn-flat view" data-value="salary">Monthly Fixed</button>
-                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
-                                aria-expanded="false">
-                            <i class="fa fa-list"></i>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu position-relative" id="" role="menu">
-                            <li><a href="#"  data-value="salary"  class="editincome">Edit</a></li>
-                            <li><a href="#" class="delincome" data-action="addmonthlyfixed" data-right="salary_right_bar" data-value="salary">Delete</a></li>
-                        </ul>
-                    </div>
 
-                    <div class="btn-group margin-bottom border-black-1 incomekyc-action-btn hide"  id="btn-business">
-                        <button type="button" class="btn btn-default btn-flat view" data-value="business" >Monthly Variable</button>
-                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
-                                aria-expanded="false">
-                            <i class="fa fa-list"></i>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu position-relative" id="" role="menu">
-                            <li><a href="#"  data-value="business" class="editincome">Edit</a></li>
-                            <li><a href="#" data-value="business" data-action="addmonthlyvariable" data-right="business_right_bar" class="delincome">Delete</a></li>
-                        </ul>
-                    </div>
 
-                    <div class="btn-group margin-bottom border-black-1 incomekyc-action-btn hide" id="btn-incometax">
-                        <button type="button" class="btn btn-default btn-flat view" data-value="incometax">Annual Tax Declared</button>
-                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
-                                aria-expanded="false">
-                            <i class="fa fa-list"></i>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu position-relative" id="" role="menu">
-                            <li><a href="#"  data-value="incometax" class="editincome">Edit</a></li>
-                            <li><a href="#" data-value="incometax" data-action="addannualtaxdeclared" data-right="incometax_right_bar" class="delincome">Delete</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="btn-group margin-bottom border-black-1 incomekyc-action-btn hide" id="btn-iif">
-                        <button type="button" class="btn btn-default btn-flat view" data-value="iif">Industry Income Factor</button>
-                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
-                                aria-expanded="false">
-                            <i class="fa fa-list"></i>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu position-relative" id="" role="menu">
-                            <li><a href="#"  data-value="iif" class="editincome">Edit</a></li>
-                            <li><a href="#" data-value="iif" data-action="addiif" data-right="iif_right_bar" class="delincome">Delete</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="btn-group margin-bottom border-black-1 incomekyc-action-btn hide" id="btn-monthlyrental">
-                        <button type="button" class="btn btn-default btn-flat view" data-value="monthlyrental">Monthly Rental</button>
-                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
-                                aria-expanded="false">
-                            <i class="fa fa-list"></i>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu position-relative" id="" role="menu">
-                            <li><a href="#"  data-value="monthlyrental" class="editincome">Edit</a></li>
-                            <li><a href="#" data-value="monthlyrental" data-action="monthly_rental_add" data-right="monthly_rental_right_bar" class="delincome">Delete</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="btn-group margin-bottom border-black-1 incomekyc-action-btn hide" id="btn-air">
-                        <button type="button" class="btn btn-default btn-flat view" data-value="air">Annual Investment Return</button>
-                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
-                                aria-expanded="false">
-                            <i class="fa fa-list"></i>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu position-relative" id="" role="menu">
-                            <li><a href="#"  data-value="air" class="editincome">Edit</a></li>
-                            <li><a href="#" data-value="air" data-action="annual_investment_return_add" data-right="annual_investment_return_right_bar" class="delincome">Delete</a></li>
-                        </ul>
-                    </div>
-
+                <div id="incomekyc_action_btns" class="col-lg-12 col-md-12 col-sm-12">
+                    @include("aadata.incomekyc_action_btns",["incomes"=>$applicant_data->applicantIncome()->get()])
                 </div>
+
                 <div class="form-group col-md-12 col-sm-12 bg-gray-light">
                     <label class="control-label">Type</label>
                     <select id="incometype" class="form-control select2" name="incometype" style="width: 100%;">
@@ -112,8 +56,30 @@
                         <option value="air">Annual Investment Return</option>
                     </select>
                 </div>
+                <div class="form-group col-md-4 col-sm-4 bg-gray-light primary_docs">
+                    <label class="control-label">Primary Docs</label>
+                    @include("layouts.select", [
+                    'name'=>'primary_doc',
+                    'id'=>'primary_doc',
+                    'default'=>"Select Primary Document",
+                    'type'=>'salary_p',
+                    'options'=>$options])
+
+                </div>
+                <div class="form-group col-md-4 col-sm-4 bg-gray-light support_docs">
+                    <label class="control-label">Supporting Docs</label>
+                    @include("layouts.select", [
+                    'name'=>'support_doc',
+                    'id'=>'support_doc',
+                    'default'=>"Select Supporting Document",
+                    'type'=>'salary_s',
+                    'options'=>$options])
+                </div>
+                <div class="form-group col-md-4 col-sm-3 pull-right">
+                    <input type="file" class="form-control btn btn-primary" multiple name="income_doc[]" id="income_doc" />
+                </div>
             </div>
-            <div class="box-body bg-gray-light incometype " id="salary">
+            <div class="box-body bg-gray-light incometype" id="salary">
                 <label class="col-lg-12 form-group clearfix">
                     Monthly Fixed
                 </label>
@@ -299,7 +265,6 @@
                 </div>
 
             </div>
-
             <div class="box-body bg-gray-light hide incometype " id="monthlyrental">
                 <label class="col-lg-12 form-group"> Monthly Rental </label>
 
@@ -360,8 +325,8 @@
         <div class="box">
             <div class="box-body bg-chocolate border-shadlebrown min-height left-box">
                 <strong class="applicant"></strong>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover bg-white incomekyc_right">
+                <div class="table-responsive incomekyc_right">
+                    <table class="table table-bordered table-striped table-hover bg-white">
                         <thead class="bg-light-blue">
                         <tr class="bg-light-blue-gradient">
                             <th colspan="3" class="text-center">Monthly Income</th>
@@ -396,38 +361,84 @@
 
         </div>
     </div>
-
-    {{--<div class="form-group col-md-12 col-sm-12 ">--}}
-        {{--<ul class="pager">--}}
-            {{--<li class="previous" id="backapplicantkyc"><a href="javascript:void(0);" class="bg-yellow-gradient"> &lt;&lt; Application KYC </a></li>--}}
-            {{--<li class="next"><a href="javascript:void(0);" id="nextwealthkyc" class="bg-yellow-gradient">Wealth KYC &gt;&gt;</a></li>--}}
-        {{--</ul>--}}
-        {{--<button type="button" id="backapplicantkyc" class="btn btn-primary pull-right">Previous</button>--}}
-        {{--<button type="button" id="nextwealthkyc" class="btn btn-primary pull-right">Next</button>--}}
-    {{--</div>--}}
-
-
-
-
+    {{--<input type=hidden class="kyctotalgross"  value="0" name=monthly_fixed_gross id=monthly_fixed_gross>--}}
+    {{--<input type=hidden class="kyctotalnet" value="0" name=monthly_fixed_net id=monthly_fixed_net>--}}
+    {{--<input type=hidden class="kyctotalgross" value="0" name=monthly_variable_gross id=monthly_variable_gross>--}}
+    {{--<input type=hidden class="kyctotalnet" value="0" name=monthly_variable_net id=monthly_variable_net>--}}
+    {{--<input type=hidden class="kyctotalgross" value="0" name=annual_tax_declared_gross id=annual_tax_declared_gross>--}}
+    {{--<input type=hidden class="kyctotalnet" value="0" name=annual_tax_declared_net id=annual_tax_declared_net>--}}
+    {{--<input type=hidden class="kyctotalgross" value="0" name=annual_investment_return_gross id=annual_investment_return_gross>--}}
+    {{--<input type=hidden class="kyctotalnet" value="0" name=annual_investment_return_net id=annual_investment_return_net>--}}
+    {{--<input type=hidden class="kyctotalgross" value="0" name=monthly_rental_gross id=monthly_rental_gross>--}}
+    {{--<input type=hidden class="kyctotalnet" value="0" name=monthly_rental_net id=monthly_rental_net>--}}
+    {{--<input type=hidden class="kyctotalgross" value="0" name=iif_gross id=iif_gross>--}}
+    {{--<input type=hidden class="kyctotalnet" value="0" name=iif_net id=iif_net>--}}
+    {{--<input type=hidden class="kyctotalnet" value="0" name=gross id=gross>--}}
+    {{--<input type=hidden class="kyctotalnet" value="0" name=net id=net>--}}
 </fieldset>
-<input type=hidden class="kyctotalgross"  value="0" name=monthly_fixed_gross id=monthly_fixed_gross>
-<input type=hidden class="kyctotalnet" value="0" name=monthly_fixed_net id=monthly_fixed_net>
-<input type=hidden class="kyctotalgross" value="0" name=monthly_variable_gross id=monthly_variable_gross>
-<input type=hidden class="kyctotalnet" value="0" name=monthly_variable_net id=monthly_variable_net>
-<input type=hidden class="kyctotalgross" value="0" name=annual_tax_declared_gross id=annual_tax_declared_gross>
-<input type=hidden class="kyctotalnet" value="0" name=annual_tax_declared_net id=annual_tax_declared_net>
-<input type=hidden class="kyctotalgross" value="0" name=annual_investment_return_gross id=annual_investment_return_gross>
-<input type=hidden class="kyctotalnet" value="0" name=annual_investment_return_net id=annual_investment_return_net>
-<input type=hidden class="kyctotalgross" value="0" name=monthly_rental_gross id=monthly_rental_gross>
-<input type=hidden class="kyctotalnet" value="0" name=monthly_rental_net id=monthly_rental_net>
-<input type=hidden class="kyctotalgross" value="0" name=iif_gross id=iif_gross>
-<input type=hidden class="kyctotalnet" value="0" name=iif_net id=iif_net>
-<input type=hidden class="kyctotalnet" value="0" name=gross id=gross>
-<input type=hidden class="kyctotalnet" value="0" name=net id=net>
+
 @push("scripts")
     <script type="text/javascript">
 
-        $(".currency").on("change",function (e) {
+        $(document).ready(function(e) {
+            income_form=[];
+            income_form["salary"] = $("#salary").children().clone(true,true)
+            income_form["business"] = $("#business").children().clone(true,true)
+            income_form["incometax"] = $("#incometax").children().clone(true,true)
+            income_form["iif"] = $("#iif").children().clone(true,true)
+            income_form["monthlyrental"] = $("#monthlyrental").children().clone(true,true)
+            income_form["air"] = $("#air").children().clone(true,true)
+            $.ajax({
+                url: "{{ route("comments") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: "id={{$applicant->id}}",
+                success: function (response) {
+                    $("#tab-2").html(response);
+                },
+                error: function () {
+
+                }
+
+            });
+            $.ajax({
+                url: "{{ route("documents") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: "id={{$applicant->id}}",
+                success: function (response) {
+                    $("#tab-1").html(response);
+
+                },
+                error: function () {
+
+                }
+            });
+            $.ajax({
+                url: "{{ route("applicant_sidebar") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data:"applicant_id="+$("#applicant_id").val(),
+                success: function (response) {
+                    $("#tab-3").html("").append($(response));
+                    $(".incomekyc_right").html("").append($("#incomekyc_right").html())
+                    $(".wealthkyc_right").html("").append($("#wealthkyc_right").html())
+                    $(".propertykyc_right").html("").append($("#propertykyc_right").html())
+                },
+                error: function () {
+
+                }
+
+            });
+        })
+
+        $(document.body).on("change","select.currency",function (e) {
             if($(this).val()=="myr")
                 $($(this).data("target")).val(1)
                     .parent("div").addClass("hide");
@@ -446,20 +457,17 @@
             $("#incomekyc").addClass("hide");
             $("#wealthkyc").removeClass("hide");
         });
-
-        $("#incometype").change(function (e) {
+        $("#incometype").on("change",function (e) {
             $("#incomekyc .box .incometype").addClass("hide");
             id = $(this).val();
-            $("#incomekyc").find("#" + id).removeClass("hide").show();
+            $("#" + id).html("").append($(income_form[id]).clone(true,true))
+            $("#" + id).removeClass("hide").show();
         })
 
-        $(".incomekyc-action-btn button.view").on("click",function (e) {
-            $("#incometype").val($(this).data("value")).trigger("change");
-        })
+        $(document.body).on('click',"#addmonthlyfixed",function (e) {
 
-        $("#addmonthlyfixed").on('click',function (e) {
-            $("#btn-salary").removeClass("hide");
-
+            // $("#btn-incomekycsalary").removeClass("hide");
+            //
             currency = $("#monthly_fixed_currency").val();
             basic = $("#monthly_fixed_basic").val();
             exchange_rate = $("#monthly_fixed_exchance_rate").val();
@@ -476,14 +484,20 @@
             }
             net = Math.round(gross - tax_ded - epf_ded);
 
-            $("#monthlyfixedadded").val("true");
-            $(".salary_right_bar").html("<td>Monthly Fixed</td><td>"+ Math.round(gross)+"</td><td>"+ Math.round(net)+"</td>");
-            // $("#salary_right_bar").text(gross+" / "+net);
-            $("#monthly_fixed_gross").val(gross);
-            $("#monthly_fixed_net").val(net);
-            totalincomekyc()
+            data = $("#salary").find(":input").serialize()+"&type=salary&net="+net+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
+
+            submitincomekyc(data);
+            e.preventDefault();
+
+            // $("#monthlyfixedadded").val("true");
+            // $(".salary_right_bar").html("<td>Monthly Fixed</td><td>"+ Math.round(gross)+"</td><td>"+ Math.round(net)+"</td>");
+            // // $("#salary_right_bar").text(gross+" / "+net);
+            // $("#monthly_fixed_gross").val(gross);
+            // $("#monthly_fixed_net").val(net);
+            // totalincomekyc()
         });
-        $("#addmonthlyvariable").on('click',function (e) {
+
+        $(document.body).on('click',"#addmonthlyvariable",function (e) {
             $("#btn-business").removeClass("hide");
 
             currency = $("#monthly_variable_currency").val();
@@ -508,15 +522,23 @@
             if($("#monthly_variable_m_deductions_epf").prop("checked")==true) {
                 epf_ded = gross * epf / 100;
             }
+
             net = Math.round(gross - tax_ded - epf_ded);
-            $("#monthlyvariableadded").val("true");
-            $(".business_right_bar").html("<td>Monthly Variable</td><td>"+ Math.round(gross) + "</td><td>"+ Math.round(net) + "</td>");
-            // $("#business_right_bar").text(gross+" / "+net);
-            $("#monthly_variable_gross").val(gross)
-            $("#monthly_variable_net").val(net)
-            totalincomekyc()
+
+            // $("#monthlyvariableadded").val("true");
+            // $(".business_right_bar").html("<td>Monthly Variable</td><td>"+ Math.round(gross) + "</td><td>"+ Math.round(net) + "</td>");
+            // // $("#business_right_bar").text(gross+" / "+net);
+            // $("#monthly_variable_gross").val(gross)
+            // $("#monthly_variable_net").val(net)
+            // totalincomekyc()
+
+            data = $("#business").find(":input").serialize()+"&type=business&net="+net+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
+
+            submitincomekyc(data);
+            e.preventDefault();
         });
-        $("#addannualtaxdeclared").on('click',function (e) {
+
+        $(document.body).on('click',"#addannualtaxdeclared",function (e) {
             $("#btn-incometax").removeClass("hide");
 
             currency = $("#annual_tax_declared_currency").val();
@@ -534,15 +556,22 @@
                 epf_ded = gross * epf / 100;
             }
             net = Math.round(gross - tax_ded - epf_ded);
-            $("#annualtaxdeclaredadded").val("true");
-             $(".incometax_right_bar").html("<td>Annual Tax Declared</td><td>"+ Math.round(gross) + "</td><td>"+ Math.round(net) + "</td>");
-            // $("#incometax_right_bar").text(gross+" / "+net);
-            $("#annual_tax_declared_gross").val(gross)
-            $("#annual_tax_declared_net").val(net)
-            totalincomekyc()
+            // $("#annualtaxdeclaredadded").val("true");
+            //  $(".incometax_right_bar").html("<td>Annual Tax Declared</td><td>"+ Math.round(gross) + "</td><td>"+ Math.round(net) + "</td>");
+            // // $("#incometax_right_bar").text(gross+" / "+net);
+            // $("#annual_tax_declared_gross").val(gross)
+            // $("#annual_tax_declared_net").val(net)
+            // totalincomekyc()
+
+            data = $("#incometax").find(":input").serialize()+"&type=incometax&net="+net+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
+
+            submitincomekyc(data);
+            e.preventDefault();
         });
-        $("#monthly_rental_add").on('click',function (e) {
+
+        $(document.body).on('click',"#monthly_rental_add",function (e) {
             $("#btn-monthlyrental").removeClass("hide");
+            exchange_rate = 1;
 
             basic = $("#monthly_rental_amount").val();
             tax = 20;//$("#monthly_fixed_m_deductions_tax").val();
@@ -552,14 +581,20 @@
                 tax_ded = gross * tax / 100;
             }
             net = Math.round(gross - tax_ded);
-            $("#monthly_rental_added").val("true");
-             $(".monthly_rental_right_bar").html("<td>Monthly Rental</td><td>"+ Math.round(gross) + "</td><td>"+ Math.round(net) + "</td>");
-            // $("#monthly_rental_right_bar").text(gross+" / "+net);
-            $("#monthly_rental_gross").val(gross)
-            $("#monthly_rental_net").val(net)
-            totalincomekyc()
+            // $("#monthly_rental_added").val("true");
+            //  $(".monthly_rental_right_bar").html("<td>Monthly Rental</td><td>"+ Math.round(gross) + "</td><td>"+ Math.round(net) + "</td>");
+            // // $("#monthly_rental_right_bar").text(gross+" / "+net);
+            // $("#monthly_rental_gross").val(gross)
+            // $("#monthly_rental_net").val(net)
+            // totalincomekyc()
+
+            data = $("#monthlyrental").find(":input").serialize()+"&type=monthlyrental&net="+net+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
+
+            submitincomekyc(data);
+            e.preventDefault();
         });
-        $("#annual_investment_return_add").on('click',function(){
+
+        $(document.body).on('click',"#annual_investment_return_add",function(){
             $("#btn-air").removeClass("hide");
 
             currency = $("#annual_investment_return_currency").val();
@@ -567,14 +602,20 @@
             exchange_rate = $("#annual_investment_return_exchange_rate").val();
             gross = Math.round((basic * exchange_rate)/12);
             net = gross;
-            $("#annual_investment_return_added").val("true");
-             $(".annual_investment_return_right_bar").html("<td>Annual Investment Return</td><td>"+ Math.round(gross) + "</td><td>"+ Math.round(net) + "</td>");
-            //$("#annual_investment_return_right_bar").text(gross+" / "+net);
-            $("#annual_investment_return_gross").val(gross)
-            $("#annual_investment_return_net").val(net)
-            totalincomekyc()
+            // $("#annual_investment_return_added").val("true");
+            //  $(".annual_investment_return_right_bar").html("<td>Annual Investment Return</td><td>"+ Math.round(gross) + "</td><td>"+ Math.round(net) + "</td>");
+            // //$("#annual_investment_return_right_bar").text(gross+" / "+net);
+            // $("#annual_investment_return_gross").val(gross)
+            // $("#annual_investment_return_net").val(net)
+            // totalincomekyc()
+
+            data = $("#air").find(":input").serialize()+"&type=air&net="+net+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
+
+            submitincomekyc(data);
+            e.preventDefault();
         });
-        $("#addiif").on('click',function(){
+
+        $(document.body).on('click',"#addiif",function(){
             $("#btn-iif").removeClass("hide");
 
             month1 = $("#month1_iif").val();
@@ -592,29 +633,41 @@
                 basic = basic * shareholding/100;
             gross = basic;
             net = gross
-            $("#iifadded").val("true");
-             $(".iif_right_bar").html("<td>Industry Income Factor</td><td>"+ Math.round(gross) + "</td><td>"+ Math.round(net) + "</td>");
-            // $("#iif_right_bar").text(gross+" / "+net);
-            $("#iif_gross").val(gross)
-            $("#iif_net").val(net)
-            totalincomekyc()
+            // $("#iifadded").val("true");
+            //  $(".iif_right_bar").html("<td>Industry Income Factor</td><td>"+ Math.round(gross) + "</td><td>"+ Math.round(net) + "</td>");
+            // // $("#iif_right_bar").text(gross+" / "+net);
+            // $("#iif_gross").val(gross)
+            // $("#iif_net").val(net)
+            // totalincomekyc()
+            data = $("#iif").find(":input").serialize()+"&type=iif&net="+net+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
+
+            submitincomekyc(data);
+            e.preventDefault();
         })
-        $(".editincome").on("click",function (e) {
-            $("#incomekyc .box .incometype").addClass("hide");
-            id = $(this).data("value");
-            $("#" + id).removeClass("hide");
+
+        $(document.body).on("click",".editincome",function (e) {
+            type = $(this).data("type");
+            url = $(this).data("url");
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: "type="+type,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+            }).done(function (response) {
+                $("#incometype").val(type).trigger("change");
+                $(".incometype").removeClass("hide").addClass("hide");
+                $("#"+type).removeClass("hide").html("").append($(response));
+            })
 
         })
 
-        $(".delincome").on("click",function (e) {
-            id = $(this).data("value");
-            $("#" + id).find(" :input").not('[type=radio],[type=checkbox],select').val(0);
-            $("#" + id).find( ":input").val( $("#" + id).find("[type=radio],[type=checkbox],select").prop('defaultSelected') );
-            $("#"+$(this).data("action")).trigger("click");
-            $("."+$(this).data("right")).html("")
-            $(this).parent("li").parent("ul").parent("div").addClass('hide');
-
+        $(document.body).on("click",".delincome","click",function (e) {
+            id = $(this).data("id");
+            submitincomekyc("id="+id+"&action=delete");
         })
+
         function totalincomekyc(){
             gross1 = $("#monthly_fixed_gross").val();
             gross2 = $("#monthly_variable_gross").val();
@@ -641,7 +694,54 @@
             $("#gross").val(grosstotal);
             $("#net").val(nettotal);
             $(".incomekyc_right").html($("#incomekyc_right").html())
-            submitincomekyc();
+           // submitincomekyc();
+        }
+
+        function  submitincomekyc (form_data){
+            $.ajax({
+                url: '{{ route('incomekyc.store') }}',
+                type: 'POST',
+                data: form_data,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+            }).done(function (response) {
+                $("#WK").attr("data-toggle","tab");
+                $.ajax({
+                    url:'{{ route("incomekyc.incomekyc_action_btns")}}',
+                    type:"GET",
+                    data:"applicant_id="+$("#applicant_id").val(),
+                    headers:{
+                        'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content'),
+                    },
+                }).done(function(response){
+                    $("#incomekyc_action_btns").html("").append($(response))
+                })
+               $.ajax({
+                    url: "{{ route("applicant_sidebar") }}",
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                   data:"applicant_id="+$("#applicant_id").val(),
+                    success: function (response) {
+                        $("#tab-3").html("").append($(response));
+                        $(".incomekyc_right").html("").append($("#incomekyc_right").html())
+
+                    },
+                    error: function () {
+
+                    }
+
+                });
+
+                    //$("#incomekyc .box .incometype").addClass("hide");
+                    id = $("#incometype").val();
+                    $("#" + id).html("").append($(income_form[id]).clone(true,true))
+                   // $("#" + id).removeClass("hide").show();
+
+            })
+
         }
 
     </script>

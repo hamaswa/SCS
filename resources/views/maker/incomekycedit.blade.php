@@ -8,7 +8,7 @@
     <div class="col-lg-6 col-lg-offset-1 col-md-6 col-sm-12">
         <div class="box">
             <div class="box-header bg-gray-light">
-                <div class="btn-group margin-bottom border-black-1" id="btn-air">
+                <div class="btn-group margin-bottom border-black-1">
                     <button type="button" class="btn btn-default btn-flat la_aa"
                             data-la="{{$applicant->id}}"
                             data-id="{{$applicant->id}}">{{$applicant->name}}</button>
@@ -34,7 +34,7 @@
                                     <i class="fa fa-list"></i>
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
-                                
+
                             </div>
                         </div>
 
