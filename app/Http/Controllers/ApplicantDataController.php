@@ -234,7 +234,9 @@ class ApplicantDataController extends Controller
         $inputs['user_id']=Auth::id();
 
         if (isset($inputs['form']) and $inputs['form'] == 'new_application') {
-
+            if(ApplicantData::where("unique_id","=",$inputs['unique_id'])->exists()){
+                return back()->with("error","Applicant Already Exists");
+            }
             $applicant_count = ApplicantData::selectRaw("count(*) as count")->whereRaw("created_at BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 day)")
                 ->get()->ToArray();
             $inputs['serial_no'] = date('Ymdhis') . "" . $applicant_count[0]["count"];
@@ -248,7 +250,8 @@ class ApplicantDataController extends Controller
             );
             return back()->with("success", $return_data);
 
-        } else {
+        }
+        else {
             $applicant = ApplicantData::find($inputs['applicant_id']);
             if ($request->file("consent") and isset($inputs['is-consent']) and $inputs['is-consent']=='consent') {
 

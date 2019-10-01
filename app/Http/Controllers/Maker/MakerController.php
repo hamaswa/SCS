@@ -150,11 +150,11 @@ class MakerController extends Controller
             ->where("la_applicant_id","=",$id)->Pluck("applicant_id")->ToArray();
         $attached_applicants_id = implode(",",$attached_applicants);
         if($attached_applicants_id!="")
-       $arr['attached_applicants'] = ApplicantData::whereRaw("aacategory=\"". $arr["applicant_data"]->aacategory ."\" and id in (". $attached_applicants_id .")")->get();
+        $arr['attached_applicants'] = ApplicantData::whereRaw("aacategory=\"". $arr["applicant_data"]->aacategory ."\" and id in (". $attached_applicants_id .")")->get();
         $arr["options"]  = AASource::all();
-
-        $arr['businesses'] = ApplicantBusiness::where("applicant_id","=",$id)->get();
-
+        $applicant_id = isset($_GET['applicant_id']) ? $_GET['applicant_id'] : $id;
+//        $arr['businesses'] = ApplicantBusiness::where("applicant_id","=",$id)->get();
+        $arr['businesses'] = ApplicantBusiness::where("applicant_id","=",$applicant_id)->get();
         return view("maker.editform")->with($arr);
     }
 
