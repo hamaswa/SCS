@@ -142,34 +142,35 @@
                             <label class="clearfix">Employment Status</label>
                             <input type="text" name="employment_status" id="employment_status" value="{{(isset($applicant_data->employment_status)?$applicant_data->employment_status:"")}}" class="form-control" autocomplete="off" />
                         </div>
-                        <div class="col-md-6 col-sm-12 padding-5 bg-gray-light">
-                            <div class="col-sm-12 col-md-12 form-group">
-                                <label>Full Name as Per NRIC / Passport</label>
-                                <input type="text" value="{{$applicant_data->name}}" name="name" class="form-control"
-                                       autocomplete="off">
-                            </div>
-                            <div class="col-sm-12 col-md-12 form-group">
-                                <label>NRIC No. / Passport No.</label>
-                                <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id"
-                                       class="form-control" autocomplete="off">
-                            </div>
-                            <div class="col-sm-12 col-md-12 form-group">
-                                <label>Mobile No.</label>
-                                <input type="text" value="{{$applicant_data->mobile}}" name="mobile" class="form-control"
-                                       autocomplete="off">
-                            </div>
-                            <div class="col-sm-12 col-md-12 form-group">
-                                <label>Email</label>
-                                <input type="email" name="email"
-                                       value="{{(isset($applicant_data->email)?$applicant_data->email:(isset($businesses[0]) ? $businesses[0]['business_email']: ''))}}"
-                                       class="form-control" autocomplete="off">
-                            </div>
-                            <div class="col-sm-12 col-md-12 form-group">
-                                <label>Residential Address</label>
-                                <textarea name="address" class="form-control">{{(isset($applicant_data->address)?$applicant_data->address:"")}}</textarea>
-                            </div>
 
+                        <div class="col-sm-12 col-md-6  form-group">
+                            <label>Full Name as Per NRIC / Passport</label>
+                            <input type="text" value="{{$applicant_data->name}}" name="name" class="form-control"
+                                   autocomplete="off">
                         </div>
+                        <div class="col-sm-12 col-md-6  form-group">
+                            <label>NRIC No. / Passport No.</label>
+                            <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id"
+                                   class="form-control" autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-6  form-group">
+                            <label>Mobile No.</label>
+                            <input type="text" value="{{$applicant_data->mobile}}" name="mobile" class="form-control"
+                                   autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-6  form-group">
+                            <label>Email</label>
+                            <input type="email" name="email"
+                                   value="{{(isset($applicant_data->email)?$applicant_data->email:(isset($businesses[0]) ? $businesses[0]['business_email']: ''))}}"
+                                   class="form-control" autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 col-md-6  form-group">
+                            <label>Residential Address</label>
+                            <textarea name="address" class="form-control">{{(isset($applicant_data->address)?$applicant_data->address:"")}}</textarea>
+                        </div>
+
+
+                        <?php /*
                         <div class="col-md-6 col-sm-12 bg-gray-light padding-5">
                             <div class="col-sm-12 col-md-12 form-group">
                                 <label>Company Name</label>
@@ -196,6 +197,7 @@
                                 <textarea name="office_address" class="form-control">{{(isset($applicant_data->office_address)?$applicant_data->office_address:"")}}</textarea>
                             </div>
                         </div>
+                        */ ?>
 
                         <div class="col-sm-12 col-md-12 col-lg-12 form-group pull-right">
                             <input type="submit" value="Update" class="btn btn-default">
