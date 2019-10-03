@@ -1,0 +1,275 @@
+@extends('maker.layouts.app')
+
+@section('content')
+
+    <section class="content">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <legend class="text-center padding-5"><label for="">NO AA</label>
+                    <input type="text" disabled value="{{$applicant->serial_no}}">
+
+                </legend>
+
+            </div>
+
+            <div class="container"> <!-- style="overflow:hidden" -->
+
+
+                @if ($message = Session::get('success'))
+                    <div class="alert alert-success">
+                        <p>{{ $message }}</p>
+                    </div>
+                @endif
+                @if($errors->any())
+                    <div class="alert alert-error">
+                        {{ $errors->first() }}
+                    </div>
+                @endif
+                <div class="row">
+                    <div class="col-md-12" style="overflow:auto">
+                        <div id="MyAccountsTab" class="tabbable tabs-left">
+                            <!-- Account selection for desktop - I -->
+                            <ul class="nav nav-tabs col-md-1 col-sm-12 col-xs-12">
+                                <li class="active ">
+                                    <div id="BK" data-target="#lA" data-toggle="tab" class="tab-action">
+                                        <div class="ellipsis">
+                                            <span class="account-type mobile-view-text">Applic<div class="clearfix">ation</div></span><br/>
+                                            <span class="account-amount">KYC</span><br/>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li style="cursor: pointer;">
+                                    {{--i removed word "tab" in data-doggle="tab" to disabled it--}}
+                                    <div id="IK" data-target="#lB" data-toggle="tab" class="tab-action">
+                                        <div>
+                                            <span class="account-type">Income</span><br/>
+                                            <span class="account-amount">KYC</span><br/>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li style="cursor: pointer;">
+                                    {{--i removed word "tab" in data-doggle="tab" to disabled it--}}
+                                    <div id="WK" class="wk tab-action" data-target="#lC" data-toggle="tab">
+                                        <div>
+                                            <span class="account-type">Wealth</span><br/>
+                                            <span class="account-amount">KYC</span><br/>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li style="cursor: pointer;">
+                                    {{--i removed word "tab" in data-doggle="tab" to disabled it--}}
+                                    <div id="PK" data-target="#lD" data-toggle="tab" class="tab-action">
+                                        <div>
+                                            <span class="account-type">Property</span><br/>
+                                            <span class="account-amount">KYC</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <input type="hidden" id="la_applicant_id" value="{{ $la_applicant_id }}"
+                                   name="la_applicant_id">
+                            <div class="tab-content col-md-11">
+                                <div class="tab-pane active" id="lA">
+                                    <!--style="padding-left: 60px; padding-right:100px"-->
+                                    <div class="row" style="line-height: 14px; margin-bottom: 34.5px">
+                                        <input type="hidden" id="applicant_id" value="{{ $applicant_data->id }}"
+                                               name="applicant_id">
+                                        @if($applicant->aacategory=="I")
+                                            @include('maker.applicantkyc');
+                                        @else
+                                            @include("maker.company_aa_info")
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="lB">
+                                    <div class="row" style="line-height: 14px; margin-bottom: 34.5px">
+                                        <form id="incomeform" name="incomeform">
+                                            @csrf
+                                            <input type="hidden" name="formname" value="incomeform">
+                                            <input type="hidden" name="income_id" value="" id="income_id">
+                                            @if($applicant->aacategory=="I")
+                                                @include('maker.incomekyc',['income'=>$applicant_data->applicantIncome])
+                                            @else
+                                                @include("maker.company_incomekycedit");
+                                            @endif
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="lC">
+                                    <div class="row" style="line-height: 14px; margin-bottom: 34.5px">
+                                        <form id="wealthform" name="wealthform">
+                                            @csrf
+                                            <input type="hidden" name="formname" value="wealthform">
+                                            <input type="hidden" name="wealth_id" id="wealth_id">
+                                            @if($applicant->aacategory=="I")
+                                                @include('maker.wealthkyc',['wealth'=>$applicant_data->applicantWealth])
+                                            @else
+                                                @include('maker.company_wealthkycedit')
+                                            @endif
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="lD">
+                                    <div class="row" style="line-height: 14px; margin-bottom: 34.5px">
+                                        <form id="propertyform" name="propertyform">
+                                            <input type="hidden" name="id" id="property_id">
+                                            @include('maker.propertykycedit',['properties'=>$applicant_data->applicantProperty])
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Account selection for desktop - F -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+
+        </div>
+
+    </section>
+
+@endsection
+
+@push("scripts")
+    <script type="text/javascript">
+        $(".tab-action").on('click', function () {
+            //console.log(this.id);
+            document.cookie = "value="+this.id;
+            // var mainId = $(this).attr('data-id');
+            // console.log('test ' + mainId);
+            // $(".tab-action-main").addClass('hide');
+            // $("#" + mainId).removeClass('hide');
+        });
+
+        $(document).on("change", "select", function(){
+            var val = $(this).val(); //get new value
+            //find selected option
+            $("option", this).removeAttr("selected").filter(function(){
+                return $(this).attr("value") == val;
+            }).first().attr("selected", "selected"); //add selected attribute to selected option
+        });
+
+        $(document).ready(function () {
+            checkActiveTab(document.cookie);
+
+            $(".applicant").text("{{ $applicant_data->name }}");
+            $('.select2').select2();
+
+            $(".d_pdf").click(function (e) {
+                form = document.createElement("form");
+                form.setAttribute("method", "post");
+                form.setAttribute("action", "{{ route("downloadpdf") }}");
+                csrf = $('{{ csrf_field() }}')
+                $(form).append(csrf);
+                $(form).append($("#name").clone())
+                $(form).append($("#unique_id").clone())
+                type = document.createElement("input");
+                type.setAttribute("name", "aacategory");
+                type.value = $("#aacategory").val()
+                $(form).append($(type))
+                div = $("<div style=\"display=none\"></div>")
+                $(div).append(form)
+                document.body.appendChild(form);
+                form.submit();
+            });
+
+            $("#createaa").click(function () {
+                event.preventDefault(); //prevent default action
+
+                $.ajax({
+                    url: '{{ route('applicantkyc.store') }}',
+                    type: 'POST',
+                    data: $("#business_form").serialize()
+                }).done(function (response) {
+                    response = JSON.parse(response);
+                    if (response.error) {
+                    }
+                    else {
+                        $(".applicant").text($("#name").val());
+                        // $("#nextincomekyc").removeClass("hide");
+                        $("#applicant_id").val(response.applicant_id);
+                        // $("#applicantkyc").addClass("hide");
+                        // $("#incomekyc").removeClass("hide");
+                        $.ajax({
+                            url: '{{ route('pipeline.store') }}',
+                            type: 'POST',
+                            data: $("#business_form").serialize() + "&formname=APICall&applicant_id=" + response.applicant_id
+                        }).done(function (response) {
+                            response = JSON.parse(response);
+                            if (response.error) {
+                            }
+                            else {
+
+                            }
+                        });
+                    }
+                })
+            });
+        });
+
+        function checkActiveTab(){
+            //console.log(document.cookie);
+            var ca = document.cookie.split(';');
+            console.log(ca[0]);
+            var tabId = ca[0].split('=');
+            console.log(tabId[1]);
+            $("#"+tabId[1]).trigger('click');
+            //document.cookie = '=; Max-Age=-99999999;';
+            //document.cookie = '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            //console.log(document.cookie);
+        }
+
+        function submitpropertykyc() {
+            let data = {};
+            data['form'] = forms;
+            data['formname'] = 'propertyform';
+            data['applicant_id'] = $("#applicant_id").val()
+            $.ajax({
+                url: '{{ route('propertykyc.store') }}',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: data
+            }).done(function (response) {
+                response = JSON.parse(response);
+                if (response.error) {
+                }
+                else {
+                    $("#property_id").val(response.property_id);
+                    //document.location.href = "{{ route("aadata.index") }}"
+                }
+            })
+        }
+
+        function submitbusinesskyc() {
+            let data = {};
+            data['business_forms'] = business_forms;
+            data['formname'] = 'business_forms';
+            data['applicant_id'] = $("#applicant_id").val();
+            $.ajax({
+                url: '{{ route('businesskyc.store') }}',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: data
+            }).done(function (response) {
+                response = JSON.parse(response);
+                console.log(response);
+                if (response.error) {
+                }
+                else {
+                    if (!isNaN(response.business_id)) {
+                        $("#IK").attr("data-toggle", "tab");
+                    }
+                    $("#business_id").val(response.business_id);
+                }
+            })
+        }
+
+    </script>
+@endpush
