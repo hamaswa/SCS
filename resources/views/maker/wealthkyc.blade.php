@@ -329,6 +329,26 @@
 
 @push("scripts")
     <script type="text/javascript">
+        $('#wealth_doc[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("enctype","multipart/form-data")
+            form.setAttribute("action", "{{ route("documents.store") }}");
+            form.setAttribute("target", "_blank");
+            csrf = $('{{ csrf_field() }}')
+            $(form).append(csrf);
+            $(form).append($("#wealth_doc_form").clone(true));
+            $(form).append($("#applicant_id").clone(true));
+            $(form).append($("input[name=doc_hint]").clone(true));
+
+            div = $("<div style=\"display=hidden\"></div>")
+
+            $(div).append(form)
+            document.body.appendChild(form);
+            form.submit();
+            $("#wealth_doc_form").find("option:selected").prop("selected", false)
+        });
         $(document).ready(function(e) {
             wealth_form=[];
             wealth_form["saving"] = $("#saving").children().clone(true,true)
@@ -351,6 +371,24 @@
             id = $(this).val();
             $("#" + id).html("").append($(wealth_form[id]).clone(true,true))
             $("#wealthkyc").find("#" + id).removeClass("hide").show();
+            getDocs(id+"_p","primary_docs","primary_docs",".primary_docs","Primary Docs")
+            getDocs(id+"_s","support_docs","support_docs",".support_docs","Supporting Docs")
+
+            function getDocs(type,name,id,target,label){
+                $.ajax({
+                    url:"{{ route("selectoptions") }}",
+                    type:"POST",
+                    data:"type="+type+"&name="+name+"&id="+id+"&label="+label,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                }).done(function (response) {
+                    if(response=="")
+                        alert("No Document types found");
+                    else
+                        $(target).html("").append(response);
+                });
+            }
         })
 
 
@@ -422,7 +460,6 @@
         })
         $(document.body).on("click","#utv_add", function (e) {
             $("#btn-utv").removeClass("hide");
-
             amount = gross = $("#utv_amount").val();
             // html = "<td class=\"bg-yellow-light\">Unit Trust Value</td><td>" + amount + "</td>";
             // //$("#utv_added").val("true");
@@ -434,6 +471,7 @@
         })
 
         $(document.body).on("click",".editwealth", function (e) {
+            $("input[name=doc_hint]").val( $(this).text());
             type = $(this).data("type");
             url = $(this).data("url");
             $.ajax({
@@ -467,6 +505,7 @@
                 },
             }).done(function (response) {
                 $("#PK").attr("data-toggle","tab");
+                $("input[name=doc_hint]").val("");
 
                 $.ajax({
                     url:'{{ route("wealthkyc.wealthkyc_action_btns")}}',

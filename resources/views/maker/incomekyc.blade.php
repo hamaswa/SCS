@@ -44,6 +44,7 @@
                 <div id="incomekyc_action_btns" class="col-lg-12 col-md-12 col-sm-12">
                     @include("aadata.incomekyc_action_btns",["incomes"=>$applicant_data->applicantIncome()->get()])
                 </div>
+                <div class="col-md-12 col-sm-12 bg-gray-light" id="income_doc_form">
 
                 <div class="form-group col-md-12 col-sm-12 bg-gray-light">
                     <label class="control-label">Type</label>
@@ -77,6 +78,7 @@
                 </div>
                 <div class="form-group col-md-4 col-sm-3 pull-right">
                     <input type="file" class="form-control btn btn-primary" multiple name="income_doc[]" id="income_doc" />
+                </div>
                 </div>
             </div>
             <div class="box-body bg-gray-light incometype" id="salary">
@@ -380,6 +382,27 @@
 @push("scripts")
     <script type="text/javascript">
 
+        $('#income_doc[type="file"]').on("change",function(e) {
+
+            var fileName = e.target.files[0].name;
+            form = document.createElement("form");
+            form.setAttribute("method", "post");
+
+            form.setAttribute("target", "_blank");
+            form.setAttribute("enctype", "multipart/form-data")
+            form.setAttribute("action", "{{ route("documents.store") }}");
+            csrf = $('{{ csrf_field() }}')
+            $(form).append(csrf);
+            $(form).append($("#income_doc_form").clone(true));
+            $(form).append($("#applicant_id").clone(true));
+            $(form).append($("input[name=doc_hint]").clone(true));
+            div = $("<div style=\"display=hidden\"></div>")
+            $(div).append(form)
+            document.body.appendChild(form);
+            form.submit();
+            $("#income_doc_form").find("option:selected").prop("selected", false)
+
+        });
         $(document).ready(function(e) {
             income_form=[];
             income_form["salary"] = $("#salary").children().clone(true,true)
@@ -462,6 +485,24 @@
             id = $(this).val();
             $("#" + id).html("").append($(income_form[id]).clone(true,true))
             $("#" + id).removeClass("hide").show();
+            getDocs(id+"_p","primary_docs","primary_docs",".primary_docs","Primary Docs")
+            getDocs(id+"_s","support_docs","support_docs",".support_docs","Supporting Docs")
+
+            function getDocs(type,name,id,target,label){
+                $.ajax({
+                    url:"{{ route("selectoptions") }}",
+                    type:"POST",
+                    data:"type="+type+"&name="+name+"&id="+id+"&label="+label,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                }).done(function (response) {
+                    if(response=="")
+                        alert("No Document types found");
+                    else
+                        $(target).html("").append(response);
+                });
+            }
         })
 
         $(document.body).on('click',"#addmonthlyfixed",function (e) {
@@ -646,6 +687,7 @@
         })
 
         $(document.body).on("click",".editincome",function (e) {
+            $("input[name=doc_hint]").val( $(this).text());
             type = $(this).data("type");
             url = $(this).data("url");
             $.ajax({
@@ -707,6 +749,8 @@
                 },
             }).done(function (response) {
                 $("#WK").attr("data-toggle","tab");
+                $("input[name=doc_hint]").val("");
+
                 $.ajax({
                     url:'{{ route("incomekyc.incomekyc_action_btns")}}',
                     type:"GET",

@@ -137,7 +137,6 @@
     <script type="text/javascript">
         $(".tab-action").on('click', function () {
             var mainId = $(this).attr('data-id');
-            console.log('test ' + mainId);
             $(".tab-action-main").addClass('hide');
             $("#" + mainId).removeClass('hide');
         });
@@ -150,6 +149,7 @@
             }).first().attr("selected", "selected"); //add selected attribute to selected option
         });
         $(document).ready(function () {
+
             $(".applicant").text("{{ $applicant_data->name }}");
             $('.select2').select2();
 
