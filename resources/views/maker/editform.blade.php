@@ -31,8 +31,8 @@
                         <div id="MyAccountsTab" class="tabbable tabs-left">
                             <!-- Account selection for desktop - I -->
                             <ul class="nav nav-tabs col-md-1 col-sm-12 col-xs-12">
-                                <li class="active">
-                                    <div id="BK" data-target="#lA" data-toggle="tab">
+                                <li class="active ">
+                                    <div id="BK" data-target="#lA" data-toggle="tab" class="tab-action">
                                         <div class="ellipsis">
                                             <span class="account-type mobile-view-text">Applic<div class="clearfix">ation</div></span><br/>
                                             <span class="account-amount">KYC</span><br/>
@@ -41,7 +41,7 @@
                                 </li>
                                 <li style="cursor: pointer;">
                                     {{--i removed word "tab" in data-doggle="tab" to disabled it--}}
-                                    <div id="IK" data-target="#lB" data-toggle="tab">
+                                    <div id="IK" data-target="#lB" data-toggle="tab" class="tab-action">
                                         <div>
                                             <span class="account-type">Income</span><br/>
                                             <span class="account-amount">KYC</span><br/>
@@ -50,7 +50,7 @@
                                 </li>
                                 <li style="cursor: pointer;">
                                     {{--i removed word "tab" in data-doggle="tab" to disabled it--}}
-                                    <div id=WK" class="wk" data-target="#lC" data-toggle="tab">
+                                    <div id="WK" class="wk tab-action" data-target="#lC" data-toggle="tab">
                                         <div>
                                             <span class="account-type">Wealth</span><br/>
                                             <span class="account-amount">KYC</span><br/>
@@ -59,7 +59,7 @@
                                 </li>
                                 <li style="cursor: pointer;">
                                     {{--i removed word "tab" in data-doggle="tab" to disabled it--}}
-                                    <div id="PK" data-target="#lD" data-toggle="tab">
+                                    <div id="PK" data-target="#lD" data-toggle="tab" class="tab-action">
                                         <div>
                                             <span class="account-type">Property</span><br/>
                                             <span class="account-amount">KYC</span>
@@ -136,10 +136,12 @@
 @push("scripts")
     <script type="text/javascript">
         $(".tab-action").on('click', function () {
-            var mainId = $(this).attr('data-id');
-            console.log('test ' + mainId);
-            $(".tab-action-main").addClass('hide');
-            $("#" + mainId).removeClass('hide');
+            //console.log(this.id);
+            document.cookie = "value="+this.id;
+            // var mainId = $(this).attr('data-id');
+            // console.log('test ' + mainId);
+            // $(".tab-action-main").addClass('hide');
+            // $("#" + mainId).removeClass('hide');
         });
 
         $(document).on("change", "select", function(){
@@ -150,6 +152,8 @@
             }).first().attr("selected", "selected"); //add selected attribute to selected option
         });
         $(document).ready(function () {
+            checkActiveTab(document.cookie);
+
             $(".applicant").text("{{ $applicant_data->name }}");
             $('.select2').select2();
 
@@ -203,9 +207,19 @@
                     }
                 })
             });
-        })
+        });
 
-
+        function checkActiveTab(){
+            //console.log(document.cookie);
+            var ca = document.cookie.split(';');
+            console.log(ca[0]);
+            var tabId = ca[0].split('=');
+            console.log(tabId[1]);
+            $("#"+tabId[1]).trigger('click');
+            //document.cookie = '=; Max-Age=-99999999;';
+            //document.cookie = '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            //console.log(document.cookie);
+        }
 
         function submitpropertykyc() {
             let data = {};
