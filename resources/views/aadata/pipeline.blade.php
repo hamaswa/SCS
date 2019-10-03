@@ -282,6 +282,8 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
+            document.cookie = "maker_active_tab=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/maker/1;";
+
             $("#commentsform").submit(function (e) {
                 e.preventDefault();
 
