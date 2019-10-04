@@ -1,3 +1,7 @@
+
+@if(isset($applicant) and $applicant->aacategory=="C")
+    Hello Company Income here
+@else
 <table class="table table-bordered table-striped table-hover bg-white">
     <thead class="bg-light-blue">
     <tr class="bg-light-blue-gradient">
@@ -76,3 +80,4 @@
 
     </tfoot>
 </table>
+@endif

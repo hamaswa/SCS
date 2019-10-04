@@ -330,6 +330,11 @@
 @push("scripts")
     <script type="text/javascript">
         $('#wealth_doc[type="file"]').change(function(e){
+            if($("input[name=doc_hint]").val()=="")
+            {
+                alert("Please Select wealth")
+                return false;
+            }
             var fileName = e.target.files[0].name;
             form = document.createElement("form");
             form.setAttribute("method", "post");
@@ -390,9 +395,6 @@
                 });
             }
         })
-
-
-
         $(document.body).on("click","#saving_add",function (e) {
             $("#btn-saving").removeClass("hide");
             amount = gross = Math.round($("#saving_amount").val());
@@ -469,7 +471,6 @@
             data = $("#utv").find(":input").serialize()+"&type=utv&total="+amount+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
             submitwealthkyc(data)
         })
-
         $(document.body).on("click",".editwealth", function (e) {
             $("input[name=doc_hint]").val( $(this).text());
             type = $(this).data("type");
@@ -488,7 +489,6 @@
             })
 
         })
-
         $(document.body).on("click",".delwealth", function (e) {
             id = $(this).data("id");
             submitwealthkyc("id="+id+"&action=delete");
@@ -541,31 +541,5 @@
             $("#" + id).html("").append($(wealth_form[id]).clone(true,true))
 
         }
-
-
-        function totalwealthkyc() {
-            amount1 = $("#utv_amount").val();
-            amount2 = $("#tsv_amount").val();
-            amount3 = $("#tpf_amount").val();
-            if($("[name='tpf_acctype']:checked").data("val")=="joint")
-                amount3 = Math.round($("#tpf_amount").val()/2);
-            amount4 = $("#epf_amount").val();
-            amount5 = $("#saving_amount").val();
-            if($("[name='saving_acctype']:checked").data("val")=="joint")
-                amount5 = Math.round($("#saving_amount").val()/2);
-            // amounttotal = (amount1*1) + (amount2*1)+ (amount3*1)+ (amount4*1)+ (amount5*1)+ (amount6*1);
-            amounttotal = Math.round((amount1 * 1) + (amount2 * 1) + (amount3 * 1) + (amount4 * 1) + (amount5 * 1));
-            if(amounttotal==0)
-                html="";
-            else
-                html = "<td class=\"bg-yellow-light\">Total</td><td>" + amounttotal + "</td>";
-
-            $(".wealth_total_right").html(html)
-            $("#total").val(amounttotal)
-            $(".wealthkyc_right").html($("#wealthkyc_right").html());
-            //submitwealthkyc();
-        }
-
-
     </script>
 @endpush

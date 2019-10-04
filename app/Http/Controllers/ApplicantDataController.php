@@ -67,6 +67,7 @@ class ApplicantDataController extends Controller
     public function  applicantSidebar(Request $request)
     {
         $inputs = $request->all();
+        $arr['applicant'] = ApplicantData::find($inputs['applicant_id']);
         $arr['incomes'] = ApplicantIncome::where("applicant_id","=",$inputs['applicant_id'])
             ->orderby("type")
             ->get();

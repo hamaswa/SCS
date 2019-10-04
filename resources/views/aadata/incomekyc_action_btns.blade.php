@@ -43,10 +43,15 @@
                $air=1;
            $label="Annual Investment Return".$air;
            break;
+       default:
+           if(isset($i))
+               $i++;
+           else
+               $i=1;
+           $label="Income".$i;
+           break;
+}
 
-
-
-   }
 
    ?>
     <div class="btn-group margin-bottom border-black-1 incomekyc-action-btn" id="btn-salary">

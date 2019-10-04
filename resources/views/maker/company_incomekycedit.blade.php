@@ -11,117 +11,12 @@
                     ?>
                 </div>
 
-                <?php
-                /*
-                {{--<div id="" class="col-lg-12 col-md-12 col-sm-12">--}}
-                    {{--<div class="btn-group margin-bottom border-black-1 incomekyc-action-btn {{ ((isset($data['monthly_fixed_gross']) and $data['monthly_fixed_gross']!=0)?"":"hide") }} "--}}
-                         {{--id="btn-salary">--}}
-                        {{--<button type="button" class="btn btn-default btn-flat view" data-value="salary">Monthly Fixed--}}
-                        {{--</button>--}}
-                        {{--<button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"--}}
-                                {{--aria-expanded="false">--}}
-                            {{--<i class="fa fa-list"></i>--}}
-                            {{--<span class="sr-only">Toggle Dropdown</span>--}}
-                        {{--</button>--}}
-                        {{--<ul class="dropdown-menu position-relative" id="" role="menu">--}}
-                            {{--<li><a href="#" data-value="salary" class="editincome">Edit</a></li>--}}
-                            {{--<li><a href="#" class="delincome" data-action="addmonthlyfixed"--}}
-                                   {{--data-right="salary_right_bar" data-value="salary">Delete</a></li>--}}
-                        {{--</ul>--}}
-                    {{--</div>--}}
-
-                    {{--<div class="btn-group margin-bottom border-black-1 incomekyc-action-btn {{ ((isset($data['monthly_variable_gross']) and $data['monthly_variable_gross']!=0)?"":"hide") }}"--}}
-                         {{--id="btn-business">--}}
-                        {{--<button type="button" class="btn btn-default btn-flat view" data-value="business">Monthly--}}
-                            {{--Variable--}}
-                        {{--</button>--}}
-                        {{--<button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"--}}
-                                {{--aria-expanded="false">--}}
-                            {{--<i class="fa fa-list"></i>--}}
-                            {{--<span class="sr-only">Toggle Dropdown</span>--}}
-                        {{--</button>--}}
-                        {{--<ul class="dropdown-menu position-relative" id="" role="menu">--}}
-                            {{--<li><a href="#" data-value="business" class="editincome">Edit</a></li>--}}
-                            {{--<li><a href="#" data-value="business" data-action="addmonthlyvariable"--}}
-                                   {{--data-right="business_right_bar" class="delincome">Delete</a></li>--}}
-                        {{--</ul>--}}
-                    {{--</div>--}}
-
-                    {{--<div class="btn-group margin-bottom border-black-1 incomekyc-action-btn {{ ((isset($data['annual_tax_declared_gross']) and $data['annual_tax_declared_gross']!=0)?"":"hide") }}"--}}
-                         {{--id="btn-incometax">--}}
-                        {{--<button type="button" class="btn btn-default btn-flat view" data-value="incometax">Annual Tax--}}
-                            {{--Declared--}}
-                        {{--</button>--}}
-                        {{--<button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"--}}
-                                {{--aria-expanded="false">--}}
-                            {{--<i class="fa fa-list"></i>--}}
-                            {{--<span class="sr-only">Toggle Dropdown</span>--}}
-                        {{--</button>--}}
-                        {{--<ul class="dropdown-menu position-relative" id="" role="menu">--}}
-                            {{--<li><a href="#" data-value="incometax" class="editincome">Edit</a></li>--}}
-                            {{--<li><a href="#" data-value="incometax" data-action="addannualtaxdeclared"--}}
-                                   {{--data-right="incometax_right_bar" class="delincome">Delete</a></li>--}}
-                        {{--</ul>--}}
-                    {{--</div>--}}
-
-                    {{--<div class="btn-group margin-bottom border-black-1 incomekyc-action-btn {{ ((isset($data['iif_gross']) and $data['iif_gross']!=0)?"":"hide") }}"--}}
-                         {{--id="btn-iif">--}}
-                        {{--<button type="button" class="btn btn-default btn-flat view" data-value="iif">Industry Income--}}
-                            {{--Factor--}}
-                        {{--</button>--}}
-                        {{--<button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"--}}
-                                {{--aria-expanded="false">--}}
-                            {{--<i class="fa fa-list"></i>--}}
-                            {{--<span class="sr-only">Toggle Dropdown</span>--}}
-                        {{--</button>--}}
-                        {{--<ul class="dropdown-menu position-relative" id="" role="menu">--}}
-                            {{--<li><a href="#" data-value="iif" class="editincome">Edit</a></li>--}}
-                            {{--<li><a href="#" data-value="iif" data-action="addiif" data-right="iif_right_bar"--}}
-                                   {{--class="delincome">Delete</a></li>--}}
-                        {{--</ul>--}}
-                    {{--</div>--}}
-
-                    {{--<div class="btn-group margin-bottom border-black-1 incomekyc-action-btn--}}
-                    {{--{{ ((isset($data['monthly_rental_gross']) and $data['monthly_rental_gross']!=0)?"":"hide") }}"--}}
-                         {{--id="btn-monthlyrental">--}}
-                        {{--<button type="button" class="btn btn-default btn-flat view" data-value="monthlyrental">Monthly--}}
-                            {{--Rental--}}
-                        {{--</button>--}}
-                        {{--<button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"--}}
-                                {{--aria-expanded="false">--}}
-                            {{--<i class="fa fa-list"></i>--}}
-                            {{--<span class="sr-only">Toggle Dropdown</span>--}}
-                        {{--</button>--}}
-                        {{--<ul class="dropdown-menu position-relative" id="" role="menu">--}}
-                            {{--<li><a href="#" data-value="monthlyrental" class="editincome">Edit</a></li>--}}
-                            {{--<li><a href="#" data-value="monthlyrental" data-action="monthly_rental_add"--}}
-                                   {{--data-right="monthly_rental_right_bar" class="delincome">Delete</a></li>--}}
-                        {{--</ul>--}}
-                    {{--</div>--}}
-
-                    {{--<div class="btn-group margin-bottom border-black-1 incomekyc-action-btn {{ ((isset($data['annual_investment_return_gross']) and $data['annual_investment_return_gross']!=0)?"":"hide") }}"--}}
-                         {{--id="btn-air">--}}
-                        {{--<button type="button" class="btn btn-default btn-flat view" data-value="air">Annual Investment--}}
-                            {{--Return--}}
-                        {{--</button>--}}
-                        {{--<button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"--}}
-                                {{--aria-expanded="false">--}}
-                            {{--<i class="fa fa-list"></i>--}}
-                            {{--<span class="sr-only">Toggle Dropdown</span>--}}
-                        {{--</button>--}}
-                        {{--<ul class="dropdown-menu position-relative" id="" role="menu">--}}
-                            {{--<li><a href="#" data-value="air" class="editincome">Edit</a></li>--}}
-                            {{--<li><a href="#" data-value="air" data-action="annual_investment_return_add"--}}
-                                   {{--data-right="annual_investment_return_right_bar" class="delincome">Delete</a></li>--}}
-                        {{--</ul>--}}
-                    {{--</div>--}}
-
-                {{--</div>--}}
-                */
-                ?>
+                <div id="incomekyc_action_btns" class="col-lg-12 col-md-12 col-sm-12">
+                    @include("aadata.incomekyc_action_btns",["incomes"=>$applicant_data->applicantIncome()->get()])
+                </div>
                 <div class="col-md-12 col-sm-12 bg-gray-light" id="com_income_doc_form">
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
-                    <label class="control-label">Type</label>
+                        <label class="control-label">Type</label>
                         @include("layouts.select", [
                         'name'=>'incometype','id'=>'incometype',
                         'type'=>'com_income_types','options'=>$options])
@@ -150,362 +45,35 @@
                         'options'=>$options])
                     </div>
                     <div class="form-group col-md-4 col-sm-3 pull-right">
-                        <input type="file" class="form-control btn btn-primary" name="income_doc[]" multiple id="com_income_doc" />
+                        <input type="file" class="form-control btn btn-primary" name="income_doc[]" multiple
+                               id="com_income_doc"/>
                     </div>
                 </div>
+                <div class="form-group col-md-12 col-sm-12" id="ebitda">
+                    <label class="col-lg-12 col-md-12 col-sm-12 form-group bg-gray-light">EBITDA</label>
 
-
-
-
+                    <div class="form-group col-md-12 col-sm-12">
+                        <label for="market_value">Net Profit Before Tax</label>
+                        <input type="number" name="net_profit_before_tax" class="form-control"
+                               id="net_profit_before_tax">
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                        <label for="market_value">Interest Expense</label>
+                        <input type="number" name="interest_expense" class="form-control" id="interest_expense">
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                        <label for="market_value">Depreciation</label>
+                        <input type="number" name="depreciation" class="form-control" id="depreciation">
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                        <label for="market_value">Others</label>
+                        <input type="number" name="others" class="form-control" id="others">
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                        <button type="button" id="add_company_income" class="btn btn-primary">ADD</button>
+                    </div>
                 </div>
-
-            <?php
-            /*
-            {{--<div class="box-body bg-gray-light incometype" id="salary">--}}
-                {{--<label class="col-lg-12 form-group clearfix">--}}
-                    {{--Monthly Fixed--}}
-                {{--</label>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">CURRENCY</label>--}}
-                    {{--<select name="monthly_fixed_currency" id="monthly_fixed_currency"--}}
-                            {{--data-target="#monthly_fixed_exchance_rate" class="form-control currency">--}}
-                        {{--<option value="myr" {{ ((isset($data['monthly_fixed_currency']) and $data['monthly_fixed_currency']=='myr')?' selected=selected':"") }}>--}}
-                            {{--MYR--}}
-                        {{--</option>--}}
-                        {{--<option value="usd" {{ ((isset($data['monthly_fixed_currency']) and $data['monthly_fixed_currency']=='usd')?' selected=selected':"") }}>--}}
-                            {{--USD--}}
-                        {{--</option>--}}
-                        {{--<option value="sgd" {{ ((isset($data['monthly_fixed_currency']) and $data['monthly_fixed_currency']=='sgd')?' selected=selected':"") }}>--}}
-                            {{--SGD--}}
-                        {{--</option>--}}
-                        {{--<option value="euro" {{ ((isset($data['monthly_fixed_currency']) and $data['monthly_fixed_currency']=='euro')?' selected=selected':"") }}>--}}
-                            {{--EURO--}}
-                        {{--</option>--}}
-                    {{--</select>--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12 hide">--}}
-                    {{--<label class="control-label">Exchage Rate</label>--}}
-                    {{--<input name="monthly_fixed_exchance_rate" id="monthly_fixed_exchance_rate" type="number"--}}
-                           {{--value="{{ (isset($data['monthly_fixed_exchance_rate'])?$data['monthly_fixed_exchance_rate']:1) }}"--}}
-                           {{--class="form-control">--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">BASIC</label>--}}
-                    {{--<input type="number"--}}
-                           {{--value="{{ (isset($data['monthly_fixed_basic'])?$data['monthly_fixed_basic']:"") }}"--}}
-                           {{--name="monthly_fixed_basic" id="monthly_fixed_basic" class="form-control">--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Mandatory Deductions</label>--}}
-                    {{--<div class="clearfix"></div>--}}
-
-                    {{--<label class="checkbox-inline">--}}
-                        {{--<input type="checkbox" value="epf" name="monthly_fixed_m_deductions[]"--}}
-                               {{--{{(isset($data['monthly_fixed_m_deductions'][0]) and $data['monthly_fixed_m_deductions'][0]=='epf')? 'checked="checked"':"" }}--}}
-                               {{--id="monthly_fixed_m_deductions_epf"> EPF--}}
-                    {{--</label>--}}
-                    {{--<label class="checkbox-inline">--}}
-                        {{--<input type="checkbox" value="tax" name="monthly_fixed_m_deductions[]"--}}
-                               {{--{{((isset($data['monthly_fixed_m_deductions'][0])  and $data['monthly_fixed_m_deductions'][0]=='tax')--}}
-                               {{--or (isset($data['monthly_fixed_m_deductions'][1]) and $data['monthly_fixed_m_deductions'][1]=='tax'))? "checked='checked'":"" }}--}}
-                               {{--id="monthly_fixed_m_deductions_tax"> TAX--}}
-                    {{--</label>--}}
-                {{--</div>--}}
-                {{--<div class="form-group">--}}
-                    {{--<div class="col-lg-12">--}}
-                        {{--<input type="hidden" id="monthlyfixedadded" name="monthlyfixedadded"--}}
-                               {{--value="{{ isset($data['monthlyfixedadded'])?$data['monthlyfixedadded']:"false" }}">--}}
-                        {{--<button type="button" id="addmonthlyfixed" class="btn btn-primary">Update</button>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-
-            {{--</div>--}}
-            {{--<div class="box-body bg-gray-light hide incometype " id="business">--}}
-                {{--<label class="col-lg-12 form-group">--}}
-                    {{--Monthly Variable--}}
-                {{--</label>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">CURRENCY</label>--}}
-                    {{--<select name="monthly_variable_currency" id="monthly_variable_currency"--}}
-                            {{--class="form-control currency" data-target="#monthly_variable_exchange_rate">--}}
-                        {{--<option value="myr" {{ ((isset($data['monthly_variable_currency']) and $data['monthly_variable_currency']=='myr')?' selected=selected':"") }}>--}}
-                            {{--MYR--}}
-                        {{--</option>--}}
-                        {{--<option value="usd" {{ ((isset($data['monthly_variable_currency']) and $data['monthly_variable_currency']=='usd')?' selected=selected':"") }}>--}}
-                            {{--USD--}}
-                        {{--</option>--}}
-                        {{--<option value="sgd" {{ ((isset($data['monthly_variable_currency']) and $data['monthly_variable_currency']=='sgd')?' selected=selected':"") }}>--}}
-                            {{--SGD--}}
-                        {{--</option>--}}
-                        {{--<option value="euro" {{ ((isset($data['monthly_variable_currency']) and $data['monthly_variable_currency']=='euro')?' selected=selected':"") }}>--}}
-                            {{--EURO--}}
-                        {{--</option>--}}
-                    {{--</select>--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12 hide">--}}
-                    {{--<label class="control-label">Exchage Rate</label>--}}
-                    {{--<input type="number" name="monthly_variable_exchange_rate" id="monthly_variable_exchange_rate"--}}
-                           {{--class="form-control"--}}
-                           {{--value="{{ isset($data['monthly_variable_exchange_rate'])?$data['monthly_variable_exchange_rate']:1 }}" >--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Month1</label>--}}
-                    {{--<input type="number" name="month1_variable_basic" id="month1_variable_basic" class="form-control"--}}
-                           {{--value="{{ isset($data['month1_variable_basic'])?$data['month1_variable_basic']:"" }}">--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Month2</label>--}}
-                    {{--<input type="number" name="month2_variable_basic" id="month2_variable_basic" class="form-control"--}}
-                           {{--value="{{ isset($data['month2_variable_basic'])?$data['month2_variable_basic']:"" }}">--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Month3</label>--}}
-                    {{--<input type="number" name="month3_variable_basic" id="month3_variable_basic" class="form-control"--}}
-                           {{--value="{{ isset($data['month3_variable_basic'])?$data['month3_variable_basic']:"" }}">--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Month4</label>--}}
-                    {{--<input type="number" name="month4_variable_basic" id="month4_variable_basic" class="form-control"--}}
-                           {{--value="{{ isset($data['month4_variable_basic'])?$data['month4_variable_basic']:"" }}">--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Month5</label>--}}
-                    {{--<input type="number" name="month5_variable_basic" id="month5_variable_basic" class="form-control"--}}
-                           {{--value="{{ isset($data['month5_variable_basic'])?$data['month5_variable_basic']:"" }}">--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Month6</label>--}}
-                    {{--<input type="number" name="month6_variable_basic" id="month6_variable_basic" class="form-control"--}}
-                           {{--value="{{ isset($data['month6_variable_basic'])?$data['month6_variable_basic']:"" }}">--}}
-                {{--</div>--}}
-
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Mandatory Deductions</label>--}}
-                    {{--<div class="clearfix"></div>--}}
-                    {{--<label class="checkbox-inline">--}}
-                        {{--<input value="epf" type="checkbox" name="monthly_variable_m_deductions[]"--}}
-                               {{--{{(isset($data['monthly_variable_m_deductions']) and $data['monthly_variable_m_deductions'][0]=='epf')? 'checked="checked"':"" }}--}}
-                               {{--id="monthly_variable_m_deductions_epf"> EPF--}}
-                    {{--</label>--}}
-                    {{--<label class="checkbox-inline">--}}
-                        {{--<input value="tax" type="checkbox" name="monthly_variable_m_deductions[]"--}}
-                               {{--{{(isset($data['monthly_variable_m_deductions'])  and $data['monthly_variable_m_deductions'][0]=='tax')--}}
-                               {{--or (isset($data['monthly_variable_m_deductions'][1]) and $data['monthly_variable_m_deductions'][1]=='tax')? "checked='checked'":"" }}--}}
-                               {{--id="monthly_variable_m_deductions_tax"> TAX--}}
-                    {{--</label>--}}
-
-                {{--</div>--}}
-                {{--<div class="form-group">--}}
-                    {{--<div class="col-lg-12">--}}
-                        {{--<input type="hidden" id="monthlyvariableadded" name="monthlyvariableadded"--}}
-                               {{--value="{{ (isset($data['monthlyvariableadded']) and $data['monthlyvariableadded']!="")?$data['monthlyvariableadded']:"" }}">--}}
-                        {{--<button type="button" id="addmonthlyvariable" class="btn btn-primary">Update</button>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-
-            {{--</div>--}}
-            {{--<div class="box-body bg-gray-light hide incometype " id="incometax">--}}
-                {{--<label class="col-lg-12 form-group"> ANNUAL TAX DECLARED </label>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">CURRENCY</label>--}}
-                    {{--<select name="annual_tax_declared_currency" id="annual_tax_declared_currency"--}}
-                            {{--class="form-control currency" data-target="#annual_tax_declared_exchange_rate">--}}
-                        {{--<option value="myr" {{ ((isset($data['annual_tax_declared_currency']) and $data['annual_tax_declared_currency']=='myr')?' selected=selected':"") }}>--}}
-                            {{--MYR--}}
-                        {{--</option>--}}
-                        {{--<option value="usd" {{ ((isset($data['annual_tax_declared_currency']) and $data['annual_tax_declared_currency']=='usd')?' selected=selected':"") }}>--}}
-                            {{--USD--}}
-                        {{--</option>--}}
-                        {{--<option value="sgd" {{ ((isset($data['annual_tax_declared_currency']) and $data['annual_tax_declared_currency']=='sgd')?' selected=selected':"") }}>--}}
-                            {{--SGD--}}
-                        {{--</option>--}}
-                        {{--<option value="euro" {{ ((isset($data['annual_tax_declared_currency']) and $data['annual_tax_declared_currency']=='euro')?' selected=selected':"") }}>--}}
-                            {{--EURO--}}
-                        {{--</option>--}}
-                    {{--</select>--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12 hide">--}}
-                    {{--<label class="control-label">Exchage Rate</label>--}}
-                    {{--<input type="number" name="annual_tax_declared_exchance_rate" id="annual_tax_declared_exchance_rate"--}}
-                           {{--value="{{ (isset($data['annual_tax_declared_exchance_rate']) and $data['annual_tax_declared_exchance_rate']!="")?$data['annual_tax_declared_exchance_rate']:"1" }}"--}}
-                           {{--class="form-control">--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Amount</label>--}}
-                    {{--<input type="number" name="annual_tax_declared_amount" id="annual_tax_declared_amount"--}}
-                           {{--value="{{ (isset($data['annual_tax_declared_amount']) and $data['annual_tax_declared_amount']!="")?$data['annual_tax_declared_amount']:"" }}"--}}
-                           {{--class="form-control">--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Mandatory Deductions</label>--}}
-                    {{--<div class="clearfix"></div>--}}
-                    {{--<label class="checkbox-inline">--}}
-                        {{--<input value="epf" type="checkbox" id="annual_tax_declared_m_deductions_epf"--}}
-                               {{--{{(isset($data['annual_tax_declared_m_deductions'][0]) and $data['annual_tax_declared_m_deductions'][0]=='epf')? 'checked="checked"':"" }}--}}
-                               {{--name="annual_tax_declared_m_deductions[]"> EPF--}}
-                    {{--</label>--}}
-                    {{--<label class="checkbox-inline">--}}
-                        {{--<input value="tax" type="checkbox" id="annual_tax_declared_m_deductions_tax"--}}
-                               {{--{{(isset($data['annual_tax_declared_m_deductions'][0])  and $data['annual_tax_declared_m_deductions'][0]=='tax')--}}
-                               {{--or (isset($data['annual_tax_declared_m_deductions'][1]) and $data['annual_tax_declared_m_deductions'][1]=='tax')? "checked='checked'":"" }}--}}
-                               {{--name="annual_tax_declared_m_deductions[]"> TAX--}}
-                    {{--</label>--}}
-
-
-                {{--</div>--}}
-                {{--<div class="form-group">--}}
-                    {{--<div class="col-lg-12">--}}
-                        {{--<input type="hidden" id="annualtaxdeclaredadded" name="annualtaxdeclaredadded"--}}
-                               {{--value="{{ (isset($data['annualtaxdeclaredadded']) and $data['annualtaxdeclaredadded']!="")?$data['annualtaxdeclaredadded']:"false" }}">--}}
-                        {{--<button type="button" id="addannualtaxdeclared" class="btn btn-primary">Update</button>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-
-            {{--</div>--}}
-            {{--<div class="box-body bg-gray-light hide incometype " id="iif">--}}
-                {{--<label class="col-lg-12 form-group">--}}
-                    {{--Industry Income Factor--}}
-                {{--</label>--}}
-
-
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Month1</label>--}}
-                    {{--<input type="number" name="month1_iif" id="month1_iif"--}}
-                           {{--value="{{ (isset($data['month1_iif']) and $data['month1_iif']!="")?$data['month1_iif']:"" }}"--}}
-                           {{--class="form-control">--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Month2</label>--}}
-                    {{--<input type="number" name="month2_iif" id="month2_iif"--}}
-                           {{--value="{{ (isset($data['month2_iif']) and $data['month2_iif']!="")?$data['month2_iif']:"" }}"--}}
-                           {{--class="form-control">--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Month3</label>--}}
-                    {{--<input type="number" name="month3_iif" id="month3_iif"--}}
-                           {{--value="{{ (isset($data['month3_iif']) and $data['month3_iif']!="")?$data['month3_iif']:"" }}"--}}
-                           {{--class="form-control">--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Month4</label>--}}
-                    {{--<input type="number" name="month4_iif" id="month4_iif"--}}
-                           {{--value="{{ (isset($data['month4_iif']) and $data['month4_iif']!="")?$data['month4_iif']:"" }}"--}}
-                           {{--class="form-control">--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Month5</label>--}}
-                    {{--<input type="number" name="month5_iif" id="month5_iif"--}}
-                           {{--value="{{ (isset($data['month5_iif']) and $data['month5_iif']!="")?$data['month5_iif']:"" }}"--}}
-                           {{--class="form-control">--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Month6</label>--}}
-                    {{--<input type="number" name="month6_iif" id="month6_iif"--}}
-                           {{--value="{{ (isset($data['month6_iif']) and $data['month6_iif']!="")?$data['month6_iif']:"" }}"--}}
-                           {{--class="form-control">--}}
-                {{--</div>--}}
-
-                {{--<div class="clearfix"></div>--}}
-
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Income Factor</label>--}}
-                    {{--<input type="number" name="iif_com_income_factor" id="iif_com_income_factor"--}}
-                           {{--value="{{ (isset($data['iif_com_income_factor']) and $data['iif_com_income_factor']!="")?$data['iif_com_income_factor']:"" }}"--}}
-                           {{--class="form-control">--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Share Holding</label>--}}
-                    {{--<input type="number" name="iif_share_holding" id="iif_share_holding"--}}
-                           {{--value="{{ (isset($data['iif_com_income_factor']) and $data['iif_com_income_factor']!="")?$data['iif_com_income_factor']:"" }}"--}}
-                           {{--class="form-control">--}}
-                {{--</div>--}}
-                {{--<div class="form-group">--}}
-                    {{--<div class="col-lg-12">--}}
-                        {{--<input type="hidden" id="iifadded" name="monthlyvariableadded"--}}
-                               {{--value="{{ (isset($data['monthlyvariableadded']) and $data['monthlyvariableadded']!="")?$data['monthlyvariableadded']:"false" }}">--}}
-                        {{--<button type="button" id="addiif" class="btn btn-primary">Update</button>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-
-            {{--</div>--}}
-
-            {{--<div class="box-body bg-gray-light hide incometype " id="monthlyrental">--}}
-                {{--<label class="col-lg-12 form-group"> Monthly Rental </label>--}}
-
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Amount</label>--}}
-                    {{--<input type="number" name="monthly_rental_amount" id="monthly_rental_amount"--}}
-                           {{--value="{{ (isset($data['monthly_rental_amount']) and $data['monthly_rental_amount']!="")?$data['monthly_rental_amount']:"" }}"--}}
-                           {{--class="form-control">--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Mandatory Deductions</label>--}}
-                    {{--<div class="clearfix"></div>--}}
-
-                    {{--<label class="checkbox-inline">--}}
-                        {{--<input value="tax" type="checkbox"  id="monthly_rental_deductions_tax" name="monthly_rental_m_deductions[]"--}}
-                               {{--{{(isset($data['monthly_rental_m_deductions'][0])  and $data['monthly_rental_m_deductions'][0]=='tax')--}}
-                              {{--or (isset($data['monthly_rental_m_deductions'][1]) and $data['monthly_rental_m_deductions'][1]=='tax')? "checked='checked'":"" }}--}}
-                               {{--class="toggle" data-toggle="toggle"> TAX--}}
-                    {{--</label>--}}
-
-                {{--</div>--}}
-
-
-                {{--<div class="form-group">--}}
-                    {{--<div class="col-lg-12">--}}
-                        {{--<input type="hidden" name="monthly_rental_added" id="monthly_rental_added"--}}
-                               {{--value="{{ (isset($data['monthly_rental_added']) and $data['monthly_rental_added']!="")?$data['monthly_rental_added']:"false" }}">--}}
-                        {{--<button type="button" id="monthly_rental_add" class="btn btn-primary">Update</button>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-
-            {{--</div>--}}
-            {{--<div class="box-body bg-gray-light hide incometype " id="air">--}}
-                {{--<label class="col-lg-12 form-group"> Annual Investment Return </label>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">CURRENCY</label>--}}
-                    {{--<select name="annual_investment_return_currency" id="annual_investment_return_currency"--}}
-                            {{--class="form-control currency" data-target="#annual_investment_return_exchange_rate">--}}
-                        {{--<option value="myr" {{ ((isset($data['annual_investment_return_currency']) and $data['annual_investment_return_currency']=='myr')?' selected=selected':"") }}>--}}
-                            {{--MYR--}}
-                        {{--</option>--}}
-                        {{--<option value="usd" {{ ((isset($data['annual_investment_return_currency']) and $data['annual_investment_return_currency']=='usd')?' selected=selected':"") }}>--}}
-                            {{--USD--}}
-                        {{--</option>--}}
-                        {{--<option value="sgd" {{ ((isset($data['annual_investment_return_currency']) and $data['annual_investment_return_currency']=='sgd')?' selected=selected':"") }}>--}}
-                            {{--SGD--}}
-                        {{--</option>--}}
-                        {{--<option value="euro" {{ ((isset($data['annual_investment_return_currency']) and $data['annual_investment_return_currency']=='euro')?' selected=selected':"") }}>--}}
-                            {{--EURO--}}
-                        {{--</option>--}}
-
-                    {{--</select>--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12 hide">--}}
-                    {{--<label class="control-label">Exchage Rate</label>--}}
-                    {{--<input type="number" name="annual_investment_return_exchange_rate"--}}
-                           {{--value="{{ (isset($data['annual_investment_return_exchange_rate']) and $data['annual_investment_return_exchange_rate']!="")?$data['annual_investment_return_exchange_rate']:"1" }}"--}}
-                           {{--id="annual_investment_return_exchange_rate" class="form-control">--}}
-                {{--</div>--}}
-                {{--<div class="form-group col-md-12 col-sm-12">--}}
-                    {{--<label class="control-label">Amount</label>--}}
-                    {{--<input type="number" name="annual_investment_return_amount"--}}
-                           {{--value="{{ (isset($data['annual_investment_return_amount']) and $data['annual_investment_return_amount']!="")?$data['annual_investment_return_amount']:"" }}"--}}
-                           {{--id="annual_investment_return_amount"  class="form-control">--}}
-                {{--</div>--}}
-
-                {{--<div class="form-group">--}}
-                    {{--<div class="col-lg-12">--}}
-                        {{--<input type="hidden" name="annual_investment_return_added" id="annual_investment_return_added"--}}
-                               {{--value="{{ (isset($data['annual_investment_return_added']) and $data['annual_investment_return_added']!="")?$data['annual_investment_return_added']:"false" }}">--}}
-                        {{--<button type="button" id="annual_investment_return_add" class="btn btn-primary">Update</button>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-
-            {{--</div>--}}
-*/
-            ?>
+            </div>
         </div>
     </div>
     <div class="col-md-4 col-lg-4 col-sm-12">
@@ -517,7 +85,7 @@
                     //$income->form_data = json_decode($income->form_data);
                     ?>
 
-                  {{--@include("aadata.right_info_income")--}}
+                    {{--@include("aadata.right_info_income")--}}
 
 
                 </div>
@@ -526,69 +94,89 @@
         </div>
     </div>
 
-    {{--<div class="form-group col-md-12 col-sm-12 ">--}}
-    {{--<ul class="pager">--}}
-    {{--<li class="previous" id="backapplicantkyc"><a href="javascript:void(0);" class="bg-yellow-gradient"> &lt;&lt; Application KYC </a></li>--}}
-    {{--<li class="next"><a href="javascript:void(0);" id="nextwealthkyc" class="bg-yellow-gradient">Wealth KYC &gt;&gt;</a></li>--}}
-    {{--</ul>--}}
-    {{--<button type="button" id="backapplicantkyc" class="btn btn-primary pull-right">Previous</button>--}}
-    {{--<button type="button" id="nextwealthkyc" class="btn btn-primary pull-right">Next</button>--}}
-    {{--</div>--}}
-
 
 </fieldset>
-{{--<input type=hidden class="kyctotalgross" value="{{ (isset($data['monthly_fixed_gross']) and $data['monthly_fixed_gross']!=0)?$data['monthly_fixed_gross']:0 }}" name=monthly_fixed_gross id=monthly_fixed_gross>--}}
-{{--<input type=hidden class="kyctotalnet" value="{{ (isset($data['monthly_fixed_net']) and $data['monthly_fixed_net']!=0)?$data['monthly_fixed_net']:0 }}" name=monthly_fixed_net id=monthly_fixed_net>--}}
-{{--<input type=hidden class="kyctotalgross" value="{{ (isset($data['monthly_variable_gross']) and $data['monthly_variable_gross']!=0)?$data['monthly_variable_gross']:0 }}" name=monthly_variable_gross id=monthly_variable_gross>--}}
-{{--<input type=hidden class="kyctotalnet" value="{{ (isset($data['monthly_variable_net']) and $data['monthly_variable_net']!=0)?$data['monthly_variable_net']:0 }}" name=monthly_variable_net id=monthly_variable_net>--}}
-{{--<input type=hidden class="kyctotalgross" value="{{ (isset($data['annual_tax_declared_gross']) and $data['annual_tax_declared_gross']!=0)?$data['annual_tax_declared_gross']:0 }}" name=annual_tax_declared_gross id=annual_tax_declared_gross>--}}
-{{--<input type=hidden class="kyctotalnet" value="{{ (isset($data['annual_tax_declared_net']) and $data['annual_tax_declared_net']!=0)?$data['annual_tax_declared_net']:0 }}" name=annual_tax_declared_net id=annual_tax_declared_net>--}}
-{{--<input type=hidden class="kyctotalgross" value="{{ (isset($data['annual_investment_return_gross']) and $data['annual_investment_return_gross']!=0)?$data['annual_investment_return_gross']:0 }}" name=annual_investment_return_gross--}}
-       {{--id=annual_investment_return_gross>--}}
-{{--<input type=hidden class="kyctotalnet" value="{{ (isset($data['annual_investment_return_net']) and $data['annual_investment_return_net']!=0)?$data['annual_investment_return_net']:0 }}" name=annual_investment_return_net id=annual_investment_return_net>--}}
-{{--<input type=hidden class="kyctotalgross" value="{{ (isset($data['monthly_rental_gross']) and $data['monthly_rental_gross']!=0)?$data['monthly_rental_gross']:0 }}" name=monthly_rental_gross id=monthly_rental_gross>--}}
-{{--<input type=hidden class="kyctotalnet" value="{{ (isset($data['monthly_rental_net']) and $data['monthly_rental_net']!=0)?$data['monthly_rental_net']:0 }}" name=monthly_rental_net id=monthly_rental_net>--}}
-{{--<input type=hidden class="kyctotalgross" value="{{ (isset($data['iif_gross']) and $data['iif_gross']!=0)?$data['iif_gross']:0 }}" name=iif_gross id=iif_gross>--}}
-{{--<input type=hidden class="kyctotalnet" value="{{ (isset($data['iif_net']) and $data['iif_net']!=0)?$data['iif_net']:0 }}" name=iif_net id=iif_net>--}}
-{{--<input type=hidden class="kyctotalnet" value="{{ (isset($data['gross']) and $data['gross']!=0)?$data['gross']:0 }}" name=gross id=gross>--}}
-{{--<input type=hidden class="kyctotalnet" value="{{ (isset($data['net']) and $data['net']!=0)?$data['net']:0 }}" name=net id=net>--}}
 @push("scripts")
     <script type="text/javascript">
-        $('#com_income_doc[type="file"]').change(function(e) {
-                var fileName = e.target.files[0].name;
-                form = document.createElement("form");
-                form.setAttribute("method", "post");
-                form.setAttribute("target", "_blank");
-                form.setAttribute("enctype", "multipart/form-data")
-                form.setAttribute("action", "{{ route("documents.store") }}");
-                csrf = $('{{ csrf_field() }}')
-                $(form).append(csrf);
-                $(form).append($("#com_income_doc_form").clone(true));
-                $(form).append($("#applicant_id").clone(true));
-                div = $("<div style=\"display=hidden\"></div>")
-                $(div).append(form)
-                document.body.appendChild(form);
-                form.submit();
+        $(document).ready(function(e) {
+            income_form=[];
+            income_form["ebitda"] = $("#ebitda").children().clone(true,true)
+
+            $.ajax({
+                url: "{{ route("comments") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: "id={{$applicant->id}}",
+                success: function (response) {
+                    $("#tab-2").html(response);
+                },
+                error: function () {
+
+                }
+
+            });
+            $.ajax({
+                url: "{{ route("documents") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: "id={{$applicant->id}}",
+                success: function (response) {
+                    $("#tab-1").html(response);
+
+                },
+                error: function () {
+
+                }
+            });
+            $.ajax({
+                url: "{{ route("applicant_sidebar") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data:"applicant_id="+$("#applicant_id").val(),
+                success: function (response) {
+                    $("#tab-3").html("").append($(response));
+                    $(".incomekyc_right").html("").append($("#incomekyc_right").html())
+                    $(".wealthkyc_right").html("").append($("#wealthkyc_right").html())
+                    $(".propertykyc_right").html("").append($("#propertykyc_right").html())
+                },
+                error: function () {
+
+                }
+
+            });
+        })
+
+        $('#com_income_doc[type="file"]').change(function (e) {
+            if($("input[name=doc_hint]").val()=="")
+            {
+                alert("Please Select income")
+                return false;
+            }
+            var fileName = e.target.files[0].name;
+            form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("target", "_blank");
+            form.setAttribute("enctype", "multipart/form-data")
+            form.setAttribute("action", "{{ route("documents.store") }}");
+            csrf = $('{{ csrf_field() }}')
+            $(form).append(csrf);
+            $(form).append($("#com_income_doc_form").clone(true));
+            $(form).append($("#applicant_id").clone(true));
+            $(form).append($("input[name=doc_hint]").clone(true));
+            div = $("<div style=\"display=hidden\"></div>")
+            $(div).append(form)
+            document.body.appendChild(form);
+            form.submit();
             $("#com_income_doc_form").find("option:selected").prop("selected", false)
 
         });
-        $(".currency").on("change", function (e) {
-            if ($(this).val() == "myr")
-                $($(this).data("target")).val(1)
-                    .parent("div").addClass("hide");
-            else
-                $($(this).data("target")).val("")
-                    .parent("div").removeClass("hide");
 
-        })
-        $("#backapplicantkyc").click(function (e) {
-            $("#incomekyc").addClass("hide");
-            $("#applicantkyc").removeClass("hide");
-        })
-        $("#nextwealthkyc").click(function (e) {
-            $("#incomekyc").addClass("hide");
-            $("#wealthkyc").removeClass("hide");
-        });
         $("#incometype").change(function (e) {
             $("#incomekyc .box .incometype").addClass("hide");
             id = $(this).val();
@@ -597,192 +185,89 @@
         $(".incomekyc-action-btn button.view").on("click", function (e) {
             $("#incometype").val($(this).data("value")).trigger("change");
         })
-        $("#addmonthlyfixed").on('click', function (e) {
-            $("#btn-salary").removeClass("hide");
 
-            currency = $("#monthly_fixed_currency").val();
-            basic = $("#monthly_fixed_basic").val();
-            exchange_rate = $("#monthly_fixed_exchance_rate").val();
-            epf = 11;// $("#monthly_fixed_m_deductions_epf").val();
-            tax = 20;//$("#monthly_fixed_m_deductions_tax").val();
-            gross = Math.round(basic * exchange_rate);
-            tax_ded = 0;
-            epf_ded = 0;
-            if ($("#monthly_fixed_m_deductions_tax").prop("checked") == true) {
-                tax_ded = gross * tax / 100;
-            }
-            if ($("#monthly_fixed_m_deductions_epf").prop("checked") == true) {
-                epf_ded = gross * epf / 100;
-            }
-            net = Math.round(gross - tax_ded - epf_ded);
+        $(document.body).on("click","#add_company_income", function (e) {
+            var gross = 0;
+            $("#ebitda :input").each(function () {
+                gross += Number($(this).val());
+                // Could be written as
+                // tot += +this.value;
+            });
 
-            $("#monthlyfixedadded").val("true");
-            $(".salary_right_bar").html("<td>Monthly Fixed</td><td>" + Math.round(gross) + "</td><td>" + Math.round(net) + "</td>");
-            // $("#salary_right_bar").text(gross+" / "+net);
-            $("#monthly_fixed_gross").val(gross);
-            $("#monthly_fixed_net").val(net);
-            totalincomekyc()
+            data = $("#ebitda").find(":input").serialize() + "&type=" + $("#incometype").val() + "&form=company_income&applicant_id=" + $("#applicant_id").val() + "&gross=" + gross;
+            submitincomekyc(data)
+            e.preventDefault();
         });
-        $("#addmonthlyvariable").on('click', function (e) {
-            $("#btn-business").removeClass("hide");
-
-            currency = $("#monthly_variable_currency").val();
-            month1 = $("#month1_variable_basic").val();
-            month2 = $("#month2_variable_basic").val();
-            month3 = $("#month3_variable_basic").val();
-            month4 = $("#month4_variable_basic").val();
-            month5 = $("#month5_variable_basic").val();
-            month6 = $("#month6_variable_basic").val();
-
-            basic = Math.round(((month1 * 1) + (month2 * 1) + (month3 * 1) + (month4 * 1) + (month5 * 1) + (month6 * 1)) / 6);
-            exchange_rate = $("#monthly_variable_exchange_rate").val();
-
-            epf = 11;// $("#monthly_fixed_m_deductions_epf").val();
-            tax = 20;//$("#monthly_fixed_m_deductions_tax").val();
-            gross = Math.round(basic * exchange_rate);
-            tax_ded = 0;
-            epf_ded = 0;
-            if ($("#monthly_variable_m_deductions_tax").prop("checked") == true) {
-                tax_ded = gross * tax / 100;
-            }
-            if ($("#monthly_variable_m_deductions_epf").prop("checked") == true) {
-                epf_ded = gross * epf / 100;
-            }
-            net = Math.round(gross - tax_ded - epf_ded);
-            $("#monthlyvariableadded").val("true");
-            $(".business_right_bar").html("<td>Monthly Variable</td><td>" + Math.round(gross) + "</td><td>" + Math.round(net) + "</td>");
-            // $("#business_right_bar").text(gross+" / "+net);
-            $("#monthly_variable_gross").val(gross)
-            $("#monthly_variable_net").val(net)
-            totalincomekyc()
-        });
-        $("#addannualtaxdeclared").on('click', function (e) {
-            $("#btn-incometax").removeClass("hide");
-
-            currency = $("#annual_tax_declared_currency").val();
-            basic = $("#annual_tax_declared_amount").val();
-            exchange_rate = $("#annual_tax_declared_exchance_rate").val();
-            epf = 11;// $("#monthly_fixed_m_deductions_epf").val();
-            tax = 20;//$("#monthly_fixed_m_deductions_tax").val();
-            gross = Math.round((basic * exchange_rate) / 12);
-            tax_ded = 0;
-            epf_ded = 0;
-            if ($("#annual_tax_declared_m_deductions_tax").prop("checked") == true) {
-                tax_ded = gross * tax / 100;
-            }
-            if ($("#annual_tax_declared_m_deductions_epf").prop("checked") == true) {
-                epf_ded = gross * epf / 100;
-            }
-            net = Math.round(gross - tax_ded - epf_ded);
-            $("#annualtaxdeclaredadded").val("true");
-            $(".incometax_right_bar").html("<td>Annual Tax Declared</td><td>" + Math.round(gross) + "</td><td>" + Math.round(net) + "</td>");
-            // $("#incometax_right_bar").text(gross+" / "+net);
-            $("#annual_tax_declared_gross").val(gross)
-            $("#annual_tax_declared_net").val(net)
-            totalincomekyc()
-        });
-        $("#monthly_rental_add").on('click', function (e) {
-            $("#btn-monthlyrental").removeClass("hide");
-
-            basic = $("#monthly_rental_amount").val();
-            tax = 20;//$("#monthly_fixed_m_deductions_tax").val();
-            gross = Math.round(basic);
-            tax_ded = 0;
-            if ($("#monthly_rental_deductions_tax").prop("checked") == true) {
-                tax_ded = gross * tax / 100;
-            }
-            net = Math.round(gross - tax_ded);
-            $("#monthly_rental_added").val("true");
-            $(".monthly_rental_right_bar").html("<td>Monthly Rental</td><td>" + Math.round(gross) + "</td><td>" + Math.round(net) + "</td>");
-            // $("#monthly_rental_right_bar").text(gross+" / "+net);
-            $("#monthly_rental_gross").val(gross)
-            $("#monthly_rental_net").val(net)
-            totalincomekyc()
-        });
-        $("#annual_investment_return_add").on('click', function () {
-            $("#btn-air").removeClass("hide");
-
-            currency = $("#annual_investment_return_currency").val();
-            basic = $("#annual_investment_return_amount").val();
-            exchange_rate = $("#annual_investment_return_exchange_rate").val();
-            gross = Math.round((basic * exchange_rate) / 12);
-            net = gross;
-            $("#annual_investment_return_added").val("true");
-            $(".annual_investment_return_right_bar").html("<td>Annual Investment Return</td><td>" + Math.round(gross) + "</td><td>" + Math.round(net) + "</td>");
-            //$("#annual_investment_return_right_bar").text(gross+" / "+net);
-            $("#annual_investment_return_gross").val(gross)
-            $("#annual_investment_return_net").val(net)
-            totalincomekyc()
-        });
-        $("#addiif").on('click', function () {
-            $("#btn-iif").removeClass("hide");
-
-            month1 = $("#month1_iif").val();
-            month2 = $("#month2_iif").val();
-            month3 = $("#month3_iif").val();
-            month4 = $("#month4_iif").val();
-            month5 = $("#month5_iif").val();
-            month6 = $("#month6_iif").val();
-            basic = Math.round(((month1 * 1) + (month2 * 1) + (month3 * 1) + (month4 * 1) + (month5 * 1) + (month6 * 1)) / 6);
-            incomefactor = $("#iif_com_income_factor").val();
-            shareholding = $("#iif_share_holding").val();
-            if (!(isNaN(incomefactor)) && incomefactor != "")
-                basic = basic * incomefactor / 100;
-            if (!(isNaN(shareholding)) && shareholding != "")
-                basic = basic * shareholding / 100;
-            gross = basic;
-            net = gross
-            $("#iifadded").val("true");
-            $(".iif_right_bar").html("<td>Industry Income Factor</td><td>" + Math.round(gross) + "</td><td>" + Math.round(net) + "</td>");
-            // $("#iif_right_bar").text(gross+" / "+net);
-            $("#iif_gross").val(gross)
-            $("#iif_net").val(net)
-            totalincomekyc()
-        })
-        $(".editincome").on("click", function (e) {
-            $("#incomekyc .box .incometype").addClass("hide");
-            id = $(this).data("value");
-            $("#" + id).removeClass("hide");
+        $(document.body).on("click", ".editincome", function (e) {
+            $("input[name=doc_hint]").val($(this).text());
+            type = $(this).data("type");
+            url = $(this).data("url");
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: "type=" + type,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+            }).done(function (response) {
+                $("#incometype").val(type).trigger("change");
+                $(".incometype").removeClass("hide").addClass("hide");
+                $("#ebitda").removeClass("hide").html("").append($(response));
+            })
 
         })
 
-        $(".delincome").on("click", function (e) {
-            id = $(this).data("value");
-            $("#" + id).find(" :input").not('[type=radio],[type=checkbox],select').val(0);
-            $("#" + id).find(":input").val($("#" + id).find("[type=radio],[type=checkbox],select").prop('defaultSelected'));
-            $("#" + $(this).data("action")).trigger("click");
-            $("." + $(this).data("right")).html("")
-            $(this).parent("li").parent("ul").parent("div").addClass('hide');
-
+        $(document.body).on("click", ".delincome", "click", function (e) {
+            id = $(this).data("id");
+            submitincomekyc("id=" + id + "&action=delete");
         })
 
-        function totalincomekyc() {
-            gross1 = $("#monthly_fixed_gross").val();
-            gross2 = $("#monthly_variable_gross").val();
-            gross3 = $("#iif_gross").val();
-            gross4 = $("#annual_tax_declared_gross").val();
-            gross5 = $("#annual_investment_return_gross").val();
-            gross6 = $("#monthly_rental_gross").val();
-            grosstotal = Math.round((gross1 * 1) + (gross2 * 1) + (gross3 * 1) + (gross4 * 1) + (gross5 * 1) + (gross6 * 1));
+        function submitincomekyc(form_data) {
+            $.ajax({
+                url: '{{ route('incomekyc.store') }}',
+                type: 'POST',
+                data: form_data,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+            }).done(function (response) {
+                $("input[name=doc_hint]").val("");
 
-            net1 = $("#monthly_fixed_net").val();
-            net2 = $("#monthly_variable_net").val();
-            net3 = $("#iif_net").val();
-            net4 = $("#annual_tax_declared_net").val();
-            net5 = $("#annual_investment_return_net").val();
-            net6 = $("#monthly_rental_net").val();
-            nettotal = Math.round((net1 * 1) + (net2 * 1) + (net3 * 1) + (net4 * 1) + (net5 * 1) + (net6 * 1));
-            if (grosstotal == 0 && nettotal == 0)
-                $(".com_income_kyc_total_right_bar").html("");//<td>Total</td><td>"+ Math.round(grosstotal) + "</td><td>"+nettotal+"</td>");
-            else
-                $(".com_income_kyc_total_right_bar").html("<td>Total</td><td>" + Math.round(grosstotal) + "</td><td>" + nettotal + "</td>");
+                $.ajax({
+                    url: '{{ route("incomekyc.incomekyc_action_btns")}}',
+                    type: "GET",
+                    data: "applicant_id=" + $("#applicant_id").val(),
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                }).done(function (response) {
+                    $("#incomekyc_action_btns").html("").append($(response))
+                })
+                $.ajax({
+                    url: "{{ route("applicant_sidebar") }}",
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    data: "applicant_id=" + $("#applicant_id").val(),
+                    success: function (response) {
+                        $("#tab-3").html("").append($(response));
+                        $(".incomekyc_right").html("").append($("#incomekyc_right").html())
 
+                    },
+                    error: function () {
 
-            //$("#com_income_kyc_total_right_bar").text(grosstotal + "/"+ nettotal);
-            $("#gross").val(grosstotal);
-            $("#net").val(nettotal);
-            $(".incomekyc_right").html($("#incomekyc_right").html())
-            submitincomekyc();
+                    }
+
+                });
+
+                //$("#incomekyc .box .incometype").addClass("hide");
+                id = $("#incometype").val();
+                $("#ebitda").html("").append($(income_form["ebitda"]).clone(true, true))
+                // $("#" + id).removeClass("hide").show();
+
+            })
+
         }
 
     </script>

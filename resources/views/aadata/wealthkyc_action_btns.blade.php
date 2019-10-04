@@ -37,6 +37,12 @@
                 $utv=1;
             $label="Unit Trust Value".$utv;
             break;
+        default:
+            if(isset($i))
+                $i++;
+            else
+                $i=1;
+            $label="Bank Statement $i";
     }
 
     ?>

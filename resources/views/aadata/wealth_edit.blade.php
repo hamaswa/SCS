@@ -140,4 +140,127 @@ $form_data = json_decode($wealth->form_data, true);
     </div>
     @break
 
+    @default
+        <label class="col-lg-12 col-md-12 col-sm-12 form-group bg-gray-light">Bank Statement</label>
+        <div class="form-group col-md-12 col-sm-12">
+
+            <div class="form-group col-md-4 col-sm-4">
+                <label for="market_value"></label>
+
+            </div>
+            <div class="form-group col-md-4 col-sm-4">
+                <label for="market_value">Credited</label>
+
+            </div>
+            <div class="form-group col-md-4 col-sm-4">
+                <label for="market_value">Balance</label>
+
+            </div>
+        </div>
+        <div class="form-group col-md-12 col-sm-12">
+
+
+            <div class="form-group col-md-4 col-sm-4">
+                <label for="market_value">Month1</label>
+            </div>
+            <div class="form-group col-md-4 col-sm-4">
+                <input type="number" name="month1_credited" class="form-control credited"
+                       value="{{ (isset($form_data["month1_credited"])?$form_data["month1_credited"]:"") }}"
+                       id="month1_credited">
+            </div>
+            <div class="form-group col-md-4 col-sm-4">
+                <input type="number" name="month1_balance" class="form-control balance"
+                       value="{{ (isset($form_data["month1_balance"])?$form_data["month1_balance"]:"") }}"
+                       id="month1_balance">
+            </div>
+        </div>
+
+        <div class="form-group col-md-12 col-sm-12">
+
+
+            <div class="form-group col-md-4 col-sm-4">
+                <label for="market_value">Month2</label>
+            </div>
+            <div class="form-group col-md-4 col-sm-4">
+                <input type="number" name="month2_credited" class="form-control credited"
+                       value="{{ (isset($form_data["month2_credited"])?$form_data["month2_credited"]:"") }}"
+                       id="month2_credited">
+            </div>
+            <div class="form-group col-md-4 col-sm-4">
+                <input type="number" name="month2_balance" class="form-control balance"
+                       value="{{ (isset($form_data["month2_balance"])?$form_data["month2_balance"]:"") }}"
+                       id="month2_balance">
+            </div>
+        </div>
+
+        <div class="form-group col-md-12 col-sm-12">
+
+
+            <div class="form-group col-md-4 col-sm-4">
+                <label for="market_value">Month3</label>
+            </div>
+            <div class="form-group col-md-4 col-sm-4">
+                <input type="number" name="month3_credited" class="form-control credited"
+                       value="{{ (isset($form_data["month3_credited"])?$form_data["month3_credited"]:"") }}"
+                       id="month3_credited">
+            </div>
+            <div class="form-group col-md-4 col-sm-4">
+                <input type="number" name="month3_balance" class="form-control balance"
+                       value="{{ (isset($form_data["month3_balance"])?$form_data["month3_balance"]:"") }}"
+                       id="month3_balance">
+            </div>
+        </div>
+        <div class="form-group col-md-12 col-sm-12">
+
+
+            <div class="form-group col-md-4 col-sm-4">
+                <label for="market_value">Month4</label>
+            </div>
+            <div class="form-group col-md-4 col-sm-4">
+                <input type="number" name="month4_credited" class="form-control credited"
+                       value="{{ (isset($form_data["month4_credited"])?$form_data["month4_credited"]:"") }}"
+                       id="month4_credited">
+            </div>
+            <div class="form-group col-md-4 col-sm-4">
+                <input type="number" name="month4_balance" class="form-control balance"
+                       value="{{ (isset($form_data["month4_balance"])?$form_data["month4_balance"]:"") }}"
+                       id="month4_balance">
+            </div>
+        </div>
+        <div class="form-group col-md-12 col-sm-12">
+            <div class="form-group col-md-4 col-sm-4">
+                <label for="market_value">Month5</label>
+            </div>
+            <div class="form-group col-md-4 col-sm-4">
+                <input type="number" name="month5_credited" class="form-control credited"
+                       value="{{ (isset($form_data["month5_credited"])?$form_data["month5_credited"]:"") }}"
+                       id="month5_credited">
+            </div>
+            <div class="form-group col-md-4 col-sm-4">
+                <input type="number" name="month5_balance" class="form-control balance"
+                       value="{{ (isset($form_data["month5_balance"])?$form_data["month5_balance"]:"") }}"
+                       id="month5_balance">
+            </div>
+        </div>
+        <div class="form-group col-md-12 col-sm-12">
+
+
+            <div class="form-group col-md-4 col-sm-4">
+                <label for="market_value">Month6</label>
+            </div>
+            <div class="form-group col-md-4 col-sm-4">
+                <input type="number" name="month6_credited" class="form-control credited"
+                       value="{{ (isset($form_data["month6_credited"])?$form_data["month6_credited"]:"") }}"
+                       id="month6_credited">
+            </div>
+            <div class="form-group col-md-4 col-sm-4">
+                <input type="number" name="month6_balance" class="form-control balance"
+                       value="{{ (isset($form_data["month6_balance"])?$form_data["month6_balance"]:"") }}"
+                       id="month6_balance">
+            </div>
+        </div>
+        <div class="form-group col-md-12 col-sm-12">
+            <button type="button" id="add_company_wealth" class="btn btn-primary">ADD</button>
+        </div>
+
 @endswitch

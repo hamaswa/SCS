@@ -593,7 +593,11 @@
     <script type="text/javascript">
 
             $('#income_doc[type="file"]').change(function(e) {
-
+                if($("input[name=doc_hint]").val()=="")
+                {
+                    alert("Please Select income")
+                    return false;
+                }
                 var fileName = e.target.files[0].name;
                 form = document.createElement("form");
                 form.setAttribute("method", "post");

@@ -62,6 +62,7 @@ class IncomekycController extends Controller
             $income->save();
             echo json_encode(["applicant_id" => $income->applicant_id, "income_id" => $income->id]);
         }
+
        else {
             if (isset($inputs['gross'])) {
                 $income = ApplicantIncome::create($inputs);

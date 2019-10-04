@@ -308,4 +308,34 @@ $form_data = json_decode($income->form_data, true);
             <button type="button" id="annual_investment_return_add" class="btn btn-primary">Update</button>
         </div>
     </div>
+@else
+    <label class="col-lg-12 col-md-12 col-sm-12 form-group bg-gray-light">EBITDA</label>
+
+    <div class="form-group col-md-12 col-sm-12">
+        <label for="market_value">Net Profit Before Tax</label>
+        <input type="number" name="net_profit_before_tax" class="form-control"
+               value="{{(isset($form_data['net_profit_before_tax']) and $form_data['net_profit_before_tax']!="")?$form_data['net_profit_before_tax']:""}}"
+               id="net_profit_before_tax">
+    </div>
+    <div class="form-group col-md-12 col-sm-12">
+        <label for="market_value">Interest Expense</label>
+        <input type="number" name="interest_expense" class="form-control"
+               value="{{(isset($form_data['interest_expense']) and $form_data['interest_expense']!="")?$form_data['interest_expense']:""}}"
+               id="interest_expense">
+    </div>
+    <div class="form-group col-md-12 col-sm-12">
+        <label for="market_value">Depreciation</label>
+        <input type="number" name="depreciation" class="form-control"
+               value="{{(isset($form_data['depreciation']) and $form_data['depreciation']!="")?$form_data['depreciation']:""}}"
+               id="depreciation">
+    </div>
+    <div class="form-group col-md-12 col-sm-12">
+        <label for="market_value">Others</label>
+        <input type="number" name="others" class="form-control"
+               value="{{(isset($form_data['others']) and $form_data['others']!="")?$form_data['others']:""}}"
+               id="others">
+    </div>
+    <div class="form-group col-md-12 col-sm-12">
+        <button type="button" id="add_company_income" class="btn btn-primary">ADD</button>
+    </div>
 @endif

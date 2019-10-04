@@ -341,17 +341,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            {{--<tr class="salary_right_bar"></tr>--}}
 
-                            {{--<tr class="salary_right_bar"></tr>--}}
-
-                            {{--<tr class="salary_right_bar"></tr>--}}
-
-                            {{--<tr class="salary_right_bar"></tr>--}}
-
-                            {{--<tr class="salary_right_bar"></tr>--}}
-
-                            {{--<tr class="salary_right_bar"></tr>--}}
                         </tbody>
                         <tfoot>
                         <tr  class="bg-aqua" ></tr>
@@ -363,27 +353,18 @@
 
         </div>
     </div>
-    {{--<input type=hidden class="kyctotalgross"  value="0" name=monthly_fixed_gross id=monthly_fixed_gross>--}}
-    {{--<input type=hidden class="kyctotalnet" value="0" name=monthly_fixed_net id=monthly_fixed_net>--}}
-    {{--<input type=hidden class="kyctotalgross" value="0" name=monthly_variable_gross id=monthly_variable_gross>--}}
-    {{--<input type=hidden class="kyctotalnet" value="0" name=monthly_variable_net id=monthly_variable_net>--}}
-    {{--<input type=hidden class="kyctotalgross" value="0" name=annual_tax_declared_gross id=annual_tax_declared_gross>--}}
-    {{--<input type=hidden class="kyctotalnet" value="0" name=annual_tax_declared_net id=annual_tax_declared_net>--}}
-    {{--<input type=hidden class="kyctotalgross" value="0" name=annual_investment_return_gross id=annual_investment_return_gross>--}}
-    {{--<input type=hidden class="kyctotalnet" value="0" name=annual_investment_return_net id=annual_investment_return_net>--}}
-    {{--<input type=hidden class="kyctotalgross" value="0" name=monthly_rental_gross id=monthly_rental_gross>--}}
-    {{--<input type=hidden class="kyctotalnet" value="0" name=monthly_rental_net id=monthly_rental_net>--}}
-    {{--<input type=hidden class="kyctotalgross" value="0" name=iif_gross id=iif_gross>--}}
-    {{--<input type=hidden class="kyctotalnet" value="0" name=iif_net id=iif_net>--}}
-    {{--<input type=hidden class="kyctotalnet" value="0" name=gross id=gross>--}}
-    {{--<input type=hidden class="kyctotalnet" value="0" name=net id=net>--}}
+
 </fieldset>
 
 @push("scripts")
     <script type="text/javascript">
 
         $('#income_doc[type="file"]').on("change",function(e) {
-
+            if($("input[name=doc_hint]").val()=="")
+            {
+                alert("Please Select income")
+                return false;
+            }
             var fileName = e.target.files[0].name;
             form = document.createElement("form");
             form.setAttribute("method", "post");
