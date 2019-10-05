@@ -361,16 +361,10 @@
             wealth_form["utv"] = $("#utv").children().clone(true,true)
             wealth_form["tpf"] = $("#tpf").children().clone(true,true)
             wealth_form["epf"] = $("#epf").children().clone(true,true)
+            $("#wealthtype").change();
+        })
 
-        })
-        $("#backincomekyc").click(function (e) {
-            $("#wealthkyc").addClass("hide");
-            $("#incomekyc").removeClass("hide");
-        })
-        $("#nextpropertykyc").click(function (e) {
-            $("#propertykyc").removeClass('hide');
-            $("#wealthkyc").addClass('hide');
-        });
+
         $("#wealthtype").change(function (e) {
             $("#wealthkyc .box .wealthtype").addClass("hide");
             id = $(this).val();

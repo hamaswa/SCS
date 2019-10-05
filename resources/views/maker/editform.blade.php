@@ -206,7 +206,7 @@
 
         function checkActiveTab(){
             if(getCookie('maker_active_tab')!="") {
-                $("#" + getCookie('maker_active_tab')).trigger('click');
+              //  $("#" + getCookie('maker_active_tab')).trigger('click');
             }
         }
 

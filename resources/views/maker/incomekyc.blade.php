@@ -392,6 +392,7 @@
             income_form["iif"] = $("#iif").children().clone(true,true)
             income_form["monthlyrental"] = $("#monthlyrental").children().clone(true,true)
             income_form["air"] = $("#air").children().clone(true,true)
+            $("#incometype").change();
             $.ajax({
                 url: "{{ route("comments") }}",
                 type: "POST",
@@ -452,15 +453,6 @@
 
         })
 
-
-        $("#backapplicantkyc").click(function (e) {
-            $("#incomekyc").addClass("hide");
-            $("#applicantkyc").removeClass("hide");
-        })
-        $("#nextwealthkyc").click(function (e) {
-            $("#incomekyc").addClass("hide");
-            $("#wealthkyc").removeClass("hide");
-        });
         $("#incometype").on("change",function (e) {
             $("#incomekyc .box .incometype").addClass("hide");
             id = $(this).val();
