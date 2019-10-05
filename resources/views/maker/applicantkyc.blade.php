@@ -311,6 +311,7 @@
                         'default'=>"Select Supporting Document",])
 
                     </div>
+                   <div class="form-group col-md-4 col-sm-3 pull-right"> <input type="text" placeholder="Guide Lines" class="form-control" name="guide_lines" />                     </div>
                     <div class="form-group col-md-3 col-sm-12 pull-right margin-top-15">
                         <input type="file" class="form-control btn btn-primary" name="business_doc[]" multiple id="business_doc" />
                     </div>

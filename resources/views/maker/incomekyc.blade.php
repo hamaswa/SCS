@@ -76,6 +76,7 @@
                     'type'=>'salary_s',
                     'options'=>$options])
                 </div>
+                   <div class="form-group col-md-4 col-sm-3 pull-right"> <input type="text" placeholder="Guide Lines" class="form-control" name="guide_lines" />                     </div>
                 <div class="form-group col-md-4 col-sm-3 pull-right">
                     <input type="file" class="form-control btn btn-primary" multiple name="income_doc[]" id="income_doc" />
                 </div>

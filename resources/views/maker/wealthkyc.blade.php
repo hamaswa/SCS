@@ -96,8 +96,10 @@
                         ])
 
                     </div>
-                    <div class="form-group col-md-4 col-sm-6 bg-gray-light pull-right">
 
+                   <div class="form-group col-md-4 col-sm-3 pull-right"> <input type="text" placeholder="Guide Lines" class="form-control" name="guide_lines" />                     </div>
+
+                    <div class="form-group col-md-4 col-sm-6 bg-gray-light pull-right">
                         <input type="file" class="form-control btn btn-primary" name="wealth_doc[]" multiple id="wealth_doc" />
                     </div>
                 </div>

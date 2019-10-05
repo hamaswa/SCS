@@ -4,43 +4,43 @@
         <div class="box">
             <input type="hidden" name="number" id="number" value="">
 
-                <div class="btn-group margin-bottom border-black-1" id="btn-air">
-                    <button type="button" class="btn btn-default btn-flat la_aa"
-                            data-la="{{$applicant->id}}"
-                            data-id="{{$applicant->id}}">{{$applicant->name}}</button>
-                    <button type="button" class="btn btn-default btn-flat dropdown-toggle"
-                            data-toggle="dropdown"
-                            aria-expanded="false">
-                        <i class="fa fa-list"></i>
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
+            <div class="btn-group margin-bottom border-black-1" id="btn-air">
+                <button type="button" class="btn btn-default btn-flat la_aa"
+                        data-la="{{$applicant->id}}"
+                        data-id="{{$applicant->id}}">{{$applicant->name}}</button>
+                <button type="button" class="btn btn-default btn-flat dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-expanded="false">
+                    <i class="fa fa-list"></i>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
 
-                </div>
-                @if(isset($attached_applicants))
-                    @foreach($attached_applicants as $applicant_sub)
-                        <div class="applicants form-group pull-left">
-                            <div class="btn-group margin-bottom border-black-1"
-                                 id="btn-air">
-                                <button type="button" class="btn btn-default btn-flat la_aa"
-                                        data-la="{{$applicant->id}}"
-                                        data-id="{{$applicant_sub->id}}">{{$applicant_sub->name}}</button>
-                                <button type="button" class="btn btn-default btn-flat dropdown-toggle"
-                                        data-toggle="dropdown"
-                                        aria-expanded="false">
-                                    <i class="fa fa-list"></i>
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <ul class="dropdown-menu position-relative" id="" role="menu">
-                                    {{--<li><a href="#"  data-value="air" class="editincome">Edit</a></li>--}}
-                                    <li><a href="#" data-la="{{$la_applicant_id}}"
-                                           data-id="{{$applicant_sub->id}}" class="deleteInd">Delete</a>
-                                    </li>
-                                </ul>
-                            </div>
+            </div>
+            @if(isset($attached_applicants))
+                @foreach($attached_applicants as $applicant_sub)
+                    <div class="applicants form-group pull-left">
+                        <div class="btn-group margin-bottom border-black-1"
+                             id="btn-air">
+                            <button type="button" class="btn btn-default btn-flat la_aa"
+                                    data-la="{{$applicant->id}}"
+                                    data-id="{{$applicant_sub->id}}">{{$applicant_sub->name}}</button>
+                            <button type="button" class="btn btn-default btn-flat dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    aria-expanded="false">
+                                <i class="fa fa-list"></i>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu position-relative" id="" role="menu">
+                                {{--<li><a href="#"  data-value="air" class="editincome">Edit</a></li>--}}
+                                <li><a href="#" data-la="{{$la_applicant_id}}"
+                                       data-id="{{$applicant_sub->id}}" class="deleteInd">Delete</a>
+                                </li>
+                            </ul>
                         </div>
+                    </div>
 
-                    @endforeach
-                @endif
+                @endforeach
+            @endif
 
             <div class="box-header bg-gray">
                 <div class="col-md-12 col-sm-12">
@@ -97,6 +97,9 @@
                         'options'=>$options,
                         'default'=>"Select Supporting Document",])
 
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                        <input type="text" placeholder="Guide Lines" class="form-control" name="guide_lines"/>
                     </div>
                     <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right margin-top-15">
                         <input type="file" class="form-control btn btn-primary"
@@ -274,17 +277,16 @@
     <script type="text/javascript">
 
 
-        $('#property_doc[type="file"]').change(function(e){
-            if($("#number").val()=="")
-            {
+        $('#property_doc[type="file"]').change(function (e) {
+            if ($("#number").val() == "") {
                 alert("Please Select Property")
                 return false;
             }
             var fileName = e.target.files[0].name;
             form = document.createElement("form");
             form.setAttribute("method", "post");
-            form.setAttribute("enctype","multipart/form-data")
-            form.setAttribute("target","_blank")
+            form.setAttribute("enctype", "multipart/form-data")
+            form.setAttribute("target", "_blank")
             form.setAttribute("action", "{{ route("documents.store") }}");
             csrf = $('{{ csrf_field() }}')
             $(form).append(csrf);
