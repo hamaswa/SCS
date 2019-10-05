@@ -46,8 +46,8 @@
                         <strong class="padding-5 pull-left margin-r-5 applicant"></strong>
                     </div>
                     <?php
-                    if(isset($income))
-                    $data = json_decode($income->form_data, true);
+                    if (isset($income))
+                        $data = json_decode($income->form_data, true);
 
                     ?>
                 </div>
@@ -157,15 +157,15 @@
                 </div>
                 <div class="col-md-12 col-sm-12 bg-gray-light" id="income_doc_form">
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light">
-                    <label class="control-label">Type</label>
-                    <select id="incometype" class="form-control select2" name="incometype" style="width: 100%;">
-                        <option value="salary"> Monthly Fixed</option>
-                        <option value="business">Monthly Variable</option>
-                        <option value="incometax">Annual Tax Declared</option>
-                        <option value="iif">Industry Income Factor</option>
-                        <option value="monthlyrental">Monthly Rental</option>
-                        <option value="air">Annual Investment Return</option>
-                    </select>
+                        <label class="control-label">Type</label>
+                        <select id="incometype" class="form-control select2" name="incometype" style="width: 100%;">
+                            <option value="salary"> Monthly Fixed</option>
+                            <option value="business">Monthly Variable</option>
+                            <option value="incometax">Annual Tax Declared</option>
+                            <option value="iif">Industry Income Factor</option>
+                            <option value="monthlyrental">Monthly Rental</option>
+                            <option value="air">Annual Investment Return</option>
+                        </select>
                     </div>
 
                     <div class="form-group col-md-4 col-sm-4 bg-gray-light primary_docs">
@@ -189,16 +189,18 @@
                         'type'=>'salary_s',
                         'options'=>$options])
                     </div>
-                   <div class="form-group col-md-4 col-sm-3 pull-right"> <input type="text" placeholder="Guide Lines" class="form-control" name="guide_lines" />                     </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                       <textarea name="guide_lines" class="form-control editor">
+
+                        </textarea></div>
                     <div class="form-group col-md-4 col-sm-3 pull-right">
-                        <input type="file" class="form-control btn btn-primary" multiple name="income_doc[]" id="income_doc" />
+                        <input type="file" class="form-control btn btn-primary" multiple name="income_doc[]"
+                               id="income_doc"/>
                     </div>
                 </div>
 
 
-
-
-                </div>
+            </div>
             <div class="box-body bg-gray-light incometype" id="salary">
                 <label class="col-lg-12 form-group clearfix">
                     Monthly Fixed
@@ -284,7 +286,7 @@
                     <label class="control-label">Exchage Rate</label>
                     <input type="number" name="monthly_variable_exchange_rate" id="monthly_variable_exchange_rate"
                            class="form-control"
-                           value="{{ isset($data['monthly_variable_exchange_rate'])?$data['monthly_variable_exchange_rate']:1 }}" >
+                           value="{{ isset($data['monthly_variable_exchange_rate'])?$data['monthly_variable_exchange_rate']:1 }}">
                 </div>
                 <div class="form-group col-md-12 col-sm-12">
                     <label class="control-label">Month1</label>
@@ -481,10 +483,11 @@
                     <div class="clearfix"></div>
 
                     <label class="checkbox-inline">
-                        <input value="tax" type="checkbox"  id="monthly_rental_deductions_tax" name="monthly_rental_m_deductions[]"
-                               {{(isset($data['monthly_rental_m_deductions'][0])  and $data['monthly_rental_m_deductions'][0]=='tax')
-                              or (isset($data['monthly_rental_m_deductions'][1]) and $data['monthly_rental_m_deductions'][1]=='tax')? "checked='checked'":"" }}
-                              > TAX
+                        <input value="tax" type="checkbox" id="monthly_rental_deductions_tax"
+                               name="monthly_rental_m_deductions[]"
+                                {{(isset($data['monthly_rental_m_deductions'][0])  and $data['monthly_rental_m_deductions'][0]=='tax')
+                               or (isset($data['monthly_rental_m_deductions'][1]) and $data['monthly_rental_m_deductions'][1]=='tax')? "checked='checked'":"" }}
+                        > TAX
                     </label>
 
                 </div>
@@ -530,7 +533,7 @@
                     <label class="control-label">Amount</label>
                     <input type="number" name="annual_investment_return_amount"
                            value="{{ (isset($data['annual_investment_return_amount']) and $data['annual_investment_return_amount']!="")?$data['annual_investment_return_amount']:"" }}"
-                           id="annual_investment_return_amount"  class="form-control">
+                           id="annual_investment_return_amount" class="form-control">
                 </div>
 
                 <div class="form-group">
@@ -551,11 +554,11 @@
                 <strong class="applicant"></strong>
                 <div class="table-responsive">
                     <?php
-                    if(isset($income))
-                    $income->form_data = json_decode($income->form_data);
+                    if (isset($income))
+                        $income->form_data = json_decode($income->form_data);
                     ?>
 
-                  @include("aadata.right_info_income")
+                    @include("aadata.right_info_income")
 
 
                 </div>
@@ -575,48 +578,72 @@
 
 
 </fieldset>
-<input type=hidden class="kyctotalgross" value="{{ (isset($data['monthly_fixed_gross']) and $data['monthly_fixed_gross']!=0)?$data['monthly_fixed_gross']:0 }}" name=monthly_fixed_gross id=monthly_fixed_gross>
-<input type=hidden class="kyctotalnet" value="{{ (isset($data['monthly_fixed_net']) and $data['monthly_fixed_net']!=0)?$data['monthly_fixed_net']:0 }}" name=monthly_fixed_net id=monthly_fixed_net>
-<input type=hidden class="kyctotalgross" value="{{ (isset($data['monthly_variable_gross']) and $data['monthly_variable_gross']!=0)?$data['monthly_variable_gross']:0 }}" name=monthly_variable_gross id=monthly_variable_gross>
-<input type=hidden class="kyctotalnet" value="{{ (isset($data['monthly_variable_net']) and $data['monthly_variable_net']!=0)?$data['monthly_variable_net']:0 }}" name=monthly_variable_net id=monthly_variable_net>
-<input type=hidden class="kyctotalgross" value="{{ (isset($data['annual_tax_declared_gross']) and $data['annual_tax_declared_gross']!=0)?$data['annual_tax_declared_gross']:0 }}" name=annual_tax_declared_gross id=annual_tax_declared_gross>
-<input type=hidden class="kyctotalnet" value="{{ (isset($data['annual_tax_declared_net']) and $data['annual_tax_declared_net']!=0)?$data['annual_tax_declared_net']:0 }}" name=annual_tax_declared_net id=annual_tax_declared_net>
-<input type=hidden class="kyctotalgross" value="{{ (isset($data['annual_investment_return_gross']) and $data['annual_investment_return_gross']!=0)?$data['annual_investment_return_gross']:0 }}" name=annual_investment_return_gross
+<input type=hidden class="kyctotalgross"
+       value="{{ (isset($data['monthly_fixed_gross']) and $data['monthly_fixed_gross']!=0)?$data['monthly_fixed_gross']:0 }}"
+       name=monthly_fixed_gross id=monthly_fixed_gross>
+<input type=hidden class="kyctotalnet"
+       value="{{ (isset($data['monthly_fixed_net']) and $data['monthly_fixed_net']!=0)?$data['monthly_fixed_net']:0 }}"
+       name=monthly_fixed_net id=monthly_fixed_net>
+<input type=hidden class="kyctotalgross"
+       value="{{ (isset($data['monthly_variable_gross']) and $data['monthly_variable_gross']!=0)?$data['monthly_variable_gross']:0 }}"
+       name=monthly_variable_gross id=monthly_variable_gross>
+<input type=hidden class="kyctotalnet"
+       value="{{ (isset($data['monthly_variable_net']) and $data['monthly_variable_net']!=0)?$data['monthly_variable_net']:0 }}"
+       name=monthly_variable_net id=monthly_variable_net>
+<input type=hidden class="kyctotalgross"
+       value="{{ (isset($data['annual_tax_declared_gross']) and $data['annual_tax_declared_gross']!=0)?$data['annual_tax_declared_gross']:0 }}"
+       name=annual_tax_declared_gross id=annual_tax_declared_gross>
+<input type=hidden class="kyctotalnet"
+       value="{{ (isset($data['annual_tax_declared_net']) and $data['annual_tax_declared_net']!=0)?$data['annual_tax_declared_net']:0 }}"
+       name=annual_tax_declared_net id=annual_tax_declared_net>
+<input type=hidden class="kyctotalgross"
+       value="{{ (isset($data['annual_investment_return_gross']) and $data['annual_investment_return_gross']!=0)?$data['annual_investment_return_gross']:0 }}"
+       name=annual_investment_return_gross
        id=annual_investment_return_gross>
-<input type=hidden class="kyctotalnet" value="{{ (isset($data['annual_investment_return_net']) and $data['annual_investment_return_net']!=0)?$data['annual_investment_return_net']:0 }}" name=annual_investment_return_net id=annual_investment_return_net>
-<input type=hidden class="kyctotalgross" value="{{ (isset($data['monthly_rental_gross']) and $data['monthly_rental_gross']!=0)?$data['monthly_rental_gross']:0 }}" name=monthly_rental_gross id=monthly_rental_gross>
-<input type=hidden class="kyctotalnet" value="{{ (isset($data['monthly_rental_net']) and $data['monthly_rental_net']!=0)?$data['monthly_rental_net']:0 }}" name=monthly_rental_net id=monthly_rental_net>
-<input type=hidden class="kyctotalgross" value="{{ (isset($data['iif_gross']) and $data['iif_gross']!=0)?$data['iif_gross']:0 }}" name=iif_gross id=iif_gross>
-<input type=hidden class="kyctotalnet" value="{{ (isset($data['iif_net']) and $data['iif_net']!=0)?$data['iif_net']:0 }}" name=iif_net id=iif_net>
-<input type=hidden class="kyctotalnet" value="{{ (isset($data['gross']) and $data['gross']!=0)?$data['gross']:0 }}" name=gross id=gross>
-<input type=hidden class="kyctotalnet" value="{{ (isset($data['net']) and $data['net']!=0)?$data['net']:0 }}" name=net id=net>
+<input type=hidden class="kyctotalnet"
+       value="{{ (isset($data['annual_investment_return_net']) and $data['annual_investment_return_net']!=0)?$data['annual_investment_return_net']:0 }}"
+       name=annual_investment_return_net id=annual_investment_return_net>
+<input type=hidden class="kyctotalgross"
+       value="{{ (isset($data['monthly_rental_gross']) and $data['monthly_rental_gross']!=0)?$data['monthly_rental_gross']:0 }}"
+       name=monthly_rental_gross id=monthly_rental_gross>
+<input type=hidden class="kyctotalnet"
+       value="{{ (isset($data['monthly_rental_net']) and $data['monthly_rental_net']!=0)?$data['monthly_rental_net']:0 }}"
+       name=monthly_rental_net id=monthly_rental_net>
+<input type=hidden class="kyctotalgross"
+       value="{{ (isset($data['iif_gross']) and $data['iif_gross']!=0)?$data['iif_gross']:0 }}" name=iif_gross
+       id=iif_gross>
+<input type=hidden class="kyctotalnet"
+       value="{{ (isset($data['iif_net']) and $data['iif_net']!=0)?$data['iif_net']:0 }}" name=iif_net id=iif_net>
+<input type=hidden class="kyctotalnet" value="{{ (isset($data['gross']) and $data['gross']!=0)?$data['gross']:0 }}"
+       name=gross id=gross>
+<input type=hidden class="kyctotalnet" value="{{ (isset($data['net']) and $data['net']!=0)?$data['net']:0 }}" name=net
+       id=net>
 @push("scripts")
     <script type="text/javascript">
 
-            $('#income_doc[type="file"]').change(function(e) {
-                if($("input[name=doc_hint]").val()=="")
-                {
-                    alert("Please Select income")
-                    return false;
-                }
-                var fileName = e.target.files[0].name;
-                form = document.createElement("form");
-                form.setAttribute("method", "post");
+        $('#income_doc[type="file"]').change(function (e) {
+            if ($("input[name=doc_hint]").val() == "") {
+                alert("Please Select income")
+                return false;
+            }
+            var fileName = e.target.files[0].name;
+            form = document.createElement("form");
+            form.setAttribute("method", "post");
 
-                form.setAttribute("target", "_blank");
-                form.setAttribute("enctype", "multipart/form-data")
-                form.setAttribute("action", "{{ route("documents.store") }}");
-                csrf = $('{{ csrf_field() }}')
-                $(form).append(csrf);
-                $(form).append($("#income_doc_form").clone(true));
-                $(form).append($("#applicant_id").clone(true));
-                div = $("<div style=\"display=hidden\"></div>")
-                $(div).append(form)
-                document.body.appendChild(form);
-                form.submit();
-                $("#income_doc_form").find("option:selected").prop("selected", false)
+            form.setAttribute("target", "_blank");
+            form.setAttribute("enctype", "multipart/form-data")
+            form.setAttribute("action", "{{ route("documents.store") }}");
+            csrf = $('{{ csrf_field() }}')
+            $(form).append(csrf);
+            $(form).append($("#income_doc_form").clone(true));
+            $(form).append($("#applicant_id").clone(true));
+            div = $("<div style=\"display=hidden\"></div>")
+            $(div).append(form)
+            document.body.appendChild(form);
+            form.submit();
+            $("#income_doc_form").find("option:selected").prop("selected", false)
 
-            });
+        });
 
         $(".currency").on("change", function (e) {
             if ($(this).val() == "myr")
@@ -642,19 +669,19 @@
             $("#incomekyc .box .incometype").addClass("hide");
             type = $(this).val();
             $("#incomekyc").find("#" + type).removeClass("hide").show();
-            getDocs(type+"_p","primary_docs","primary_docs",".primary_docs","Primary Docs")
-            getDocs(type+"_s","support_docs","support_docs",".support_docs","Supporting Docs")
+            getDocs(type + "_p", "primary_docs", "primary_docs", ".primary_docs", "Primary Docs")
+            getDocs(type + "_s", "support_docs", "support_docs", ".support_docs", "Supporting Docs")
 
-            function getDocs(type,name,id,target,label){
+            function getDocs(type, name, id, target, label) {
                 $.ajax({
-                    url:"{{ route("selectoptions") }}",
-                    type:"POST",
-                    data:"type="+type+"&name="+name+"&id="+id+"&label="+label,
+                    url: "{{ route("selectoptions") }}",
+                    type: "POST",
+                    data: "type=" + type + "&name=" + name + "&id=" + id + "&label=" + label,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     },
                 }).done(function (response) {
-                    if(response=="")
+                    if (response == "")
                         alert("No Document types found");
                     else
                         $(target).html("").append(response);

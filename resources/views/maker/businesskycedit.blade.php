@@ -1,9 +1,9 @@
 <fieldset id="applicantkyc" class="tab-action-main">
     {{--<div class="col-md-2 col-sm-3">--}}
-        {{--<a href="javascript:void(0);" data-id="applicantkyc" class="bg-yellow-light padding-5 pull-left vericaltext tab-action border-black-1">APPLICATION <br> KYC</a>--}}
-        {{--<a href="javascript:void(0);" data-id="incomekyc" id="nextincomekyc" class="bg-white padding-5 pull-left vericaltext tab-action border-black-1"><br>INCOME <br> KYC</a>--}}
-        {{--<a href="javascript:void(0);" data-id="wealthkyc" id="nextwealthkyc" class="bg-white padding-5 pull-left vericaltext tab-action border-black-1"><br><br>WEALTH <br> KYC</a>--}}
-        {{--<a href="javascript:void(0);" data-id="businesskyc" id="nextbusinesskyc" class="bg-white padding-5 pull-left vericaltext tab-action border-black-1"><br><br><br>business <br> KYC</a>--}}
+    {{--<a href="javascript:void(0);" data-id="applicantkyc" class="bg-yellow-light padding-5 pull-left vericaltext tab-action border-black-1">APPLICATION <br> KYC</a>--}}
+    {{--<a href="javascript:void(0);" data-id="incomekyc" id="nextincomekyc" class="bg-white padding-5 pull-left vericaltext tab-action border-black-1"><br>INCOME <br> KYC</a>--}}
+    {{--<a href="javascript:void(0);" data-id="wealthkyc" id="nextwealthkyc" class="bg-white padding-5 pull-left vericaltext tab-action border-black-1"><br><br>WEALTH <br> KYC</a>--}}
+    {{--<a href="javascript:void(0);" data-id="businesskyc" id="nextbusinesskyc" class="bg-white padding-5 pull-left vericaltext tab-action border-black-1"><br><br><br>business <br> KYC</a>--}}
     {{--</div>--}}
 
     <div class="col-sm-12 col-md-6 col-lg-6 col-lg-offset-1">
@@ -17,42 +17,47 @@
 
                 <div class="box-body bg-gray-light">
                     @if(isset($businesses))
-                    <div id="businesses" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                        <?php
-                        $i=0;
-                        $b=$s=1;
-                        ?>
-                        @foreach($businesses as $business)
+                        <div id="businesses" class="col-lg-12 col-md-12 col-sm-12 form-group">
                             <?php
-                            if($business->business_type=='Salaried')
-                                    $i_no= $s++;
-                            else
-                                $i_no=$b++;
+                            $i = 0;
+                            $b = $s = 1;
                             ?>
-                           <div class="btn-group margin-bottom border-black-1 businesskyc-action-btn">
-                              <button type="button"  data-number='{{$i}}'  class="btn btn-default btn-flat view">{{  $business->business_type."".$i_no }}</button>
-                               <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown" />
+                            @foreach($businesses as $business)
+                                <?php
+                                if ($business->business_type == 'Salaried')
+                                    $i_no = $s++;
+                                else
+                                    $i_no = $b++;
+                                ?>
+                                <div class="btn-group margin-bottom border-black-1 businesskyc-action-btn">
+                                    <button type="button" data-number='{{$i}}'
+                                            class="btn btn-default btn-flat view">{{  $business->business_type."".$i_no }}</button>
+                                    <button type="button" class="btn btn-default btn-flat dropdown-toggle"
+                                            data-toggle="dropdown"/>
 
-                                   <i class="fa fa-list"></i>
-                                         <span class="sr-only">Toggle Dropdown</span>
-                                         </button>
-                                     <ul class="dropdown-menu position-relative" id="" role="menu">
-                                         <li><a href="#" id='business{{$i}}' data-number='{{$i}}' class='editbusiness'>Edit</a></li>
-                                                  <li><a href="#" class='delbusiness' data-number='{{ $i }}'>Delete</a></li>
-                                     </ul>
-                           </div>
-                            <?php $i++ ?>
-                        @endforeach
-                    </div>
+                                    <i class="fa fa-list"></i>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu position-relative" id="" role="menu">
+                                        <li><a href="#" id='business{{$i}}' data-number='{{$i}}' class='editbusiness'>Edit</a>
+                                        </li>
+                                        <li><a href="#" class='delbusiness' data-number='{{ $i }}'>Delete</a></li>
+                                    </ul>
+                                </div>
+                                <?php $i++ ?>
+                            @endforeach
+                        </div>
                     @endif
                     <div class="form-group clearfix">
                         <div class="col-md-12 col-sm-12">
                             <label class="control-label">Income Source</label>
                             <select id="business_type" name="business_type" class="form-control">
                                 <option value="Business"
-                                > Business </option>
+                                > Business
+                                </option>
                                 <option value="Salaried"
-                                > Salaried </option>
+                                > Salaried
+                                </option>
                             </select>
                         </div>
                         <div class="form-group col-md-4 col-sm-4 bg-gray-light primary_docs">
@@ -77,49 +82,53 @@
                             'default'=>"Select Supporting Document",])
 
                         </div>
-                        <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right">
-                            <input type="text" placeholder="Guide Lines" class="form-control btn btn-primary" name="guide_lines" />
-                        </div>
-                        <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right">
+                        <div class="form-group col-md-12 col-sm-12">
+                       <textarea name="guide_lines" class="form-control editor">
 
-                            <input type="file" class="form-control btn btn-primary" name="business_doc[]" multiple id="business_doc" />
-                        </div>
+                        </textarea></div>
+                        <div class="form-group col-md-4 col-sm-3 pull-right">
 
+
+                            <input type="file" class="form-control btn btn-primary" name="business_doc[]" multiple
+                                   id="business_doc"/>
+                        </div>
 
 
                     </div>
 
-                        <div class="form-group clearfix for_business" >
-                            <div class="col-md-11 col-sm-11">
-                                <label class="control-label">Shareholding</label>
-                                <input name="business_shareholding" id="business_shareholding" placeholder="" class="form-control" type="text">
-                            </div>
-                            <div class="col-md-1 col-sm-1">
-                                <h2>%</h2>
-                            </div>
+                    <div class="form-group clearfix for_business">
+                        <div class="col-md-11 col-sm-11">
+                            <label class="control-label">Shareholding</label>
+                            <input name="business_shareholding" id="business_shareholding" placeholder=""
+                                   class="form-control" type="text">
                         </div>
-                        <div class="form-group col-md-12 col-sm-12 for_business">
-                            <label class="control-label">Business Turnover (Monthly)</label>
-                            <input name="business_turnover" id="business_turnover" placeholder="" class="form-control" type="text">
+                        <div class="col-md-1 col-sm-1">
+                            <h2>%</h2>
                         </div>
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12 for_business">
+                        <label class="control-label">Business Turnover (Monthly)</label>
+                        <input name="business_turnover" id="business_turnover" placeholder="" class="form-control"
+                               type="text">
+                    </div>
 
 
                     <div class="form-group col-md-12 col-sm-12">
                         <label class="control-label">Nature of Business</label>
                         <input name="business_nature" id="business_nature"
-{{--                               value = "{{$business->business_nature}}"--}}
+                               {{--                               value = "{{$business->business_nature}}"--}}
                                class="form-control" type="text">
                     </div>
                     <div class="form-group col-md-12 col-sm-12">
                         <label class="control-label">Position</label>
                         <input name="business_position" id="business_position"
-{{--                               value = "{{$business->business_position}}"--}}
+                               {{--                               value = "{{$business->business_position}}"--}}
                                class="form-control" type="text">
                     </div>
                     <div class="form-group col-md-12 col-sm-12">
                         <label class="control-label"><em class="text-danger">*</em>Email</label>
                         <input name="business_email" id="business_email"
-{{--                               value = "{{$business->business_email}}"--}}
+                               {{--                               value = "{{$business->business_email}}"--}}
                                class="form-control" type="email">
                     </div>
                     <?php /*
@@ -209,12 +218,13 @@
 
         </div>
 
-</div>
+    </div>
 
     <div class="form-group col-md-12">
         <ul class="pager">
 
-            <li class="next"><a href="javascript:void(0);" id="nextincomekyc" class="bg-yellow-gradient hide">Income KYC &gt;&gt;</a>
+            <li class="next"><a href="javascript:void(0);" id="nextincomekyc" class="bg-yellow-gradient hide">Income KYC
+                    &gt;&gt;</a>
             </li>
         </ul>
         {{--<div class="col-md-12">--}}
@@ -230,9 +240,9 @@
     <script type="text/javascript">
         function IsEmail(email) {
             var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-            if(!regex.test(email)) {
+            if (!regex.test(email)) {
                 return false;
-            }else{
+            } else {
                 return true;
             }
         }
@@ -242,28 +252,28 @@
             $("#incomekyc").removeClass("hide");
         })
 
-        $("#business_type").on('change',function (e) {
-            if($(this).val()=="Business"){
+        $("#business_type").on('change', function (e) {
+            if ($(this).val() == "Business") {
                 $(".for_business").show();
             }
             else {
                 $(".for_business").val("").hide();
             }
 
-            type=$(this).val();
-            getDocs(type+"_p","primary_docs","primary_docs",".primary_docs","Primary Docs")
-            getDocs(type+"_s","support_docs","support_docs",".support_docs","Supporting Docs")
+            type = $(this).val();
+            getDocs(type + "_p", "primary_docs", "primary_docs", ".primary_docs", "Primary Docs")
+            getDocs(type + "_s", "support_docs", "support_docs", ".support_docs", "Supporting Docs")
 
-            function getDocs(type,name,id,target,label){
+            function getDocs(type, name, id, target, label) {
                 $.ajax({
-                    url:"{{ route("selectoptions") }}",
-                    type:"POST",
-                    data:"type="+type+"&name="+name+"&id="+id+"&label="+label,
+                    url: "{{ route("selectoptions") }}",
+                    type: "POST",
+                    data: "type=" + type + "&name=" + name + "&id=" + id + "&label=" + label,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     },
                 }).done(function (response) {
-                    if(response=="")
+                    if (response == "")
                         alert("No Document types found");
                     else
                         $(target).html("").append(response);
@@ -271,106 +281,106 @@
             }
         })
         //let business_forms = [];
-       let business_forms = <?php print_r(json_encode(json_decode($businesses,true))); ?>
-        //     console.log(business_data.lenght);
-        // for(i=1;i<=business_data.lenght;i++){
-        //     business_forms.push(business_data[i-1]);
-        // }
+        let business_forms = <?php print_r(json_encode(json_decode($businesses, true))); ?>
+            //     console.log(business_data.lenght);
+            // for(i=1;i<=business_data.lenght;i++){
+            //     business_forms.push(business_data[i-1]);
+            // }
 
 
-        $(document.body).on("click","#add_business",function(){
-            //businesscount = business_forms.count();
-            //$("#number").val(businesscount);
+            $(document.body).on("click", "#add_business", function () {
+                //businesscount = business_forms.count();
+                //$("#number").val(businesscount);
 
-            if($("#business_email").val()==""){
-                alert("Email is reqired");
-                return;
-            }
-            else if(!(IsEmail($("#business_email").val()))){
-                alert("Email is invalid");
-                return
-            }
-            let form = {};
-            $("#business_form" )
-                .serializeArray()
-                .map( input => form[ input.name ] = input.value );
-            business_forms.push(form);
-            console.log(business_forms);
-            businessActionButtions();
-        });
+                if ($("#business_email").val() == "") {
+                    alert("Email is reqired");
+                    return;
+                }
+                else if (!(IsEmail($("#business_email").val()))) {
+                    alert("Email is invalid");
+                    return
+                }
+                let form = {};
+                $("#business_form")
+                    .serializeArray()
+                    .map(input => form[input.name] = input.value);
+                business_forms.push(form);
+                console.log(business_forms);
+                businessActionButtions();
+            });
 
 
-        $(document.body).on("click",".editbusiness",function () {
+        $(document.body).on("click", ".editbusiness", function () {
             form = business_forms[$(this).data('number')];
             $("#business_type").val(form.business_type).trigger("change");
-            $("form#business_form :input").each(function(){
+            $("form#business_form :input").each(function () {
                 $(this).val(form[$(this).attr('id')]);
             })
 
             $("#number").val($(this).data('number'))
 
             $("#btnsubmit").html($("  <input type=\"button\" name=\"submit\" id=\"update_business\" value=\"Update\"\n" +
-                " class=\"btn btn-default pull-right text-uppercase text-bold text-white bg-gray-dark\" data-id=\""+$(this).data('number')+"\" id=\"update_business\">"))
+                " class=\"btn btn-default pull-right text-uppercase text-bold text-white bg-gray-dark\" data-id=\"" + $(this).data('number') + "\" id=\"update_business\">"))
         });
 
-        $(document.body).on("click","#update_business",function(e){
-            if($("#business_email").val()==""){
+        $(document.body).on("click", "#update_business", function (e) {
+            if ($("#business_email").val() == "") {
                 alert("Email is reqired");
                 return;
             }
             let form = {};
-            $("#business_form" )
+            $("#business_form")
                 .serializeArray()
-                .map( input => form[ input.name ] = input.value );
+                .map(input => form[input.name] = input.value);
             business_forms[$(this).data("id")] = form;
             businessActionButtions();
             $("#btnsubmit").html($(" <input type=\"button\" name=\"submit\" id=\"add_business\" value=\"Add\"\n" +
                 "                                   class=\"btn btn-default pull-right text-uppercase text-bold text-white bg-gray-dark\"/>"))
         });
-        $(document.body).on("click",".delbusiness",function(e){
-            business_forms.splice($(this).data('number'),1);
+        $(document.body).on("click", ".delbusiness", function (e) {
+            business_forms.splice($(this).data('number'), 1);
             businessActionButtions();
         });
 
-        $(document.body).on("click",".businesskyc-action-btn button.view",function (e) {
+        $(document.body).on("click", ".businesskyc-action-btn button.view", function (e) {
             form = business_forms[$(this).data('number')];
             $("#business_type").val(form.business_type).trigger("change");
-            $("form#business_form :input").not("[type=button]").each(function(){
+            $("form#business_form :input").not("[type=button]").each(function () {
                 $(this).val(form[$(this).attr('id')]);
             })
 
             $("#number").val($(this).data('number'))
 
             $("#btnsubmit").html($("  <input type=\"button\" name=\"submit\" id=\"update_business\" value=\"Update\"\n" +
-                " class=\"btn btn-default pull-right text-uppercase text-bold text-white bg-gray-dark\" data-id=\""+$(this).data('number')+"\" id=\"update_business\">"))
+                " class=\"btn btn-default pull-right text-uppercase text-bold text-white bg-gray-dark\" data-id=\"" + $(this).data('number') + "\" id=\"update_business\">"))
         })
 
 
-        function businessActionButtions(){
+        function businessActionButtions() {
             $("#businesses").html("");
             business_type = $("#business_type :selected").val();
-            i=0;
-            s=0;
-            b=0;
-            business_forms.forEach(function(form){
-                n=0;
-                if(form.business_type=="Business") {
+            i = 0;
+            s = 0;
+            b = 0;
+            business_forms.forEach(function (form) {
+                n = 0;
+                if (form.business_type == "Business") {
                     b++;
-                    n=b;
+                    n = b;
                 }
                 else {
                     s++;
-                    n=s;
+                    n = s;
                 }
                 business_action_buttons = " <div class=\"btn-group margin-bottom border-black-1 businesskyc-action-btn\">\n" +
-                    "                        <button type=\"button\"  data-number='"+i+"'  class=\"btn btn-default btn-flat view\"> " + form.business_type +n+"</button>\n" +
+                    "                        <button type=\"button\"  data-number='" + i + "'  class=\"btn btn-default btn-flat view\"> " + form.business_type + n + "</button>\n" +
                     "                        <button type=\"button\" class=\"btn btn-default btn-flat dropdown-toggle\" data-toggle=\"dropdown\">\n" +
                     "                            <i class=\"fa fa-list\"></i>\n" +
                     "                            <span class=\"sr-only\">Toggle Dropdown</span>\n" +
                     "                        </button>\n" +
                     "                        <ul class=\"dropdown-menu position-relative\" id=\"\" role=\"menu\">\n" +
-                    "                            <li><a href=\"#\" id='business"+i+"' data-number='"+i+"' class='editbusiness'>Edit</a></li>\n" +
-                    "                            <li><a href=\"#\" class='delbusiness' data-number='"+i+"'>Delete</a></li>\n" +
+                    "                            <li><a href=\"#\" id='business" + i + "' data-number='" + i + "' class='editbusiness'>Edit</a></li>\n" +
+                    "                            <li><a href=\"#\" class='delbusiness' data-number='" + i + "'>Delete</a></li>\n" +
                     "                        </ul></div>"
                 $("#businesses").append($(business_action_buttons));
 

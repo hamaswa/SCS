@@ -6,8 +6,8 @@
     {{--<a href="javascript:void(0);" data-id="propertykyc" id="nextpropertykyc" class="bg-white padding-5 pull-left vericaltext tab-action border-black-1"><br><br><br>PROPERTY <br> KYC</a>--}}
     {{--</div>--}}
     <?php
-    if(isset($wealth))
-    $data = json_decode($wealth->form_data);
+    if (isset($wealth))
+        $data = json_decode($wealth->form_data);
     ?>
     <div class="col-md-6 col-sm-12 col-lg-6 col-lg-offset-1">
         <div class="box">
@@ -187,10 +187,14 @@
                         ])
 
                     </div>
-                   <div class="form-group col-md-4 col-sm-3 pull-right"> <input type="text" placeholder="Guide Lines" class="form-control" name="guide_lines" />                     </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                       <textarea name="guide_lines" class="form-control editor">
+
+                        </textarea></div>
                     <div class="form-group col-md-4 col-sm-6 bg-gray-light pull-right">
 
-                        <input type="file" class="form-control btn btn-primary" name="wealth_doc[]" multiple id="wealth_doc" />
+                        <input type="file" class="form-control btn btn-primary" name="wealth_doc[]" multiple
+                               id="wealth_doc"/>
                     </div>
                 </div>
             </div>
@@ -342,8 +346,8 @@
                 <strong class="applicant"></strong>
                 <div class="table-responsive wealthkyc_right">
                     <?php
-                    if(isset($wealth))
-                     $wealth->form_data = json_decode($wealth->form_data)
+                    if (isset($wealth))
+                        $wealth->form_data = json_decode($wealth->form_data)
                     ?>
                     @include("aadata.right_info_wealth")
 
@@ -424,11 +428,11 @@
 @push("scripts")
     <script type="text/javascript">
 
-        $('#wealth_doc[type="file"]').change(function(e){
+        $('#wealth_doc[type="file"]').change(function (e) {
             var fileName = e.target.files[0].name;
             form = document.createElement("form");
             form.setAttribute("method", "post");
-            form.setAttribute("enctype","multipart/form-data")
+            form.setAttribute("enctype", "multipart/form-data")
             form.setAttribute("action", "{{ route("documents.store") }}");
             form.setAttribute("target", "_blank");
             csrf = $('{{ csrf_field() }}')
@@ -456,10 +460,10 @@
             $("#wealthkyc .box .wealthtype").addClass("hide");
             type = $(this).val();
             $("#wealthkyc").find("#" + type).removeClass("hide").show();
-            getDocs(type+"_p","primary_docs","primary_docs",".primary_docs","Primary Docs")
-            getDocs(type+"_s","support_docs","support_docs",".support_docs","Supporting Docs")
+            getDocs(type + "_p", "primary_docs", "primary_docs", ".primary_docs", "Primary Docs")
+            getDocs(type + "_s", "support_docs", "support_docs", ".support_docs", "Supporting Docs")
 
-            function getDocs(type,name,id,target,label) {
+            function getDocs(type, name, id, target, label) {
                 $.ajax({
                     url: "{{ route("selectoptions") }}",
                     type: "POST",
@@ -483,13 +487,11 @@
         $("#saving_add").click(function (e) {
             $("#btn-saving").removeClass("hide");
             amount = Math.round($("#saving_amount").val());
-            if($("[name='saving_acctype']:checked").data("val")=="joint")
-            {
+            if ($("[name='saving_acctype']:checked").data("val") == "joint") {
                 $("[name='saving_acctype']:checked").val("joint")
-                amount = Math.round($("#saving_amount").val()/2);
+                amount = Math.round($("#saving_amount").val() / 2);
             }
-            else
-            {
+            else {
                 $("[name='saving_acctype']:checked").val("own")
             }
             html = "<td class=\"bg-yellow-light\">Saving</td><td>" + amount + "</td>";
@@ -511,11 +513,10 @@
             $("#btn-tpf").removeClass("hide");
 
             amount = $("#tpf_amount").val();
-            if($("[name='tpf_acctype']:checked").data("val")=="joint") {
+            if ($("[name='tpf_acctype']:checked").data("val") == "joint") {
                 $("[name='tpf_acctype']:checked").val("joint")
                 amount = Math.round($("#tpf_amount").val() / 2);
-            } else
-            {
+            } else {
                 $("[name='tpf_acctype']:checked").val("own")
             }
 

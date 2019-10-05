@@ -99,8 +99,9 @@
 
                     </div>
                     <div class="form-group col-md-12 col-sm-12">
-                        <input type="text" placeholder="Guide Lines" class="form-control" name="guide_lines"/>
-                    </div>
+                       <textarea name="guide_lines" class="form-control editor">
+
+                        </textarea></div>
                     <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right margin-top-15">
                         <input type="file" class="form-control btn btn-primary"
                                name="property_doc[]" multiple id="property_doc"/>

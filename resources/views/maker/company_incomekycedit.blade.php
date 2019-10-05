@@ -44,7 +44,10 @@
                         'default'=>"Select Supporting Document",
                         'options'=>$options])
                     </div>
-                   <div class="form-group col-md-4 col-sm-3 pull-right"> <input type="text" placeholder="Guide Lines" class="form-control" name="guide_lines" />                     </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                       <textarea name="guide_lines" class="form-control editor">
+
+                        </textarea></div>
                     <div class="form-group col-md-4 col-sm-3 pull-right">
                         <input type="file" class="form-control btn btn-primary" name="income_doc[]" multiple
                                id="com_income_doc"/>
@@ -99,9 +102,9 @@
 </fieldset>
 @push("scripts")
     <script type="text/javascript">
-        $(document).ready(function(e) {
-            income_form=[];
-            income_form["ebitda"] = $("#ebitda").children().clone(true,true)
+        $(document).ready(function (e) {
+            income_form = [];
+            income_form["ebitda"] = $("#ebitda").children().clone(true, true)
             $("#incometype").change();
             $.ajax({
                 url: "{{ route("comments") }}",
@@ -139,7 +142,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
-                data:"applicant_id="+$("#applicant_id").val(),
+                data: "applicant_id=" + $("#applicant_id").val(),
                 success: function (response) {
                     $("#tab-3").html("").append($(response));
                     $(".incomekyc_right").html("").append($("#incomekyc_right").html())
@@ -154,8 +157,7 @@
         })
 
         $('#com_income_doc[type="file"]').change(function (e) {
-            if($("input[name=doc_hint]").val()=="")
-            {
+            if ($("input[name=doc_hint]").val() == "") {
                 alert("Please Select income")
                 return false;
             }
@@ -187,7 +189,7 @@
             $("#incometype").val($(this).data("value")).trigger("change");
         })
 
-        $(document.body).on("click","#add_company_income", function (e) {
+        $(document.body).on("click", "#add_company_income", function (e) {
             var gross = 0;
             $("#ebitda :input").each(function () {
                 gross += Number($(this).val());

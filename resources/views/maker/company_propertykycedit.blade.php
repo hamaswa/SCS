@@ -58,7 +58,10 @@
                         'default'=>"Select Supporting Document",])
 
                     </div>
-                   <div class="form-group col-md-4 col-sm-3 pull-right"> <input type="text" placeholder="Guide Lines" class="form-control" name="guide_lines" />                     </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                       <textarea name="guide_lines" class="form-control editor">
+
+                        </textarea></div>
                     <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right margin-top-15">
                         <input type="file" class="form-control btn btn-primary"
                                name="property_doc[]" multiple id="property_doc"/>
@@ -234,17 +237,16 @@
     <script type="text/javascript">
 
 
-        $('#property_doc[type="file"]').change(function(e){
-            if($("#number").val()=="0")
-            {
+        $('#property_doc[type="file"]').change(function (e) {
+            if ($("#number").val() == "0") {
                 alert("Please Select Property")
                 return false;
             }
             var fileName = e.target.files[0].name;
             form = document.createElement("form");
             form.setAttribute("method", "post");
-            form.setAttribute("enctype","multipart/form-data")
-            form.setAttribute("target","_blank")
+            form.setAttribute("enctype", "multipart/form-data")
+            form.setAttribute("target", "_blank")
             form.setAttribute("action", "{{ route("documents.store") }}");
             csrf = $('{{ csrf_field() }}')
             $(form).append(csrf);

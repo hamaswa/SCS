@@ -49,7 +49,10 @@
                         'default'=>"Select Supporting Document",])
 
                     </div>
-                   <div class="form-group col-md-4 col-sm-3 pull-right"> <input type="text" placeholder="Guide Lines" class="form-control" name="guide_lines" />                     </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                       <textarea name="guide_lines" class="form-control editor">
+
+                        </textarea></div>
                     <div class="form-group col-md-4 col-sm-3 bg-gray-light pull-right">
 
                         <input type="file" class="form-control btn btn-primary" name="wealth_doc[]" multiple
@@ -80,7 +83,8 @@
                             <label for="market_value">Month1</label>
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
-                            <input type="number" name="month1_credited" class="form-control credited" id="month1_credited">
+                            <input type="number" name="month1_credited" class="form-control credited"
+                                   id="month1_credited">
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
                             <input type="number" name="month1_balance" class="form-control balance" id="month1_balance">
@@ -94,7 +98,8 @@
                             <label for="market_value">Month2</label>
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
-                            <input type="number" name="month2_credited" class="form-control credited" id="month2_credited">
+                            <input type="number" name="month2_credited" class="form-control credited"
+                                   id="month2_credited">
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
                             <input type="number" name="month2_balance" class="form-control balance" id="month2_balance">
@@ -108,7 +113,8 @@
                             <label for="market_value">Month3</label>
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
-                            <input type="number" name="month3_credited" class="form-control credited" id="month3_credited">
+                            <input type="number" name="month3_credited" class="form-control credited"
+                                   id="month3_credited">
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
                             <input type="number" name="month3_balance" class="form-control balance" id="month3_balance">
@@ -121,7 +127,8 @@
                             <label for="market_value">Month4</label>
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
-                            <input type="number" name="month4_credited" class="form-control credited" id="month4_credited">
+                            <input type="number" name="month4_credited" class="form-control credited"
+                                   id="month4_credited">
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
                             <input type="number" name="month4_balance" class="form-control balance" id="month4_balance">
@@ -132,7 +139,8 @@
                             <label for="market_value">Month5</label>
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
-                            <input type="number" name="month5_credited" class="form-control credited" id="month5_credited">
+                            <input type="number" name="month5_credited" class="form-control credited"
+                                   id="month5_credited">
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
                             <input type="number" name="month5_balance" class="form-control balance" id="month5_balance">
@@ -145,7 +153,8 @@
                             <label for="market_value">Month6</label>
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
-                            <input type="number" name="month6_credited" class="form-control credited" id="month6_credited">
+                            <input type="number" name="month6_credited" class="form-control credited"
+                                   id="month6_credited">
                         </div>
                         <div class="form-group col-md-4 col-sm-4">
                             <input type="number" name="month6_balance" class="form-control balance" id="month6_balance">
@@ -245,8 +254,7 @@
     <script type="text/javascript">
 
         $('#com_wealth_doc[type="file"]').change(function (e) {
-            if($("input[name=doc_hint]").val()=="")
-            {
+            if ($("input[name=doc_hint]").val() == "") {
                 alert("Please Select wealth")
                 return false;
             }
@@ -271,40 +279,40 @@
 
         });
 
-        $(document).ready(function(e) {
-            wealth_form=[];
-            wealth_form["bankstatement"] = $("#bankstatement").children().clone(true,true)
+        $(document).ready(function (e) {
+            wealth_form = [];
+            wealth_form["bankstatement"] = $("#bankstatement").children().clone(true, true)
 
 
         })
         $("#wealthtype").change(function (e) {
             $("#wealthkyc .box .wealthtype").addClass("hide");
             id = $(this).val();
-            $("#" + id).html("").append($(wealth_form[id]).clone(true,true))
+            $("#" + id).html("").append($(wealth_form[id]).clone(true, true))
             $("#wealthkyc").find("#" + id).removeClass("hide").show();
-            getDocs(id+"_p","primary_docs","primary_docs",".primary_docs","Primary Docs")
-            getDocs(id+"_s","support_docs","support_docs",".support_docs","Supporting Docs")
+            getDocs(id + "_p", "primary_docs", "primary_docs", ".primary_docs", "Primary Docs")
+            getDocs(id + "_s", "support_docs", "support_docs", ".support_docs", "Supporting Docs")
 
-            function getDocs(type,name,id,target,label){
+            function getDocs(type, name, id, target, label) {
                 $.ajax({
-                    url:"{{ route("selectoptions") }}",
-                    type:"POST",
-                    data:"type="+type+"&name="+name+"&id="+id+"&label="+label,
+                    url: "{{ route("selectoptions") }}",
+                    type: "POST",
+                    data: "type=" + type + "&name=" + name + "&id=" + id + "&label=" + label,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     },
                 }).done(function (response) {
-                    if(response=="")
+                    if (response == "")
                         alert("No Document types found");
                     else
                         $(target).html("").append(response);
                 });
             }
         })
-        $(document.body).on("click","#add_company_wealth",function (e) {
+        $(document.body).on("click", "#add_company_wealth", function (e) {
             var credited_total = 0;
             var balance_total = 0;
-           var bi =0;
+            var bi = 0;
             var ci = 0;
 
             $(":input.balance").each(function () {
@@ -318,21 +326,21 @@
                 // tot += +this.value;
             });
 
-           var credited_avg = credited_total/ci;
-           var  balance_avg = balance_total/bi;
+            var credited_avg = credited_total / ci;
+            var balance_avg = balance_total / bi;
 
-            data = $("#bankstatement").find(":input").serialize()+"&type=" + $("#wealthtype").val() + "&total="+balance_avg+"&gross="+credited_avg+"&applicant_id="+$("#applicant_id").val();
+            data = $("#bankstatement").find(":input").serialize() + "&type=" + $("#wealthtype").val() + "&total=" + balance_avg + "&gross=" + credited_avg + "&applicant_id=" + $("#applicant_id").val();
             submitwealthkyc(data)
         })
 
-        $(document.body).on("click",".editwealth", function (e) {
-            $("input[name=doc_hint]").val( $(this).text());
+        $(document.body).on("click", ".editwealth", function (e) {
+            $("input[name=doc_hint]").val($(this).text());
             type = $(this).data("type");
             url = $(this).data("url");
             $.ajax({
                 url: url,
                 type: 'GET',
-                data: "type="+type,
+                data: "type=" + type,
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
@@ -343,13 +351,13 @@
             })
 
         })
-        $(document.body).on("click",".delwealth", function (e) {
+        $(document.body).on("click", ".delwealth", function (e) {
             id = $(this).data("id");
-            submitwealthkyc("id="+id+"&action=delete");
+            submitwealthkyc("id=" + id + "&action=delete");
 
         })
 
-        function  submitwealthkyc (form_data){
+        function submitwealthkyc(form_data) {
             $.ajax({
                 url: '{{ route('wealthkyc.store') }}',
                 type: 'POST',
@@ -361,13 +369,13 @@
                 $("input[name=doc_hint]").val("");
 
                 $.ajax({
-                    url:'{{ route("wealthkyc.wealthkyc_action_btns")}}',
-                    type:"GET",
-                    data:"applicant_id="+$("#applicant_id").val(),
-                    headers:{
-                        'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content'),
+                    url: '{{ route("wealthkyc.wealthkyc_action_btns")}}',
+                    type: "GET",
+                    data: "applicant_id=" + $("#applicant_id").val(),
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     },
-                }).done(function(response){
+                }).done(function (response) {
                     $("#wealthkyc_action_btns").html("").append($(response))
                 })
 
@@ -377,7 +385,7 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     },
-                    data:"applicant_id="+$("#applicant_id").val(),
+                    data: "applicant_id=" + $("#applicant_id").val(),
                     success: function (response) {
                         $("#tab-3").html("").append($(response));
                         $(".wealthkyc_right").html("").append($("#wealthkyc_right").html())
@@ -391,7 +399,7 @@
 
             })
             id = $("#wealthtype").val();
-            $("#bankstatement").html("").append($(wealth_form["bankstatement"]).clone(true,true))
+            $("#bankstatement").html("").append($(wealth_form["bankstatement"]).clone(true, true))
 
         }
 

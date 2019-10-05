@@ -122,15 +122,49 @@ class PipelineController extends Controller
 
 
         }
-        else if(isset($inputs['pipeline_update_search']) and $inputs['pipeline_update_search']=='Search'){
+        else if(isset($inputs['pipeline_update_search']) and $inputs['pipeline_update_search']=='Search') {
 
-            $applicantdata =new  ApplicantData();
-                $data = $applicantdata->whereRaw("(unique_id = '" . $inputs['term'] . "' or name = '" . $inputs['term'] . "')
-            ". ($inputs['term']==""?" OR" : " and ") . " status = '" . $inputs['status'] . "' and user_id='".Auth::id()."'")->paginate(5);
+            $applicantdata = new  ApplicantData();
+            $data = $applicantdata->whereRaw(
+                "(unique_id = '" . $inputs['term'] . "' or name = '" . $inputs['term'] . "')" .
+                ($inputs['term'] == "" ? " OR" : " and ") . " status = '" . $inputs['status'] .
+                "' and user_id='" . Auth::id() . "'")->first();
 
 
+            if(isset($data->status) and $data->status == "Incomplete"){
+                $id= $data->id;
+                $data = $applicantdata->whereRaw(
+                    "(
+                        (unique_id = '" . $inputs['term'] . "' or name = '" . $inputs['term'] . "')
+                    OR
+                        (id in (select applicant_id from loan_applications where la_applicant_id=". $id . "))
+                     )
+                     
+                     OR
+                        (
+                            id in 
+                            (
+                                select applicant_id from loan_applications where la_applicant_id in 
+                                (
+                                    select id from applicant_data where
+                                    (
+                                        (unique_id = '" . $inputs['term'] . "' or name = '" . $inputs['term'] . "')
+                                    OR
+                                        (id in (select applicant_id from loan_applications where la_applicant_id=". $id . "))
+                                     )
+                                )
+                            )
+                        )
+                    
+                    
+                    
+                    and user_id='" . Auth::id() . "'")
+                    ->paginate(50);
+                $ids = $data->Pluck("id")->ToArray();
 
-            return view("aadata.pipeline")->with("data",$data);
+            }
+
+            return view("aadata.pipeline")->with("data", $data);
 
         }
         else if(isset($inputs['submit']) and $inputs['submit']=='Search'){

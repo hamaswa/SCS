@@ -46,11 +46,11 @@
                         <strong class="padding-5 pull-left margin-r-5 applicant"></strong>
                     </div>
                     {{--<div class="col-md-7 col-sm-12">--}}
-                        {{--<a class="bg-white padding-5 pull-left margin-r-5 d_pdf" id="d_pdf"--}}
-                           {{--title="CTOS Report Download"><img src="{{ asset("img/save.jpeg") }}"/></a>--}}
-                        {{--<a class="bg-white padding-5 pull-left" href="javascript:void(0)"--}}
-                           {{--onclick="$('#wealthform').trigger('reset')" title="Refresh"><img--}}
-                                    {{--src="{{ asset("img/refresh.jpeg") }}"/></a>--}}
+                    {{--<a class="bg-white padding-5 pull-left margin-r-5 d_pdf" id="d_pdf"--}}
+                    {{--title="CTOS Report Download"><img src="{{ asset("img/save.jpeg") }}"/></a>--}}
+                    {{--<a class="bg-white padding-5 pull-left" href="javascript:void(0)"--}}
+                    {{--onclick="$('#wealthform').trigger('reset')" title="Refresh"><img--}}
+                    {{--src="{{ asset("img/refresh.jpeg") }}"/></a>--}}
 
                     {{--</div>--}}
 
@@ -97,10 +97,13 @@
 
                     </div>
 
-                   <div class="form-group col-md-4 col-sm-3 pull-right"> <input type="text" placeholder="Guide Lines" class="form-control" name="guide_lines" />                     </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                       <textarea name="guide_lines" class="form-control editor">
 
+                        </textarea></div>
                     <div class="form-group col-md-4 col-sm-6 bg-gray-light pull-right">
-                        <input type="file" class="form-control btn btn-primary" name="wealth_doc[]" multiple id="wealth_doc" />
+                        <input type="file" class="form-control btn btn-primary" name="wealth_doc[]" multiple
+                               id="wealth_doc"/>
                     </div>
                 </div>
             </div>
@@ -116,10 +119,12 @@
 
                 <div class="form-group col-md-12 col-sm-12">
                     <label class="radio-inline">
-                        <input type="radio" name="saving_acctype" data-val="own" value="own" id="saving_acctype_own"> OWN
+                        <input type="radio" name="saving_acctype" data-val="own" value="own" id="saving_acctype_own">
+                        OWN
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="saving_acctype" data-val="joint" value="joint" id="saving_acctype_ja"> JA
+                        <input type="radio" name="saving_acctype" data-val="joint" value="joint" id="saving_acctype_ja">
+                        JA
                     </label>
                 </div>
                 <div class="form-group">
@@ -331,16 +336,15 @@
 
 @push("scripts")
     <script type="text/javascript">
-        $('#wealth_doc[type="file"]').change(function(e){
-            if($("input[name=doc_hint]").val()=="")
-            {
+        $('#wealth_doc[type="file"]').change(function (e) {
+            if ($("input[name=doc_hint]").val() == "") {
                 alert("Please Select wealth")
                 return false;
             }
             var fileName = e.target.files[0].name;
             form = document.createElement("form");
             form.setAttribute("method", "post");
-            form.setAttribute("enctype","multipart/form-data")
+            form.setAttribute("enctype", "multipart/form-data")
             form.setAttribute("action", "{{ route("documents.store") }}");
             form.setAttribute("target", "_blank");
             csrf = $('{{ csrf_field() }}')
@@ -356,13 +360,13 @@
             form.submit();
             $("#wealth_doc_form").find("option:selected").prop("selected", false)
         });
-        $(document).ready(function(e) {
-            wealth_form=[];
-            wealth_form["saving"] = $("#saving").children().clone(true,true)
-            wealth_form["tsv"] = $("#tsv").children().clone(true,true)
-            wealth_form["utv"] = $("#utv").children().clone(true,true)
-            wealth_form["tpf"] = $("#tpf").children().clone(true,true)
-            wealth_form["epf"] = $("#epf").children().clone(true,true)
+        $(document).ready(function (e) {
+            wealth_form = [];
+            wealth_form["saving"] = $("#saving").children().clone(true, true)
+            wealth_form["tsv"] = $("#tsv").children().clone(true, true)
+            wealth_form["utv"] = $("#utv").children().clone(true, true)
+            wealth_form["tpf"] = $("#tpf").children().clone(true, true)
+            wealth_form["epf"] = $("#epf").children().clone(true, true)
             $("#wealthtype").change();
         })
 
@@ -370,37 +374,35 @@
         $("#wealthtype").change(function (e) {
             $("#wealthkyc .box .wealthtype").addClass("hide");
             id = $(this).val();
-            $("#" + id).html("").append($(wealth_form[id]).clone(true,true))
+            $("#" + id).html("").append($(wealth_form[id]).clone(true, true))
             $("#wealthkyc").find("#" + id).removeClass("hide").show();
-            getDocs(id+"_p","primary_docs","primary_docs",".wealth_primary_docs","Primary Docs")
-            getDocs(id+"_s","support_docs","support_docs",".wealth_support_docs","Supporting Docs")
+            getDocs(id + "_p", "primary_docs", "primary_docs", ".wealth_primary_docs", "Primary Docs")
+            getDocs(id + "_s", "support_docs", "support_docs", ".wealth_support_docs", "Supporting Docs")
 
-            function getDocs(type,name,id,target,label){
+            function getDocs(type, name, id, target, label) {
                 $.ajax({
-                    url:"{{ route("selectoptions") }}",
-                    type:"POST",
-                    data:"type="+type+"&name="+name+"&id="+id+"&label="+label,
+                    url: "{{ route("selectoptions") }}",
+                    type: "POST",
+                    data: "type=" + type + "&name=" + name + "&id=" + id + "&label=" + label,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     },
                 }).done(function (response) {
-                    if(response=="")
+                    if (response == "")
                         alert("No Document types found");
                     else
                         $(target).html("").append(response);
                 });
             }
         })
-        $(document.body).on("click","#saving_add",function (e) {
+        $(document.body).on("click", "#saving_add", function (e) {
             $("#btn-saving").removeClass("hide");
             amount = gross = Math.round($("#saving_amount").val());
-            if($("[name='saving_acctype']:checked").data("val")=="joint")
-            {
+            if ($("[name='saving_acctype']:checked").data("val") == "joint") {
                 $("[name='saving_acctype']:checked").val("joint")
-                amount = Math.round($("#saving_amount").val()/2);
+                amount = Math.round($("#saving_amount").val() / 2);
             }
-            else
-            {
+            else {
                 $("[name='saving_acctype']:checked").val("own")
             }
 
@@ -409,10 +411,10 @@
             // $(".wealth_saving_right").html(html)
             //
             // totalwealthkyc();
-            data = $("#saving").find(":input").serialize()+"&type=saving&total="+amount+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
+            data = $("#saving").find(":input").serialize() + "&type=saving&total=" + amount + "&gross=" + gross + "&applicant_id=" + $("#applicant_id").val();
             submitwealthkyc(data)
         })
-        $(document.body).on("click","#epf_add", function (e) {
+        $(document.body).on("click", "#epf_add", function (e) {
             $("#btn-epf").removeClass("hide");
 
             amount = gross = $("#epf_amount").val();
@@ -420,43 +422,42 @@
             // $("#epf_added").val("true");
             // $(".wealth_epf_right").html(html)
             // totalwealthkyc();
-            data = $("#epf").find(":input").serialize()+"&type=epf&total="+amount+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
+            data = $("#epf").find(":input").serialize() + "&type=epf&total=" + amount + "&gross=" + gross + "&applicant_id=" + $("#applicant_id").val();
             submitwealthkyc(data)
         })
-        $(document.body).on("click","#tpf_add", function (e) {
+        $(document.body).on("click", "#tpf_add", function (e) {
             $("#btn-tpf").removeClass("hide");
 
             amount = gross = $("#tpf_amount").val();
-            if($("[name='tpf_acctype']:checked").data("val")=="joint") {
+            if ($("[name='tpf_acctype']:checked").data("val") == "joint") {
                 $("[name='tpf_acctype']:checked").val("joint")
                 amount = Math.round($("#tpf_amount").val() / 2);
             }
-            else
-            {
+            else {
                 $("[name='tpf_acctype']:checked").val("own")
             }
 
             //     html = "<td class=\"bg-yellow-light\">Total Fixed Deposits</td><td>" + amount + "</td>";
             // // $("#tpf_added").val("true");
             // $(".wealth_tpf_right").html(html)
-            data = $("#tpf").find(":input").serialize()+"&type=tpf&total="+amount+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
+            data = $("#tpf").find(":input").serialize() + "&type=tpf&total=" + amount + "&gross=" + gross + "&applicant_id=" + $("#applicant_id").val();
             submitwealthkyc(data)
 
             totalwealthkyc();
         })
-        $(document.body).on("click","#tsv_add", function (e) {
+        $(document.body).on("click", "#tsv_add", function (e) {
             $("#btn-tsv").removeClass("hide");
 
-            amount = gross =  $("#tsv_amount").val();
+            amount = gross = $("#tsv_amount").val();
             // html = "<td class=\"bg-yellow-light\">Total Shares Value</td><td>" + amount + "</td>";
             // // $("#tsv_added").val("true");
             // $(".wealth_tsv_right").html(html)
             //
             // totalwealthkyc();
-            data = $("#tsv").find(":input").serialize()+"&type=tsv&total="+amount+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
+            data = $("#tsv").find(":input").serialize() + "&type=tsv&total=" + amount + "&gross=" + gross + "&applicant_id=" + $("#applicant_id").val();
             submitwealthkyc(data)
         })
-        $(document.body).on("click","#utv_add", function (e) {
+        $(document.body).on("click", "#utv_add", function (e) {
             $("#btn-utv").removeClass("hide");
             amount = gross = $("#utv_amount").val();
             // html = "<td class=\"bg-yellow-light\">Unit Trust Value</td><td>" + amount + "</td>";
@@ -464,34 +465,34 @@
             // $(".wealth_utv_right").html(html)
             //
             // totalwealthkyc();
-            data = $("#utv").find(":input").serialize()+"&type=utv&total="+amount+"&gross="+gross+"&applicant_id="+$("#applicant_id").val();
+            data = $("#utv").find(":input").serialize() + "&type=utv&total=" + amount + "&gross=" + gross + "&applicant_id=" + $("#applicant_id").val();
             submitwealthkyc(data)
         })
-        $(document.body).on("click",".editwealth", function (e) {
-            $("input[name=doc_hint]").val( $(this).text());
+        $(document.body).on("click", ".editwealth", function (e) {
+            $("input[name=doc_hint]").val($(this).text());
             type = $(this).data("type");
             url = $(this).data("url");
             $.ajax({
                 url: url,
                 type: 'GET',
-                data: "type="+type,
+                data: "type=" + type,
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
             }).done(function (response) {
                 $("#wealthtype").val(type).trigger("change");
                 $(".wealthtype").removeClass("hide").addClass("hide");
-                $("#"+type).removeClass("hide").html("").append($(response));
+                $("#" + type).removeClass("hide").html("").append($(response));
             })
 
         })
-        $(document.body).on("click",".delwealth", function (e) {
+        $(document.body).on("click", ".delwealth", function (e) {
             id = $(this).data("id");
-            submitwealthkyc("id="+id+"&action=delete");
+            submitwealthkyc("id=" + id + "&action=delete");
 
         })
 
-        function  submitwealthkyc (form_data){
+        function submitwealthkyc(form_data) {
             $.ajax({
                 url: '{{ route('wealthkyc.store') }}',
                 type: 'POST',
@@ -500,41 +501,41 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
             }).done(function (response) {
-                $("#PK").attr("data-toggle","tab");
+                $("#PK").attr("data-toggle", "tab");
                 $("input[name=doc_hint]").val("");
 
                 $.ajax({
-                    url:'{{ route("wealthkyc.wealthkyc_action_btns")}}',
-                    type:"GET",
-                    data:"applicant_id="+$("#applicant_id").val(),
-                    headers:{
-                        'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content'),
+                    url: '{{ route("wealthkyc.wealthkyc_action_btns")}}',
+                    type: "GET",
+                    data: "applicant_id=" + $("#applicant_id").val(),
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     },
-                }).done(function(response){
+                }).done(function (response) {
                     $("#wealthkyc_action_btns").html("").append($(response))
                 })
 
                 $.ajax({
-                url: "{{ route("applicant_sidebar") }}",
-                type: "POST",
-                headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                data:"applicant_id="+$("#applicant_id").val(),
-                success: function (response) {
-                $("#tab-3").html("").append($(response));
-                $(".wealthkyc_right").html("").append($("#wealthkyc_right").html())
+                    url: "{{ route("applicant_sidebar") }}",
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    data: "applicant_id=" + $("#applicant_id").val(),
+                    success: function (response) {
+                        $("#tab-3").html("").append($(response));
+                        $(".wealthkyc_right").html("").append($("#wealthkyc_right").html())
 
-                },
-                error: function () {
+                    },
+                    error: function () {
 
-                }
+                    }
 
                 });
 
             })
             id = $("#wealthtype").val();
-            $("#" + id).html("").append($(wealth_form[id]).clone(true,true))
+            $("#" + id).html("").append($(wealth_form[id]).clone(true, true))
 
         }
     </script>

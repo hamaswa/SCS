@@ -4,54 +4,110 @@
         <div class="box">
             <div class="box-body bg-gray-light">
 
-                    <div class="bg-gray-light padding-5">
+                <div class="bg-gray-light padding-5">
 
-                        <div id="applicant_buttons" class="col-md-12 col-lg-12 col-sm-12">
-                            <div class="applicants pull-left">
-                                <div class="btn-group margin-bottom border-black-1" id="btn-air">
-                                    <button type="button" class="btn btn-default btn-flat la_aa"
-                                            data-la="{{$applicant->id}}"
-                                            data-id="{{$applicant->id}}">{{$applicant->name}}</button>
+                    <div id="applicant_buttons" class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="applicants pull-left">
+                            <div class="btn-group margin-bottom border-black-1" id="btn-air">
+                                <button type="button" class="btn btn-default btn-flat la_aa"
+                                        data-la="{{$applicant->id}}"
+                                        data-id="{{$applicant->id}}">{{$applicant->name}}</button>
+                                <button type="button" class="btn btn-default btn-flat dropdown-toggle"
+                                        data-toggle="dropdown"
+                                        aria-expanded="false">
+                                    <i class="fa fa-list"></i>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu position-relative" id="" role="menu">
+                                    <li><a href="#" class="">Edit</a></li>
+                                    <li><a href="#" class="deleteInd">Delete</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        @if(isset($attached_applicants))
+                            @foreach($attached_applicants as $applicant_sub)
+                                <div class="applicants form-group pull-left">
+                                    <div class="btn-group margin-bottom border-black-1"
+                                         id="btn-air">
+                                        <button type="button" class="btn btn-default btn-flat la_aa"
+                                                data-la="{{$applicant->id}}"
+                                                data-id="{{$applicant_sub->id}}">{{$applicant_sub->name}}</button>
+                                        <button type="button" class="btn btn-default btn-flat dropdown-toggle"
+                                                data-toggle="dropdown"
+                                                aria-expanded="false">
+                                            <i class="fa fa-list"></i>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu position-relative" id="" role="menu">
+                                            {{--<li><a href="#"  data-value="air" class="editincome">Edit</a></li>--}}
+                                            <li><a href='javascript:void(0)' data-la="{{$la_applicant_id}}"
+                                                   data-id="{{$applicant_sub->id}}" class="deleteInd">Delete</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            @endforeach
+                        @endif
+                        <div class="btn-group margin-bottom border-black-1" id="btn-air">
+                            <button type="button" class="btn btn-default btn-flat showSearchBox">
+                                +Applicant
+                            </button>
+                            <button type="button" class="btn btn-default btn-flat dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    aria-expanded="false">
+                                <i class="fa fa-list"></i>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div id="searchBox" class="hide searchBox">
+                        <div class="col-md-6 form-group">
+                            <input class="form-control" name="attachAA" id="attachAASearch">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <input type="submit" class="attachAASearch btn btn-primary">
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    @if(isset($businesses))
+                        <div id="businesses" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                            <?php
+                            $i = 0;
+                            $b = $s = 1;
+                            ?>
+                            @foreach($businesses as $business)
+                                <?php
+                                if ($business->business_type == 'Salaried')
+                                    $i_no = $s++;
+                                else
+                                    $i_no = $b++;
+                                ?>
+                                <div class="btn-group margin-bottom border-black-1 businesskyc-action-btn">
+                                    <button type="button" data-number='{{$i}}'
+                                            class="btn btn-default btn-flat view editbusiness">{{  $business->business_type."".$i_no }}</button>
                                     <button type="button" class="btn btn-default btn-flat dropdown-toggle"
-                                            data-toggle="dropdown"
-                                            aria-expanded="false">
-                                        <i class="fa fa-list"></i>
-                                        <span class="sr-only">Toggle Dropdown</span>
+                                            data-toggle="dropdown"/>
+
+                                    <i class="fa fa-list"></i>
+                                    <span class="sr-only">Toggle Dropdown</span>
                                     </button>
                                     <ul class="dropdown-menu position-relative" id="" role="menu">
-                                        <li><a href="#" class="">Edit</a></li>
-                                        <li><a href="#" class="deleteInd">Delete</a></li>
+                                        {{--<li><a href="#" id='business{{$i}}' data-number='{{$i}}' class='editbusiness'>Edit</a></li>--}}
+                                        <li><a href="javascript:void(0)" class='delbusiness' data-number='{{ $i }}'>Delete</a>
+                                        </li>
                                     </ul>
                                 </div>
-                            </div>
-                            @if(isset($attached_applicants))
-                                @foreach($attached_applicants as $applicant_sub)
-                                    <div class="applicants form-group pull-left">
-                                        <div class="btn-group margin-bottom border-black-1"
-                                             id="btn-air">
-                                            <button type="button" class="btn btn-default btn-flat la_aa"
-                                                    data-la="{{$applicant->id}}"
-                                                    data-id="{{$applicant_sub->id}}">{{$applicant_sub->name}}</button>
-                                            <button type="button" class="btn btn-default btn-flat dropdown-toggle"
-                                                    data-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                <i class="fa fa-list"></i>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul class="dropdown-menu position-relative" id="" role="menu">
-                                                {{--<li><a href="#"  data-value="air" class="editincome">Edit</a></li>--}}
-                                                <li><a href='javascript:void(0)' data-la="{{$la_applicant_id}}"
-                                                       data-id="{{$applicant_sub->id}}" class="deleteInd">Delete</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                @endforeach
-                            @endif
+                                <?php $i++ ?>
+                            @endforeach
                             <div class="btn-group margin-bottom border-black-1" id="btn-air">
-                                <button type="button" class="btn btn-default btn-flat showSearchBox">
-                                    +Applicant</button>
+                                <button type="button" class="btn btn-default btn-flat" data-toggle="modal"
+                                        data-target="#addIncomeSource">
+                                    +IncomeSource
+                                </button>
                                 <button type="button" class="btn btn-default btn-flat dropdown-toggle"
                                         data-toggle="dropdown"
                                         aria-expanded="false">
@@ -61,116 +117,72 @@
 
                             </div>
                         </div>
-                        <div class="clearfix"></div>
-                        <div id="searchBox" class="hide searchBox">
-                            <div class="col-md-6 form-group">
-                                <input class="form-control" name="attachAA" id="attachAASearch">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <input type="submit" class="attachAASearch btn btn-primary">
-                            </div>
-                        </div>
+                    @endif
 
-                        <div class="clearfix"></div>
-                        @if(isset($businesses))
-                        <div id="businesses" class="col-lg-12 col-md-12 col-sm-12 form-group">
-                            <?php
-                            $i=0;
-                            $b=$s=1;
-                            ?>
-                            @foreach($businesses as $business)
-                                <?php
-                                if($business->business_type=='Salaried')
-                                    $i_no= $s++;
-                                else
-                                    $i_no=$b++;
-                                ?>
-                                <div class="btn-group margin-bottom border-black-1 businesskyc-action-btn">
-                                    <button type="button"  data-number='{{$i}}'  class="btn btn-default btn-flat view editbusiness">{{  $business->business_type."".$i_no }}</button>
-                                    <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown" />
+                </div>
 
-                                    <i class="fa fa-list"></i>
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <ul class="dropdown-menu position-relative" id="" role="menu">
-                                        {{--<li><a href="#" id='business{{$i}}' data-number='{{$i}}' class='editbusiness'>Edit</a></li>--}}
-                                        <li><a href="javascript:void(0)" class='delbusiness' data-number='{{ $i }}'>Delete</a></li>
-                                    </ul>
-                                </div>
-                                <?php $i++ ?>
-                            @endforeach
-                                <div class="btn-group margin-bottom border-black-1" id="btn-air">
-                                    <button type="button" class="btn btn-default btn-flat" data-toggle="modal" data-target="#addIncomeSource">
-                                        +IncomeSource</button>
-                                    <button type="button" class="btn btn-default btn-flat dropdown-toggle"
-                                            data-toggle="dropdown"
-                                            aria-expanded="false">
-                                        <i class="fa fa-list"></i>
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-
-                                </div>
-                        </div>
-                        @endif
+                <form action="{{ route("la.store") }}" method="post">
+                    @csrf
+                    <input type="hidden" name="update_ind" value="update_ind">
+                    <input type="hidden" name="la_applicant_id" value="{{$la_applicant_id}}">
+                    <input type="hidden" name="aacategory" value="{{$applicant_data->aacategory}}">
+                    <input type="hidden" name="applicant_id"
+                           value="{{isset($applicant_data->id)?$applicant_data->id:"0"}}">
+                    <div class="col-sm-12 col-md-3 form-group">
+                        <label>Salutation</label>
+                        <input type="text" name="salutation" id="salutation"
+                               value="{{(isset($applicant_data->salutation)?$applicant_data->salutation:"")}}"
+                               class="form-control" autocomplete="off"/>
+                    </div>
+                    <div class="col-sm-12 col-md-3 form-group">
+                        <label>Residency Status</label>
+                        <input type="text" name="residency_status" id="residency_status"
+                               value="{{(isset($applicant_data->residency_status)?$applicant_data->residency_status:"")}}"
+                               class="form-control" autocomplete="off"/>
 
                     </div>
+                    <div class="col-sm-12 col-md-3 form-group">
+                        <label class="clearfix">Applicant Status</label>
+                        <input type="text" name="applicant_status" id="applicant_status"
+                               value="{{(isset($applicant_data->applicant_status)?$applicant_data->applicant_status:"")}}"
+                               class="form-control" autocomplete="off"/>
+                    </div>
+                    <div class="col-sm-12 col-md-3 form-group">
+                        <label class="clearfix">Employment Status</label>
+                        <input type="text" name="employment_status" id="employment_status"
+                               value="{{(isset($applicant_data->employment_status)?$applicant_data->employment_status:"")}}"
+                               class="form-control" autocomplete="off"/>
+                    </div>
 
-                    <form  action="{{ route("la.store") }}" method="post">
-                        @csrf
-                        <input type="hidden" name="update_ind" value="update_ind">
-                        <input type="hidden" name="la_applicant_id" value="{{$la_applicant_id}}">
-                        <input type="hidden" name="aacategory" value="{{$applicant_data->aacategory}}" >
-                        <input type="hidden" name="applicant_id" value="{{isset($applicant_data->id)?$applicant_data->id:"0"}}" >
-                        <div class="col-sm-12 col-md-3 form-group">
-                            <label>Salutation</label>
-                            <input type="text" name="salutation" id="salutation"
-                                   value="{{(isset($applicant_data->salutation)?$applicant_data->salutation:"")}}"
-                                   class="form-control" autocomplete="off"/>
-                        </div>
-                        <div class="col-sm-12 col-md-3 form-group">
-                            <label>Residency Status</label>
-                            <input type="text" name="residency_status" id="residency_status"
-                                   value="{{(isset($applicant_data->residency_status)?$applicant_data->residency_status:"")}}"
-                                   class="form-control" autocomplete="off"/>
-
-                        </div>
-                        <div class="col-sm-12 col-md-3 form-group">
-                            <label class="clearfix">Applicant Status</label>
-                            <input type="text" name="applicant_status" id="applicant_status" value="{{(isset($applicant_data->applicant_status)?$applicant_data->applicant_status:"")}}" class="form-control" autocomplete="off" />
-                        </div>
-                        <div class="col-sm-12 col-md-3 form-group">
-                            <label class="clearfix">Employment Status</label>
-                            <input type="text" name="employment_status" id="employment_status" value="{{(isset($applicant_data->employment_status)?$applicant_data->employment_status:"")}}" class="form-control" autocomplete="off" />
-                        </div>
-
-                        <div class="col-sm-12 col-md-6  form-group">
-                            <label>Full Name as Per NRIC / Passport</label>
-                            <input type="text" value="{{$applicant_data->name}}" name="name" class="form-control"
-                                   autocomplete="off">
-                        </div>
-                        <div class="col-sm-12 col-md-6  form-group">
-                            <label>NRIC No. / Passport No.</label>
-                            <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id"
-                                   class="form-control" autocomplete="off">
-                        </div>
-                        <div class="col-sm-12 col-md-6  form-group">
-                            <label>Mobile No.</label>
-                            <input type="text" value="{{$applicant_data->mobile}}" name="mobile" class="form-control"
-                                   autocomplete="off">
-                        </div>
-                        <div class="col-sm-12 col-md-6  form-group">
-                            <label>Email</label>
-                            <input type="email" name="email"
-                                   value="{{(isset($applicant_data->email)?$applicant_data->email:(isset($businesses[0]) ? $businesses[0]['business_email']: ''))}}"
-                                   class="form-control" autocomplete="off">
-                        </div>
-                        <div class="col-sm-12 col-md-6  form-group">
-                            <label>Residential Address</label>
-                            <textarea name="address" class="form-control">{{(isset($applicant_data->address)?$applicant_data->address:"")}}</textarea>
-                        </div>
+                    <div class="col-sm-12 col-md-6  form-group">
+                        <label>Full Name as Per NRIC / Passport</label>
+                        <input type="text" value="{{$applicant_data->name}}" name="name" class="form-control"
+                               autocomplete="off">
+                    </div>
+                    <div class="col-sm-12 col-md-6  form-group">
+                        <label>NRIC No. / Passport No.</label>
+                        <input type="text" value="{{$applicant_data->unique_id}}" name="unique_id"
+                               class="form-control" autocomplete="off">
+                    </div>
+                    <div class="col-sm-12 col-md-6  form-group">
+                        <label>Mobile No.</label>
+                        <input type="text" value="{{$applicant_data->mobile}}" name="mobile" class="form-control"
+                               autocomplete="off">
+                    </div>
+                    <div class="col-sm-12 col-md-6  form-group">
+                        <label>Email</label>
+                        <input type="email" name="email"
+                               value="{{(isset($applicant_data->email)?$applicant_data->email:(isset($businesses[0]) ? $businesses[0]['business_email']: ''))}}"
+                               class="form-control" autocomplete="off">
+                    </div>
+                    <div class="col-sm-12 col-md-6  form-group">
+                        <label>Residential Address</label>
+                        <textarea name="address"
+                                  class="form-control">{{(isset($applicant_data->address)?$applicant_data->address:"")}}</textarea>
+                    </div>
 
 
-                        <?php /*
+                    <?php /*
                         <div class="col-md-6 col-sm-12 bg-gray-light padding-5">
                             <div class="col-sm-12 col-md-12 form-group">
                                 <label>Company Name</label>
@@ -199,11 +211,11 @@
                         </div>
                         */ ?>
 
-                        <div class="col-sm-12 col-md-12 col-lg-12 form-group pull-right">
-                            <input type="submit" value="Update" class="btn btn-default">
-                        </div>
+                    <div class="col-sm-12 col-md-12 col-lg-12 form-group pull-right">
+                        <input type="submit" value="Update" class="btn btn-default">
+                    </div>
 
-                    </form>
+                </form>
 
             </div>
 
@@ -259,23 +271,27 @@
                     </div>
                     <div class="col-sm-12 col-md-4 form-group">
                         <label>Company Name</label>
-                        <input type="text" name="bussiness_company_name" id="bussiness_company_name" value="" class="form-control" autocomplete="off">
+                        <input type="text" name="bussiness_company_name" id="bussiness_company_name" value=""
+                               class="form-control" autocomplete="off">
                     </div>
 
                     <div class="col-sm-12 col-md-4 form-group">
                         <label>Date Joined</label>
-                        <input type="date" name="bussiness_date_established" id="bussiness_date_established" value="" class="form-control" autocomplete="off">
+                        <input type="date" name="bussiness_date_established" id="bussiness_date_established" value=""
+                               class="form-control" autocomplete="off">
                     </div>
                     <div class="col-sm-12 col-md-4 form-group">
                         <label>office Phone no.</label>
-                        <input type="text" name="bussiness_office_phone_no" id="bussiness_office_phone_no" value="" class="form-control" autocomplete="off">
+                        <input type="text" name="bussiness_office_phone_no" id="bussiness_office_phone_no" value=""
+                               class="form-control" autocomplete="off">
                     </div>
                     <div class="col-sm-12 col-md-4 form-group">
                         <label>Office Address</label>
-                        <textarea name="bussiness_office_address" id="bussiness_office_address" class="form-control"></textarea>
+                        <textarea name="bussiness_office_address" id="bussiness_office_address"
+                                  class="form-control"></textarea>
                     </div>
                     <div class="col-sm-12 col-md-12 form-group">
-                        <button type="submit" name="updateIncomeSource" class="btn btn-success" >Update</button>
+                        <button type="submit" name="updateIncomeSource" class="btn btn-success">Update</button>
                     </div>
                 </form>
                 <div class="clearfix"></div>
@@ -284,9 +300,11 @@
                         <label class="control-label">Income Source</label>
                         <select id="business_type" name="business_type" class="form-control">
                             <option value="Business"
-                            > Business </option>
+                            > Business
+                            </option>
                             <option value="Salaried"
-                            > Salaried </option>
+                            > Salaried
+                            </option>
                         </select>
                     </div>
                     <div class="form-group col-md-3 col-sm-12 primary_docs">
@@ -311,9 +329,13 @@
                         'default'=>"Select Supporting Document",])
 
                     </div>
-                   <div class="form-group col-md-4 col-sm-3 pull-right"> <input type="text" placeholder="Guide Lines" class="form-control" name="guide_lines" />                     </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                       <textarea name="guide_lines" class="form-control editor">
+
+                        </textarea></div>
                     <div class="form-group col-md-3 col-sm-12 pull-right margin-top-15">
-                        <input type="file" class="form-control btn btn-primary" name="business_doc[]" multiple id="business_doc" />
+                        <input type="file" class="form-control btn btn-primary" name="business_doc[]" multiple
+                               id="business_doc"/>
                     </div>
                 </div>
             </div>
@@ -328,11 +350,11 @@
         $(document).ready(function (e) {
             $("#business_type").change();
         })
-        $('#business_doc[type="file"]').change(function(e){
+        $('#business_doc[type="file"]').change(function (e) {
             var fileName = e.target.files[0].name;
             form = document.createElement("form");
             form.setAttribute("method", "post");
-            form.setAttribute("enctype","multipart/form-data")
+            form.setAttribute("enctype", "multipart/form-data")
             form.setAttribute("action", "{{ route("documents.store") }}");
             form.setAttribute("target", "_blank");
             csrf = $('{{ csrf_field() }}')
@@ -356,7 +378,7 @@
         $(document.body).on("click", ".la_aa", function (e) {
             form = document.createElement("form");
             form.setAttribute("method", "get");
-            form.setAttribute("action", "{{ route("maker.index")}}/"+$(this).data("id")+"/edit");
+            form.setAttribute("action", "{{ route("maker.index")}}/" + $(this).data("id") + "/edit");
             $(form).append($("#la_applicant_id").clone())
             $(form).append($("<input name='applicant_id' value=" + $(this).data("id") + ">"))
             type = document.createElement("input");
@@ -371,28 +393,28 @@
         });
 
 
-        $("#business_type").on('change',function (e) {
-            if($(this).val()=="Business"){
+        $("#business_type").on('change', function (e) {
+            if ($(this).val() == "Business") {
                 $(".for_business").show();
             }
             else {
                 $(".for_business").val("").hide();
             }
 
-            type=$(this).val();
-            getDocs(type,"primary_docs","primary_docs",".primary_docs","Primary Docs")
-            getDocs(type,"support_docs","support_docs",".support_docs","Supporting Docs")
+            type = $(this).val();
+            getDocs(type, "primary_docs", "primary_docs", ".primary_docs", "Primary Docs")
+            getDocs(type, "support_docs", "support_docs", ".support_docs", "Supporting Docs")
 
-            function getDocs(type,name,id,target,label){
+            function getDocs(type, name, id, target, label) {
                 $.ajax({
-                    url:"{{ route("selectoptions") }}",
-                    type:"POST",
-                    data:"type="+type+"&name="+name+"&id="+id+"&label="+label,
+                    url: "{{ route("selectoptions") }}",
+                    type: "POST",
+                    data: "type=" + type + "&name=" + name + "&id=" + id + "&label=" + label,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     },
                 }).done(function (response) {
-                    if(response=="")
+                    if (response == "")
                         alert("No Document types found");
                     else
                         $(target).html("").append(response);
@@ -474,11 +496,11 @@
                 },
                 data: "unique_id=" + $("#attachAASearch").val() + "&la_applicant_id=" + $("#applicant_id").val()
             }).done(function (response) {
-                if (response=="nodata") {
+                if (response == "nodata") {
                     html = "<table class='table'><tr><td>No Data Found. Create New Application</td></tr>\n" +
                         "<tr><td>" +
                         "<li class='nav-item'>" +
-                        "<a class='nav-link' target='_blank' href='"+url+"'>New AA</a>" +
+                        "<a class='nav-link' target='_blank' href='" + url + "'>New AA</a>" +
                         "</li>" +
                         "                </td></tr></table>";
                     $("#aa_attach_form_body").html(html);
@@ -495,7 +517,7 @@
             })
         })
         // let business_forms = [];
-        let business_forms = <?php isset($businesses) ? print_r(json_encode(json_decode($businesses,true))) : []; ?>;
+        let business_forms = <?php isset($businesses) ? print_r(json_encode(json_decode($businesses, true))) : []; ?>;
         $(document.body).on("click", "#add_business", function () {
 
             let form = {};
@@ -546,7 +568,7 @@
                 // },
                 data: {
                     '_token': "{{ csrf_token() }}",
-                    'id'    : form.id
+                    'id': form.id
                 }
 
             }).done(function (response) {
@@ -557,27 +579,27 @@
         function businessActionButtions() {
             $("#businesses").html("");
             business_type = $("#business_type :selected").val();
-            i=0;
-            s=0;
-            b=0;
-            business_forms.forEach(function(form){
-                n=0;
-                if(form.business_type=="Business") {
+            i = 0;
+            s = 0;
+            b = 0;
+            business_forms.forEach(function (form) {
+                n = 0;
+                if (form.business_type == "Business") {
                     b++;
-                    n=b;
+                    n = b;
                 }
                 else {
                     s++;
-                    n=s;
+                    n = s;
                 }
                 business_action_buttons = " <div class=\"btn-group margin-bottom border-black-1 businesskyc-action-btn\">\n" +
-                    "                        <button type=\"button\"  data-number='"+i+"'  class=\"btn btn-default btn-flat editbusiness\"> " + form.business_type +n+"</button>\n" +
+                    "                        <button type=\"button\"  data-number='" + i + "'  class=\"btn btn-default btn-flat editbusiness\"> " + form.business_type + n + "</button>\n" +
                     "                        <button type=\"button\" class=\"btn btn-default btn-flat dropdown-toggle\" data-toggle=\"dropdown\">\n" +
                     "                            <i class=\"fa fa-list\"></i>\n" +
                     "                            <span class=\"sr-only\">Toggle Dropdown</span>\n" +
                     "                        </button>\n" +
                     "                        <ul class=\"dropdown-menu position-relative\" id=\"\" role=\"menu\">\n" +
-                    "                            <li><a href='javascript:void(0)' class='delbusiness' data-number='"+i+"'>Delete</a></li>\n" +
+                    "                            <li><a href='javascript:void(0)' class='delbusiness' data-number='" + i + "'>Delete</a></li>\n" +
                     "                        </ul></div>"
                 $("#businesses").append($(business_action_buttons));
 
@@ -595,7 +617,7 @@
                 '                                </div>');
         }
 
-        $("#business_form").submit(function(e) {
+        $("#business_form").submit(function (e) {
 
             $.ajax({
                 url: '<?php echo e(route('bussiness.storeIncomeSource')); ?>',

@@ -34,6 +34,7 @@
                                 <option value="Consent Obtained">Consent Obtained</option>
                                 <option value="Documentation">Documentation</option>
                                 <option value="Application">Application</option>
+                                <option value="Incomplete">Incomplete</option>
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -74,6 +75,7 @@
 
                                 </tr>
                             @endif
+                           @if(count($data)>0)
                             @foreach($data as $d)
                                 <tr>
                                     <td><input type="checkbox" name="applicant_id" value="{{$d->id}}"/></td>
@@ -161,7 +163,7 @@
                                 </tr>
 
                             @endforeach
-
+                            @endif
                             </tbody>
                             <tfoot>
                             <tr>
@@ -181,9 +183,11 @@
                                     <button class="btn bg-gray-dark" id="moveall">Move</button>
                                 </td>
                             </tr>
+                            @if(isset($data) and $data->hasPages())
                             <tr>
                                 <td colspan="7">{{ $data->links() }}</td>
                             </tr>
+                            @endif
                             </tfoot>
                         </table>
                     </div>
@@ -282,11 +286,9 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-            document.cookie = "maker_active_tab=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/maker/1;";
-
+            //document.cookie = "maker_active_tab=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/maker/1;";
             $("#commentsform").submit(function (e) {
                 e.preventDefault();
-
                 $.ajax({
                     url: '{{ route('applicantcomments.store') }}',
                     type: 'Post',
@@ -308,7 +310,6 @@
                             "<strong>Error Occured while adding comment</strong>\n" +
                             "</div>");
                     }
-
                 });
             });
             $('.select2').select2();
