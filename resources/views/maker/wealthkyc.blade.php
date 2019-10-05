@@ -71,7 +71,7 @@
 
                         </select>
                     </div>
-                    <div class="form-group col-md-4 col-sm-6 bg-gray-light primary_docs">
+                    <div class="form-group col-md-4 col-sm-6 bg-gray-light wealth_primary_docs">
                         <label class="control-label">Primary Docs</label>
                         <div class="clearfix"></div>
                         @include("layouts.select", [
@@ -84,7 +84,7 @@
 
 
                     </div>
-                    <div class="form-group col-md-4 col-sm-6 bg-gray-light support_docs">
+                    <div class="form-group col-md-4 col-sm-6 bg-gray-light wealth_support_docs">
                         <label class="control-label">Supporting Docs</label>
                         <div class="clearfix"></div>
                         @include("layouts.select", [
@@ -370,8 +370,8 @@
             id = $(this).val();
             $("#" + id).html("").append($(wealth_form[id]).clone(true,true))
             $("#wealthkyc").find("#" + id).removeClass("hide").show();
-            getDocs(id+"_p","primary_docs","primary_docs",".primary_docs","Primary Docs")
-            getDocs(id+"_s","support_docs","support_docs",".support_docs","Supporting Docs")
+            getDocs(id+"_p","primary_docs","primary_docs",".wealth_primary_docs","Primary Docs")
+            getDocs(id+"_s","support_docs","support_docs",".wealth_support_docs","Supporting Docs")
 
             function getDocs(type,name,id,target,label){
                 $.ajax({

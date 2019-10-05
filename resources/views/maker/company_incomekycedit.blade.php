@@ -101,7 +101,7 @@
         $(document).ready(function(e) {
             income_form=[];
             income_form["ebitda"] = $("#ebitda").children().clone(true,true)
-
+            $("#incometype").change();
             $.ajax({
                 url: "{{ route("comments") }}",
                 type: "POST",
