@@ -57,7 +57,7 @@
                         <option value="air">Annual Investment Return</option>
                     </select>
                 </div>
-                <div class="form-group col-md-4 col-sm-4 bg-gray-light primary_docs">
+                <div class="form-group col-md-4 col-sm-4 bg-gray-light income_primary_docs">
                     <label class="control-label">Primary Docs</label>
                     @include("layouts.select", [
                     'name'=>'primary_doc',
@@ -67,7 +67,7 @@
                     'options'=>$options])
 
                 </div>
-                <div class="form-group col-md-4 col-sm-4 bg-gray-light support_docs">
+                <div class="form-group col-md-4 col-sm-4 bg-gray-light income_support_docs">
                     <label class="control-label">Supporting Docs</label>
                     @include("layouts.select", [
                     'name'=>'support_doc',
@@ -458,8 +458,8 @@
             id = $(this).val();
             $("#" + id).html("").append($(income_form[id]).clone(true,true))
             $("#" + id).removeClass("hide").show();
-            getDocs(id+"_p","primary_docs","primary_docs",".primary_docs","Primary Docs")
-            getDocs(id+"_s","support_docs","support_docs",".support_docs","Supporting Docs")
+            getDocs(id+"_p","primary_docs","primary_docs",".income_primary_docs","Primary Docs")
+            getDocs(id+"_s","support_docs","support_docs",".income_support_docs","Supporting Docs")
 
             function getDocs(type,name,id,target,label){
                 $.ajax({
