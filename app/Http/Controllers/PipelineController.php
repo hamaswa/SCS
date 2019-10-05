@@ -168,10 +168,44 @@ class PipelineController extends Controller
 
         }
         else if(isset($inputs['submit']) and $inputs['submit']=='Search'){
-            $applicantdata = ApplicantData::where('unique_id','=',$inputs['search'])
+            $applicantdata =  new ApplicantData();
+            $data = $applicantdata->where('unique_id','=',$inputs['search'])
                 ->where("user_id","=",Auth::id())
-                ->paginate(5);
-            return view("aadata.index")->with("data",$applicantdata);
+                ->first();
+            if(isset($data->status) and $data->status == "Incomplete"){
+                $inputs['term'] = $inputs['search'];
+                $id= $data->id;
+                $data = $applicantdata->whereRaw(
+                    "(
+                        (unique_id = '" . $inputs['term'] . "' or name = '" . $inputs['term'] . "')
+                    OR
+                        (id in (select applicant_id from loan_applications where la_applicant_id=". $id . "))
+                     )
+                     
+                     OR
+                        (
+                            id in 
+                            (
+                                select applicant_id from loan_applications where la_applicant_id in 
+                                (
+                                    select id from applicant_data where
+                                    (
+                                        (unique_id = '" . $inputs['term'] . "' or name = '" . $inputs['term'] . "')
+                                    OR
+                                        (id in (select applicant_id from loan_applications where la_applicant_id=". $id . "))
+                                     )
+                                )
+                            )
+                        )
+                    
+                    
+                    
+                    and user_id='" . Auth::id() . "'")
+                    ->paginate(50);
+                $ids = $data->Pluck("id")->ToArray();
+
+            }
+            return view("aadata.index")->with("data",$data);
         }
 
     }
