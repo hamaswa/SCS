@@ -1,6 +1,39 @@
 
 @if(isset($applicant) and $applicant->aacategory=="C")
-    Hello Company Income here
+    <table class="table table-bordered table-striped table-hover bg-white">
+        <thead class="bg-light-blue">
+        <tr class="bg-light-blue-gradient">
+            <th colspan="3" class="text-center">Income</th>
+        </tr>
+
+        </thead>
+        <tbody>
+
+        @if(isset($incomes))
+            <?php $i=0;?>
+            @foreach($incomes as $income)
+<?php
+$i++;
+?>
+                    <tr id="salary_right_bar" class="salary_right_bar">
+                        <td>EBITDA{{ $i }}</td>
+                        <td>{{$income->gross}}</td>
+                    </tr>
+
+            @endforeach
+        @endif
+
+        </tbody>
+        <tfoot>
+        <tr class="bg-aqua income_kyc_total_right_bar" id="income_kyc_total_right_bar">
+            @if(isset($income_total))
+                <th>Total</th>
+                <th>{{$income_total->total_gross}}</th>
+            @endif
+        </tr>
+
+        </tfoot>
+    </table>
 @else
 <table class="table table-bordered table-striped table-hover bg-white">
     <thead class="bg-light-blue">

@@ -84,12 +84,7 @@
         <div class="box">
             <div class="box-body bg-chocolate border-shadlebrown min-height left-box">
                 <strong class="applicant"></strong>
-                <div class="table-responsive">
-                    <?php
-                    //$income->form_data = json_decode($income->form_data);
-                    ?>
-
-                    {{--@include("aadata.right_info_income")--}}
+                <div class="table-responsive incomekyc_right">
 
 
                 </div>
