@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\ApplicantIncome;
 use App\ApplicantWealth;
 use App\ApplicantProperty;
+use App\ApplicantData;
 use Auth;
 
 class IncomekycController extends Controller
@@ -86,8 +87,9 @@ class IncomekycController extends Controller
     public function actionbtns(Request $request){
        $inputs = $request->all();
        $id=$inputs['applicant_id'];
-        $incomes = ApplicantIncome::where("applicant_id","=",$id)->get();
-        return view("aadata.incomekyc_action_btns")->with("incomes",$incomes);
+       $arr['applicant'] = ApplicantData::find($id);
+        $arr["incomes"] = ApplicantIncome::where("applicant_id","=",$id)->get();
+        return view("aadata.incomekyc_action_btns")->with($arr);
     }
     /**
      * Display the specified resource.

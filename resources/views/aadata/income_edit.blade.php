@@ -308,7 +308,7 @@ $form_data = json_decode($income->form_data, true);
             <button type="button" id="annual_investment_return_add" class="btn btn-primary">Update</button>
         </div>
     </div>
-@else
+@elseif($income->sub_type=="ebitda")
     <label class="col-lg-12 col-md-12 col-sm-12 form-group bg-gray-light">EBITDA</label>
 
     <div class="form-group col-md-12 col-sm-12">
@@ -336,6 +336,31 @@ $form_data = json_decode($income->form_data, true);
                id="others">
     </div>
     <div class="form-group col-md-12 col-sm-12">
-        <button type="button" id="add_company_income" class="btn btn-primary">ADD</button>
+        <button type="button" id="add_company_income" data-target="ebitda" class="btn btn-primary">ADD</button>
+    </div>
+@elseif($income->sub_type=="payments")
+    <label class="col-lg-12 col-md-12 col-sm-12 form-group bg-gray-light">Payments</label>
+
+    <div class="form-group col-md-12 col-sm-12">
+        <label for="market_value">Leasing</label>
+        <input type="number" name="leasing" class="form-control"
+               value="{{(isset($form_data['leasing']) and $form_data['leasing']!="")?$form_data['leasing']:""}}"
+               id="leasing">
+    </div>
+    <div class="form-group col-md-12 col-sm-12">
+        <label for="market_value">Non Bank</label>
+        <input type="number" name="interest_expense" class="form-control"
+               value="{{(isset($form_data['non_bank']) and $form_data['non_bank']!="")?$form_data['non_bank']:""}}"
+               id="non_bank">
+    </div>
+
+    <div class="form-group col-md-12 col-sm-12">
+        <label for="market_value">Others</label>
+        <input type="number" name="others" class="form-control"
+               value="{{(isset($form_data['others']) and $form_data['others']!="")?$form_data['others']:""}}"
+               id="others">
+    </div>
+    <div class="form-group col-md-12 col-sm-12">
+        <button type="button" id="add_company_income" data-target="payments" class="btn btn-primary">ADD</button>
     </div>
 @endif

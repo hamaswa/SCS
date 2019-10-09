@@ -15,7 +15,6 @@ class ChangeGuideLinesFieldType extends Migration
     {
         Schema::table('applicant_documents', function (Blueprint $table) {
             $table->text("guide_lines")->change();
-
         });
     }
 

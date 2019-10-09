@@ -53,7 +53,8 @@
                                id="com_income_doc"/>
                     </div>
                 </div>
-                <div class="form-group col-md-12 col-sm-12" id="ebitda">
+                <div class="form-group col-md-12 col-sm-12">
+                <div class="form-group col-md-6 col-sm-6" id="ebitda">
                     <label class="col-lg-12 col-md-12 col-sm-12 form-group bg-gray-light">EBITDA</label>
 
                     <div class="form-group col-md-12 col-sm-12">
@@ -74,8 +75,30 @@
                         <input type="number" name="others" class="form-control" id="others">
                     </div>
                     <div class="form-group col-md-12 col-sm-12">
-                        <button type="button" id="add_company_income" class="btn btn-primary">ADD</button>
+                        <button type="button" id="add_company_income" data-target="ebitda" class="btn btn-primary">ADD</button>
                     </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-6" id="payments">
+                    <label class="col-lg-12 col-md-12 col-sm-12 form-group bg-gray-light">Payments</label>
+
+                    <div class="form-group col-md-12 col-sm-12">
+                        <label for="market_value">Leasing</label>
+                        <input type="number" name="leasing" class="form-control"
+                               id="leasing">
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                        <label for="market_value">Non Bank</label>
+                        <input type="number" name="non_bank" class="form-control" id="non_bank">
+                    </div>
+
+                    <div class="form-group col-md-12 col-sm-12">
+                        <label for="market_value">Others</label>
+                        <input type="number" name="others" class="form-control" id="others">
+                    </div>
+                    <div class="form-group col-md-12 col-sm-12">
+                        <button type="button" id="add_company_income" data-target="payments" class="btn btn-primary">ADD</button>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -100,6 +123,7 @@
         $(document).ready(function (e) {
             income_form = [];
             income_form["ebitda"] = $("#ebitda").children().clone(true, true)
+            income_form["payments"] = $("#payments").children().clone(true, true)
             $("#incometype").change();
             $.ajax({
                 url: "{{ route("comments") }}",
@@ -186,19 +210,22 @@
 
         $(document.body).on("click", "#add_company_income", function (e) {
             var gross = 0;
-            $("#ebitda :input").each(function () {
+            sub_type=$(this).data("target");
+            $("#"+sub_type+" :input").each(function () {
                 gross += Number($(this).val());
-                // Could be written as
-                // tot += +this.value;
+
             });
 
-            data = $("#ebitda").find(":input").serialize() + "&type=" + $("#incometype").val() + "&form=company_income&applicant_id=" + $("#applicant_id").val() + "&gross=" + gross;
+            data = $("#"+sub_type).find(":input").serialize() + "&sub_type="+sub_type+"&type=" + $("#incometype").val() + "&form=company_income&applicant_id=" + $("#applicant_id").val() + "&gross=" + gross;
             submitincomekyc(data)
+            $("#"+sub_type).html("").append($(income_form[sub_type]).clone(true, true))
+           // $("#payments").html("").append($(income_form["ebitda"]).clone(true, true))
             e.preventDefault();
         });
         $(document.body).on("click", ".editincome", function (e) {
             $("input[name=doc_hint]").val($(this).text());
             type = $(this).data("type");
+            sub_type = $(this).data("sub_type");
             url = $(this).data("url");
             $.ajax({
                 url: url,
@@ -210,7 +237,7 @@
             }).done(function (response) {
                 $("#incometype").val(type).trigger("change");
                 $(".incometype").removeClass("hide").addClass("hide");
-                $("#ebitda").removeClass("hide").html("").append($(response));
+                $("#"+sub_type).removeClass("hide").html("").append($(response));
             })
 
         })
@@ -261,7 +288,7 @@
 
                 //$("#incomekyc .box .incometype").addClass("hide");
                 id = $("#incometype").val();
-                $("#ebitda").html("").append($(income_form["ebitda"]).clone(true, true))
+
                 // $("#" + id).removeClass("hide").show();
 
             })
