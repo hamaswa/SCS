@@ -57,15 +57,10 @@
                             <tbody>
 
                             @if(isset($data))
-                                {{--@if(count($data)==0)--}}
-                                    {{--<tr>--}}
-                                        {{--<td colspan="5" class="text-center">--}}
-                                            {{--No Data Found--}}
-                                        {{--</td>--}}
+                                <?php
+                                $d=$data;
+                                ?>
 
-                                    {{--</tr>--}}
-                                {{--@endif--}}
-                                @foreach($data as $d)
                                     {{--$d->aasource}}/{{$d->aabranch}}/{{$d->aacategory}}/--}}
                                     <tr data-id="{{$d->id}}" data-status="{{ $d->status }}" data-name="{{ $d->name }}"
                                         data-unique_id="{{ $d->unique_id }}" data-mobile="{{$d->mobile}}"
@@ -92,7 +87,7 @@
                                             {{--<a href="javascript:void(0)" class="btn btn-xs bg-light-blue-gradient">Import</a>--}}
                                         </td>
                                     </tr>
-                                @endforeach
+
                             @else
                                 <tr class="bg-light-blue-gradient">
                                     <td colspan="5">No Data Found </td>
