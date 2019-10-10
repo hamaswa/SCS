@@ -35,7 +35,7 @@ class ApplicantDataController extends Controller
     public function index()
     {
         $applicantdata = ApplicantData::paginate(5);
-        return view("aadata.index")("data", "View");
+        return view("aadata.index")->with("data", "View");
     }
 
     public function applicantData(Request $request)
