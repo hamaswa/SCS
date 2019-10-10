@@ -54,9 +54,10 @@
                                 <th>Action</th>
                             </tr>
                             </thead>
-                            <tbody>
 
-                            @if(count($data)>0)
+                            @if($data!="View")
+                                <tbody>
+                                @if(count($data)>0)
                                 @foreach($data as $d)
 
 
@@ -101,6 +102,7 @@
                                 </tr>
                             @endif
                             </tfoot>
+                            @endif
 
                         </table>
                     </div>
