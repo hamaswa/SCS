@@ -56,10 +56,9 @@
                             </thead>
                             <tbody>
 
-                            @if(isset($data))
-                                <?php
-                                $d=$data;
-                                ?>
+                            @if(count($data)>0)
+                                @foreach($data as $d)
+
 
                                     {{--$d->aasource}}/{{$d->aabranch}}/{{$d->aacategory}}/--}}
                                     <tr data-id="{{$d->id}}" data-status="{{ $d->status }}" data-name="{{ $d->name }}"
@@ -87,7 +86,7 @@
                                             {{--<a href="javascript:void(0)" class="btn btn-xs bg-light-blue-gradient">Import</a>--}}
                                         </td>
                                     </tr>
-
+                                @endforeach
                             @else
                                 <tr class="bg-light-blue-gradient">
                                     <td colspan="5">No Data Found </td>
@@ -95,6 +94,14 @@
                             @endif
 
                             </tbody>
+                            <tfoot>
+                            @if(isset($data) and $data->hasPages())
+                                <tr>
+                                    <td colspan="7">{{ $data->links() }}</td>
+                                </tr>
+                            @endif
+                            </tfoot>
+
                         </table>
                     </div>
 
