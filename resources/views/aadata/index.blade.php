@@ -97,11 +97,7 @@
                             </tbody>
                         </table>
                     </div>
-                    @if(isset($data))
-                        <div>
-                            {{ $data->links() }}
-                        </div>
-                    @endif
+
 
                 </div>
             </div>
