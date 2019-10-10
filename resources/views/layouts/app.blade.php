@@ -58,8 +58,8 @@ if (isset($applicant)) {
 
         <!-- Logo -->
         <a class="logo" href="{{ url('/') }}">
-{{--            {{ config('app.name', 'Laravel') }}--}}
-            <img src="{{asset('img/logo.png')}}" class="img-responsive" />
+            {{--            {{ config('app.name', 'Laravel') }}--}}
+            <img src="{{asset('img/logo.png')}}" class="img-responsive"/>
         </a>
         <!--a href="index2.html" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels ->
@@ -158,20 +158,20 @@ if (isset($applicant)) {
                         </li>
                     @endif
                     @if(request()->user()->hasRole("processor") or request()->user()->hasRole("maker"))
-                            <li class="treeview">
-                                <a href="#"><span> Pipeline</span>
-                                    <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route("aadata.index") }}">New AA</a>
-                                    </li>
+                        <li class="treeview">
+                            <a href="#"><span> Pipeline</span>
+                                <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route("aadata.index") }}">New AA</a>
+                                </li>
 
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route("pipeline.index") }}">Pipeline Status</a>
-                                    </li>
-                                </ul>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route("pipeline.index") }}">Pipeline Status</a>
+                                </li>
+                            </ul>
+                        </li>
 
                     @endif
                     @if(request()->user()->hasRole("data_entry"))
@@ -184,10 +184,12 @@ if (isset($applicant)) {
                             <a class="nav-link" href="{{ route("members.index") }}">Group Structure</a>
                         </li>
                     @endif
+                    @if(request()->user()->hasRole("maker"))
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route("maker.index") }}">Maker</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route("maker.index") }}">Maker</a>
+                        </li>
+                    @endif
 
                 {{--<li class="nav-item">--}}
                 {{--<a class="nav-link" href="{{ route("aafields.create") }}">AA Fields</a>--}}

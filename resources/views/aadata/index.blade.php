@@ -32,7 +32,7 @@
                         {{--</select>--}}
                         {{--</div>--}}
                         <div class="col-md-5">
-                            <input type="number" class="form-control" name="search" placeholder="Search NRIC"/>
+                            <input class="form-control" name="search" placeholder="Search NRIC"/>
                             <span class="col-lg-12 col-md-12 col-sm-12">
                                 e.g. 791219107629 (exclude special character or symbols)
                             </span>
@@ -93,10 +93,10 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                            @else
-                                <tr class="bg-light-blue-gradient">
-                                    <td colspan="5">No </td>
-                                </tr>
+                            {{--@else--}}
+                                {{--<tr class="bg-light-blue-gradient">--}}
+                                    {{--<td colspan="5">No Data Found </td>--}}
+                                {{--</tr>--}}
                             @endif
 
                             </tbody>
@@ -164,8 +164,7 @@
                                         <label id="unique_id_label" class="control-label">
                                             NRIC No./Passport No.(e.g.12345678)
                                         </label>
-                                        <input name="unique_id" id="unique_id" placeholder="" class="form-control"
-                                               minlength="12">
+                                        <input name="unique_id" id="unique_id" placeholder="" class="form-control">
 
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6">

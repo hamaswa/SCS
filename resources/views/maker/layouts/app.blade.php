@@ -195,7 +195,7 @@
                             <a class="nav-link" href="{{ route("members.index") }}">Facility Info</a>
                         </li>
                     @endif
-                    @if(request()->user()->hasRole("admin3"))
+                    @if(request()->user()->hasRole("maker"))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route("maker.index") }}">Maker</a>
                         </li>
