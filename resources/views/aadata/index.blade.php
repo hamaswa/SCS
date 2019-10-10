@@ -57,14 +57,14 @@
                             <tbody>
 
                             @if(isset($data))
-                                @if(count($data)==0)
-                                    <tr>
-                                        <td colspan="5" class="text-center">
-                                            No Data Found
-                                        </td>
+                                {{--@if(count($data)==0)--}}
+                                    {{--<tr>--}}
+                                        {{--<td colspan="5" class="text-center">--}}
+                                            {{--No Data Found--}}
+                                        {{--</td>--}}
 
-                                    </tr>
-                                @endif
+                                    {{--</tr>--}}
+                                {{--@endif--}}
                                 @foreach($data as $d)
                                     {{--$d->aasource}}/{{$d->aabranch}}/{{$d->aacategory}}/--}}
                                     <tr data-id="{{$d->id}}" data-status="{{ $d->status }}" data-name="{{ $d->name }}"
@@ -93,10 +93,10 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                            {{--@else--}}
-                                {{--<tr class="bg-light-blue-gradient">--}}
-                                    {{--<td colspan="5">No Data Found </td>--}}
-                                {{--</tr>--}}
+                            @else
+                                <tr class="bg-light-blue-gradient">
+                                    <td colspan="5">No Data Found </td>
+                                </tr>
                             @endif
 
                             </tbody>
