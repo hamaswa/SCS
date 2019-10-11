@@ -10,7 +10,32 @@
                     //$data = json_decode($income->form_data, true);
                     ?>
                 </div>
+                <div class="btn-group margin-bottom border-black-1 incomekyc-action-btn" id="btn-salary">
+                    <button type="button" class="btn btn-default btn-flat addebitda"
+                    >+Income</button>
+                    <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="false">
+                        <i class="fa fa-list"></i>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu position-relative" id="" role="menu">
 
+                    </ul>
+
+                </div>
+                <div class="btn-group margin-bottom border-black-1 incomekyc-action-btn" id="btn-salary">
+                    <button type="button" class="btn btn-default btn-flat addpayment"
+                    >+Payment</button>
+                    <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="false">
+                        <i class="fa fa-list"></i>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu position-relative" id="" role="menu">
+
+                    </ul>
+
+                </div>
                 <div id="incomekyc_action_btns" class="col-lg-12 col-md-12 col-sm-12">
                     @include("aadata.incomekyc_action_btns",["incomes"=>$applicant_data->applicantIncome()->get()])
                 </div>

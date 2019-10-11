@@ -196,9 +196,20 @@
                         </li>
                     @endif
                     @if(request()->user()->hasRole("maker"))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route("maker.index") }}">Maker</a>
-                        </li>
+                            <li class="treeview">
+                                <a href="#"><span> Maker</span>
+                                    <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route("maker.index") }}">Maker</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route("pipeline.index") }}">Pipeline Status</a>
+                                    </li>
+                                </ul>
+                            </li>
                     @endif
                 {{--<li class="nav-item">--}}
                 {{--<a class="nav-link" href="{{ route("aafields.create") }}">AA Fields</a>--}}
