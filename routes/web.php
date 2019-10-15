@@ -44,6 +44,11 @@ Route::group(['prefix'=>'admin','auth'], function() {
 
 });
 
+Route::group(['middleware' => 'role:uploader'], function() {
+    Route::resource('uploader', 'Uploader\UploaderController');
+
+});
+
 
 Route::group(['middleware' => 'role:maker'], function() {
 

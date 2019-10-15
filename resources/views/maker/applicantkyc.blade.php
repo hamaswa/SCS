@@ -500,7 +500,7 @@
                     html = "<table class='table'><tr><td>No Data Found. Create New Application</td></tr>\n" +
                         "<tr><td>" +
                         "<li class='nav-item'>" +
-                        "<a class='nav-link' target='_blank' href='" + url + "'>New AA</a>" +
+                        "<a class='nav-link' target='_blank' id=\"new_aa\" href='" + url + "'>New AA</a>" +
                         "</li>" +
                         "                </td></tr></table>";
                     $("#aa_attach_form_body").html(html);
@@ -515,6 +515,10 @@
 
 
             })
+        })
+        $(document.body).on("click","#new_aa",function(e){
+            $("#aa_attach_form_body").html("");
+            $("#aa_attach_form").modal('hide');
         })
         // let business_forms = [];
         let business_forms = <?php isset($businesses) ? print_r(json_encode(json_decode($businesses, true))) : []; ?>;

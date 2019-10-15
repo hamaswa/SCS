@@ -308,7 +308,7 @@
                         html = "<table class='table'><tr><td>No Date Found. Create New Application</td></tr>\n" +
                             "<tr><td>" +
                             "<li class='nav-item'>" +
-                            "<a class='nav-link' href='"+url+"'>New AA</a>" +
+                            "<a class='nav-link' target='_blank' id=\"new_aa\" href='"+url+"'>New AA</a>" +
                             "</li>" +
                             "</td></tr></table>";
                         $("#aa_attach_form_body").html(html);
@@ -347,7 +347,7 @@
                         html = "<table class='table'><tr><td>No Data Found. Create New Application</td></tr>\n" +
                             "<tr><td>" +
                             "<li class='nav-item'>" +
-                            "<a class='nav-link' href='"+url+"'>New AA</a>" +
+                            "<a class='nav-link' target='_blank' id=\"new_aa\" href='"+url+"'>New AA</a>" +
                             "</li>" +
                             "                </td></tr></table>";
                         $("#aa_attach_form_body").html(html);
@@ -363,6 +363,10 @@
 
                 })
             }
+        })
+        $(document.body).on("click","#new_aa",function(){
+            $("#aa_attach_form_body").html("");
+            $("#aa_attach_form").modal('hide');
         })
         let business_forms = [];
 
