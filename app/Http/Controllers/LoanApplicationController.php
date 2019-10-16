@@ -108,7 +108,7 @@ class LoanApplicationController extends Controller
         if($la_app->aacategory=="I") {
             $data = $applicant->whereRaw("(unique_id = '" . $inputs['unique_id'] . "' or name = '" . $inputs['unique_id'] . "')
             " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='I' 
-            and status in ('Documentation','Consent Obtained','Incomeplete')
+            and status in ('Documentation','Consent Obtained','Incomplete')
             and user_id = ". Auth::id(). "
             and id!=" . $inputs['la_applicant_id'])->paginate(5);
 
@@ -117,7 +117,7 @@ class LoanApplicationController extends Controller
         {
             $data = $applicant->whereRaw("(unique_id = '" . $inputs['unique_id'] . "' or name = '" . $inputs['unique_id'] . "')
             " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='C' 
-            and status in ('Documentation','Consent Obtained','Incomeplete') 
+            and status in ('Documentation','Consent Obtained','Incomplete') 
              and user_id = ". Auth::id(). "
            and id!=" . $inputs['la_applicant_id'])->paginate(5);
 
@@ -172,7 +172,7 @@ class LoanApplicationController extends Controller
         $applicant = new  ApplicantData();
             $data = $applicant->whereRaw("(unique_id = '" . $inputs['unique_id'] . "' or name = '" . $inputs['unique_id'] . "')
             " . ($inputs['unique_id'] == "" ? " OR" : " and ") . " aacategory='I' 
-            and status in ('Documentation','Consent Obtained','Incomeplete') and id!=" . $inputs['applicant_id'])->paginate(5);
+            and status in ('Documentation','Consent Obtained','Incomplete') and id!=" . $inputs['applicant_id'])->paginate(5);
 
         if (count($data) > 0) {
             return  view("maker.aa_attach_form")->with(["target"=>"Com","data"=> $data]);
@@ -191,7 +191,7 @@ class LoanApplicationController extends Controller
                 "applicant_id" => $applicant->id,
             ]);
             //$applicant = ApplicantData::find($inputs["applicant_id"]);
-            $applicant->status = "Incomeplete";
+            $applicant->status = "Incomplete";
             $applicant->save();
             return json_encode(["success"=>"success","applicant"=>$applicant]);
         }
