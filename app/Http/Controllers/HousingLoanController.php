@@ -38,7 +38,7 @@ class HousingLoanController extends Controller
      */
     public function create(Request $request)
     {
-        $capacity_data  = AASource::where("type","capacity_type")->get();
+        $capacity_data  = AASource::where("type","facility_type")->get();
         $inputs = $request->all();
         return view("de")->with(["applicant_id" => $inputs['applicant_id'],"capacity_data"=>$capacity_data]);
     }

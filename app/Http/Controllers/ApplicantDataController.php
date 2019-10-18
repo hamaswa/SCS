@@ -88,6 +88,8 @@ class ApplicantDataController extends Controller
         $arr['properties'] = ApplicantProperty::where("applicant_id","=",$inputs['applicant_id'])->get();
         return view("aadata.applicant_sidebar")->with($arr);
     }
+
+
     /**
      * Store a newly created resource in storage.
      *
