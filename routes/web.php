@@ -33,8 +33,6 @@ Route::group(['prefix'=>'admin','auth'], function() {
     Route::get("/users/contacts/{id}",'Admin\UserController@getUserContacts');
     Route::resource("/users/contacts",'Admin\UserContactsController');
     Route::resource('/users', 'Auth\RegisterController');
-
-
     Route::get('/users/income_type', function () {
         return view('admin.users.income_type');
     });
@@ -47,7 +45,11 @@ Route::group(['prefix'=>'admin','auth'], function() {
 Route::group(['middleware' => 'role:uploader'], function() {
     Route::resource('uploader', 'Uploader\UploaderController');
     Route::post('/uploader/existing_commitment', 'Uploader\UploaderController@existingCommitment')->name("existing_commitment");
+    Route::post('/uploader/new_commitment', 'Uploader\UploaderController@newCommitment')->name("new_commitment");
+    Route::post('/uploader/new_facility', 'Uploader\UploaderController@newFacility')->name("new_facility");
     Route::post('/uploader/la_properties','Uploader\UploaderController@laProperties')->name('la_properties');
+    Route::post('/uploader/add_new_facility','Uploader\UploaderController@storeNewFacility')->name('add_new_facility');
+    Route::post('/uploader/delete_facility','Uploader\UploaderController@deleteFacility')->name('delete_facility');
 
 });
 
