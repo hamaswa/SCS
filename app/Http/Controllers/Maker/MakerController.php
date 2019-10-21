@@ -99,6 +99,10 @@ class MakerController extends Controller
             $applicant->aacategory = $inputs['aacategory'];
             $applicant->status = "Incomplete";
             $applicant->save();
+            LoanApplication::create([
+                "la_applicant_id" => $applicant->id,
+                "applicant_id" => $applicant->id,
+            ]);
             return redirect(route("maker.edit", $applicant->id));
         }
         catch(\Exception $e){

@@ -48,9 +48,11 @@ Route::group(['middleware' => 'role:uploader'], function() {
     Route::post('/uploader/new_commitment', 'Uploader\UploaderController@newCommitment')->name("new_commitment");
     Route::post('/uploader/new_facility', 'Uploader\UploaderController@newFacility')->name("new_facility");
     Route::post('/uploader/la_properties','Uploader\UploaderController@laProperties')->name('la_properties');
+    Route::post('/uploader/attach_property','Uploader\UploaderController@attachProperty')->name('attach_property');
+    Route::post('/uploader/la_facilities','Uploader\UploaderController@laFacilities')->name('la_facilities');
     Route::post('/uploader/add_new_facility','Uploader\UploaderController@storeNewFacility')->name('add_new_facility');
     Route::post('/uploader/delete_facility','Uploader\UploaderController@deleteFacility')->name('delete_facility');
-
+    Route::post('/uploader/cover_facility','Uploader\UploaderController@coverFacility')->name('cover_facility');
 });
 
 

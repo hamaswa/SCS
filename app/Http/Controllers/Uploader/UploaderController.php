@@ -22,7 +22,7 @@ class UploaderController extends Controller
     {
         $inputs = request()->all();
         $id = $inputs['id'];
-        $la_applicant = LoanApplication::find($id);
+        $la_applicant = LoanApplication::where("la_applicant_id",'=',$id)->first();
         if (!$la_applicant->la_serial_no) {
             $la_applicant->la_serial_no = date("dmY");
             $applicant_count = LoanApplication::selectRaw("count(*) as count")
@@ -31,6 +31,7 @@ class UploaderController extends Controller
             $la_applicant->la_serial_id = (int)$applicant_count[0]["count"] + 1;
             $la_applicant->save();
         }
+
         $la_serial_no = $la_applicant->la_serial_no;
         $la_serial_id = $la_applicant->la_serial_id;
         $arr["loan_application"] = $la_applicant;
@@ -87,9 +88,16 @@ class UploaderController extends Controller
     public function  newCommitment(Request $request)
     {
         $inputs = $request->all();
+
         $arr['applicant'] = ApplicantData::find($inputs['applicant_id']);
-        $arr['new_commitments'] = FacilityInfo::whereRaw("(applicant_id = '" . $inputs['applicant_id'] . "' and la_id  is NULL)"
-             . " OR la_id = '".  $inputs['la_id']."'")
+        $la_application = LoanApplication::where("applicant_id","=",$inputs['applicant_id'])->first();
+        $facility_covered = $la_application->facility_covered;
+        $arr['new_commitments'] = FacilityInfo::whereRaw(
+            "(applicant_id = '" . $inputs['applicant_id'] . "' 
+                and la_id  is NULL 
+               and id not in ($facility_covered)
+                )"
+                . " OR la_id = '".  $inputs['la_id']."'")
             ->get();
 
         return view("uploader.new_commitment")->with($arr);
@@ -111,6 +119,45 @@ class UploaderController extends Controller
         $arr["properties"] = ApplicantProperty::whereRaw("applicant_id in (". implode(",",$inputs['applicant_id']).")")->get();
         return view("uploader.properties")->with($arr);
     }
+
+    public function attachProperty(Request $request){
+        $inputs = $request->all();
+        $serial = explode("_",$inputs['la_id']);
+
+        $la_applicant = LoanApplication::where("la_serial_no", "=", $serial[0])
+            ->where("la_serial_id","=",$serial[1])
+            ->first();
+        $la_applicant->property_id = $inputs['property_id'];
+        $la_applicant->save();
+        echo $la_applicant->property_id;
+    }
+
+    public function laFacilities(Request $request){
+        $inputs = $request->all();
+        $arr['applicants'] = ApplicantData::find($inputs['applicant_id']);
+
+        return view("uploader.la_facilities")->with($arr);
+    }
+
+
+    public function coverFacility(Request $request){
+       try {
+           $inputs = $request->all();
+           $inputs['facility_covered'] = implode(",", $inputs['facility_covered']);
+           $la_app = LoanApplication::where("applicant_id", "=", $inputs['applicant_id'])
+               ->where("la_serial_no", "=", explode("_", $inputs['la_id'])[0])
+               ->where("la_serial_id", "=", explode("_", $inputs['la_id'])[1])->first();
+           $la_app->facility_covered = $inputs['facility_covered'];
+           $la_app->save();
+           echo "success";
+       }
+       catch(\Exception $e){
+           echo "error";
+       }
+
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -138,6 +185,12 @@ class UploaderController extends Controller
         $inputs = $request->all();
         $inputs['user_id'] = Auth::id();
         $inputs['status'] = "new_facility";
+        $applicants = $inputs['applicant_id'];
+        $inputs['capacity']="own";
+        if(count($applicants)>1){
+            $inputs['capacity']="ja";
+            $inputs['installment'] = $inputs['installment']/count($applicants);
+        }
         $arr["capacity_data"] = AASource::where("type", "facility_type")->get();
         if (isset($inputs['id'])) {
 
@@ -157,14 +210,16 @@ class UploaderController extends Controller
         }
         else {
             if ($inputs['loan_amount'] != "" or $inputs['interest_rate'] != "" or $inputs['loan_tenure'] != "") {
-                $facility = FacilityInfo::create($inputs);
-                if ($facility->id) {
-                    $arr["facilities"] = FacilityInfo::whereRaw("
+                foreach ($applicants as $applicant) {
+                    $inputs['applicant_id'] = $applicant;
+                    $facility = FacilityInfo::create($inputs);
+                }
+                $arr["facilities"] = FacilityInfo::whereRaw("
                     status='new_facility' and 
                     la_id='" . $inputs["la_id"] . "'")
-                        ->get();
-                    return view("uploader.facility_edit")->with($arr);
-                }
+                    ->get();
+                return view("uploader.facility_edit")->with($arr);
+
             }
         }
     }

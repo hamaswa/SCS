@@ -11,7 +11,7 @@
         ?>
         <tr>
             <td>Property {{$i}}</td>
-            <td><input type="radio"> </td>
+            <td><input class="la_property" data-id="{{$property->id}}" value="{{$property->id}}" type="radio"> </td>
         </tr>
     @endforeach
 

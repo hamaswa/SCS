@@ -21,6 +21,9 @@ class AddFieldsToLoanApplication extends Migration
             $table->string("bank")->nullable();
             $table->integer("loan_amount")->nullable();
             $table->string("status")->nullable();
+            $table->integer("property_id")->nullable();
+            $table->string("facility_covered")->nullable();
+            $table->string("applicant_approved")->nullable();
         });
     }
 

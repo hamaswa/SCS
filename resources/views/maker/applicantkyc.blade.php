@@ -7,23 +7,23 @@
                 <div class="bg-gray-light padding-5">
 
                     <div id="applicant_buttons" class="col-md-12 col-lg-12 col-sm-12">
-                        <div class="applicants pull-left">
-                            <div class="btn-group margin-bottom border-black-1" id="btn-air">
-                                <button type="button" class="btn btn-default btn-flat la_aa"
-                                        data-la="{{$applicant->id}}"
-                                        data-id="{{$applicant->id}}">{{$applicant->name}}</button>
-                                <button type="button" class="btn btn-default btn-flat dropdown-toggle"
-                                        data-toggle="dropdown"
-                                        aria-expanded="false">
-                                    <i class="fa fa-list"></i>
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <ul class="dropdown-menu position-relative" id="" role="menu">
-                                    <li><a href="#" class="">Edit</a></li>
-                                    <li><a href="#" class="deleteInd">Delete</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        {{--<div class="applicants pull-left">--}}
+                            {{--<div class="btn-group margin-bottom border-black-1" id="btn-air">--}}
+                                {{--<button type="button" class="btn btn-default btn-flat la_aa"--}}
+                                        {{--data-la="{{$applicant->id}}"--}}
+                                        {{--data-id="{{$applicant->id}}">{{$applicant->name}}</button>--}}
+                                {{--<button type="button" class="btn btn-default btn-flat dropdown-toggle"--}}
+                                        {{--data-toggle="dropdown"--}}
+                                        {{--aria-expanded="false">--}}
+                                    {{--<i class="fa fa-list"></i>--}}
+                                    {{--<span class="sr-only">Toggle Dropdown</span>--}}
+                                {{--</button>--}}
+                                {{--<ul class="dropdown-menu position-relative" id="" role="menu">--}}
+                                    {{--<li><a href="#" class="">Edit</a></li>--}}
+                                    {{--<li><a href="#" class="deleteInd">Delete</a></li>--}}
+                                {{--</ul>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                         @if(isset($attached_applicants))
                             @foreach($attached_applicants as $applicant_sub)
                                 <div class="applicants form-group pull-left">
@@ -38,11 +38,13 @@
                                             <i class="fa fa-list"></i>
                                             <span class="sr-only">Toggle Dropdown</span>
                                         </button>
+
                                         <ul class="dropdown-menu position-relative" id="" role="menu">
-                                            {{--<li><a href="#"  data-value="air" class="editincome">Edit</a></li>--}}
+                                         @if($applicant->id!=$applicant_sub->id)
                                             <li><a href='javascript:void(0)' data-la="{{$la_applicant_id}}"
                                                    data-id="{{$applicant_sub->id}}" class="deleteInd">Delete</a>
                                             </li>
+                                         @endif
                                         </ul>
                                     </div>
                                 </div>

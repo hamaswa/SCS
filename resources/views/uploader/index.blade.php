@@ -19,7 +19,7 @@
 
                 <div class="box-body ">
                     <div class="col-md-8 col-sm-8 col-lg-8">
-                    <div class="col-md-4 col-sm-4 col-lg-4 table-responsive">
+                    <div class="col-md-2 col-sm-2 col-lg-2 table-responsive">
                         <select name="type" id="type">
                             @foreach($capacity_data as $capacity)
                                 <option value="{{$capacity->name}}">
@@ -28,7 +28,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-8 col-sm-8 col-lg-8 table-responsive">
+                    <div class="col-md-10 col-sm-10 col-lg-10 table-responsive">
                         <table class="table table-bordered table-striped table-hover bg-white">
 
                             <tbody>
@@ -53,6 +53,9 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <div id="la_facilities">
+
+                        </div>
                         <table id="example5" class="table table-bordered table-hover">
                             <thead>
                             <tr>
@@ -121,6 +124,7 @@
 @endsection
 @push("scripts")
     <script type="text/javascript">
+        var applicant = null;
         $(document).ready(function (e) {
             forms=[];
             forms['facility_form'] = $("#facility_form").children().clone(true, true)
@@ -146,14 +150,31 @@
         //Add and Update New facility
         $(document.body).on("click","#facility_submit",function (e) {
             installment =  Math.round((($("#loan_amount").val()*1) + (($("#loan_amount").val()*1) * ($("#interest_rate").val() * 1)  )/ 100) / ($("#loan_tenure").val() * 12)*100)/100
-            data = $(this).parent("td").parent("tr").find(":input").serialize() + "&installment=" + installment + "&applicant_id={{$applicant->id}}";
+            data = $(this).parent("td").parent("tr").find(":input").serialize()
+                    + "&installment=" + installment
+                    + "&" + applicant;
             submit_facility(data)
         });
 
-        $(document.body).on("click",".la-applicant",function (e) {
-        sidebar($(this).data("id"));
+        $(document.body).on("click",'.la_property',function(e) {
+            $.ajax({
+                url: '{{ route("attach_property") }}',
+                type: 'POST',
+                data: "la_id=" + $("#la_id").val() + "&property_id=" + $(this).data("id"),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
+                }
+            }).done(function (response) {
+                $(".property_"+response).addClass("red");
+            })
         })
+
+        $(document.body).on("click",".la-applicant",function (e) {
+         sidebar($(this).data("id"));
+        })
+
         $(document.body).on("click",".applicants",function (e) {
+            applicant = $("input[name='applicant_id[]']:checked").serialize()
             $.ajax({
                 url: "{{ route("la_properties") }}",
                 type: "POST",
@@ -162,13 +183,112 @@
                 },
                 data: $("input[name='applicant_id[]']:checked").serializeArray(),
                 success: function (response) {
-                    $("#la-properties").html(response);
+                    $("#la-properties").html("").append($(response));
+                },
+                error: function () {
+                }
+            });
+            $.ajax({
+                url: "{{ route("la_facilities") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: $("input[name='applicant_id[]']:checked").serializeArray(),
+                success: function (response) {
+                    $("#la_facilities").html(response);
                 },
                 error: function () {
                 }
             });
 
         })
+
+        $(document.body).on("click",".facility_covered",function (e) {
+
+            applicant_id = $(this).data("id");
+            $.ajax({
+                url: "{{ route("cover_facility") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: $("input[name='facility_covered[]']:checked").serialize()
+                +"&la_id="+$("#la_id").val()
+                +"&applicant_id="+ applicant_id,
+                success: function (response) {
+                    $("#la-properties").html("").append($(response));
+                },
+                error: function () {
+                }
+            });
+            newsidebar(applicant_id);
+        })
+
+
+        function newsidebar(id) {
+            $.ajax({
+                url: "{{ route("comments") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: "id=" + id,
+                success: function (response) {
+                    $("#tab-2").html(response);
+                },
+                error: function () {
+                }
+            });
+            $.ajax({
+                url: "{{ route("documents") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: "id=" + id,
+                success: function (response) {
+                    $("#tab-1").html(response);
+                },
+                error: function () {
+                }
+            });
+            $.ajax({
+                url: "{{ route("applicant_sidebar") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: "applicant_id=" + id,
+                success: function (response) {
+                    $("#tab-3").html(response);
+                },
+                error: function () {
+                }
+            });
+            $.ajax({
+                url: "{{ route("new_commitment") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: "applicant_id=" + id + "&la_id="+ $("#la_id").val(),
+                success: function (response) {
+                    $("#new_commitment").html(response);
+                },
+                error: function () {
+                }
+            });
+            $("#existing_commitment").html("");
+            $("#new_facility").html("");
+            $("#right_side_bar").html("");
+            $("#right_side_bar").append($("#tab-3").clone());
+            $("#right_side_bar").append($("#new_facility").clone());
+            $("#right_side_bar").append($("#existing_commitment").clone());
+            $("#right_side_bar").append($("#new_commitment").clone());
+        }
+
+
         function sidebar(id) {
             $.ajax({
                 url: "{{ route("comments") }}",
@@ -254,6 +374,7 @@
             $("#right_side_bar").append($("#existing_commitment").clone());
             $("#right_side_bar").append($("#new_commitment").clone());
         }
+
         function submit_facility(form_data) {
             $.ajax({
                 url: '{{ route('add_new_facility') }}',

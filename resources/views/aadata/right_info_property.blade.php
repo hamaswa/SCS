@@ -22,7 +22,7 @@
         $total_os += $property->property_loan_outstanding;
 
         ?>
-        <tr>
+        <tr class="property_right property_{{ $property->id }}">
             <td>{{$property->property_market_value}}</td>
             <td>{{$property->property_loan_outstanding}}</td>
             <td>{{ ($property->property_market_value * (0.9) - $property->property_loan_outstanding*1) }}</td>

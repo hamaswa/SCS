@@ -23,6 +23,10 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
+
+.red {
+  color:red;
+}
 /* Layout */
 .wrapper {
   height: 100%;
