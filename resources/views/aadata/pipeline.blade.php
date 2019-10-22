@@ -161,7 +161,7 @@
 
                                             @if($d->status=="Incomplete" )
                                                 @if(request()->user()->hasRole("uploader"))
-                                                    <a href="{{ route("uploader.index") }}?id=1"
+                                                    <a href="{{ route("uploader.index") }}?id={{$d->id}}"
                                                        class="btn btn-xs bg-light-blue-gradient">Uploader</a>
 
 
