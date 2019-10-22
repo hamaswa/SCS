@@ -134,7 +134,7 @@ class ApplicantDataController extends Controller
                 $document = ApplicantDocuments::create($inputs);
                 // Need to enable ctos api calls later.
                 $this->ctos_api->CTOSpdf($inputs);
-                //$this->ctos_api->CTOSFacilityData($inputs);
+                $this->ctos_api->CTOSFacilityData($inputs);
                 if($applicant->aacategory=="I")
                     return redirect()->route("aadata.create", ["id" => $applicant->id]);
                 else

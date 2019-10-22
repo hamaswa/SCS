@@ -94,6 +94,14 @@ class SoapAPIRepo
         $options['username'] 		= "adps_xml";
         $options['password'] 		= "@d85pS24";
         $options['location_URL'] = 'https://enq.cmctos.com.my:8443/ctos/Proxy?wsdl';
+
+        //UAT credentials
+        $options['company_code'] 	= "APUAT";
+        $options['account_no']		= "APUAT";
+        $options['username'] 		= "ap_xml";
+        $options['password'] 		= "a1234567";
+        $options['location_URL'] = 'https://uat.cmctos.com.my:8443/ctos/Proxy?wsdl';
+
         $options['action_URL'] = "http://ws.proxy.xml.ctos.com.my/";
         $context = array(
             'http' => array(

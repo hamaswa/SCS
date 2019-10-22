@@ -21,11 +21,15 @@
                     <div class="col-md-8 col-sm-8 col-lg-8">
                     <div class="col-md-2 col-sm-2 col-lg-2 table-responsive">
                         <select name="type" id="type">
-                            @foreach($capacity_data as $capacity)
-                                <option value="{{$capacity->name}}">
-                                    {{ $capacity->description }}
-                                </option>
-                            @endforeach
+                            <option value="subsale">
+                            SubSale
+                            </option>
+                            <option value="undcon">
+                                UNDcon
+                            </option>
+                            <option value="unsecured">
+                                UNsecured
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-10 col-sm-10 col-lg-10 table-responsive">
@@ -41,7 +45,7 @@
                                                      <b> {{$la->name}} </b>
                                                  </td>
                                                  <td> <input type="checkbox" class="applicants"
-                                                             name="applicant_id[]" value="{{$la->id}}"> </td>
+                                                             name="applicant_id[]" value="{{$la->id}}" {{ $la->applicant_approved==1?"checked":"" }}> </td>
                                              </tr>
                                             @endforeach
                                         </table>
@@ -75,7 +79,7 @@
                             <tfoot id="facility_form">
                             <tr style="background-color: #c6d8f2;">
                                 <td>
-                                    <input type="hidden" name="la_id" id="la_id" value="{{ isset($loan_application->la_serial_no)?$loan_application->la_serial_no."_".$loan_application->la_serial_id:"" }}">
+                                    <input type="hidden" name="la_id" id="la_id" value="{{ isset($la_serial_no)?$la_serial_no."_".$la_serial_id:"" }}">
                                     <select name="type" id="type">
                                         @foreach($capacity_data as $capacity)
                                             <option value="{{$capacity->name}}">
@@ -128,6 +132,7 @@
         $(document).ready(function (e) {
             forms=[];
             forms['facility_form'] = $("#facility_form").children().clone(true, true)
+            //$(".applicants").trigger("click");
             sidebar({{$applicant->id}});
         });
         // Delete Facility
@@ -175,28 +180,60 @@
 
         $(document.body).on("click",".applicants",function (e) {
             applicant = $("input[name='applicant_id[]']:checked").serialize()
+            if(applicant==""){
+                $("#la-properties").html("");
+                $("#la_facilities").html("");
+                $("#new_facilities").html("");
+            }
+            else {
+                $.ajax({
+                    url: "{{ route("la_properties") }}",
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    data: $("input[name='applicant_id[]']:checked").serializeArray(),
+                    success: function (response) {
+                        $("#la-properties").html("").append($(response));
+                    },
+                    error: function () {
+                    }
+                });
+                $.ajax({
+                    url: "{{ route("la_facilities") }}",
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    data: $("input[name='applicant_id[]']:checked").serializeArray(),
+                    success: function (response) {
+                        $("#la_facilities").html("").append($(response));
+                    },
+                    error: function () {
+                    }
+                });
+                $.ajax({
+                    url: "{{ route("facility_edit") }}",
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    data: $("input[name='applicant_id[]']:checked").serialize() + "&la_id=" + $("#la_id").val(),
+                    success: function (response) {
+                        $("#new_facilities").html(response);
+                    },
+                    error: function () {
+                    }
+                });
+            }
             $.ajax({
-                url: "{{ route("la_properties") }}",
+                url: "{{ route("select_applicant") }}",
                 type: "POST",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
-                data: $("input[name='applicant_id[]']:checked").serializeArray(),
+                data: $("input[name='applicant_id[]']:checked").serialize() + "&la_id=" + $("#la_id").val(),
                 success: function (response) {
-                    $("#la-properties").html("").append($(response));
-                },
-                error: function () {
-                }
-            });
-            $.ajax({
-                url: "{{ route("la_facilities") }}",
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                data: $("input[name='applicant_id[]']:checked").serializeArray(),
-                success: function (response) {
-                    $("#la_facilities").html(response);
                 },
                 error: function () {
                 }
