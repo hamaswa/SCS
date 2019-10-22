@@ -22,6 +22,7 @@ class UploaderController extends Controller
     {
         $inputs = request()->all();
         $id = $inputs['id'];
+        $count=0;
         $la_applicant = LoanApplication::where("la_applicant_id",'=',$id)->get();
         if(count($la_applicant)>0) {
 
