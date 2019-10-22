@@ -132,7 +132,7 @@
         $(document).ready(function (e) {
             forms=[];
             forms['facility_form'] = $("#facility_form").children().clone(true, true)
-            $(".applicants").trigger("click");
+            $(".applicants").trigger("change");
             //sidebar({{$applicant->id}});
         });
         // Delete Facility
@@ -178,7 +178,7 @@
          sidebar($(this).data("id"));
         })
 
-        $(document.body).on("click",".applicants",function (e) {
+        $(document.body).on("change",".applicants",function (e) {
             applicant = $("input[name='applicant_id[]']:checked").serialize()
             if(applicant==""){
                 $("#la-properties").html("");
