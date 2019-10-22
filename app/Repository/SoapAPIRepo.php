@@ -30,7 +30,7 @@ class SoapAPIRepo
     public function CTOSpdf($inputs){
         $options['type']=2;
         $file = $inputs['name']."_".$inputs['unique_id'].".pdf";
-       // Storage::put("uploads/application_docs/".$file, $this->apiCall($inputs,$options));
+        Storage::put("uploads/application_docs/".$file, $this->apiCall($inputs,$options));
         $inputs['file_name'] = $file;
         $inputs['doc_name'] = "Ctos report";
         $inputs['doc_type'] = "ctos";
