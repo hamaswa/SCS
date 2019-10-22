@@ -132,8 +132,8 @@
         $(document).ready(function (e) {
             forms=[];
             forms['facility_form'] = $("#facility_form").children().clone(true, true)
-            //$(".applicants").trigger("click");
-            sidebar({{$applicant->id}});
+            $(".applicants").trigger("click");
+            //sidebar({{$applicant->id}});
         });
         // Delete Facility
         $(document.body).on("click","#facility_delete",function(e){
@@ -184,6 +184,7 @@
                 $("#la-properties").html("");
                 $("#la_facilities").html("");
                 $("#new_facilities").html("");
+                sidebar({{$applicant->id}});
             }
             else {
                 $.ajax({
