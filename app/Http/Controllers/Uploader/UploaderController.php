@@ -216,8 +216,6 @@ class UploaderController extends Controller
             $inputs = $request->all();
 
             $inputs['applicant_id'] = implode(",", $inputs['applicant_id']);
-
-            print_r($inputs);
             LoanApplication::whereRaw("la_serial_no ='" . explode("_",$inputs['la_id'])[0] ."'
              and la_serial_id ='" . explode("_",$inputs['la_id'])[1] ."'")
                 ->update(["applicant_approved"=>null]);
