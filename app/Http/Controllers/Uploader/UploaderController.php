@@ -10,6 +10,7 @@ use App\AASource;
 use App\ApplicantProperty;
 use App\maker\LoanApplication;
 use Auth;
+use DB;
 
 class UploaderController extends Controller
 {
@@ -89,10 +90,17 @@ class UploaderController extends Controller
     public function  existingCommitment(Request $request)
     {
         $inputs = $request->all();
+
         $arr['applicant'] = ApplicantData::find($inputs['applicant_id']);
         $arr['existing_commitments'] = FacilityInfo::where("applicant_id","=",$inputs['applicant_id'])
             ->where("la_id",'=', null)
             ->get();
+
+        $arr['income_total'] = DB::table('applicant_income')
+            ->select(DB::raw("sum(gross) as total_gross, sum(net) as total_net"))
+            ->where("applicant_id","=",$inputs['applicant_id'])
+            ->groupby("applicant_id")
+            ->first();
 
         return view("uploader.existing_commitment")->with($arr);
     }
@@ -111,6 +119,11 @@ class UploaderController extends Controller
                " )"
             . " OR la_id = '".  $inputs['la_id']."'")
             ->get();
+        $arr['income_total'] = DB::table('applicant_income')
+            ->select(DB::raw("sum(gross) as total_gross, sum(net) as total_net"))
+            ->where("applicant_id","=",$inputs['applicant_id'])
+            ->groupby("applicant_id")
+            ->first();
 
         return view("uploader.new_commitment")->with($arr);
     }
