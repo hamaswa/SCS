@@ -132,8 +132,9 @@
         $(document).ready(function (e) {
             forms=[];
             forms['facility_form'] = $("#facility_form").children().clone(true, true)
+            sidebar({{$applicant->id}});
             $(".applicants").trigger("change");
-            //sidebar({{$applicant->id}});
+
         });
         // Delete Facility
         $(document.body).on("click","#facility_delete",function(e){
