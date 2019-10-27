@@ -1,9 +1,9 @@
-<table id="example5" class="table table-bordered table-hover bg-white">
+<table id="example5" class="table table-bordered table-hover bg-white new_commitment">
     <thead>
     <tr> <th colspan="3">New Commitment </th></tr>
     <tr class="bg-light-blue-gradient">
         <th>Type</th>
-        <th>Montyly</th>
+        <th>Monthly</th>
         <th>DSR</th>
     </tr>
     </thead>
@@ -12,11 +12,9 @@
     $total = 0;
     ?>
     @foreach($new_commitments as $k => $v)
-
         <tr {{ ($v->la_id!= null? "style=color:red":"") }}>
             <td>
                 {{strtoupper($v->type) }}
-
             </td>
             <td>
                 {{$v->installment}}
@@ -35,12 +33,9 @@
     <tr {{ ($v->la_id!= null? "style=color:red":"") }}>
         <td>
             Total
-
         </td>
         <td>
             {{$total}}
-
-
         </td>
         <td>
             @if($total!=0)

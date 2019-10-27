@@ -46,7 +46,7 @@ class SoapAPIRepo
 
         $xmlresponse = strtolower($this->apiCall($inputs, $options));
         $reponsedata = simplexml_load_string($xmlresponse);// $xmlresponse->children();
-        if (isset($reponsedata->enq_report->enquiry->section_ccris->accounts)) {
+               if (isset($reponsedata->enq_report->enquiry->section_ccris->accounts)) {
             $accounts = $reponsedata->enq_report->enquiry->section_ccris->accounts;
 
             foreach ($accounts[0] as $account) {
@@ -89,11 +89,11 @@ class SoapAPIRepo
 
 
     public function apiCall($inputs,$options){///
-        $options['company_code'] 	= "ADPS";
-        $options['account_no']		= "ADPS";
-        $options['username'] 		= "adps_xml";
-        $options['password'] 		= "@d85pS24";
-        $options['location_URL'] = 'https://enq.cmctos.com.my:8443/ctos/Proxy?wsdl';
+//        $options['company_code'] 	= "ADPS";
+//        $options['account_no']		= "ADPS";
+//        $options['username'] 		= "adps_xml";
+//        $options['password'] 		= "@d85pS24";
+//        $options['location_URL'] = 'https://enq.cmctos.com.my:8443/ctos/Proxy?wsdl';
 
         //UAT credentials
         $options['company_code'] 	= "APUAT";
@@ -146,7 +146,8 @@ class SoapAPIRepo
         try{
 
             $order_return = $client->request(array("input"=>$SimpleXMLElement->asXML())) ;
-            return $order_return->return;
+            print_r($order_return);
+
 
 
         }catch (SoapFault $exception){

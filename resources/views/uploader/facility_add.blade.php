@@ -21,6 +21,9 @@
                style="background-color: #fff;">
     </td>
     <td>
+
+    </td>
+    <td>
         <button class="btn btn-default" id="Add">Add</button>
     </td>
 

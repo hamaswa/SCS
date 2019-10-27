@@ -337,7 +337,7 @@ if (isset($applicant)) {
                         @include("aadata.right_info_wealth")
                     </div>
 
-                   <div class="table-responsive" id="propertykyc_right">
+                    <div class="table-responsive" id="propertykyc_right">
                         <table class="table table-bordered table-striped table-hover bg-white">
                             <thead class="bg-light-blue">
                             <tr class="bg-light-blue-gradient">
@@ -384,8 +384,12 @@ if (isset($applicant)) {
                         </table>
                     </div>
 
-                </div>
-                <div id="tab-4">
+
+
+
+
+                    </div>
+                <div id="tab-4" class="">
                     <div class="table-responsive" id="existing_facility">
                     </div>
                     <div class="table-responsive" id="new_facility">
@@ -395,10 +399,8 @@ if (isset($applicant)) {
                     </div>
 
                     <div class="table-responsive" id="new_commitment">
-
-                    </div>
-
                 </div>
+
             </div>
             <!-- /.tab-pane -->
         </div>

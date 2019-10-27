@@ -20,6 +20,7 @@ class HousingLoanController extends Controller
     public function index()
     {
         $applicantdata = ApplicantData::where("user_id","=",Auth::id())
+            ->orderBy("id","desc")
             ->paginate(5);
 
         $capacity_types_data  = AASource::where("type","capacity_type")->get();
@@ -38,9 +39,12 @@ class HousingLoanController extends Controller
      */
     public function create(Request $request)
     {
-        $capacity_data  = AASource::where("type","facility_type")->get();
+        $arr["capacity_data"]  = AASource::where("type","facility_type")->get();
         $inputs = $request->all();
-        return view("de")->with(["applicant_id" => $inputs['applicant_id'],"capacity_data"=>$capacity_data]);
+        $arr['applicant']= ApplicantData::find($inputs['applicant_id']);
+        $arr["applicant_id"] =  $inputs['applicant_id'];
+        $arr["facility_data"] = FacilityInfo::where("applicant_id","=",$inputs['applicant_id'])->get();
+        return view("de")->with($arr);
     }
 
     /**
@@ -56,26 +60,20 @@ class HousingLoanController extends Controller
 
         if(isset($data['submit']) and $data['submit']=='Search') {
             $applicantdata = ApplicantData::where($data['searchfield'], '=', $data['search'])
-                ->where("user_id","=",Auth::id())->paginate(5);
+                ->where("user_id","=",Auth::id())
+                ->orderBy("id","desc")->paginate(5);
             return view("deview")->with(['applicantdata'=>$applicantdata]);
         }
         else {
             $data['csris'] = implode(",", $data['csris']);
-            $facility = FacilityInfo::create($data);
-//        $facility->type = $data['type'];
-//        $facility->csris = implode(",", $data['csris']);
-//        $facility->facilitydate = $data['facilitydate'];
-//        $facility->capacity = isset($data['capacity'])?$data['capacity']:"";
-//        $facility->facilitylimit = $data['facilitylimit'];
-//        $facility->facilityoutstanding = $data['facilityoutstanding'];
-//        $facility->installment = $data['installment'];
-//        $facility->mia = $data['mia'];
-//        $facility->conduct = $data['conduct'];
-//        $facility->save();
-            if ($facility->id) {
-                echo "success";
+            $arr["facility"] = FacilityInfo::create($data);
+            $arr["facility_data"] = FacilityInfo::where("applicant_id","=",$data['applicant_id'])->get();
+
+
+            if ($arr["facility"]->id) {
+               return view("facility_info_view")->with($arr);
             } else {
-                echo "fail";
+                echo "error";
             }
         }
     }

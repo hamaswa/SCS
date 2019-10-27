@@ -11,6 +11,10 @@
             </ol>
         </section>
         <section class="content">
+            <div class="col-lg-12 right-side"><b>{{ $applicant->name }}</b></div>
+            <div id="facility_view">
+                @include("facility_info_view")
+            </div>
             <form id="de" name="de">
                 @csrf
                 <div class="row mar-lr">
@@ -93,7 +97,7 @@
                                     <th style="width: 100px;">Capacity</th>
                                     <th style="width: 100px;">Facility Limit</th>
                                     <th style="width: 100px;">Facility Outstanding</th>
-                                    <th style="width: 100px;">Instalment</th>
+                                    <th style="width: 100px;">Installment</th>
                                     <th style="width: 102px;">MIA</th>
                                     <th style="width: 102px;">CONDUCT</th>
                                 </tr>
@@ -104,7 +108,7 @@
                                         <div class="form-group">
                                             <div class="input-group">
 
-                                                <input type="text" id="facilitydate" required name="facilitydate" placeholder="dd/mm/yyyy" class="form-control"
+                                                <input type="date" id="facilitydate" required name="facilitydate" placeholder="dd/mm/yyyy" class="form-control"
                                                        data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
                                             </div>
                                             <!-- /.input group -->
@@ -215,9 +219,9 @@
                 break;
         }
     })
-    $('#facilitydate').datepicker({
-        format: 'yyyy-mm-dd'
-    });
+    // $('#facilitydate').datepicker({
+    //     format: 'yyyy-mm-dd'
+    // });
     $("#mia,#conduct,#type").select2({allowclear:true});
 
     $(document).ready(function() {
@@ -261,7 +265,15 @@
                 type: 'POST',
                 data: $("#de").serialize()
             }).done(function (response) { //
-                if (response == "success") {
+                if (response == "error")
+                 {
+                    $("#response").html($("<div class=\"alert alert-danger alert-dismissable\">\n" +
+                        "                Error Occured.\n" +
+                        "                <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>\n" +
+                        "\n" +
+                        "            </div>"))
+                }
+                else {
                     $("#facilitydate,#facilitylimit,#facilityoutstanding,#installment,#csris").val("");
                     $("#response").html($("<div class=\"alert alert-success alert-dismissable\">\n" +
                         "                Record Successfully Added\n" +
@@ -269,14 +281,80 @@
                         "\n" +
                         "            </div>")).show();
                 }
-                else {
-                    $("#response").html($("<div class=\"alert alert-danger alert-dismissable\">\n" +
-                        "                Error Occured.\n" +
-                        "                <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>\n" +
-                        "\n" +
-                        "            </div>"))
-                }
+                $("#facility_view").html("").append($(response));
             });
+        });
+        $(".update_facility").click(function () {
+            event.preventDefault(); //prevent default action
+            submit = true;
+            $(".has-error").removeClass("has-error");
+
+            // if ($("#facilitylimit").val() == "") {
+            //     $("#facilitylimit").parent("div").addClass("has-error")
+            //     submit = false;
+            //
+            // }
+            // if ($("#facilityoutstanding").val() == "") {
+            //     $("#facilityoutstanding").parent("div").addClass("has-error")
+            //     submit = false;
+            // }
+            // if ($("#facilitydate").val() == "") {
+            //     $("#facilitydate").parent("div").addClass("has-error")
+            //     submit = false;
+            // }
+            // if ($("#installment").val() == "") {
+            //     $("#installment").parent("div").addClass("has-error")
+            //     submit = false;
+            // }
+            // if (submit == false) {
+            //     return false;
+            // }
+
+            data = $(this).parent("td").parent("tr").find(":input").serializeArray();
+            for(d in data){
+                if(data[d]['name']=='_method'){
+                    data[d]['value']="patch";
+                }
+
+            }
+
+
+            form = document.createElement("form");
+            form.action = '{{ route('housingloan.update',1) }}'
+            form.method = 'POST';
+            $(this).parent("td").parent("tr").find(":input").each(function (e) {
+                $(form).append($(this));
+            })
+            $(form).find("input[name=_method]").attr("id","_method").val("patch");
+            $(document.body).append(form)
+            form.submit();
+
+
+
+            {{--$.ajax({--}}
+            {{--url: '{{ route('housingloan.update',1) }}',--}}
+            {{--type: 'POST',--}}
+            {{--data: data,--}}
+            {{--headers: {--}}
+            {{--'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),--}}
+            {{--},--}}
+            {{--}).done(function (response) { //--}}
+            {{--if (response == "success") {--}}
+            {{--$("#facilitydate,#facilitylimit,#facilityoutstanding,#installment,#csris").val("");--}}
+            {{--$("#response").html($("<div class=\"alert alert-success alert-dismissable\">\n" +--}}
+            {{--"                Record Successfully Added\n" +--}}
+            {{--"                <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>\n" +--}}
+            {{--"\n" +--}}
+            {{--"            </div>")).show();--}}
+            {{--}--}}
+            {{--else {--}}
+            {{--$("#response").html($("<div class=\"alert alert-danger alert-dismissable\">\n" +--}}
+            {{--"                Error Occured.\n" +--}}
+            {{--"                <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>\n" +--}}
+            {{--"\n" +--}}
+            {{--"            </div>"))--}}
+            {{--}--}}
+            {{--});--}}
         });
 
 

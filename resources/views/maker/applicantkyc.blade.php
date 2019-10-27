@@ -90,7 +90,7 @@
                                 ?>
                                 <div class="btn-group margin-bottom border-black-1 businesskyc-action-btn">
                                     <button type="button" data-number='{{$i}}'
-                                            class="btn btn-default btn-flat view editbusiness">{{  $business->business_type."".$i_no }}</button>
+                                            class="btn btn-default btn-flat editbusiness">{{  $business->business_type."".$i_no }}</button>
                                     <button type="button" class="btn btn-default btn-flat dropdown-toggle"
                                             data-toggle="dropdown"/>
 
@@ -370,6 +370,7 @@
             document.body.appendChild(form);
             form.submit();
             $("#wealth_doc_form").find("option:selected").prop("selected", false)
+            $("#showBussinessModal").modal('hide');
         });
 
         $("#nextincomekyc").click(function (e) {

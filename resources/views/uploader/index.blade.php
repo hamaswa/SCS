@@ -20,14 +20,14 @@
                 <div class="box-body ">
                     <div class="col-md-8 col-sm-8 col-lg-8">
                     <div class="col-md-2 col-sm-2 col-lg-2 table-responsive">
-                        <select name="type" id="type">
-                            <option value="subsale">
+                        <select name="la_type" id="la_type">
+                            <option value="subsale"  {{ ($loan_application->bank=="subsale"?"selected":"") }}>
                             SubSale
                             </option>
-                            <option value="undcon">
+                            <option value="undcon"  {{ ($loan_application->bank=="undcon"?"selected":"") }}>
                                 UNDcon
                             </option>
-                            <option value="unsecured">
+                            <option value="unsecured"  {{ ($loan_application->bank=="unsecured"?"selected":"") }}>
                                 UNsecured
                             </option>
                         </select>
@@ -69,6 +69,7 @@
                                 <th style="width: 100px;"> Interest Rate (%.p.a)
                                 </th>
                                 <th style="width: 100px;">Loan Amount (RM)</th>
+                                <th>Installment</th>
                                 <th style="width: 100px;">Action</th>
 
                             </tr>
@@ -101,15 +102,45 @@
                                            style="background-color: #fff;">
                                 </td>
                                 <td>
+                                    <input type="number" name="loan_amount" id="loan_amount" disabled class="form-control my-colorpicker1"
+                                           style="background-color: #fff;">
+                                </td>
+                                <td>
                                     <button id="facility_submit" class="btn btn-default">Add</button>
                                 </td>
 
                             </tr>
                             <tr>
-                                <td class="add-button">
-                                    <button type="button"  class="btn bg-maroon btn-flat margin">ADD</button>
+                                <td class="add-button" colspan="6">
+                                    <div class="pull-right">
+                                    <button type="button" id="create_la" class="btn bg-maroon btn-flat margin">Create LA</button>
+                                    </div>
                                 </td>
                             </tr>
+                            <tr>
+                                <td colspan="2">
+
+                                </td>
+                                <td id="la_bank" colspan="4" class="hide">
+                                    <div class="pull-right form-group">
+                                        <div class="col-lg-6">
+                                            <select name="bank" id="bank" class="form-control">
+                                                <option value="abmb" {{ ($loan_application->bank=="abmb"?"selected":"") }}>
+                                                    ABMB
+                                                </option>
+                                                <option value="cimb" {{ ($loan_application->bank=="cimb"?"selected":"") }}>
+                                                    CIMB
+                                                </option>
+                                                <option value="hlbb" {{ ($loan_application->bank=="hlbb"?"selected":"") }}>
+                                                    HLBB
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <input type="button" id="assign_bank" value="Assign" class="btn btn-default">
+                                        </div>
+                                    </div>
+                                </td></tr>
                             </tfoot>
                         </table>
 
@@ -132,11 +163,35 @@
         $(document).ready(function (e) {
             forms=[];
             forms['facility_form'] = $("#facility_form").children().clone(true, true)
-            sidebar({{$applicant->id}});
+            //sidebar({{$applicant->id}});
             $(".applicants").trigger("change");
+            $(".la_property").trigger("click")
 
         });
         // Delete Facility
+
+        $(document.body).on("click","#assign_bank",function(){
+            $("#la_bank").removeClass("hide");
+           data = "bank=" +  $("#bank").val() + "&la_type="+$("#la_type").val() +
+                    "&id={{$loan_application->id}}&la=update_la";
+            $.ajax({
+                url: '{{ route('uploader.store') }}',
+                type: 'POST',
+                data: data,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+            }).done(function (response) {
+                if(response=="success"){
+                    alert("LA Created Successfully. Bank Assign Successfully")
+                }
+            })
+        })
+
+        $(document.body).on("click","#create_la",function(){
+            $("#la_bank").removeClass("hide");
+            $("#bank").click();
+        })
         $(document.body).on("click","#facility_delete",function(e){
 
             that = $(this);
@@ -150,23 +205,41 @@
             }).done(function (response) {
                 if(response=="success"){
                     that.parent("td").parent("tr").remove();
+                    sidebar($("input[name='applicant_id[]']:checked").val())
+
                 }
             })
+
         })
         //Add and Update New facility
         $(document.body).on("click","#facility_submit",function (e) {
-            installment =  Math.round((($("#loan_amount").val()*1) + (($("#loan_amount").val()*1) * ($("#interest_rate").val() * 1)  )/ 100) / ($("#loan_tenure").val() * 12)*100)/100
+            loan_amount=$(this).parent("td").parent("tr").find("#loan_amount").val();
+            const principal = parseFloat(loan_amount);
+
+            interest_rate=$(this).parent("td").parent("tr").find("#interest_rate").val();
+            const calculatedInterest = parseFloat(interest_rate / 100 / 12);
+
+            loan_tenure=$(this).parent("td").parent("tr").find("#loan_tenure").val();
+            const calculatedPayments = parseFloat(loan_tenure) * 12;
+            const x = Math.pow(1 + calculatedInterest, calculatedPayments);
+            const installment = Math.round((principal * x * calculatedInterest) / (x - 1),2);
+
+
+
+            //installment =  Math.round(total_repay/ (loan_tenure*12),2);
             data = $(this).parent("td").parent("tr").find(":input").serialize()
                     + "&installment=" + installment
-                    + "&" + applicant;
+                    + "&applicant_id=" + applicant;
             submit_facility(data)
+
         });
 
         $(document.body).on("click",'.la_property',function(e) {
             $.ajax({
                 url: '{{ route("attach_property") }}',
                 type: 'POST',
-                data: "la_id=" + $("#la_id").val() + "&property_id=" + $(this).data("id"),
+
+                data: $("input[name='applicant_id[]']:checked").serialize() + "&la_id=" + $("#la_id").val() + "&property_id=" + $(this).data("id"),
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
                 }
@@ -176,7 +249,7 @@
         })
 
         $(document.body).on("click",".la-applicant",function (e) {
-         sidebar($(this).data("id"));
+            sidebar($(this).data("id"));
         })
 
         $(document.body).on("change",".applicants",function (e) {
@@ -194,7 +267,7 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     },
-                    data: $("input[name='applicant_id[]']:checked").serializeArray(),
+                    data: $("input[name='applicant_id[]']:checked").serialize() + "&la_id=" + $("#la_id").val() + "&property_id=" + $(this).data("id"),
                     success: function (response) {
                         $("#la-properties").html("").append($(response));
                     },
@@ -207,7 +280,7 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     },
-                    data: $("input[name='applicant_id[]']:checked").serializeArray(),
+                    data: $("input[name='applicant_id[]']:checked").serialize() + "&la_id=" + $("#la_id").val(),
                     success: function (response) {
                         $("#la_facilities").html("").append($(response));
                     },
@@ -228,23 +301,29 @@
                     }
                 });
             }
-            $.ajax({
-                url: "{{ route("select_applicant") }}",
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                data: $("input[name='applicant_id[]']:checked").serialize() + "&la_id=" + $("#la_id").val(),
-                success: function (response) {
-                },
-                error: function () {
-                }
-            });
-
+            if($("input[name='applicant_id[]']:checked").serialize()!=="") {
+                $.ajax({
+                    url: "{{ route("select_applicant") }}",
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    data: $("input[name='applicant_id[]']:checked").serialize() +
+                    "&la_id=" + $("#la_id").val(),
+                    success: function (response) {
+                    },
+                    error: function () {
+                    }
+                });
+            }
+            applicant = $("input[name='applicant_id[]']:checked").val();
+            if(applicant=="") {
+                applicant ={{$applicant->id}}
+            }
+            sidebar(applicant)
         })
 
         $(document.body).on("click",".facility_covered",function (e) {
-
             applicant_id = $(this).data("id");
             $.ajax({
                 url: "{{ route("cover_facility") }}",
@@ -261,74 +340,12 @@
                 error: function () {
                 }
             });
-            newsidebar(applicant_id);
+            sidebar(applicant_id);
         })
 
-
-        function newsidebar(id) {
-            $.ajax({
-                url: "{{ route("comments") }}",
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                data: "id=" + id,
-                success: function (response) {
-                    $("#tab-2").html(response);
-                },
-                error: function () {
-                }
-            });
-            $.ajax({
-                url: "{{ route("documents") }}",
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                data: "id=" + id,
-                success: function (response) {
-                    $("#tab-1").html(response);
-                },
-                error: function () {
-                }
-            });
-            $.ajax({
-                url: "{{ route("applicant_sidebar") }}",
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                data: "applicant_id=" + id,
-                success: function (response) {
-                    $("#tab-3").html(response);
-                },
-                error: function () {
-                }
-            });
-            $.ajax({
-                url: "{{ route("new_commitment") }}",
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                data: "applicant_id=" + id + "&la_id="+ $("#la_id").val(),
-                success: function (response) {
-                    $("#new_commitment").html(response);
-                },
-                error: function () {
-                }
-            });
-            $("#existing_commitment").html("");
-            $("#new_facility").html("");
-            $("#right_side_bar").html("");
-            $("#right_side_bar").append($("#tab-3").clone());
-            $("#right_side_bar").append($("#new_facility").clone());
-            $("#right_side_bar").append($("#existing_commitment").clone());
-            $("#right_side_bar").append($("#new_commitment").clone());
-        }
-
-
         function sidebar(id) {
+            $("#right_side_bar").html("");
+            $("#tab-3").html();
             $.ajax({
                 url: "{{ route("comments") }}",
                 type: "POST",
@@ -364,32 +381,8 @@
                 data: "applicant_id=" + id,
                 success: function (response) {
                     $("#tab-3").html(response);
-                },
-                error: function () {
-                }
-            });
-            $.ajax({
-                url: "{{ route("existing_commitment") }}",
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                data: "applicant_id=" + id,
-                success: function (response) {
-                    $("#existing_commitment").html(response);
-                },
-                error: function () {
-                }
-            });
-            $.ajax({
-                url: "{{ route("new_commitment") }}",
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                data: "applicant_id=" + id + "&la_id="+ $("#la_id").val(),
-                success: function (response) {
-                    $("#new_commitment").html(response);
+                    $("#right_side_bar").append($("#tab-3").clone(true));
+
                 },
                 error: function () {
                 }
@@ -402,16 +395,49 @@
                 },
                 data: "applicant_id=" + id + "&la_id="+ $("#la_id").val(),
                 success: function (response) {
-                    $("#new_facility").html(response);
+                    if(response!="") {
+                        $("#new_facility").html("").append($(response));
+                        $("#right_side_bar").append($(response));
+                        $.ajax({
+                            url: "{{ route("new_commitment") }}",
+                            type: "POST",
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            data: "applicant_id=" + id + "&la_id=" + $("#la_id").val(),
+                            success: function (response) {
+                                $("#new_commitment").html("").append($(response));
+                                $("#right_side_bar").append($(response));
+
+                            },
+                            error: function () {
+                            }
+                        });
+                    }
+
+
+
+                    },
+                error: function () {
+                }
+            });
+            $.ajax({
+                url: "{{ route("existing_commitment") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: "applicant_id=" + id,
+                success: function (response) {
+                    $("#existing_commitment").html("").append($(response));
+                    $("#right_side_bar").append($(response));
+
                 },
                 error: function () {
                 }
             });
-            $("#right_side_bar").html("");
-            $("#right_side_bar").append($("#tab-3").clone());
-            $("#right_side_bar").append($("#new_facility").clone());
-            $("#right_side_bar").append($("#existing_commitment").clone());
-            $("#right_side_bar").append($("#new_commitment").clone());
+
+
         }
 
         function submit_facility(form_data) {
@@ -425,6 +451,8 @@
             }).done(function (response) {
                 $("#new_facilities").html("").append(response);
                 $("#facility_form").html("").append($(forms["facility_form"]).clone(true, true))
+                $(".applicants").trigger("change");
+
             })
 
         }

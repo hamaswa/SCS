@@ -1,9 +1,9 @@
-<table id="example5" class="table table-bordered table-hover bg-white">
+<table  class="table table-bordered table-hover bg-white existing_commitment">
     <thead>
     <tr> <th colspan="3">Existing Commitment </th></tr>
     <tr class="bg-light-blue-gradient">
         <th>Type</th>
-        <th>Montyly</th>
+        <th>Monthly</th>
         <th>DSR</th>
     </tr>
     </thead>

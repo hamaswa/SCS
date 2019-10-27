@@ -11,6 +11,9 @@
         </tr>
         </thead>
         <tbody>
+        @php
+            $facility_covered = app('App\Http\Controllers\Uploader\UploaderController')->checkFacilityIfCovered(request()->all())
+        @endphp
         @foreach($data->facilityInfo as $k => $v)
          @if($v->la_id==null)
             <tr>
@@ -39,7 +42,13 @@
 
 
                 <td>
-                    <input type="checkbox" class="facility_covered" name="facility_covered[]" data-id="{{$data->id}}" value="{{$v->id}}">
+                    @php
+                     $ar = explode(",",$facility_covered);
+
+                    @endphp
+                     <input type="checkbox" class="facility_covered" name="facility_covered[]"
+                            data-id="{{$data->id}}" value="{{$v->id}}"
+                     {{ in_array($v->id, $ar)?"checked":""  }}>
                 </td>
             </tr>
          @endif
@@ -47,13 +56,7 @@
 
 
         </tbody>
-        <tfoot>
-        <tr>
-            <td colspan="9">
-                <label>CURRENT COMMITMENT</label>
-            </td>
-        </tr>
-        </tfoot>
+
     </table>
 
 @endforeach

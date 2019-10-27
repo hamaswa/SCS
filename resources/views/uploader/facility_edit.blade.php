@@ -27,6 +27,11 @@
                style="background-color: #fff;">
     </td>
     <td>
+        <input type="number" disabled class="form-control my-colorpicker1"
+               value ="{{ $facility->installment }}"
+               style="background-color: #fff;">
+    </td>
+    <td>
         <button class="btn btn-default" id="facility_submit">Update</button>
         <button class="btn btn-default" data-id="{{$facility->id}}" id="facility_delete">Delete</button>
     </td>

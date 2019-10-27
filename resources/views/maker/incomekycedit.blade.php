@@ -22,6 +22,7 @@
                 </div>
                 @if(isset($attached_applicants))
                     @foreach($attached_applicants as $applicant_sub)
+                        @if($applicant->id!=$applicant_sub->id)
                         <div class="applicants form-group pull-left">
                             <div class="btn-group margin-bottom border-black-1"
                                  id="btn-air">
@@ -37,6 +38,7 @@
 
                             </div>
                         </div>
+                        @endif
 
                     @endforeach
                 @endif

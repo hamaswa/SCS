@@ -24,23 +24,29 @@ class UploaderController extends Controller
         $inputs = request()->all();
         $id = $inputs['id'];
         $count=0;
-        $la_applicant = LoanApplication::where("la_applicant_id",'=',$id)->get();
-        if(count($la_applicant)>0) {
+//        echo "select count(distinct la_serial_id) as count from loan_applications where
+//                la_serial_no='" . date("dmY") . "' group by la_serial_id";
+        $applicant_count = LoanApplication::selectRaw("count(distinct la_serial_id) as count")
+            ->whereRaw("la_serial_no='" . date("dmY") . "'")
+            ->get()
+            ->groupBy("la_serial_id")->first();
+        $count = (int)$applicant_count[0]["count"];
 
-            $applicant_count = LoanApplication::selectRaw("count(*) as count")
-                ->whereRaw("la_serial_no='" . date("dmY") . "'")
-                ->get()->ToArray();
-            $count = (int)$applicant_count[0]["count"];
+        $la_applicant = LoanApplication::where("la_applicant_id",'=',$id)->first();
 
+        if($la_applicant->la_serial_no==null){
+            $count=$count + 1;
+            $la_applicant = LoanApplication::where("la_applicant_id",'=',$id)->get();
             foreach ($la_applicant as $applicant) {
                 $applicant->la_serial_no = date("dmY");
-                $applicant->la_serial_id = $count + 1;
+                $applicant->la_serial_id = $count;
                 $applicant->save();
             }
         }
+        $la_applicant = LoanApplication::where("la_applicant_id",'=',$id)->first();
 
-        $arr["la_serial_no"] = date("dmY");
-        $arr["la_serial_id"] = $count+1;
+        $arr["la_serial_no"] = $la_applicant->la_serial_no;
+        $arr["la_serial_id"] = $la_applicant->la_serial_id;
         $arr["loan_application"] = $la_applicant;
         $arr["applicant"] = ApplicantData::find($id);
         $arr["applicants"] = ApplicantData::selectRaw("applicant_data.id,name,applicant_approved")
@@ -48,7 +54,7 @@ class UploaderController extends Controller
                 $join->on("applicant_data.id","=",'loan_applications.applicant_id');
             })
             ->whereRaw(
-            "(
+                "(
                 (applicant_data.id = $id)
                     OR
                         (applicant_data.id in (select applicant_id from loan_applications where la_applicant_id=" . $id . "))
@@ -77,7 +83,7 @@ class UploaderController extends Controller
         $arr["facilities"] = FacilityInfo::whereRaw("
                 status='new_facility' and 
                 applicant_id=" . $id . " and ".
-                "la_id='". $arr["la_serial_no"] . "_".$arr["la_serial_id"]."'")
+            "la_id='". $arr["la_serial_no"] . "_".$arr["la_serial_id"]."'")
             ->get();
 
 
@@ -108,17 +114,17 @@ class UploaderController extends Controller
     public function  newCommitment(Request $request)
     {
         $inputs = $request->all();
-
         $arr['applicant'] = ApplicantData::find($inputs['applicant_id']);
         $la_application = LoanApplication::where("applicant_id","=",$inputs['applicant_id'])->first();
         $facility_covered = $la_application->facility_covered;
+
         $arr['new_commitments'] = FacilityInfo::whereRaw(
             "(applicant_id = '" . $inputs['applicant_id'] . "' 
                 and la_id  is NULL "
             . (($facility_covered!="" OR $facility_covered!=null)? "and id not in ($facility_covered)": "").
-               " )"
+            " )"
             . " OR la_id = '".  $inputs['la_id']."'")
-            ->get();
+            ->where("applicant_id","=",$inputs['applicant_id'])->get();
         $arr['income_total'] = DB::table('applicant_income')
             ->select(DB::raw("sum(gross) as total_gross, sum(net) as total_net"))
             ->where("applicant_id","=",$inputs['applicant_id'])
@@ -142,6 +148,7 @@ class UploaderController extends Controller
     public function  facilityEdit(Request $request)
     {
         $inputs = $request->all();
+
         $arr["capacity_data"] = AASource::where("type", "facility_type")->get();
 
         $arr["facilities"] = FacilityInfo::whereRaw("
@@ -176,51 +183,51 @@ class UploaderController extends Controller
         $inputs = $request->all();
 
         $arr['applicants'] = ApplicantData::find($inputs['applicant_id']);
-//        $ids = implode(",",$inputs['applicant_id']);
-//        $arr["applicants"] = ApplicantData::selectRaw("applicant_data.id,name,applicant_approved,facility_covered")
-//            ->leftjoin('loan_applications',function ($join){
-//                $join->on("applicant_data.id","=",'loan_applications.applicant_id');
-//            })
-//            ->whereRaw(
-//                "(
-//    (applicant_data.id in (1)
-//OR
-//(applicant_data.id in (select applicant_id from loan_applications where la_applicant_id in (1)))
-//
-//)
-//    OR
-//    (
-//        applicant_data.id in
-//        (
-//            select applicant_id from loan_applications where la_applicant_id in
-//            (
-//                select applicant_data.id from applicant_data where
-//                (
-//                    (applicant_data.id in (1))
-//                    OR
-//                    (applicant_data.id in (select applicant_id from loan_applications where la_applicant_id in (1)))
-//                )
-//            )
-//        )
-//    )
-//    and applicant_data.user_id ='" . Auth::id() . "'")->get();
+
         return view("uploader.la_facilities")->with($arr);
+    }
+
+    public static function checkFacilityIfCovered($inputs){
+        $applicant_id = implode(",",$inputs['applicant_id']);
+        $la_app = LoanApplication::where("applicant_id", "=", $applicant_id)
+            ->where("la_serial_no", "=", explode("_", $inputs['la_id'])[0])
+            ->where("la_serial_id", "=", explode("_", $inputs['la_id'])[1])->first();
+        if(isset($la_app->facility_covered))
+            return $la_app->facility_covered;
+        else
+            return "";
+    }
+
+    public static function checkPropertyIfCovered($inputs){
+        $applicant_id = implode(",",$inputs['applicant_id']);
+        $la_app = LoanApplication::where("applicant_id", "=", $applicant_id)
+            ->where("la_serial_no", "=", explode("_", $inputs['la_id'])[0])
+            ->where("la_serial_id", "=", explode("_", $inputs['la_id'])[1])->first();
+        if(isset($la_app->property_id))
+            return $la_app->property_id;
+        else
+            return "";
     }
 
     public function coverFacility(Request $request){
         try {
             $inputs = $request->all();
+            if(isset($inputs['facility_covered']))
+                $facility_covered= implode(",", $inputs['facility_covered']);
+            else
+                $facility_covered="";
 
-            $inputs['facility_covered'] = implode(",", $inputs['facility_covered']);
             $la_app = LoanApplication::where("applicant_id", "=", $inputs['applicant_id'])
                 ->where("la_serial_no", "=", explode("_", $inputs['la_id'])[0])
                 ->where("la_serial_id", "=", explode("_", $inputs['la_id'])[1])->first();
-            $la_app->facility_covered = $inputs['facility_covered'];
+
+                $la_app->facility_covered = $facility_covered;
+
             $la_app->save();
             echo "success";
         }
         catch(\Exception $e){
-            echo "error";
+            echo $e->getMessage();
         }
 
     }
@@ -228,7 +235,7 @@ class UploaderController extends Controller
     public function SelectApplicant(Request $request){
         try {
             $inputs = $request->all();
-
+            // print_r($inputs);exit();
             $inputs['applicant_id'] = implode(",", $inputs['applicant_id']);
             LoanApplication::whereRaw("la_serial_no ='" . explode("_",$inputs['la_id'])[0] ."'
              and la_serial_id ='" . explode("_",$inputs['la_id'])[1] ."'")
@@ -241,7 +248,7 @@ class UploaderController extends Controller
 
         }
         catch(\Exception $e){
-           // print_r($e);
+            // print_r($e);
             echo "error";
         }
 
@@ -266,7 +273,17 @@ class UploaderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $inputs = $request->all();
+            $applicant_la = LoanApplication::find($inputs["id"]);
+            $applicant_la->update($inputs);
+            echo "success";
+        } catch (\Exception $e) {
+
+            echo $e->getMessage();
+        }
+
+        //print_r($applicant_la);
     }
 
     public function storeNewFacility(Request $request)
@@ -277,33 +294,37 @@ class UploaderController extends Controller
         $inputs['status'] = "new_facility";
         $applicants = $inputs['applicant_id'];
         $inputs['capacity']="own";
-        if(count($applicants)>1){
-            $inputs['capacity']="ja";
-            $inputs['installment'] = $inputs['installment']/count($applicants);
-        }
+//        if(count($applicants)>1){
+//            $inputs['capacity']="ja";
+//            $inputs['installment'] = $inputs['installment']/count($applicants);
+//        }
         $arr["capacity_data"] = AASource::where("type", "facility_type")->get();
         if (isset($inputs['id'])) {
 
-            if ($inputs['loan_amount'] != "" or $inputs['interest_rate'] != "" or $inputs['loan_tenure'] != "") {
 
-                $facility = FacilityInfo::where("la_id",$inputs["la_id"])->first();
-                $facility->update($inputs);
-                if ($facility->id) {
-                    $arr["facilities"] = FacilityInfo::whereRaw("
+                $facility = FacilityInfo::find($inputs['id']);
+                $facility->loan_amount = $inputs['loan_amount'];
+                $facility->interest_rate = $inputs['interest_rate'];
+            $facility->loan_tenure = $inputs['loan_tenure'];
+            $facility->installment = $inputs['installment'];
+                $facility->type = $inputs['type'];
+                $facility->save();
+
+                $arr["facilities"] = FacilityInfo::whereRaw("
                     status='new_facility' and 
                     la_id='" . $inputs["la_id"] . "'")
-                        ->get();
-                    return view("uploader.facility_edit")->with($arr);
-                }
-            }
+                    ->get();
+                return view("uploader.facility_edit")->with($arr);
+
+
 
         }
         else {
             if ($inputs['loan_amount'] != "" or $inputs['interest_rate'] != "" or $inputs['loan_tenure'] != "") {
-                foreach ($applicants as $applicant) {
-                    $inputs['applicant_id'] = $applicant;
+               // foreach ($applicants as $applicant) {
+                   // $inputs['applicant_id'] = $applicants;
                     $facility = FacilityInfo::create($inputs);
-                }
+                //}
                 $arr["facilities"] = FacilityInfo::whereRaw("
                     status='new_facility' and 
                     la_id='" . $inputs["la_id"] . "'")

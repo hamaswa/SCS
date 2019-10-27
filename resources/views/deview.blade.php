@@ -28,12 +28,13 @@
                             <table id="example5" class="table table-bordered table-hover bg-white">
                                 <thead>
                                 <tr class="bg-light-blue-gradient">
+                                    <th>CCRIS</th>
                                     <th>Facility</th>
                                     <th>Facility Date</th>
                                     <th>Capacity</th>
                                     <th>Facility Limit</th>
                                     <th>Facility Outstanding</th>
-                                    <th>Instalment</th>
+                                    <th>Installment</th>
                                     <th>MIA</th>
                                     <th>CONDUCT</th>
                                 </tr>
@@ -66,7 +67,7 @@
                 </div>
             @endif
                 <div class="col-sm-12 col-md-9 de-table-bor">
-            <form id="searchapplicant" name="searchapplicant" method="post" action="{{ route("housingloan.index") }}">
+                    <form id="searchapplicant" name="searchapplicant" method="post" action="{{ route("housingloan.index") }}">
                 @csrf
                 <div class="col-md-12">
                     <h4>Existing AA</h4>
@@ -116,10 +117,10 @@
                                     <a class="btn btn-default" href="{{ route("housingloan.create") }}?applicant_id={{ $data->id }}">Add
                                         Facility Info</a>
                                 </div>
-
                                 <table id="example5" class="table table-bordered table-hover bg-white">
                                     <thead>
                                     <tr class="bg-light-blue-gradient">
+                                        <th>CCRIS</th>
                                         <th>Facility</th>
                                         <th>Facility Date</th>
                                         <th>Capacity</th>
@@ -137,12 +138,15 @@
 
                                         <tr>
                                             <td>
+                                                {{ $v->csris }}
+                                            </td>
+                                            <td>
                                                 <input type="hidden" name="id" value="{{$v->id}}">
                                                 {{strtoupper($v->type) }}
 
                                             </td>
                                             <td>
-                                                <input type="text" id="facilitydate" required name="facilitydate"
+                                                <input type="date" id="facilitydate" required name="facilitydate"
                                                        placeholder="dd/mm/yyyy" class="form-control facilitydate"
                                                        data-inputmask="'alias': 'dd/mm/yyyy'"
                                                        value="{{$v->facilitydate}}">
@@ -242,29 +246,12 @@
                                     </tr>
                                     </tfoot>
                                 </table>
-
-
                             </div>
 
                         </div>
                     </div>
                     <div class="col-md-2 col-sm-12 no-padding no-margin">
                         <div class="box">
-                            {{--<div class="box-header">--}}
-                                {{--<div class="padding-5 bg-white pull-right border-light">--}}
-                                    {{--<img src="{{ asset("img/folder.png") }}"/>--}}
-                                {{--</div>--}}
-                                {{--<div class="padding-5 bg-yellow-light pull-right border-light">--}}
-                                    {{--<img src="{{ asset("img/left-icon.png") }}" onclick="showData('all_comments')"/>--}}
-                                {{--</div>--}}
-                                {{--<div class="padding-5 bg-chocolate pull-right border-light">--}}
-                                    {{--<img src="{{ asset("img/left-icon.png") }}" onclick="showData('overview')"/>--}}
-                                {{--</div>--}}
-                                {{--<div class="padding-5 bg-green-gradient pull-right border-light">--}}
-                                    {{--<img src="{{ asset("img/left-icon.png") }}" onclick="showData('view_existing')"/>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-
                             <div class="box-body bg-yellow-light  left-box  detail-box">
                                 <strong>{{$data->name}}</strong>
                                 <div class="table-responsive">
@@ -346,37 +333,32 @@
     <script type="text/javascript">
 
 
-        $('.facilitydate').datepicker({
-            format: 'yyyy-mm-dd'
-        });
-        //$("#mia,#conduct").select2({allowclear:true});
-
         $(document).ready(function () {
             $(".update_facility").click(function () {
                 event.preventDefault(); //prevent default action
                 submit = true;
                 $(".has-error").removeClass("has-error");
 
-                if ($("#facilitylimit").val() == "") {
-                    $("#facilitylimit").parent("div").addClass("has-error")
-                    submit = false;
-
-                }
-                if ($("#facilityoutstanding").val() == "") {
-                    $("#facilityoutstanding").parent("div").addClass("has-error")
-                    submit = false;
-                }
-                if ($("#facilitydate").val() == "") {
-                    $("#facilitydate").parent("div").addClass("has-error")
-                    submit = false;
-                }
-                if ($("#installment").val() == "") {
-                    $("#installment").parent("div").addClass("has-error")
-                    submit = false;
-                }
-                if (submit == false) {
-                    return false;
-                }
+                // if ($("#facilitylimit").val() == "") {
+                //     $("#facilitylimit").parent("div").addClass("has-error")
+                //     submit = false;
+                //
+                // }
+                // if ($("#facilityoutstanding").val() == "") {
+                //     $("#facilityoutstanding").parent("div").addClass("has-error")
+                //     submit = false;
+                // }
+                // if ($("#facilitydate").val() == "") {
+                //     $("#facilitydate").parent("div").addClass("has-error")
+                //     submit = false;
+                // }
+                // if ($("#installment").val() == "") {
+                //     $("#installment").parent("div").addClass("has-error")
+                //     submit = false;
+                // }
+                // if (submit == false) {
+                //     return false;
+                // }
 
                 data = $(this).parent("td").parent("tr").find(":input").serializeArray();
                 for(d in data){
@@ -385,6 +367,8 @@
                     }
 
                 }
+
+
                 form = document.createElement("form");
                 form.action = '{{ route('housingloan.update',1) }}'
                 form.method = 'POST';
