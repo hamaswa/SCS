@@ -113,7 +113,7 @@ class ApplicantDataController extends Controller
             }
             $applicant = ApplicantData::create($inputs);
             // return back()->with("success", "New Appointment Created");
-            return redirect()->route("pipeline.index")->with("success", "New Appointment Created");;
+            return redirect()->route("pipeline.index")->with("success", "New Appointment Created");
 
         } else {
 

@@ -36,6 +36,26 @@ class MakerController extends Controller
         return view("maker.maker")->with("data", $applicantdata);
     }
 
+    public function newAA(){
+        return view("maker.new_aa")->with("data","view");
+    }
+
+    public  function storeNewAA(Request $request){
+        $inputs = $request->all();
+        $inputs['status'] = "Consent Obtained";
+        $inputs['user_id'] = Auth::id();
+        $applicant_count = ApplicantData::selectRaw("count(*) as count")->whereRaw("created_at BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 day)")
+            ->get()->ToArray();
+        $inputs['serial_no'] = date('Ymdhis') . "" . $applicant_count[0]["count"];
+
+        if(ApplicantData::where("unique_id","=",$inputs['unique_id'])->exists()){
+            return back()->with("error","Applicant Already Exists");
+        }
+        $applicant = ApplicantData::create($inputs);
+
+        return redirect()->route("maker.newla", $applicant->id)->with("success", "New Appointment Created");
+    }
+
     public function search(Request $request){
         $inputs = $request->all();
         $user=request()->user();

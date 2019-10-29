@@ -47,7 +47,9 @@
 
 
     if (!isset($applicant_data)) {
+        if(isset($applicant)){
         $applicant_data = $applicant;
+        }
     }
     if (isset($applicant_data)) {
         $income = $applicant_data->applicantIncome;
@@ -206,7 +208,7 @@
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route("pipeline.index") }}">Pipeline Status</a>
+                                        <a class="nav-link" href="{{ route("new_aa") }}">New AA</a>
                                     </li>
                                 </ul>
                             </li>
@@ -312,6 +314,7 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @if(isset($applicant_data))
                             @if(isset($applicant_data->applicantDocuments))
                                 @foreach($applicant_data->applicantDocuments as $document)
                                     <tr>
@@ -322,6 +325,7 @@
                                     </tr>
                                 @endforeach
                             @endif
+                                @endif
 
                             </tbody>
 
@@ -450,7 +454,8 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="business_forms" value="business_forms" />
-                    <input type="hidden" name="applicant_id" id="business_applicant_id" value="{{$applicant_data->id}}" />
+                    <input type="hidden" name="applicant_id" id="business_applicant_id"
+                           value="{{ isset($applicant_data)?$applicant_data->id:""}}" />
 
                     <div class="col-md-4 col-sm-12 form-group ">
                         <label class="control-label">Income Source</label>

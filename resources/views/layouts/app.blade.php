@@ -184,7 +184,7 @@ if (isset($applicant)) {
                             <a class="nav-link" href="{{ route("members.index") }}">Group Structure</a>
                         </li>
                     @endif
-                    @if(request()->user()->hasRole("maker"))
+                        @if(request()->user()->hasRole("maker"))
                             <li class="treeview">
                                 <a href="#"><span> Maker</span>
                                     <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
@@ -193,10 +193,10 @@ if (isset($applicant)) {
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route("maker.index") }}">Maker</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route("aadata.index") }}">New AA</a>
-                                    </li>
 
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route("new_aa") }}">New AA</a>
+                                    </li>
                                 </ul>
                             </li>
                     @endif

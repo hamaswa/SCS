@@ -64,6 +64,8 @@ Route::group(['middleware' => 'role:maker'], function() {
     Route::get("/maker/newla/{id}",'Maker\MakerController@newla')->name("maker.newla");
     Route::get("/maker/create_aa/{id}",'Maker\MakerController@create_aa')->name("maker.create_aa");
     Route::post("/maker/storela",'Maker\MakerController@storela')->name("maker.storela");
+    Route::get('maker/new_aa', 'Maker\MakerController@newAA')->name("new_aa");
+    Route::post('maker/store_new_aa', 'Maker\MakerController@storeNewAA')->name("store_new_aa");
     Route::resource('maker', 'Maker\MakerController');
     Route::resource('maker/la', 'LoanApplicationController', [ 'names' => 'la' ]);
     Route::post('/sub_la', 'LoanApplicationController@showAttachAA')->name("showAttachAA");
@@ -88,7 +90,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/applicantcomments/comments', 'ApplicantCommentsController@index')->name("comments");
     Route::resource('/pipeline', 'PipelineController');
     Route::post('/applicantkyc/applicantsidebar', 'ApplicantDataController@applicantSidebar')->name("applicant_sidebar");
-
     Route::resource('/applicantkyc', 'ApplicantDataController');
     Route::resource('/businesskyc', 'BusinesskycController');
     Route::post("/businesskyc/storeIncomeSource",'BusinesskycController@storeIncomeSource')->name("bussiness.storeIncomeSource");
