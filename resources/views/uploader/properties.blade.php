@@ -6,7 +6,9 @@
    <?php
    $i=0;
    ?>
-    @foreach($properties as  $property)
+   @foreach($applicant as $aa)
+       <tr><td>{{$aa->name}}<td></td></tr>
+    @foreach($aa->applicantProperty as  $property)
         <?php
        $i++;
 
@@ -20,6 +22,7 @@
             <td><input class="la_property"  {{ in_array($property->id, $ar)?"checked":""  }} data-id="{{$property->id}}" value="{{$property->id}}" type="radio"> </td>
         </tr>
     @endforeach
+   @endforeach
 
     </tbody>
 

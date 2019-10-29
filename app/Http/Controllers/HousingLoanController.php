@@ -29,7 +29,7 @@ class HousingLoanController extends Controller
             $capacity_type[strtolower($item->name)] = $item->description;
         }
 
-        return view("deview")->with(['applicantdata'=>$applicantdata,'capacity_type'=>$capacity_type]);
+        return view("deview")->with(['capacity_type'=>$capacity_type]);
     }
 
     /**

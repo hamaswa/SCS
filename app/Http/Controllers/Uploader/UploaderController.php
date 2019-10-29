@@ -162,8 +162,10 @@ class UploaderController extends Controller
 
     public function laProperties(Request $request){
         $inputs = $request->all();
-        $arr["properties"] = ApplicantProperty::whereRaw(
-            "applicant_id in (". implode(",",$inputs['applicant_id']).")")->get();
+        $arr["applicant"] = ApplicantData::find($inputs['applicant_id']);
+//        (
+//            "applicant_id in (". implode(",",$inputs['applicant_id']).")")->get();
+
         return view("uploader.properties")->with($arr);
     }
 

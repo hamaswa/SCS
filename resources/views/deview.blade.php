@@ -10,17 +10,47 @@
     {{--</ol>--}}
     {{--</section>--}}
     <section class="content">
-        @if(count($applicantdata)==0)
-            <div class="row mar-lr">
-                <div class="col-sm-12 col-md-12 de-table-bor">
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{ $message }}</strong>
+            </div>
+        @endif
+        @if ($message = Session::get('error'))
+            <div class="alert alert-danger alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{ $message }}</strong>
+            </div>
+        @endif
+        <div class="col-sm-12 col-md-9 de-table-bor">
+            <form id="searchapplicant" name="searchapplicant" method="post" action="{{ route("housingloan.index") }}">
+                @csrf
+                <div class="col-md-12">
+                    <h4>Existing AA</h4>
+                </div>
+                <div class="col-md-4">
+                    <select class="form-control select2" name="searchfield" id="searchfield">
+                        <option value="unique_id">Applicant ID/Company No</option>
+                        <option value="name">Applicant Name/Company Name</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="search" placeholder="Search"/>
+                </div>
+                <div class="col-md-4">
+                    <input type="submit" class="btn btn-primary" name="submit" value="Search"/>
+                </div>
+            </form>
+        </div>
+    @if(!isset($applicantdata)  OR count($applicantdata)==0)
+
+            <div class="col-sm-12 col-md-12 de-table-bor">
                     {{--<div class="box-header">--}}
                     {{--<a class="btn btn-primary" href="{{ route("housingloan.create") }}">Create</a>--}}
                     {{--</div>--}}
                     <div class="box-body">
                         <div id="response"></div>
                         <div class="margin-bottom padding-5 border-black-1">
-                            <label>No Applicants Found</label>
-                            <div class="clearfix"></div>
 
                             <div class="pull-right"><a href="{{ route("housingloan.create") }}"> </a>
                             </div>
@@ -50,44 +80,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+
         @else
-            @if ($message = Session::get('success'))
-                <div class="alert alert-success alert-block">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    <strong>{{ $message }}</strong>
-                </div>
-            @endif
 
-
-            @if ($message = Session::get('error'))
-                <div class="alert alert-danger alert-block">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    <strong>{{ $message }}</strong>
-                </div>
-            @endif
-                <div class="col-sm-12 col-md-9 de-table-bor">
-                    <form id="searchapplicant" name="searchapplicant" method="post" action="{{ route("housingloan.index") }}">
-                @csrf
-                <div class="col-md-12">
-                    <h4>Existing AA</h4>
-                </div>
-                <div class="col-md-4">
-                    <select class="form-control select2" name="searchfield" id="searchfield">
-                        <option value="unique_id">Applicant ID/Company No</option>
-                        <option value="name">Applicant Name/Company Name</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <input type="text" class="form-control" name="search" placeholder="Search"/>
-                </div>
-                <div class="col-md-4">
-                    <input type="submit" class="btn btn-primary" name="submit" value="Search"/>
-                </div>
-            </form>
-                </div>
-
-            @foreach($applicantdata as $data)
+        @foreach($applicantdata as $data)
                 <div class=" mar-lr row">
                     <div class="col-sm-12 col-md-10 de-table-bor row">
 
