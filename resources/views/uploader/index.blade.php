@@ -81,7 +81,7 @@
                             <tr style="background-color: #c6d8f2;">
                                 <td>
                                     <input type="hidden" name="la_id" id="la_id" value="{{ isset($la_serial_no)?$la_serial_no."_".$la_serial_id:"" }}">
-                                    <select name="type" id="type">
+                                    <select name="type" id="type" class="form-control select2">
                                         @foreach($capacity_data as $capacity)
                                             <option value="{{$capacity->name}}">
                                                 {{ $capacity->description }}
