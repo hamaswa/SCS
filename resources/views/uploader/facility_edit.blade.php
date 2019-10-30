@@ -3,7 +3,7 @@
     <td>
         <input type="hidden" name="id" value="{{$facility->id}}" >
         <input type="hidden" name="la_id" value="{{$facility->la_id}}" >
-        <select name="type" id="type">
+        <select name="type" id="type" class="form-control select2">
             @foreach($capacity_data as $capacity)
                 <option {{ ($capacity->name==$facility->type?"selected":"") }} value="{{$capacity->name}}">
                     {{ $capacity->description }}
@@ -32,8 +32,8 @@
                style="background-color: #fff;">
     </td>
     <td>
-        <button class="btn btn-default" id="facility_submit">Update</button>
-        <button class="btn btn-default" data-id="{{$facility->id}}" id="facility_delete">Delete</button>
+        <button class="btn btn-primary btn-xs text-white" id="facility_submit"><i class="fa fa-edit"></i></button>
+        <button class="btn btn-danger btn-xs text-white" data-id="{{$facility->id}}" id="facility_delete"><i class="fa fa-trash"></i></button>
     </td>
 
 </tr>

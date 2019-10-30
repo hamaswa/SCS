@@ -18,9 +18,9 @@
             <div class="box">
 
                 <div class="box-body ">
-                    <div class="col-md-8 col-sm-8 col-lg-8">
-                    <div class="col-md-2 col-sm-2 col-lg-2 table-responsive">
-                        <select name="la_type" id="la_type">
+                    <div class="col-md-8 col-sm-8 col-lg-8 no-padding">
+                    <div class="col-md-2 col-sm-2 col-lg-2 table-responsive  no-padding">
+                        <select name="la_type" id="la_type" class="form-control select2">
                             <option value="subsale"  {{ ($loan_application->bank=="subsale"?"selected":"") }}>
                             SubSale
                             </option>
@@ -161,6 +161,7 @@
     <script type="text/javascript">
         var applicant = null;
         $(document).ready(function (e) {
+            $('.select2').select2({allowClear:true});
             forms=[];
             forms['facility_form'] = $("#facility_form").children().clone(true, true)
             //sidebar({{$applicant->id}});

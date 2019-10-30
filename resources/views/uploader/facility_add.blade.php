@@ -1,6 +1,6 @@
 <tr style="background-color: #c6d8f2;">
     <td>
-        <select name="type" id="type">
+        <select name="type" id="type" class="form-control select2">
             @foreach($capacity_data as $capacity)
                 <option value="{{$capacity->name}}">
                     {{ $capacity->description }}
@@ -24,7 +24,7 @@
 
     </td>
     <td>
-        <button class="btn btn-default" id="Add">Add</button>
+        <button class="btn btn-success btn-xs text-white" id="Add"><i class="fa fa-plus"></i></button>
     </td>
 
 </tr>
