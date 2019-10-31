@@ -1,4 +1,5 @@
-<table id="example5" class="table table-bordered table-hover bg-white new_commitment">
+<div data-toggle="collapse" data-target="#new_commitment">New Commitment</div>
+<table id="new_commitment" class="table table-bordered table-hover bg-white new_commitment collapse">
     <thead>
     <tr> <th colspan="3">New Commitment </th></tr>
     <tr class="bg-light-blue-gradient">
