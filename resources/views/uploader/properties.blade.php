@@ -1,5 +1,3 @@
-<div data-toggle="collapse" data-target="#new_property" class="panel-heading bg-green"><strong>Property</strong></div>
-<div id="new_property" class="collapse">
 <table class="table table-bordered table-striped table-hover bg-white">
     @php
         $property_covered = app('App\Http\Controllers\Uploader\UploaderController')->checkPropertyIfCovered(request()->all())
@@ -29,4 +27,3 @@
     </tbody>
 
 </table>
-</div>
