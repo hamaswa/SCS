@@ -146,7 +146,7 @@
 
                     </div>
                     </div>
-                    <div class="col-md-4 col-sm-4 col-lg-4" id="right_side_bar">
+                    <div class="col-md-4 col-sm-4 col-lg-4 bg-chocolate" id="right_side_bar">
 
                     </div>
 
