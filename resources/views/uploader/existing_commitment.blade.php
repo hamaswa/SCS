@@ -1,4 +1,4 @@
-<div data-toggle="collapse" data-target="#existing_commitment" class="panel-heading bg-success"><strong>Existing Commitment</strong></div>
+<div data-toggle="collapse" data-target="#existing_commitment" class="panel-heading bg-aqua"><strong>Existing Commitment</strong></div>
 <div id="existing_commitment" class="collapse">
 <table  class="table table-bordered table-hover bg-white existing_commitment">
     <thead>
