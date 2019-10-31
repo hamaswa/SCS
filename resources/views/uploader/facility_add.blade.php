@@ -33,3 +33,8 @@
         <button type="button" id="facility_submit" class="btn bg-maroon btn-flat margin">ADD</button>
     </td>
 </tr>
+<script type="text/javascript">
+    $(document).ready(function (e) {
+        $('.select2').select2({allowClear: true});
+    });
+</script>

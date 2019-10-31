@@ -106,7 +106,7 @@
                                            style="background-color: #fff;">
                                 </td>
                                 <td>
-                                    <button id="facility_submit" class="btn btn-default">Add</button>
+                                    <button id="facility_submit" class="btn btn-success btn-xs text-white"><i class="fa fa-plus"></i></button>
                                 </td>
 
                             </tr>
