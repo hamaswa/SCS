@@ -1,5 +1,4 @@
-<div class="panel-heading bg-primary" data-toggle="collapse" data-target="#example5">New Commitment</div>
-<table id="example5" class="table table-bordered table-hover bg-white new_commitment collapse">
+<table id="example5" class="table table-bordered table-hover bg-white new_commitment">
     <thead>
     <tr> <th colspan="3">New Commitment </th></tr>
     <tr class="bg-light-blue-gradient">
@@ -48,4 +47,3 @@
     </tr>
     </tfoot>
 </table>
-
