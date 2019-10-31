@@ -24,7 +24,7 @@
 
     </td>
     <td>
-        <button class="btn btn-success btn-xs text-white" id="Add"><i class="fa fa-plus"></i></button>
+        <button class="btn btn-success btn-xs text-white" id="Add"> <i class="fa fa-plus"></i> </button>
     </td>
 
 </tr>

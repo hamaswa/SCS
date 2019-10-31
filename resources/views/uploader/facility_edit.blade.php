@@ -3,7 +3,7 @@
     <td>
         <input type="hidden" name="id" value="{{$facility->id}}" >
         <input type="hidden" name="la_id" value="{{$facility->la_id}}" >
-        <select name="type" id="type" class="form-control select2">
+        <select name="type" id="type" class="form-control select2 ">
             @foreach($capacity_data as $capacity)
                 <option {{ ($capacity->name==$facility->type?"selected":"") }} value="{{$capacity->name}}">
                     {{ $capacity->description }}
