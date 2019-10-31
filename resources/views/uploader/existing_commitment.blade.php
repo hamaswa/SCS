@@ -1,6 +1,8 @@
+<div data-toggle="collapse" data-target="#existing_commitment" class="panel-heading bg-gray"><strong>Existing Commitment</strong></div>
+<div id="existing_commitment" class="collapse">
 <table  class="table table-bordered table-hover bg-white existing_commitment">
     <thead>
-    <tr> <th colspan="3">Existing Commitment </th></tr>
+
     <tr class="bg-light-blue-gradient">
         <th>Type</th>
         <th>Monthly</th>
@@ -52,3 +54,4 @@
     </tr>
     </tfoot>
 </table>
+</div>

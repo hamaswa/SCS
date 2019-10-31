@@ -1,7 +1,7 @@
 @if(count($new_facility)>0)
     <div data-toggle="collapse" data-target="#new_facility" class="panel-heading bg-gray"><strong>New Facility</strong></div>
     <div id="new_facility" class="collapse">
-        <table id="example5" class="table table-bordered table-hover bg-white new_facility">
+        <table id="example5" class="table table-bordered table-hover table-striped bg-white new_facility">
             <thead>
 
             <tr class="bg-light-blue-gradient">
