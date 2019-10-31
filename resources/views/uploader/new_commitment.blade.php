@@ -1,12 +1,11 @@
-<div data-toggle="collapse" data-target="#new_commitment">New Commitment</div>
+<div data-toggle="collapse" data-target="#new_commitment" class="padding-10 bg-primary"><h3>New Commitment</h3></div>
 <table id="new_commitment" class="table table-bordered table-hover bg-white new_commitment collapse">
     <thead>
-    <tr> <th colspan="3">New Commitment </th></tr>
-    <tr class="bg-light-blue-gradient">
-        <th>Type</th>
-        <th>Monthly</th>
-        <th>DSR</th>
-    </tr>
+        <tr class="bg-light-blue-gradient">
+            <th>Type</th>
+            <th>Monthly</th>
+            <th>DSR</th>
+        </tr>
     </thead>
     <tbody>
     <?php
