@@ -297,7 +297,7 @@ if (isset($applicant)) {
                             <tr class="bg-aqua">
                                 <th>Date</th>
                                 <th>Name</th>
-                                <th>Status</th>
+                                <th>Comments</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -307,7 +307,7 @@ if (isset($applicant)) {
                                     <tr>
                                         <td>{{ date("Y-m-d",strtotime($document->created_at))}}</td>
                                         <td>{{ $document->doc_name }}</td>
-                                        <td>{{$document->doc_status}}</td>
+                                        <td>{{$document->guide_lines}}</td>
                                         <td><a href="{{ route("download")}}?id={{$document->id}}">view</a></td>
                                     </tr>
                                 @endforeach
