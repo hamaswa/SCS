@@ -1,3 +1,8 @@
+@if(isset($applicants))
+    @foreach($applicants as $applicant)
+        {{
+        $applicant->name
+        }}
 <div class="table-responsive">
     <table class="table table-bordered table-striped table-hover bg-white text-black">
         <thead>
@@ -12,7 +17,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($documents as $document)
+        @foreach($applicant->applicantDocuments as $document)
         <tr>
             <td>{{ date("Y-m-d",strtotime($document->created_at))}}</td>
             <td>{{ $document->doc_name }}</td>
@@ -25,3 +30,5 @@
 
     </table>
 </div>
+@endforeach
+@endif

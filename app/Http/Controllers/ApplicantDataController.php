@@ -67,26 +67,31 @@ class ApplicantDataController extends Controller
     public function  applicantSidebar(Request $request)
     {
         $inputs = $request->all();
-        $arr['applicant'] = ApplicantData::find($inputs['applicant_id']);
-        $arr['incomes'] = ApplicantIncome::where("applicant_id","=",$inputs['applicant_id'])
-            ->orderby("type")
-            ->get();
-        $arr['wealths'] = ApplicantWealth::where("applicant_id","=",$inputs['applicant_id'])
-            //->orderby("type")
-            ->get();
-        $arr['income_total'] = DB::table('applicant_income')
-            ->select(DB::raw("sum(gross) as total_gross, sum(net) as total_net"))
-            ->where("applicant_id","=",$inputs['applicant_id'])
-            ->groupby("applicant_id")
-            ->first();
-        $arr['wealth_total'] = DB::table('applicant_wealth')
-            ->select(DB::raw("sum(gross) as total_gross, sum(total) as total_net"))
-            ->where("applicant_id","=",$inputs['applicant_id'])
-            ->groupby("applicant_id")
-            ->first();
+        $inputs["applicant_id"] = explode(",",$inputs['applicant_id']);
+        $arr['applicants']  = ApplicantData::find($inputs['applicant_id']);
 
-        $arr['properties'] = ApplicantProperty::where("applicant_id","=",$inputs['applicant_id'])->get();
         return view("aadata.applicant_sidebar")->with($arr);
+
+
+//        $arr['incomes'] = ApplicantIncome::where("applicant_id","=",$inputs['applicant_id'])
+//            ->orderby("type")
+//            ->get();
+//        $arr['wealths'] = ApplicantWealth::where("applicant_id","=",$inputs['applicant_id'])
+//            //->orderby("type")
+//            ->get();
+//        $arr['income_total'] = DB::table('applicant_income')
+//            ->select(DB::raw("sum(gross) as total_gross, sum(net) as total_net"))
+//            ->where("applicant_id","=",$inputs['applicant_id'])
+//            ->groupby("applicant_id")
+//            ->first();
+//        $arr['wealth_total'] = DB::table('applicant_wealth')
+//            ->select(DB::raw("sum(gross) as total_gross, sum(total) as total_net"))
+//            ->where("applicant_id","=",$inputs['applicant_id'])
+//            ->groupby("applicant_id")
+//            ->first();
+//
+//        $arr['properties'] = ApplicantProperty::where("applicant_id","=",$inputs['applicant_id'])->get();
+//        return view("aadata.applicant_sidebar")->with($arr);
     }
 
 

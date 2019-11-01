@@ -8,6 +8,7 @@ class LoanApplication extends Model
 {
     //
     protected $fillable = [
+        'unique_id',
         'la_applicant_id',
         'applicant_id',
         "user_id","la_serial_no",

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ApplicantComments;
+use App\ApplicantData;
 use Auth;
 
 
@@ -18,6 +19,8 @@ class ApplicantCommentsController extends Controller
     public function index(Request $request)
     {
         $inputs = $request->all();
+        $inputs['id'] = explode(",",$inputs["id"]);
+        $arr["applicants"] = ApplicantData::find($inputs['id']);
         $arr["comments"] = ApplicantComments::where("applicant_id",'=',$inputs["id"])->get();
         return view("aadata.comments")->with($arr);
     }

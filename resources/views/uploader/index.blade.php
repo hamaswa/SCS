@@ -39,7 +39,13 @@
                                 <tr>
                                     <td>
                                         <table>
+                                            <?php
+                                            $id="";
+                                            ?>
                                             @foreach($applicants as $la)
+                                                <?php
+                                                    $id .= ($id==""?"":","). $la->id;
+                                                ?>
                                              <tr>
                                                  <td class="la-applicant" data-id="{{$la->id}}">
                                                      <b> {{$la->name}} </b>
@@ -48,7 +54,9 @@
                                                              name="applicant_id[]" value="{{$la->id}}" {{ $la->applicant_approved==1?"checked":"" }}> </td>
                                              </tr>
                                             @endforeach
+
                                         </table>
+                                        <input name="applicants" id="applicants" type="hidden" value="{{$id}}">
                                     </td>
                                     <td id="la-properties">
 
@@ -345,6 +353,9 @@
         })
 
         function sidebar(id) {
+
+            id = $("input[name='applicants']").val();
+
             $("#right_side_bar").html("");
             $("#tab-3").html();
             $.ajax({

@@ -23,12 +23,12 @@ class ApplicantData extends Model
     }
 
     public function applicantIncome(){
-        return $this->hasOne("App\ApplicantIncome",'applicant_id');
+        return $this->hasMany("App\ApplicantIncome",'applicant_id');
     }
 
 
     public function applicantWealth(){
-        return $this->hasOne("App\ApplicantWealth",'applicant_id');
+        return $this->hasMany("App\ApplicantWealth",'applicant_id');
     }
 
 

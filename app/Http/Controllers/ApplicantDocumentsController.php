@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ApplicantDocuments;
+use App\ApplicantData;
 use Auth;
 class ApplicantDocumentsController extends Controller
 {
@@ -22,6 +23,8 @@ class ApplicantDocumentsController extends Controller
     {
         $inputs = $request->all();
         $inputs['user_id'] = Auth::id();
+        $inputs["id"] = explode(",",$inputs['id']);
+        $arr['applicants'] = ApplicantData::find($inputs["id"]);
         $arr['documents'] = ApplicantDocuments::where("applicant_id", $inputs['id'])->get();
         return view("aadata.documents")->with($arr);
     }
