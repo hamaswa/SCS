@@ -18,9 +18,9 @@
             <div class="box">
 
                 <div class="box-body ">
-                    <div class="col-md-8 col-sm-8 col-lg-8">
-                    <div class="col-md-2 col-sm-2 col-lg-2 table-responsive">
-                        <select name="la_type" id="la_type">
+                    <div class="col-md-8 col-sm-8 col-lg-8 no-padding">
+                    <div class="col-md-2 col-sm-2 col-lg-2 table-responsive  no-padding">
+                        <select name="la_type" id="la_type" class="form-control select2">
                             <option value="subsale"  {{ ($loan_application->bank=="subsale"?"selected":"") }}>
                             SubSale
                             </option>
@@ -89,7 +89,7 @@
                             <tr style="background-color: #c6d8f2;">
                                 <td>
                                     <input type="hidden" name="la_id" id="la_id" value="{{ isset($la_serial_no)?$la_serial_no."_".$la_serial_id:"" }}">
-                                    <select name="type" id="type">
+                                    <select name="type" id="type" class="form-control select2">
                                         @foreach($capacity_data as $capacity)
                                             <option value="{{$capacity->name}}">
                                                 {{ $capacity->description }}
@@ -114,7 +114,7 @@
                                            style="background-color: #fff;">
                                 </td>
                                 <td>
-                                    <button id="facility_submit" class="btn btn-default">Add</button>
+                                    <button id="facility_submit" class="btn btn-success btn-xs text-white"><i class="fa fa-plus"></i></button>
                                 </td>
 
                             </tr>
@@ -154,7 +154,7 @@
 
                     </div>
                     </div>
-                    <div class="col-md-4 col-sm-4 col-lg-4" id="right_side_bar">
+                    <div class="col-md-4 col-sm-4 col-lg-4 bg-chocolate" id="right_side_bar">
 
                     </div>
 
@@ -169,6 +169,7 @@
     <script type="text/javascript">
         var applicant = null;
         $(document).ready(function (e) {
+            $('.select2').select2({allowClear:true});
             forms=[];
             forms['facility_form'] = $("#facility_form").children().clone(true, true)
             //sidebar({{$applicant->id}});
