@@ -35,7 +35,7 @@ class ApplicantDocumentsController extends Controller
         $inputs = $request->all();
         $id = $inputs["id"];
         $document = ApplicantDocuments::find($id);
-        return response()->download(storage_path("app/uploads/application_docs/" . $document->file_name), null, [], null);
+        return response()->download(storage_path("app/uploads/application_docs/" . $document->file_name));
         // Storage::download($document->file_name);
         //echo $document->file_name;
 
