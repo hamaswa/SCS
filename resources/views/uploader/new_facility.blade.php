@@ -1,5 +1,6 @@
 @if(count($new_facility)>0)
-    <div data-toggle="collapse" data-target="#new_facility" class="panel-heading bg-gray"><strong>New Facility</strong></div>
+    <div data-toggle="collapse" data-target="#new_facility" class="panel-heading bg-gray"><strong>New Facility</strong>
+    </div>
     <div id="new_facility" class="collapse">
         <table id="example5" class="table table-bordered table-hover table-striped bg-white new_facility">
             <thead>
@@ -11,49 +12,57 @@
             </tr>
             </thead>
             <tbody>
-            <?php
-            $loan_amount=0;
-            $installment=0;
-            ?>
-            @foreach($new_facility as $k => $v)
+            @foreach($applicants as $applicant)
+                <tr><td colspan="3">
+                        {{ $applicant->name }}
+                    </td> </tr>
 
-                <tr>
-                    <td>
-                        {{strtoupper($v->type) }}
-
-                    </td>
-                    <td>
+                @foreach($applicant->facilityInfo as $k => $v)
+                    @if($v->la_id==$la_id)
                         <?php
-                            $loan_amount +=$v->loan_amount;
+                        $loan_amount = 0;
+                        $installment = 0;
                         ?>
-                        {{ $v->loan_amount }}
-                    </td>
-                    <td>
-                        <?php
-                        $installment += $v->installment;
-                        ?>
-                        {{$v->installment}}
 
-                    </td>
+                        <tr>
+                            <td>
+                                {{strtoupper($v->type) }}
 
-                </tr>
+                            </td>
+                            <td>
+                                <?php
+                                $loan_amount += $v->loan_amount;
+                                ?>
+                                {{ $v->loan_amount }}
+                            </td>
+                            <td>
+                                <?php
+                                $installment += $v->installment;
+                                ?>
+                                {{$v->installment}}
+
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                Total
+                            </td>
+                            <td>
+                                {{ $loan_amount }}
+                            </td>
+                            <td>
+                                {{$installment}}
+
+                            </td>
+
+                        </tr>
+                    @endif
+
+                @endforeach
             @endforeach
             </tbody>
-            <tfoot>
-            <tr>
-                <td>
-                    Total
-                </td>
-                <td>
-                    {{ $loan_amount }}
-                </td>
-                <td>
-                    {{$installment}}
 
-                </td>
-
-            </tr>
-            </tfoot>
         </table>
     </div>
 @endif

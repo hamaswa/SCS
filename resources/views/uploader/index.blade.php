@@ -172,9 +172,14 @@
             $('.select2').select2({allowClear:true});
             forms=[];
             forms['facility_form'] = $("#facility_form").children().clone(true, true)
-            //sidebar({{$applicant->id}});
-            $(".applicants").trigger("change");
-            $(".la_property").trigger("click")
+
+            id = $("input[name='applicant_id[]']:checked").map(function() {
+                return this.value;
+            }).get().join(',');
+            sidebar(id);
+            la_properties();
+            la_facilities();
+            facility_edit();
 
         });
         // Delete Facility
@@ -238,7 +243,10 @@
             //installment =  Math.round(total_repay/ (loan_tenure*12),2);
             data = $(this).parent("td").parent("tr").find(":input").serialize()
                     + "&installment=" + installment
-                    + "&applicant_id=" + applicant;
+                    + "&applicant_id=" +
+                        $("input[name='applicant_id[]']:checked").map(function() {
+                            return this.value;
+                        }).get().join(',');
             submit_facility(data)
 
         });
@@ -263,73 +271,36 @@
 
         $(document.body).on("change",".applicants",function (e) {
             applicant = $("input[name='applicant_id[]']:checked").serialize()
+            $.ajax({
+                url: "{{ route("select_applicant") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: $("input[name='applicant_id[]']:checked").serialize() +
+                "&la_id=" + $("#la_id").val(),
+                success: function (response) {
+                },
+                error: function () {
+                }
+            });
             if(applicant==""){
                 $("#la-properties").html("");
                 $("#la_facilities").html("");
                 $("#new_facilities").html("");
-                sidebar({{$applicant->id}});
+                id = $("input[name='applicants']").val();
+                sidebar(id);
             }
             else {
-                $.ajax({
-                    url: "{{ route("la_properties") }}",
-                    type: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                    },
-                    data: $("input[name='applicant_id[]']:checked").serialize() + "&la_id=" + $("#la_id").val() + "&property_id=" + $(this).data("id"),
-                    success: function (response) {
-                        $("#la-properties").html("").append($(response));
-                    },
-                    error: function () {
-                    }
-                });
-                $.ajax({
-                    url: "{{ route("la_facilities") }}",
-                    type: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                    },
-                    data: $("input[name='applicant_id[]']:checked").serialize() + "&la_id=" + $("#la_id").val(),
-                    success: function (response) {
-                        $("#la_facilities").html("").append($(response));
-                    },
-                    error: function () {
-                    }
-                });
-                $.ajax({
-                    url: "{{ route("facility_edit") }}",
-                    type: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                    },
-                    data: $("input[name='applicant_id[]']:checked").serialize() + "&la_id=" + $("#la_id").val(),
-                    success: function (response) {
-                        $("#new_facilities").html(response);
-                    },
-                    error: function () {
-                    }
-                });
+                la_properties();
+                la_facilities();
+                facility_edit();
+                id = $("input[name='applicant_id[]']:checked").map(function() {
+                    return this.value;
+                }).get().join(',');
+                sidebar(id);
             }
-            if($("input[name='applicant_id[]']:checked").serialize()!=="") {
-                $.ajax({
-                    url: "{{ route("select_applicant") }}",
-                    type: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                    },
-                    data: $("input[name='applicant_id[]']:checked").serialize() +
-                    "&la_id=" + $("#la_id").val(),
-                    success: function (response) {
-                    },
-                    error: function () {
-                    }
-                });
-            }
-            applicant = $("input[name='applicant_id[]']:checked").val();
-            if(applicant=="") {
-                applicant ={{$applicant->id}}
-            }
-            sidebar(applicant)
+
         })
 
         $(document.body).on("click",".facility_covered",function (e) {
@@ -349,13 +320,14 @@
                 error: function () {
                 }
             });
-            sidebar(applicant_id);
+
+            id = $("input[name='applicant_id[]']:checked").map(function() {
+                return this.value;
+            }).get().join(',');
+            sidebar(id);
         })
 
         function sidebar(id) {
-
-            id = $("input[name='applicants']").val();
-
             $("#right_side_bar").html("");
             $("#tab-3").html();
             $.ajax({
@@ -448,8 +420,6 @@
                 error: function () {
                 }
             });
-
-
         }
 
         function submit_facility(form_data) {
@@ -465,8 +435,60 @@
                 $("#facility_form").html("").append($(forms["facility_form"]).clone(true, true))
                 $(".applicants").trigger("change");
 
+
             })
 
+        }
+
+        function la_properties()
+        {
+        $.ajax({
+            url: "{{ route("la_properties") }}",
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            data: $("input[name='applicant_id[]']:checked").serialize() +
+                    "&la_id=" + $("#la_id").val() + "&property_id=" + $(this).data("id"),
+            success: function (response) {
+                $("#la-properties").html("").append($(response));
+            },
+            error: function () {
+            }
+        });
+        }
+        function la_facilities()
+        {
+            $.ajax({
+                url: "{{ route("la_facilities") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: $("input[name='applicant_id[]']:checked").serialize() + "&la_id=" + $("#la_id").val(),
+                success: function (response) {
+                    $("#la_facilities").html("").append($(response));
+                },
+                error: function () {
+                }
+            });
+        }
+        function facility_edit() {
+            $.ajax({
+                url: "{{ route("facility_edit") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: $("input[name='applicant_id[]']:checked").serialize() + "&la_id=" + $("#la_id").val(),
+                success: function (response) {
+                    $("#new_facilities").html("").append($(response));
+                    $('.select2').select2({allowClear: true});
+
+                },
+                error: function () {
+                }
+            });
         }
 
     </script>

@@ -1,59 +1,68 @@
 @if(isset($applicants))
-    @foreach($applicants as $applicant)
-        {{ $applicant->name }}
-        @if(isset($applicant) and $applicant->aacategory=="C")
-            <table class="table table-bordered table-striped bg-white">
-                <thead class="bg-light-blue">
-                <tr class="bg-light-blue-gradient">
-                    <th colspan="3" class="text-center">Wealth</th>
-                </tr>
-                <tr class="bg-aqua">
-                    <th>Bank</th>
-                    <th>Credit</th>
-                    <th>Balance</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php $i = 0; ?>
-                @if(isset($wealths))
-                    @foreach($wealths as $wealth)
-                        <?php
-                        $i++;
-                        ?>
-                        <tr id="wealth_saving_right" class="wealth_saving_right">
-                            <td>Statement {{$i}}</td>
-                            <td>{{ round($wealth->total) }}</td>
-                            <td>{{ round($wealth->gross) }}</td>
-                        </tr>
-                    @endforeach
+
+    @if(isset($applicant) and $applicant->aacategory=="C")
+        <table class="table table-bordered table-striped bg-white">
+            <thead class="bg-light-blue">
+            <tr class="bg-light-blue-gradient">
+                <th colspan="3" class="text-center">Wealth</th>
+            </tr>
+            <tr class="bg-aqua">
+                <th>Bank</th>
+                <th>Credit</th>
+                <th>Balance</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php $i = 0; ?>
+            @if(isset($wealths))
+                @foreach($wealths as $wealth)
+                    <?php
+                    $i++;
+                    ?>
+                    <tr id="wealth_saving_right" class="wealth_saving_right">
+                        <td>Statement {{$i}}</td>
+                        <td>{{ round($wealth->total) }}</td>
+                        <td>{{ round($wealth->gross) }}</td>
+                    </tr>
+                @endforeach
+            @endif
+            </tbody>
+            <tfoot>
+            <tr class="bg-yellow-light wealth_total_right" id="wealth_total_right">
+                @if(isset($wealth_total) and isset($wealth_total->total_net))
+                    <td>Average</td>
+                    <td>{{ round($wealth_total->total_net/$i) }}</td>
+                    <td>{{ round($wealth_total->total_gross/$i) }}</td>
                 @endif
-                </tbody>
-                <tfoot>
-                <tr class="bg-yellow-light wealth_total_right" id="wealth_total_right">
-                    @if(isset($wealth_total) and isset($wealth_total->total_net))
-                        <td>Average</td>
-                        <td>{{ round($wealth_total->total_net/$i) }}</td>
-                        <td>{{ round($wealth_total->total_gross/$i) }}</td>
-                    @endif
 
-                </tr>
-                </tfoot>
-            </table>
+            </tr>
+            </tfoot>
+        </table>
 
-        @else
-            <table class="table table-bordered table-striped bg-white">
-                <thead class="bg-light-blue">
-                <tr class="bg-light-blue-gradient">
-                    <th colspan="3" class="text-center">Wealth</th>
-                </tr>
+    @else
+        <table class="table table-bordered table-striped bg-white">
+            <thead class="bg-light-blue">
+            <tr class="bg-light-blue-gradient">
+                <th colspan="3" class="text-center">Wealth</th>
+            </tr>
+            <tr class="bg-aqua">
+                <th>Type</th>
+                <th>Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($applicants as $applicant)
+                <?php
+                $wealth_total = 0;
+                ?>
                 <tr class="bg-aqua">
-                    <th>Type</th>
-                    <th>Amount</th>
+                    <td colspan="2"> {{ $applicant->name }}</td>
                 </tr>
-                </thead>
-                <tbody>
 
                 @foreach($applicant->applicantWealth as $wealth)
+                    @php
+                        $wealth_total +=  $wealth->total;
+                    @endphp
                     @switch($wealth->type)
                         @case("saving")
                         <tr id="wealth_saving_right" class="wealth_saving_right">
@@ -93,21 +102,19 @@
                         @break
 
                     @endswitch
-
-
-
                 @endforeach
-                </tbody>
-                <tfoot>
+
                 <tr class="bg-yellow-light wealth_total_right" id="wealth_total_right">
-                    @if(isset($wealth_total) and isset($wealth_total->total_net))
+                    @if(isset($wealth_total))
                         <td>Total</td>
-                        <td>{{ $wealth_total->total_net }}</td>
+                        <td>{{ $wealth_total }}</td>
                     @endif
 
                 </tr>
-                </tfoot>
-            </table>
-        @endif
-    @endforeach
+            @endforeach
+
+            </tbody>
+
+        </table>
+    @endif
 @endif

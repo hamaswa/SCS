@@ -38,8 +38,3 @@
 
 </tr>
 @endforeach
-<script type="text/javascript">
-    $(document).ready(function (e) {
-        $('.select2').select2({allowClear: true});
-    });
-</script>

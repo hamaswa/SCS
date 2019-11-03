@@ -1,8 +1,5 @@
 @if(isset($applicants))
-    @foreach($applicants as $applicant)
-        {{
-        $applicant->name
-        }}
+
         <div class="table-responsive">
             <table class="table table-bordered table-striped table-hover bg-white">
                 <thead>
@@ -17,6 +14,13 @@
 
                 </thead>
                 <tbody>
+                @foreach($applicants as $applicant)
+                 <tr><td colspan="3">
+
+                         {{
+                  $applicant->name
+                  }}
+                     </td></tr>
                 @foreach($applicant->applicantComments as $comment)
                     <tr>
                         <td>{{ date("Y-m-d",strtotime($comment->created_at))}}</td>
@@ -28,25 +32,13 @@
                     </tr>
                 @endforeach
 
-                {{--<tr class="bg-red-gradient">--}}
-                {{--<td></td>--}}
-                {{--<td>KIV</td>--}}
-                {{--<td></td>--}}
-                {{--<td></td>--}}
-                {{--</tr>--}}
-                {{--<tr class="bg-green">--}}
-                {{--<td></td>--}}
-                {{--<td>KIV<br><small>replied</small></td>--}}
-                {{--<td></td>--}}
-                {{--<td></td>--}}
-                {{--</tr>--}}
                 <tr>
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
-    @endforeach
 @endif
