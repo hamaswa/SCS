@@ -146,8 +146,12 @@
                     <div class="col-sm-12 col-md-3 form-group">
                         <label class="clearfix">Applicant Status</label>
                         <select name="applicant_status" id="applicant_status" class="form-control">
-                            <option value="Male" {{(isset($applicant_data->applicant_status) && $applicant_data->applicant_status == "Male" ?"selected":"")}}>Male</option>
-                            <option value="Female" {{(isset($applicant_data->applicant_status) && $applicant_data->applicant_status == "Female" ?"selected":"")}}>Female</option>
+                            <option value="Male" {{(isset($applicant_data->applicant_status) && $applicant_data->applicant_status == "Male" ?"selected":"")}}>
+                                Male
+                            </option>
+                            <option value="Female" {{(isset($applicant_data->applicant_status) && $applicant_data->applicant_status == "Female" ?"selected":"")}}>
+                                Female
+                            </option>
                         </select>
 
                     </div>

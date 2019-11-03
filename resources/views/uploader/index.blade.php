@@ -154,7 +154,13 @@
 
                     </div>
                     </div>
-                    <div class="col-md-4 col-sm-4 col-lg-4 bg-chocolate" id="right_side_bar">
+                    <div class="col-md-4 col-sm-4 col-lg-4 bg-chocolate"
+                         id="right_side_bar">
+                        <div class="tab-3"></div>
+                        <div class="existing_commitment"></div>
+                        <div class="new_facility"></div>
+                        <div class="new_commitment"></div>
+
 
                     </div>
 
@@ -328,8 +334,10 @@
         })
 
         function sidebar(id) {
-            $("#right_side_bar").html("");
-            $("#tab-3").html();
+            $("#right_side_bar").html($(" <div class=\"tab-3\"></div>\n" +
+                "                        <div class=\"existing_commitment\"></div>\n" +
+                "                        <div class=\"new_facility\"></div>\n" +
+                "                        <div class=\"new_commitment\"></div>"));
             $.ajax({
                 url: "{{ route("comments") }}",
                 type: "POST",
@@ -365,7 +373,7 @@
                 data: "applicant_id=" + id,
                 success: function (response) {
                     $("#tab-3").html(response);
-                    $("#right_side_bar").append($("#tab-3").clone(true));
+                    $("#right_side_bar .tab-3").html($("#tab-3").clone(true));
 
                 },
                 error: function () {
@@ -381,7 +389,7 @@
                 success: function (response) {
                     if(response!="") {
                         $("#new_facility").html("").append($(response));
-                        $("#right_side_bar").append($(response));
+                        $("#right_side_bar .new_facility").html($(response));
                         $.ajax({
                             url: "{{ route("new_commitment") }}",
                             type: "POST",
@@ -391,7 +399,7 @@
                             data: "applicant_id=" + id + "&la_id=" + $("#la_id").val(),
                             success: function (response) {
                                 $("#new_commitment").html("").append($(response));
-                                $("#right_side_bar").append($(response));
+                                $("#right_side_bar .new_commitment").html($(response));
 
                             },
                             error: function () {
@@ -414,7 +422,7 @@
                 data: "applicant_id=" + id,
                 success: function (response) {
                     $("#existing_commitment").html("").append($(response));
-                    $("#right_side_bar").append($(response));
+                    $("#right_side_bar .existing_commitment").html($(response));
 
                 },
                 error: function () {

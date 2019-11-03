@@ -42,39 +42,55 @@ class UploaderController extends Controller
                 $applicant->la_serial_id = $count;
                 $applicant->save();
             }
+        } else {
+            $la_applicant_update = LoanApplication::where("la_applicant_id", '=', $id)
+                // ->where("la_serial_no","=",$la_applicant->la_serial_no)
+                // ->where("la_serial_id","=",$la_applicant->la_serial_id)
+                ->get();
+            foreach ($la_applicant_update as $applicant) {
+                $applicant->la_serial_no = date("dmY");
+                $applicant->la_serial_id = $count;
+                $applicant->save();
+            }
         }
+
+
+
         $la_applicant = LoanApplication::where("la_applicant_id",'=',$id)->first();
 
         $arr["la_serial_no"] = $la_applicant->la_serial_no;
         $arr["la_serial_id"] = $la_applicant->la_serial_id;
         $arr["loan_application"] = $la_applicant;
         $arr["applicant"] = ApplicantData::find($id);
-        $arr["applicants"] = ApplicantData::selectRaw("applicant_data.id,name,applicant_approved")
-            ->leftjoin('loan_applications',function ($join){
-                $join->on("applicant_data.id","=",'loan_applications.applicant_id');
+        $arr["applicants"] = ApplicantData::selectRaw("distinct applicant_data.id,name,applicant_approved")
+            ->leftjoin('loan_applications', function ($join) use ($la_applicant) {
+                $join->on("applicant_data.id", "=", 'loan_applications.applicant_id')
+                    ->whereRaw("la_serial_no = '" . $la_applicant->la_serial_no . "' and la_serial_id = '" . $la_applicant->la_serial_id . "'");
             })
             ->whereRaw(
                 "(
                 (applicant_data.id = $id)
                     OR
-                        (applicant_data.id in (select applicant_id from loan_applications where la_applicant_id=" . $id . "))
+                        (applicant_data.id in 
+                        (select applicant_id from loan_applications where la_applicant_id=" . $id . " 
+                         and  la_serial_no = '" . $la_applicant->la_serial_no . "' and la_serial_id = '" . $la_applicant->la_serial_id . "'))
                      )
                      
                      OR
                         (
-                            applicant_data.id in 
+                            applicant_data.id in
                             (
-                                select applicant_id from loan_applications where la_applicant_id in 
+                                select applicant_id from loan_applications where la_applicant_id in
                                 (
                                     select applicant_data.id from applicant_data where
                                     (
                                         (applicant_data.id = $id)
                                     OR
-                                        (applicant_data.id in (select applicant_id from loan_applications where la_applicant_id=" . $id . "))
+                                        (applicant_data.id in (select applicant_id from loan_applications where la_applicant_id=" . $id . "  and  la_serial_no = '" . $la_applicant->la_serial_no . "' and la_serial_id = '" . $la_applicant->la_serial_id . "'))
                                      )
-                                )
+                                )  and  la_serial_no = '" . $la_applicant->la_serial_no . "' and la_serial_id = '" . $la_applicant->la_serial_id . "'
                             )
-                        )            
+                        )
                               
                     and applicant_data.user_id='" . Auth::id() . "'")->get();
 
