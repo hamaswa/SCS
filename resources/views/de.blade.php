@@ -94,12 +94,15 @@
                                 <thead>
                                 <tr>
                                     <th style="width: 115px;">Facility Date</th>
+                                    <th style="width: 100px;">STS</th>
                                     <th style="width: 100px;">Capacity</th>
                                     <th style="width: 100px;">Facility Limit</th>
                                     <th style="width: 100px;">Facility Outstanding</th>
                                     <th style="width: 100px;">Installment</th>
+                                    <th style="width: 102px;">Col Type</th>
                                     <th style="width: 102px;">MIA</th>
                                     <th style="width: 102px;">CONDUCT</th>
+                                    <th style="width: 102px;">Adverse Remarks</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -115,6 +118,17 @@
                                         </div>
                                     </td>
 
+                                    <td>
+                                        <div class="form-group">
+
+                                            <select name="sts" id="sts">
+                                                <option value="O">O</option>
+                                                <option value="K">K</option>
+                                                <option value="T">T</option>
+                                            </select>
+
+                                        </div>
+                                    </td>
 
                                     <td>
                                         <div class="form-group" id="capacity">
@@ -129,6 +143,7 @@
 
                                         </div>
                                     </td>
+
 
                                     <td>
                                         <div class="form-group">
@@ -147,6 +162,14 @@
                                             <input type="text" name="installment" id="installment" class="form-control my-colorpicker1"
                                                    style="background-color: #fff;">
                                         </div>
+                                    </td>
+                                    <td>
+                                        <select name="col_type" id="col_type">
+                                            <option value="00">00</option>
+                                            <option value="11">11</option>
+                                            <option value="22">22</option>
+                                        </select>
+
                                     </td>
                                     <td>
                                         <div class="form-group">
@@ -168,6 +191,13 @@
                                             </select>
                                         </div>
                                 </td>
+                                    <td>
+                                        <select name="adverse_remark" id="adverse_remark">
+                                            <option value="amla">AMLA</option>
+                                            <option value="courtcase">Court Case</option>
+                                            <option value="bankruptcy">Bankruptcy</option>
+                                        </select>
+                                    </td>
                                 </tr>
                         <tr>
                             <td class="add-button">

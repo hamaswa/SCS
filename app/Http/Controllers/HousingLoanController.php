@@ -23,13 +23,9 @@ class HousingLoanController extends Controller
             ->orderBy("id","desc")
             ->paginate(5);
 
-        $capacity_types_data  = AASource::where("type","capacity_type")->get();
-        $capacity_type = [];
-        foreach ($capacity_types_data as $item) {
-            $capacity_type[strtolower($item->name)] = $item->description;
-        }
+        $arr["capacity_type"] = AASource::where("type", "facility_type")->get();
 
-        return view("deview")->with(['capacity_type'=>$capacity_type]);
+        return view("deview")->with($arr);
     }
 
     /**

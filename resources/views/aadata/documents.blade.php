@@ -15,12 +15,9 @@
             </thead>
             <tbody>
             @foreach($applicants as $applicant)
-                <tr>
+                <tr class="bg-aqua-active text-red font-weight-bolder with-border">
                     <td colspan="4">
-
-                        {{
-                 $applicant->name
-                 }}
+                        <h4 class="col-lg-12">{{ $applicant->name }}</h4>
                     </td>
                 </tr>
                 @foreach($applicant->applicantDocuments as $document)

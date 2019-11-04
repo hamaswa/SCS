@@ -43,6 +43,7 @@ Route::group(['prefix'=>'admin','auth'], function() {
 });
 
 Route::group(['middleware' => 'role:uploader'], function() {
+    Route::resource('/uploader/la', 'Uploader\LaController', ['names' => 'la']);
     Route::resource('uploader', 'Uploader\UploaderController');
     Route::post('/uploader/existing_commitment', 'Uploader\UploaderController@existingCommitment')->name("existing_commitment");
     Route::post('/uploader/new_commitment', 'Uploader\UploaderController@newCommitment')->name("new_commitment");
