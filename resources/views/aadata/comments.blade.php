@@ -14,29 +14,30 @@
 
                 </thead>
                 <tbody>
+                @php
+                    $collapse = "in";
+                @endphp
                 @foreach($applicants as $applicant)
-                 <tr><td colspan="3">
-
-                         {{
-                  $applicant->name
-                  }}
-                     </td></tr>
+                    <tr class="bg-aqua-active text-white font-weight-bolder with-border"
+                        data-toggle="collapse" data-target=".{{ $applicant->name }}_comments">
+                        <th colspan="3">
+                            {{ $applicant->name }}
+                        </th>
+                    </tr>
                 @foreach($applicant->applicantComments as $comment)
-                    <tr>
+                    <tr class="collapse {{$collapse}} {{$applicant->name}}_comments">
                         <td>{{ date("Y-m-d",strtotime($comment->created_at))}}</td>
                         <td></td>
                         <td>{{$comment->user->first_name}}</td>
                     </tr>
-                    <tr>
+                    <tr class="collapse {{$collapse}} {{$applicant->name}}_comments">
                         <td colspan="3"><b>Comments:</b><br>{!! $comment->comments !!}</td>
                     </tr>
                 @endforeach
 
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                    @php
+                        $collapse = "out";
+                    @endphp
                     @endforeach
                 </tbody>
             </table>

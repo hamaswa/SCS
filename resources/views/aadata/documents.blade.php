@@ -14,20 +14,27 @@
             </tr>
             </thead>
             <tbody>
+            @php
+                $collapse = "in";
+            @endphp
             @foreach($applicants as $applicant)
-                <tr class="bg-aqua-active text-white font-weight-bolder with-border">
-                    <td colspan="4">
-                        <h4 class="col-lg-12">{{ $applicant->name }}</h4>
-                    </td>
+                <tr class="bg-aqua-active text-white font-weight-bolder with-border"
+                    data-toggle="collapse" data-target=".{{ $applicant->name }}_doc">
+                    <th colspan="4">
+                        {{ $applicant->name }}
+                    </th>
                 </tr>
                 @foreach($applicant->applicantDocuments as $document)
-                    <tr>
+                    <tr class="collapse {{$collapse}} {{$applicant->name}}_doc">
                         <td>{{ date("Y-m-d",strtotime($document->created_at))}}</td>
                         <td>{{ $document->doc_name }}</td>
                         <td>{{$document->doc_status}}</td>
                         <td><a href="{{ route("download")}}?id={{$document->id}}">view</a></td>
                     </tr>
                 @endforeach
+                @php
+                    $collapse = "out";
+                @endphp
             @endforeach
             </tbody>
 
