@@ -15,7 +15,7 @@
             </thead>
             <tbody>
             @foreach($applicants as $applicant)
-                <tr class="bg-aqua-active text-red font-weight-bolder with-border">
+                <tr class="bg-aqua-active text-white font-weight-bolder with-border">
                     <td colspan="4">
                         <h4 class="col-lg-12">{{ $applicant->name }}</h4>
                     </td>

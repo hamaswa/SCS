@@ -12,10 +12,11 @@
         <tbody>
 
         @foreach ($applicants as $applicant)
-            <tr class="bg-aqua-active text-red font-weight-bolder with-border">
-                <td colspan="3">
-                    <h4 class="col-lg-12">{{ $applicant->name }}</h4>
-                </td>
+            <tr class="bg-aqua-active text-white font-weight-bolder with-border"
+                data-toggle="collapse" data-target=".{{ $applicant->name }}_new_commitment">
+                <th colspan="3">
+                    {{ $applicant->name }}
+                </th>
             </tr>
             @php
                 $new_commitments= $applicant->facilityInfo()
@@ -28,11 +29,13 @@
                         ->get();
              $total = 0;
             $income_total=$applicant->applicantIncome()->sum('net');
-
+            $collapse = "in";
             @endphp
         @if(count($new_commitments)>0)
             @foreach($new_commitments as $k => $v)
-                <tr {{ ($v->la_id!= null? "style=color:red":"") }}>
+                <tr {{ ($v->la_id!= null? "style=color:red":"") }}
+                    class="collapse {{$collapse}} {{$applicant->name}}_new_commitment">
+
                     <td>
                         {{strtoupper($v->type) }}
                     </td>
@@ -53,8 +56,10 @@
                     </td>
                 </tr>
 
+
             @endforeach
-            <tr {{ ($v->la_id!= null? "style=color:red":"") }}>
+            <tr {{ ($v->la_id!= null? "style=color:red":"") }}
+                class="collapse {{$collapse}} {{$applicant->name}}_new_commitment">
                 <td>
                     Total
                 </td>
@@ -70,6 +75,9 @@
                 </td>
             </tr>
         @endif
+            @php
+                $collapse = "out";
+            @endphp
         @endforeach
 
 

@@ -46,14 +46,18 @@
             </tr>
             </thead>
             <tbody>
+            @php
+                $collapse = "in";
+            @endphp
             @foreach($applicants as $applicant)
                 <?php
                 $wealth_total = 0;
                 ?>
-                <tr class="bg-aqua-active text-red font-weight-bolder with-border">
-                    <td colspan="2">
-                        <h4 class="col-lg-12">{{ $applicant->name }}</h4>
-                    </td>
+                <tr class="bg-aqua-active text-white font-weight-bolder with-border"
+                    data-toggle="collapse" data-target=".{{ $applicant->name }}_income">
+                    <th colspan="3">
+                        {{ $applicant->name }}
+                    </th>
                 </tr>
 
                 @foreach($applicant->applicantWealth as $wealth)
@@ -62,13 +66,15 @@
                     @endphp
                     @switch($wealth->type)
                         @case("saving")
-                        <tr id="wealth_saving_right" class="wealth_saving_right">
+                        <tr id="wealth_saving_right"
+                            class="wealth_saving_right collapse {{$collapse}} {{$applicant->name}}_wealth">
                             <td>Saving</td>
                             <td>{{ $wealth->total }}</td>
                         </tr>
                         @break
                         @case("epf")
-                        <tr id="wealth_epf_right" class="wealth_epf_right">
+                        <tr id="wealth_epf_right"
+                            class="wealth_epf_right  collapse {{$collapse}} {{$applicant->name}}_wealth">
                             <td>EPF Account Balance</td>
                             <td>{{ $wealth->total }}</td>
                         </tr>
@@ -76,7 +82,8 @@
 
                         @break
                         @case("tpf")
-                        <tr id="wealth_tpf_right" class="wealth_tpf_right">
+                        <tr id="wealth_tpf_right"
+                            class="wealth_tpf_right collapse {{$collapse}} {{$applicant->name}}_wealth">
                             <td>Total Fixed Deposits</td>
                             <td>{{ $wealth->total }}</td>
                         </tr>
@@ -84,14 +91,16 @@
 
                         @break
                         @case("tsv")
-                        <tr id="wealth_tsv_right" class="wealth_tsv_right">
+                        <tr id="wealth_tsv_right"
+                            class="wealth_tsv_right collapse {{$collapse}} {{$applicant->name}}_wealth">
                             <td>Total Shares Value</td>
                             <td>{{ $wealth->total }}</td>
                         </tr>
 
                         @break
                         @case("utv")
-                        <tr id="wealth_utv_right" class="wealth_utv_right">
+                        <tr id="wealth_utv_right"
+                            class="wealth_utv_right collapse {{$collapse}} {{$applicant->name}}_wealth">
                             <td>Unit Trust Value</td>
                             <td>{{ $wealth->total }}</td>
                         </tr>
@@ -101,13 +110,17 @@
                     @endswitch
                 @endforeach
 
-                <tr class="bg-yellow-light wealth_total_right" id="wealth_total_right">
+                <tr class="bg-yellow-light wealth_total_right collapse {{$collapse}} {{$applicant->name}}_wealth"
+                    id="wealth_total_right">
                     @if(isset($wealth_total))
                         <td>Total</td>
                         <td>{{ $wealth_total }}</td>
                     @endif
 
                 </tr>
+                @php
+                    $collapse = "out";
+                @endphp
             @endforeach
 
             </tbody>

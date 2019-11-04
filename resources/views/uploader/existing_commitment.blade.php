@@ -1,4 +1,5 @@
-<div data-toggle="collapse" data-target=".right_existing_commitment" class="panel-heading bg-light-blue-gradient"><strong>Existing
+<div data-toggle="collapse" data-target=".right_existing_commitment"
+     class="panel-heading bg-light-blue-gradient"><strong>Existing
         Commitment</strong></div>
 <div id="existing_commitment" class="collapse right_existing_commitment">
     <table class="table table-bordered table-hover bg-white existing_commitment">
@@ -12,20 +13,22 @@
         </thead>
         <tbody>
         @foreach($applicants as $applicant)
-            <tr class="bg-aqua-active text-red font-weight-bolder with-border">
-                <td colspan="3">
-                    <h4 class="col-lg-12">{{ $applicant->name }}</h4>
-                </td>
+            <tr class="bg-aqua-active text-white font-weight-bolder with-border"
+                data-toggle="collapse" data-target=".{{ $applicant->name }}_existing_commitment">
+                <th colspan="3">
+                    {{ $applicant->name }}
+                </th>
             </tr>
 
             @php
                 $total = 0;
                 $existing_commitments = $applicant->facilityInfo()->where("la_id",'=', null)->get();
-                $income_total=$applicant->applicantIncome()->sum('net')
+                $income_total=$applicant->applicantIncome()->sum('net');
+                $collapse="in";
             @endphp
             @foreach($existing_commitments as $k => $v)
 
-                <tr>
+                <tr class="collapse {{$collapse}} {{$applicant->name}}_existing_commitment">
                     <td>
                         {{strtoupper($v->type) }}
 
@@ -41,8 +44,11 @@
                         {{ round(($v->installment/$income_total)*100,2) }}
                     </td>
                 </tr>
+
+
+
             @endforeach
-            <tr>
+            <tr class="collapse {{$collapse}} {{$applicant->name}}_existing_commitment">
                 <td>
                     Total
                 </td>
@@ -57,7 +63,9 @@
                     @endif
                 </td>
             </tr>
-
+            @php
+                $collapse = "out";
+            @endphp
         @endforeach
         </tbody>
     </table>

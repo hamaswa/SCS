@@ -20,7 +20,9 @@ class LaController extends Controller
             ->whereNotNull("la_serial_no")
             ->whereNotNull("la_serial_id")
             ->get();
-        print_r($la);
+        foreach ($la as $item) {
+            print_r($item);
+        }
 
     }
 

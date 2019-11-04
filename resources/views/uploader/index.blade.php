@@ -83,7 +83,7 @@
                             </tr>
                             </thead>
                             <tbody id="new_facilities">
-                                @include ("uploader.facility_edit")
+                            {{--@include ("uploader.facility_edit")--}}
                             </tbody>
                             <tfoot id="facility_form">
                             <tr style="background-color: #c6d8f2;">
@@ -482,6 +482,7 @@
             });
         }
         function facility_edit() {
+
             $.ajax({
                 url: "{{ route("facility_edit") }}",
                 type: "POST",

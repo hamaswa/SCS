@@ -93,15 +93,19 @@
             </tr>
             </thead>
             <tbody>
+            @php
+                $collapse = "in";
+            @endphp
             @foreach($applicants as $applicant)
                 @php
                    $total_gross=0;
                    $total_net=0;
                 @endphp
-                <tr class="bg-aqua-active text-red font-weight-bolder with-border">
-                    <td colspan="3">
-                        <h4 class="col-lg-12">{{ $applicant->name }}</h4>
-                    </td>
+                <tr class="bg-aqua-active text-white font-weight-bolder with-border"
+                    data-toggle="collapse" data-target=".{{ $applicant->name }}_income">
+                    <th colspan="3">
+                        {{ $applicant->name }}
+                    </th>
                 </tr>
 
                 @foreach($applicant->applicantIncome as $k => $income)
@@ -111,19 +115,22 @@
                     @endphp
                     @if($income->type=="salary")
 
-                        <tr id="salary_right_bar" class="salary_right_bar">
+                        <tr id="salary_right_bar" class="salary_right_bar collapse
+                        {{$collapse}} {{$applicant->name}}_income">
                             <td>Monthly Fixed</td>
                             <td>{{$income->gross}}</td>
                             <td>{{$income->net}}</td>
                         </tr>
                     @elseif($income->type=="business")
-                        <tr id="business_right_bar" class="business_right_bar">
+                        <tr id="business_right_bar"
+                            class="business_right_bar collapse {{$collapse}} {{$applicant->name}}_income">
                             <td>Monthly Variable</td>
                             <td>{{$income->gross}}</td>
                             <td>{{$income->net}}</td>
                         </tr>
                     @elseif($income->type=="incometax")
-                        <tr id="incometax_right_bar" class="incometax_right_bar">
+                        <tr id="incometax_right_bar"
+                            class="incometax_right_bar collapse {{$collapse}} {{$applicant->name}}_income">
                             <td>
                                 Annual Tax Declared
                             </td>
@@ -131,7 +138,7 @@
                             <td>{{$income->net}}</td>
                         </tr>
                     @elseif($income->type=="iif")
-                        <tr id="iif_right_bar" class="iif_right_bar">
+                        <tr id="iif_right_bar" class="iif_right_bar collapse {{$collapse}} {{$applicant->name}}_income">
                             <td>
                                 Industry Income Factor
                             </td>
@@ -139,7 +146,8 @@
                             <td>{{$income->net}}</td>
                         </tr>
                     @elseif($income->type=="monthlyrental")
-                        <tr id="monthly_rental_right_bar" class="monthly_rental_right_bar">
+                        <tr id="monthly_rental_right_bar"
+                            class="monthly_rental_right_bar collapse {{$collapse}} {{$applicant->name}}_income">
                             <td>
                                 Monthly Rental
                             </td>
@@ -147,7 +155,8 @@
                             <td>{{$income->net}}</td>
                         </tr>
                     @elseif($income->type=="air")
-                        <tr id="annual_investment_return_right_bar" class="annual_investment_return_right_bar">
+                        <tr id="annual_investment_return_right_bar"
+                            class="annual_investment_return_right_bar collapse {{$collapse}} {{$applicant->name}}_income">
                             <td>
                                 Annual Investment Return
                             </td>
@@ -157,16 +166,18 @@
                         </tr>
                     @endif
                 @endforeach
-
-
-
-                <tr class="bg-aqua income_kyc_total_right_bar" id="income_kyc_total_right_bar">
+                <tr class="bg-aqua income_kyc_total_right_bar
+                collapse {{$collapse}} {{$applicant->name}}_income"
+                    id="income_kyc_total_right_bar">
                     @if(isset($total_gross) and $total_gross!=0)
                         <th>Total</th>
                         <th>{{$total_gross}}</th>
                         <th>{{$total_net}}</th>
                     @endif
                 </tr>
+                @php
+                    $collapse = "out";
+                @endphp
             @endforeach
 
             </tbody>

@@ -13,11 +13,15 @@
             </thead>
             <tbody>
             @foreach($applicants as $applicant)
-                <tr class="bg-aqua-active text-red font-weight-bolder with-border">
-                    <td colspan="3">
-                        <h4 class="col-lg-12">{{ $applicant->name }}</h4>
-                    </td>
+                <tr class="bg-aqua-active text-white font-weight-bolder with-border"
+                    data-toggle="collapse" data-target=".{{ $applicant->name }}_new_facility">
+                    <th colspan="3">
+                        {{ $applicant->name }}
+                    </th>
                 </tr>
+                @php
+                    $collapse = "in";
+                @endphp
 
                 @foreach($applicant->facilityInfo as $k => $v)
                     @if($v->la_id==$la_id)
@@ -26,7 +30,7 @@
                         $installment = 0;
                         ?>
 
-                        <tr>
+                        <tr class="collapse {{$collapse}} {{$applicant->name}}_new_facility">
                             <td>
                                 {{strtoupper($v->type) }}
 
@@ -46,22 +50,27 @@
                             </td>
 
                         </tr>
-                        <tr>
-                            <td>
-                                Total
-                            </td>
-                            <td>
-                                {{ $loan_amount }}
-                            </td>
-                            <td>
-                                {{$installment}}
 
-                            </td>
 
-                        </tr>
                     @endif
 
                 @endforeach
+                <tr class="collapse {{$collapse}} {{$applicant->name}}_new_facility">
+                    <td>
+                        Total
+                    </td>
+                    <td>
+                        {{ $loan_amount }}
+                    </td>
+                    <td>
+                        {{$installment}}
+
+                    </td>
+
+                </tr>
+                @php
+                    $collapse = "out";
+                @endphp
             @endforeach
             </tbody>
 

@@ -174,12 +174,15 @@ class UploaderController extends Controller
         $inputs = $request->all();
 
         $arr["capacity_data"] = AASource::where("type", "facility_type")->get();
-
-        $arr["facilities"] = FacilityInfo::whereRaw("
-                status='new_facility' and 
-                applicant_id in (" . implode(",",$inputs['applicant_id']) . ") and ".
-            "la_id='".  $inputs['la_id']."'")
-            ->get();
+        $inputs = $request->all();
+        //$inputs['applicant_id'] = explode(",",$inputs['applicant_id']);
+        $arr['applicants'] = ApplicantData::find($inputs['applicant_id']);
+        $arr['inputs'] = $inputs;
+//        $arr["facilities"] = FacilityInfo::whereRaw("
+//                status='new_facility' and
+//                applicant_id in (" . implode(",",$inputs['applicant_id']) . ") and ".
+//            "la_id='".  $inputs['la_id']."'")
+//            ->get();
 
         return view("uploader.facility_edit")->with($arr);
     }
@@ -331,12 +334,6 @@ class UploaderController extends Controller
             $facility->type = $inputs['type'];
             $facility->save();
 
-            $arr["facilities"] = FacilityInfo::whereRaw("
-                    status='new_facility' and 
-                    la_id='" . $inputs["la_id"] . "'")
-                ->get();
-            return view("uploader.facility_edit")->with($arr);
-
         }
         else {
             if ($inputs['loan_amount'] != "" or $inputs['interest_rate'] != "" or $inputs['loan_tenure'] != "") {
@@ -344,14 +341,15 @@ class UploaderController extends Controller
                     $inputs['applicant_id'] = $applicant;
                     $facility = FacilityInfo::create($inputs);
                 }
-                $arr["facilities"] = FacilityInfo::whereRaw("
-                    status='new_facility' and 
-                    la_id='" . $inputs["la_id"] . "'")
-                    ->get();
-                return view("uploader.facility_edit")->with($arr);
+
 
             }
         }
+        $inputs['applicant_id'] = explode(",", $inputs['applicant_id']);
+        $arr['inputs'] = $inputs;
+        $arr['applicants'] = ApplicantData::find($inputs['applicant_id']);
+
+        return view("uploader.facility_edit")->with($arr);
     }
 
     public function deleteFacility(Request $request)

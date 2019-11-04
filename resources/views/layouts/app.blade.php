@@ -390,7 +390,6 @@ if (isset($applicant)) {
 
                     </div>
                 <div id="tab-4" class="">
-
                     <div class="table-responsive" id="new_facility">
 
                     </div>
