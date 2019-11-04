@@ -61,12 +61,15 @@
                                     <th>CCRIS</th>
                                     <th>Facility</th>
                                     <th>Facility Date</th>
+                                    <th>STS</th>
                                     <th>Capacity</th>
                                     <th>Facility Limit</th>
                                     <th>Facility Outstanding</th>
                                     <th>Installment</th>
+                                    <th>Col Type</th>
                                     <th>MIA</th>
                                     <th>CONDUCT</th>
+                                    <th>Adverse Remark</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -147,6 +150,14 @@
                                                        data-inputmask="'alias': 'dd/mm/yyyy'"
                                                        value="{{$v->facilitydate}}">
                                             </td>
+                                            <td>
+                                                <select name="sts">
+                                                    <option value="O" {{ ($v->sts=="O"?"selected":"") }}>O</option>
+                                                    <option value="K" {{ ($v->sts=="K"?"selected":"") }}>K</option>
+                                                    <option value="T" {{ ($v->sts=="T"?"selected":"") }}>T</option>
+                                                </select>
+
+                                            </td>
 
 
                                             <td>
@@ -195,7 +206,18 @@
 
                                             </td>
 
+                                            <td>
 
+
+                                                <select name="col_type">
+                                                    <option value="00" {{ ($v->col_type=="00"?"selected":"") }}>00
+                                                    </option>
+                                                    <option value="11" {{ ($v->col_type=="11"?"selected":"") }}>11
+                                                    </option>
+                                                    <option value="22" {{ ($v->col_type=="22"?"selected":"") }}>22
+                                                    </option>
+                                                </select>
+                                            </td>
                                             <td>
                                                 <select id="mia" class="form-control" name="mia">
                                                     <option value="0" {{ ($v->mia=="0"?"selected":"") }}>0</option>
@@ -216,6 +238,18 @@
 
 
                                             </td>
+                                            <td>
+                                                <select name="adverse_remark">
+                                                    <option value="amla" {{ ($v->adverse_remark=="amla"?"selected":"") }}>
+                                                        AMLA
+                                                    </option>
+                                                    <option value="courtcase" {{ ($v->adverse_remark=="courtcase"?"selected":"") }}>
+                                                        Court Case
+                                                    </option>
+                                                    <option value="bankruptcy" {{ ($v->adverse_remark=="bankruptcy"?"selected":"") }}>
+                                                        Bankruptcy
+                                                    </option>
+                                                </select></td>
                                             <td><a class="btn btn-default update_facility">Update</a>
                                                 {!! Form::open(['route' => ['housingloan.destroy', $v->id], 'method' => 'delete']) !!}
                                                 <div class='btn-group'>

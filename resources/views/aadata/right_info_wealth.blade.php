@@ -55,8 +55,10 @@
                 <?php
                 $wealth_total = 0;
                 ?>
-                <tr class="bg-aqua">
-                    <td colspan="2"> {{ $applicant->name }}</td>
+                <tr class="bg-aqua-active text-red font-weight-bolder with-border">
+                    <td colspan="2">
+                        <h4 class="col-lg-12">{{ $applicant->name }}</h4>
+                    </td>
                 </tr>
 
                 @foreach($applicant->applicantWealth as $wealth)

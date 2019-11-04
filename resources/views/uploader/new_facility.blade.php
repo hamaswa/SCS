@@ -13,9 +13,11 @@
             </thead>
             <tbody>
             @foreach($applicants as $applicant)
-                <tr><td colspan="3">
-                        {{ $applicant->name }}
-                    </td> </tr>
+                <tr class="bg-aqua-active text-red font-weight-bolder with-border">
+                    <td colspan="3">
+                        <h4 class="col-lg-12">{{ $applicant->name }}</h4>
+                    </td>
+                </tr>
 
                 @foreach($applicant->facilityInfo as $k => $v)
                     @if($v->la_id==$la_id)

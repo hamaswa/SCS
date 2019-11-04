@@ -97,8 +97,10 @@
                    $total_gross=0;
                    $total_net=0;
                 @endphp
-                <tr class="bg-aqua">
-                    <td colspan="3"> {{ $applicant->name }}</td>
+                <tr class="bg-aqua-active text-red font-weight-bolder with-border">
+                    <td colspan="3">
+                        <h4 class="col-lg-12">{{ $applicant->name }}</h4>
+                    </td>
                 </tr>
 
                 @foreach($applicant->applicantIncome as $k => $income)
