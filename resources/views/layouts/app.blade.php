@@ -390,8 +390,7 @@ if (isset($applicant)) {
 
                     </div>
                 <div id="tab-4" class="">
-                    <div class="table-responsive" id="existing_facility">
-                    </div>
+
                     <div class="table-responsive" id="new_facility">
 
                     </div>
@@ -399,6 +398,7 @@ if (isset($applicant)) {
                     </div>
 
                     <div class="table-responsive" id="new_commitment">
+                    </div>
                 </div>
 
             </div>
