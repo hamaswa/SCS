@@ -1,6 +1,6 @@
 @if(isset($applicants))
-    <div data-toggle="collapse" data-target=".right_wealth" class="panel-heading bg-light-blue-gradient"><strong>Wealth</strong></div>
-    <div id="right_wealth" class="collapse in right_wealth">
+    <div data-toggle="collapse" data-target=".right_wealth_new" class="panel-heading bg-light-blue-gradient"><strong>Wealth</strong></div>
+    <div  class="collapse in right_wealth_new">
     @if(isset($applicant) and $applicant->aacategory=="C")
         <table class="table table-bordered table-striped bg-white">
             <thead class="bg-light-blue">

@@ -1,6 +1,6 @@
 @if(isset($applicants))
-    <div data-toggle="collapse" data-target=".right_property" class="panel-heading bg-light-blue-gradient"><strong>Property</strong></div>
-    <div id="right_property" class="collapse in right_property">
+    <div data-toggle="collapse" data-target=".right_property_new" class="panel-heading bg-light-blue-gradient"><strong>Property</strong></div>
+    <div class="collapse in right_property_new">
     <table class="table table-bordered table-striped table-hover bg-white">
         <thead class="bg-light-blue">
 
