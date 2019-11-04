@@ -2,7 +2,7 @@
 
     @if(isset($applicant) and $applicant->aacategory=="C")
         <div data-toggle="collapse" data-target=".right_income" class="panel-heading bg-light-blue-gradient"><strong>Income</strong></div>
-        <div id="right_income" class="collapse right_income">
+        <div id="right_income" class="collapse in right_income">
         <table class="table table-bordered table-striped table-hover bg-white">
             <thead class="bg-light-blue">
 
@@ -81,7 +81,7 @@
 
     @else
         <div data-toggle="collapse" data-target=".right_monthly_income" class="panel-heading bg-light-blue-gradient"><strong>Monthly Income</strong></div>
-        <div id="right_monthly_income" class="collapse right_monthly_income">
+        <div id="right_monthly_income" class="collapse in right_monthly_income">
         <table class="table table-bordered table-striped table-hover bg-white">
             <thead class="bg-light-blue">
 
