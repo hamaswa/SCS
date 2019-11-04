@@ -1,11 +1,11 @@
 @if(isset($applicants))
 
     @if(isset($applicant) and $applicant->aacategory=="C")
+        <div data-toggle="collapse" data-target=".right_income" class="panel-heading bg-light-blue-gradient"><strong>Income</strong></div>
+        <div id="right_income" class="collapse right_income">
         <table class="table table-bordered table-striped table-hover bg-white">
             <thead class="bg-light-blue">
-            <tr class="bg-light-blue-gradient">
-                <th colspan="3" class="text-center">Income</th>
-            </tr>
+
 
             </thead>
             <tbody>
@@ -39,11 +39,11 @@
 
             </tfoot>
         </table>
+        </div>
+        <div data-toggle="collapse" data-target=".right_payments" class="panel-heading bg-light-blue-gradient"><strong>Payments</strong></div>
+        <div id="right_payments" class="collapse right_payments">
         <table class="table table-bordered table-striped table-hover bg-white">
             <thead class="bg-light-blue">
-            <tr class="bg-light-blue-gradient">
-                <th colspan="3" class="text-center">Payments</th>
-            </tr>
 
             </thead>
             <tbody>
@@ -77,13 +77,14 @@
 
             </tfoot>
         </table>
+        </div>
 
     @else
+        <div data-toggle="collapse" data-target=".right_monthly_income" class="panel-heading bg-light-blue-gradient"><strong>Monthly Income</strong></div>
+        <div id="right_monthly_income" class="collapse right_monthly_income">
         <table class="table table-bordered table-striped table-hover bg-white">
             <thead class="bg-light-blue">
-            <tr class="bg-light-blue-gradient">
-                <th colspan="3" class="text-center">Monthly Income</th>
-            </tr>
+
             <tr class="bg-aqua">
                 <th>Type</th>
                 <th>Gross</th>
@@ -168,6 +169,7 @@
 
             </tbody>
         </table>
+        </div>
     @endif
 
 @endif

@@ -1,6 +1,6 @@
-<div data-toggle="collapse" data-target="#new_commitment" class="panel-heading bg-primary"><strong>New
+<div data-toggle="collapse" data-target=".new_commitment" class="panel-heading bg-primary"><strong>New
         Commitment</strong></div>
-<div id="new_commitment" class="collapse">
+<div id="new_commitment" class="collapse new_commitment">
     <table class="table table-bordered table-hover bg-white new_commitment">
         <thead>
         <tr class="bg-light-blue-gradient">

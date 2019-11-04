@@ -1,11 +1,9 @@
 @if(isset($applicants))
-
+    <div data-toggle="collapse" data-target=".right_wealth" class="panel-heading bg-light-blue-gradient"><strong>Wealth</strong></div>
+    <div id="right_wealth" class="collapse right_wealth">
     @if(isset($applicant) and $applicant->aacategory=="C")
         <table class="table table-bordered table-striped bg-white">
             <thead class="bg-light-blue">
-            <tr class="bg-light-blue-gradient">
-                <th colspan="3" class="text-center">Wealth</th>
-            </tr>
             <tr class="bg-aqua">
                 <th>Bank</th>
                 <th>Credit</th>
@@ -42,9 +40,6 @@
     @else
         <table class="table table-bordered table-striped bg-white">
             <thead class="bg-light-blue">
-            <tr class="bg-light-blue-gradient">
-                <th colspan="3" class="text-center">Wealth</th>
-            </tr>
             <tr class="bg-aqua">
                 <th>Type</th>
                 <th>Amount</th>
@@ -117,4 +112,5 @@
 
         </table>
     @endif
+    </div>
 @endif
