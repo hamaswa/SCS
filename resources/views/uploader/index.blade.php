@@ -68,8 +68,10 @@
                         <div id="la_facilities">
 
                         </div>
+
                         <table id="example5" class="table table-bordered table-hover">
                             <thead>
+
                             <tr>
                                 <th style="width: 115px;">Facility Type</th>
                                 <th style="width: 100px;">Loan Tenure (Years)
@@ -86,6 +88,12 @@
                             {{--@include ("uploader.facility_edit")--}}
                             </tbody>
                             <tfoot id="facility_form">
+                            <tr class="bg-aqua-active text-white font-weight-bolder with-border"
+                            >
+                                <th colspan="6">
+                                    Add New Facility
+                                </th>
+                            </tr>
                             <tr style="background-color: #c6d8f2;">
                                 <td>
                                     <input type="hidden" name="la_id" id="la_id" value="{{ isset($la_serial_no)?$la_serial_no."_".$la_serial_id:"" }}">
