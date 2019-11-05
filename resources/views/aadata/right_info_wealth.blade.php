@@ -54,7 +54,7 @@
                 $wealth_total = 0;
                 ?>
                 <tr class="bg-aqua-active text-white font-weight-bolder with-border"
-                    data-toggle="collapse" data-target=".{{ $applicant->name }}_income">
+                    data-toggle="collapse" data-target=".{{ $applicant->name }}_wealth">
                     <th colspan="3">
                         {{ $applicant->name }}
                     </th>
