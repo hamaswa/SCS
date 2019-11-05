@@ -21,8 +21,14 @@
         <tr>
             <td>
                 <input type="hidden" name="id" value="{{$v->id}}">
-                {{strtoupper($v->type) }}
-
+                <select name="type" id="type" class="select2">
+                    @foreach($capacity_data as $capacity)
+                        <option value="{{$capacity->name}}"
+                                {{ (strtoupper($v->type))==strtoupper($capacity->name?"selected":"") }}>
+                            {{ $capacity->description }}
+                        </option>
+                    @endforeach
+                </select>
             </td>
             <td>
                 <input type="date" required name="facilitydate"

@@ -19,20 +19,8 @@
 
                 <div class="box-body ">
                     <div class="col-md-8 col-sm-8 col-lg-8 no-padding">
-                    <div class="col-md-2 col-sm-2 col-lg-2 table-responsive  no-padding">
-                        <select name="la_type" id="la_type" class="form-control select2">
-                            <option value="subsale"  {{ ($loan_application->bank=="subsale"?"selected":"") }}>
-                            SubSale
-                            </option>
-                            <option value="undcon"  {{ ($loan_application->bank=="undcon"?"selected":"") }}>
-                                UNDcon
-                            </option>
-                            <option value="unsecured"  {{ ($loan_application->bank=="unsecured"?"selected":"") }}>
-                                UNsecured
-                            </option>
-                        </select>
-                    </div>
-                    <div class="col-md-10 col-sm-10 col-lg-10 table-responsive">
+
+                        <div class="col-md-12 col-sm-12 col-lg-12 table-responsive">
                         <table class="table table-bordered table-striped table-hover bg-white">
 
                             <tbody>
@@ -127,7 +115,23 @@
 
                             </tr>
                             <tr>
-                                <td class="add-button" colspan="6">
+                                <td colspan="5">
+                                    <div class="table-responsive  no-padding pull-right">
+                                        <select name="la_type" id="la_type" class="form-control select2">
+                                            <option value="subsale" {{ ($loan_application->bank=="subsale"?"selected":"") }}>
+                                                SubSale
+                                            </option>
+                                            <option value="undcon" {{ ($loan_application->bank=="undcon"?"selected":"") }}>
+                                                UNDcon
+                                            </option>
+                                            <option value="unsecured" {{ ($loan_application->bank=="unsecured"?"selected":"") }}>
+                                                UNsecured
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                </td>
+                                <td class="add-button">
                                     <div class="pull-right">
                                     <button type="button" id="create_la" class="btn bg-maroon btn-flat margin">Create LA</button>
                                     </div>

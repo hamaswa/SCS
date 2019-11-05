@@ -120,16 +120,17 @@
                                     <thead>
                                     <tr class="bg-light-blue-gradient">
                                         <th>CCRIS</th>
-                                        <th>Facility</th>
-                                        <th>Facility Date</th>
-                                        <th>Capacity</th>
-
-                                        <th>Facility Limit</th>
-                                        <th>Facility Outstanding</th>
-                                        <th>Instalment</th>
-                                        <th>MIA</th>
-                                        <th>CONDUCT</th>
-                                        <td>Action</td>
+                                        <th style="width: 115px;">Facility</th>
+                                        <th style="width: 115px;">Facility Date</th>
+                                        <th style="width: 100px;">STS</th>
+                                        <th style="width: 100px;">Capacity</th>
+                                        <th style="width: 100px;">Facility Limit</th>
+                                        <th style="width: 100px;">Facility Outstanding</th>
+                                        <th style="width: 100px;">Installment</th>
+                                        <th style="width: 102px;">Col Type</th>
+                                        <th style="width: 102px;">MIA</th>
+                                        <th style="width: 102px;">CONDUCT</th>
+                                        <th style="width: 102px;">Adverse Remarks</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -282,9 +283,13 @@
                     </div>
                     <div class="col-md-2 col-sm-12 no-padding no-margin">
                         <div class="box">
-                            <div class="box-body bg-yellow-light  left-box  detail-box">
-                                <strong>{{$data->name}}</strong>
-                                <div class="table-responsive">
+                            <div class="box-body bg-yellow-light left-box  detail-box" style="overflow-scrolling: auto">
+                                <div class="bg-aqua-active" data-toggle="collapse"
+                                     data-target=".{{ $data->name }}_{{$data->id}}">
+
+                                    <strong>{{$data->name}}</strong>
+                                </div>
+                                <div class="table-responsive collapse {{ $data->name }}_{{$data->id}}">
                                 <table class="table table-bordered table-striped table-hover bg-white margin-bottom">
                                     <thead>
 

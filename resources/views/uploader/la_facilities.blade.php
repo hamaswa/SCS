@@ -7,9 +7,12 @@
         <tr class="bg-light-blue-gradient">
             <th>Facility</th>
             <th>Facility Date</th>
+            <th>STS</th>
             <th>Capacity</th>
             <th>Facility Limit</th>
+            <th>Col Type</th>
             <th>Outstanding</th>
+            <th>Adverse Remark</th>
             <th>Select</th>
         </tr>
         </thead>
@@ -27,6 +30,9 @@
                 <td>
                     {{$v->facilitydate}}
                 </td>
+                <td>
+                    {{$v->sts}}
+                </td>
 
 
                 <td>
@@ -38,8 +44,14 @@
 
                 </td>
                 <td>
+                    {{$v->col_type}}
+                </td>
+                <td>
                     {{$v->facilityoutstanding}}
 
+                </td>
+                <td>
+                    {{$v->adverse_remark}}
                 </td>
 
 
