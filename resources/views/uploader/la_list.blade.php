@@ -52,7 +52,7 @@
                             @foreach($loan_applications as $loan_application)
                                 <tr>
                                     <th>
-                                        {{$loan_application->la_type}}/{{$loan_application->la_serial_no}}
+                                        {{$loan_application->la_type}}/{{$loan_application->bank}}
                                         /{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}
 
                                     </th>

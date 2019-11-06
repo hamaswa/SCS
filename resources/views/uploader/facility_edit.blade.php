@@ -1,5 +1,6 @@
 @php
     $collapse = "in";
+    $total_loan = 0;
 @endphp
 @foreach($applicants as $applicant)
     <tr class="bg-aqua-active text-white font-weight-bolder with-border"
@@ -41,6 +42,9 @@
                 <input type="number" name="loan_amount" id="loan_amount" class="form-control my-colorpicker1"
                        value="{{ $facility->loan_amount }}"
                        style="background-color: #fff;">
+                @php
+                    $total_loan += $facility->loan_amount
+                @endphp
             </td>
             <td>
                 <input type="number" disabled class="form-control my-colorpicker1"
@@ -60,3 +64,4 @@
         $collapse  = "out";
     @endphp
 @endforeach
+<input type="hidden" name="la_loan_amount" id="la_loan_amount" value="{{$total_loan}}">

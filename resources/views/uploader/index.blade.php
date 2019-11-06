@@ -204,7 +204,7 @@
 
         $(document.body).on("click","#assign_bank",function(){
             $("#la_bank").removeClass("hide");
-           data = "bank=" +  $("#bank").val() + "&la_type="+$("#la_type").val() +
+            data = "loan_amount=" + $("#la_loan_amount").val() + "&bank=" + $("#bank").val() + "&la_type=" + $("#la_type").val() +
                     "&id={{$loan_application->id}}&la=update_la";
             $.ajax({
                 url: '{{ route('uploader.store') }}',
