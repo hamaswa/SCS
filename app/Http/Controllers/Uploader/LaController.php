@@ -16,14 +16,10 @@ class LaController extends Controller
      */
     public function index()
     {
-        $la = LoanApplication::where("applicant_id", "=", "la_applicant_id")
-            ->whereNotNull("la_serial_no")
-            ->whereNotNull("la_serial_id")
+        $arr["loan_applications"] = LoanApplication::whereRaw("applicant_id = la_applicant_id 
+                and la_serial_no is not NULL and la_serial_id is not NULL")
             ->get();
-        foreach ($la as $item) {
-            print_r($item);
-        }
-
+        return view("uploader.la_list")->with($arr);
     }
 
     /**
