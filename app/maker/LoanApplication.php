@@ -15,7 +15,7 @@ class LoanApplication extends Model
         "la_serial_id","la_type",
         "bank","loan_amount",
         "status",'property_id',
-        'facility_covered',
+        'facility_covered', 'accessability',
 
     ];
 

@@ -40,7 +40,10 @@ class LaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inputs = $request->all();
+
+        $loan_application = LoanApplication::find($inputs['id']);
+        $loan_application->update($inputs);
     }
 
     /**
