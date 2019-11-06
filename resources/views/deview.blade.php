@@ -116,6 +116,8 @@
                                     <a class="btn btn-default" href="{{ route("housingloan.create") }}?applicant_id={{ $data->id }}">Add
                                         Facility Info</a>
                                 </div>
+                                <div class="clearfix"></div>
+                                <div class="table-responsive">
                                 <table id="example5" class="table table-bordered table-hover bg-white">
                                     <thead>
                                     <tr class="bg-light-blue-gradient">
@@ -131,6 +133,7 @@
                                         <th style="width: 102px;">MIA</th>
                                         <th style="width: 102px;">CONDUCT</th>
                                         <th style="width: 102px;">Adverse Remarks</th>
+                                        <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -152,7 +155,7 @@
                                                        value="{{$v->facilitydate}}">
                                             </td>
                                             <td>
-                                                <select name="sts">
+                                                <select name="sts" class="form-control">
                                                     <option value="O" {{ ($v->sts=="O"?"selected":"") }}>O</option>
                                                     <option value="K" {{ ($v->sts=="K"?"selected":"") }}>K</option>
                                                     <option value="T" {{ ($v->sts=="T"?"selected":"") }}>T</option>
@@ -210,7 +213,7 @@
                                             <td>
 
 
-                                                <select name="col_type">
+                                                <select name="col_type" class="form-control">
                                                     <option value="00" {{ ($v->col_type=="00"?"selected":"") }}>00
                                                     </option>
                                                     <option value="11" {{ ($v->col_type=="11"?"selected":"") }}>11
@@ -240,7 +243,7 @@
 
                                             </td>
                                             <td>
-                                                <select name="adverse_remark">
+                                                <select name="adverse_remark" class="form-control">
                                                     <option value="amla" {{ ($v->adverse_remark=="amla"?"selected":"") }}>
                                                         AMLA
                                                     </option>
@@ -277,6 +280,7 @@
                                     </tr>
                                     </tfoot>
                                 </table>
+                                </div>
                             </div>
 
                         </div>
