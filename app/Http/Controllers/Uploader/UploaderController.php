@@ -44,12 +44,10 @@ class UploaderController extends Controller
             }
         } else {
             $la_applicant_update = LoanApplication::where("la_applicant_id", '=', $id)
-                // ->where("la_serial_no","=",$la_applicant->la_serial_no)
-                // ->where("la_serial_id","=",$la_applicant->la_serial_id)
                 ->get();
             foreach ($la_applicant_update as $applicant) {
-                $applicant->la_serial_no = date("dmY");
-                $applicant->la_serial_id = $count;
+                $applicant->la_serial_no = $la_applicant->la_serial_no;
+                $applicant->la_serial_id = $la_applicant->la_serial_id;
                 $applicant->save();
             }
         }

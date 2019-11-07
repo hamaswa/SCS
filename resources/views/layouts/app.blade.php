@@ -201,6 +201,21 @@ if (isset($applicant)) {
                             </li>
                     @endif
 
+                        @if(request()->user()->hasRole("uploader"))
+                            <li class="treeview">
+                                <a href="#"><span> Uploader</span>
+                                    <span class="pull-right-container"> <i
+                                                class="fa fa-angle-left pull-right"></i> </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route("uploader_la.index") }}">Loan
+                                            Applications</a>
+                                    </li>
+                                </ul>
+                            </li>
+                    @endif
+
                 {{--<li class="nav-item">--}}
                 {{--<a class="nav-link" href="{{ route("aafields.create") }}">AA Fields</a>--}}
                 {{--</li>--}}
@@ -385,10 +400,7 @@ if (isset($applicant)) {
                     </div>
 
 
-
-
-
-                    </div>
+                </div>
                 <div id="tab-4" class="">
                     <div class="table-responsive" id="new_facility">
 
