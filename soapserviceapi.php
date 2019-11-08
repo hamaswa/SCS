@@ -28,11 +28,11 @@ $client = new SoapClient($location_URL , array(
 ));
 
 // Subject Info
-$output			= "0";					// 0 = XML, 1 = HTML, 2 = PDF
+$output = "2";                    // 0 = XML, 1 = HTML, 2 = PDF
 $type 			= "I";  				// I = Individual, B = Business, C = Company
 $ic_lc 			= "";					// Old IC / Company Registration No
-$nic_br			= $_REQUEST['nic'];	 	// New IC / Business Registration No / Passport
-$name			= $_REQUEST['name'];
+$nic_br = "771113235530"; //$_REQUEST['nic'];	 	// New IC / Business Registration No / Passport
+$name = "VASANTHI ASHOKAN";//$_REQUEST['name'];
 $ref_no			= "";					// Optional
 
 $requestXML = '<batch output="'.$output.'" no="123456"  xmlns="http://ws.cmctos.com.my/ctosnet/request">
@@ -62,8 +62,8 @@ $SimpleXMLElement = new SimpleXMLElement($requestXML);
 
 
 try{
-    header("Content-disposition: attachment; filename=".$name."_".$nic_br.".xml");
-    header("Content-Type: text/xml");
+    header("Content-disposition: attachment; filename=" . $name . "_" . $nic_br . ".pdf");
+    header("Content-Type: text/pdf");
     $order_return = $client->request(array("input"=>$SimpleXMLElement->asXML())) ;
     echo $order_return->return;
     //print_r($order_return);

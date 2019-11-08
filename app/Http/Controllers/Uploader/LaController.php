@@ -18,7 +18,7 @@ class LaController extends Controller
     {
         $arr["loan_applications"] = LoanApplication::whereRaw("applicant_id = la_applicant_id 
                 and la_serial_no is not NULL and la_serial_id is not NULL")
-            ->get();
+            ->orderby("id", "desc")->get();
         return view("uploader.la_list")->with($arr);
     }
 
@@ -40,10 +40,16 @@ class LaController extends Controller
      */
     public function store(Request $request)
     {
-        $inputs = $request->all();
+        try {
+            $inputs = $request->all();
+            $loan_application = LoanApplication::find($inputs['id']);
+            $loan_application->update($inputs);
+            echo "success";
+        } catch (\Exception $e) {
+            echo "error";
+        }
 
-        $loan_application = LoanApplication::find($inputs['id']);
-        $loan_application->update($inputs);
+
     }
 
     /**

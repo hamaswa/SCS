@@ -146,7 +146,7 @@ class SoapAPIRepo
         try{
 
             $order_return = $client->request(array("input"=>$SimpleXMLElement->asXML())) ;
-            print_r($order_return);
+            return $order_return->return;
 
 
 

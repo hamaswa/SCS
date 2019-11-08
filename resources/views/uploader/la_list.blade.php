@@ -80,8 +80,8 @@
                                     </th>
                                     <th>
                                         <button id="update_la" name="update_la" value="Submit">Submit</button>
-                                        <button id="delete_la" name="delete_la" value="Submit">Delete</button>
-                                        <button id="edit_la" name="edit_la" value="Submit">Edit</button>
+                                        <button id="delete_la" disabled name="delete_la" value="Submit">Delete</button>
+                                        <button id="edit_la" disabled name="edit_la" value="Submit">Edit</button>
                                     </th>
 
                                 </tr>
@@ -116,7 +116,7 @@
             }).done(function (response) {
                 if (response == "success") {
                     $(".msg").html($("" +
-                        " <div class=\"alert alert-error\">\n" +
+                        " <div class=\"alert alert-success\">\n" +
                         "                    <p>Successfully Updated</p>\n" +
                         "                </div>"))
                 }
