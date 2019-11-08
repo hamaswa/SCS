@@ -375,6 +375,7 @@
             $(div).append(form)
             document.body.appendChild(form);
             form.submit();
+            form.remove();
             $("#wealth_doc_form").find("option:selected").prop("selected", false)
             $("#showBussinessModal").modal('hide');
         });
@@ -544,6 +545,7 @@
 
 
         $(document.body).on("click", ".editbusiness", function () {
+            $("#business_doc").val('');
             $("#bussiness_modal_title").text($(this).text());
             $("#showBussinessModal").modal('show');
             $("#business_form").removeClass('hide');
