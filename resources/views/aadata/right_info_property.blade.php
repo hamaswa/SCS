@@ -22,7 +22,7 @@
                 $total_co = 0;
             @endphp
             <tr class="bg-aqua-active text-white font-weight-bolder with-border"
-                data-toggle="collapse" data-target=".{{ $applicant->name }}_property">
+                data-toggle="collapse" data-target=".{{ $applicant->id }}_property">
                 <th colspan="3">
                     {{ $applicant->name }}
                 </th>
@@ -34,16 +34,16 @@
 
                 ?>
                 <tr class="property_right property_{{ $property->id }}
-                        collapse {{$collapse}} {{$applicant->name}}_property">
+                        collapse {{$collapse}} {{$applicant->id}}_property">
                     <td>{{$property->property_market_value}}</td>
                     <td>{{$property->property_loan_outstanding}}</td>
                     <td>{{ ($property->property_market_value * (0.9) - $property->property_loan_outstanding*1) }}</td>
                 </tr>
             @endforeach
-            <tr class="bg-green collapse {{$collapse}} {{$applicant->name}}_property">
+            <tr class="bg-green collapse {{$collapse}} {{$applicant->id}}_property">
                 <td colspan=3>Total</td>
             </tr>
-            <tr class="bg-green collapse {{$collapse}} {{$applicant->name}}_property">
+            <tr class="bg-green collapse {{$collapse}} {{$applicant->id}}_property">
                 <td>{{$total_mv}}</td>
                 <td>{{$total_os}}</td>
                 <td>{{ $total_mv * (0.9) - $total_os }}</td>

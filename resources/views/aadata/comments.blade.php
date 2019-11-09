@@ -19,18 +19,18 @@
                 @endphp
                 @foreach($applicants as $applicant)
                     <tr class="bg-aqua-active text-white font-weight-bolder with-border"
-                        data-toggle="collapse" data-target=".{{ $applicant->name }}_comments">
+                        data-toggle="collapse" data-target=".{{ $applicant->id }}_comments">
                         <th colspan="3">
                             {{ $applicant->name }}
                         </th>
                     </tr>
                 @foreach($applicant->applicantComments as $comment)
-                    <tr class="collapse {{$collapse}} {{$applicant->name}}_comments">
+                    <tr class="collapse {{$collapse}} {{$applicant->id}}_comments">
                         <td>{{ date("Y-m-d",strtotime($comment->created_at))}}</td>
                         <td></td>
                         <td>{{$comment->user->first_name}}</td>
                     </tr>
-                    <tr class="collapse {{$collapse}} {{$applicant->name}}_comments">
+                    <tr class="collapse {{$collapse}} {{$applicant->id}}_comments">
                         <td colspan="3"><b>Comments:</b><br>{!! $comment->comments !!}</td>
                     </tr>
                 @endforeach

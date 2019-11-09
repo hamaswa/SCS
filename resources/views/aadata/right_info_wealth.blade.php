@@ -54,7 +54,7 @@
                 $wealth_total = 0;
                 ?>
                 <tr class="bg-aqua-active text-white font-weight-bolder with-border"
-                    data-toggle="collapse" data-target=".{{ $applicant->name }}_wealth">
+                    data-toggle="collapse" data-target=".{{ $applicant->id }}_wealth">
                     <th colspan="3">
                         {{ $applicant->name }}
                     </th>
@@ -67,14 +67,14 @@
                     @switch($wealth->type)
                         @case("saving")
                         <tr id="wealth_saving_right"
-                            class="wealth_saving_right collapse {{$collapse}} {{$applicant->name}}_wealth">
+                            class="wealth_saving_right collapse {{$collapse}} {{$applicant->id}}_wealth">
                             <td>Saving</td>
                             <td>{{ $wealth->total }}</td>
                         </tr>
                         @break
                         @case("epf")
                         <tr id="wealth_epf_right"
-                            class="wealth_epf_right  collapse {{$collapse}} {{$applicant->name}}_wealth">
+                            class="wealth_epf_right  collapse {{$collapse}} {{$applicant->id}}_wealth">
                             <td>EPF Account Balance</td>
                             <td>{{ $wealth->total }}</td>
                         </tr>
@@ -83,7 +83,7 @@
                         @break
                         @case("tpf")
                         <tr id="wealth_tpf_right"
-                            class="wealth_tpf_right collapse {{$collapse}} {{$applicant->name}}_wealth">
+                            class="wealth_tpf_right collapse {{$collapse}} {{$applicant->id}}_wealth">
                             <td>Total Fixed Deposits</td>
                             <td>{{ $wealth->total }}</td>
                         </tr>
@@ -92,7 +92,7 @@
                         @break
                         @case("tsv")
                         <tr id="wealth_tsv_right"
-                            class="wealth_tsv_right collapse {{$collapse}} {{$applicant->name}}_wealth">
+                            class="wealth_tsv_right collapse {{$collapse}} {{$applicant->id}}_wealth">
                             <td>Total Shares Value</td>
                             <td>{{ $wealth->total }}</td>
                         </tr>
@@ -100,7 +100,7 @@
                         @break
                         @case("utv")
                         <tr id="wealth_utv_right"
-                            class="wealth_utv_right collapse {{$collapse}} {{$applicant->name}}_wealth">
+                            class="wealth_utv_right collapse {{$collapse}} {{$applicant->id}}_wealth">
                             <td>Unit Trust Value</td>
                             <td>{{ $wealth->total }}</td>
                         </tr>
@@ -110,7 +110,7 @@
                     @endswitch
                 @endforeach
 
-                <tr class="bg-yellow-light wealth_total_right collapse {{$collapse}} {{$applicant->name}}_wealth"
+                <tr class="bg-yellow-light wealth_total_right collapse {{$collapse}} {{$applicant->id}}_wealth"
                     id="wealth_total_right">
                     @if(isset($wealth_total))
                         <td>Total</td>

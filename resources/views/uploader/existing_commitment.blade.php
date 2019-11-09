@@ -14,7 +14,7 @@
         <tbody>
         @foreach($applicants as $applicant)
             <tr class="bg-aqua-active text-white font-weight-bolder with-border"
-                data-toggle="collapse" data-target=".{{ $applicant->name }}_existing_commitment">
+                data-toggle="collapse" data-target=".{{ $applicant->id }}_existing_commitment">
                 <th colspan="3">
                     {{ $applicant->name }}
                 </th>
@@ -28,7 +28,7 @@
             @endphp
             @foreach($existing_commitments as $k => $v)
 
-                <tr class="collapse {{$collapse}} {{$applicant->name}}_existing_commitment">
+                <tr class="collapse {{$collapse}} {{$applicant->id}}_existing_commitment">
                     <td>
                         {{strtoupper($v->type) }}
 
@@ -48,7 +48,7 @@
 
 
             @endforeach
-            <tr class="collapse {{$collapse}} {{$applicant->name}}_existing_commitment">
+            <tr class="collapse {{$collapse}} {{$applicant->id}}_existing_commitment">
                 <td>
                     Total
                 </td>

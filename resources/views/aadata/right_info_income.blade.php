@@ -102,7 +102,7 @@
                    $total_net=0;
                 @endphp
                 <tr class="bg-aqua-active text-white font-weight-bolder with-border"
-                    data-toggle="collapse" data-target=".{{ $applicant->name }}_income">
+                    data-toggle="collapse" data-target=".{{ $applicant->id }}_income">
                     <th colspan="3">
                         {{ $applicant->name }}
                     </th>
@@ -123,14 +123,14 @@
                         </tr>
                     @elseif($income->type=="business")
                         <tr id="business_right_bar"
-                            class="business_right_bar collapse {{$collapse}} {{$applicant->name}}_income">
+                            class="business_right_bar collapse {{$collapse}} {{$applicant->id}}_income">
                             <td>Monthly Variable</td>
                             <td>{{$income->gross}}</td>
                             <td>{{$income->net}}</td>
                         </tr>
                     @elseif($income->type=="incometax")
                         <tr id="incometax_right_bar"
-                            class="incometax_right_bar collapse {{$collapse}} {{$applicant->name}}_income">
+                            class="incometax_right_bar collapse {{$collapse}} {{$applicant->id}}_income">
                             <td>
                                 Annual Tax Declared
                             </td>
@@ -138,7 +138,7 @@
                             <td>{{$income->net}}</td>
                         </tr>
                     @elseif($income->type=="iif")
-                        <tr id="iif_right_bar" class="iif_right_bar collapse {{$collapse}} {{$applicant->name}}_income">
+                        <tr id="iif_right_bar" class="iif_right_bar collapse {{$collapse}} {{$applicant->id}}_income">
                             <td>
                                 Industry Income Factor
                             </td>
@@ -147,7 +147,7 @@
                         </tr>
                     @elseif($income->type=="monthlyrental")
                         <tr id="monthly_rental_right_bar"
-                            class="monthly_rental_right_bar collapse {{$collapse}} {{$applicant->name}}_income">
+                            class="monthly_rental_right_bar collapse {{$collapse}} {{$applicant->id}}_income">
                             <td>
                                 Monthly Rental
                             </td>
@@ -156,7 +156,7 @@
                         </tr>
                     @elseif($income->type=="air")
                         <tr id="annual_investment_return_right_bar"
-                            class="annual_investment_return_right_bar collapse {{$collapse}} {{$applicant->name}}_income">
+                            class="annual_investment_return_right_bar collapse {{$collapse}} {{$applicant->id}}_income">
                             <td>
                                 Annual Investment Return
                             </td>
@@ -167,7 +167,7 @@
                     @endif
                 @endforeach
                 <tr class="bg-aqua income_kyc_total_right_bar
-                collapse {{$collapse}} {{$applicant->name}}_income"
+                collapse {{$collapse}} {{$applicant->id}}_income"
                     id="income_kyc_total_right_bar">
                     @if(isset($total_gross) and $total_gross!=0)
                         <th>Total</th>

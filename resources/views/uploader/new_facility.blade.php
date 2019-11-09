@@ -14,7 +14,7 @@
             <tbody>
             @foreach($applicants as $applicant)
                 <tr class="bg-aqua-active text-white font-weight-bolder with-border"
-                    data-toggle="collapse" data-target=".{{ $applicant->name }}_new_facility">
+                    data-toggle="collapse" data-target=".{{ $applicant->id }}_new_facility">
                     <th colspan="3">
                         {{ $applicant->name }}
                     </th>
@@ -30,7 +30,7 @@
                         $installment = 0;
                         ?>
 
-                        <tr class="collapse {{$collapse}} {{$applicant->name}}_new_facility">
+                        <tr class="collapse {{$collapse}} {{$applicant->id}}_new_facility">
                             <td>
                                 {{strtoupper($v->type) }}
 
@@ -55,7 +55,7 @@
                     @endif
 
                 @endforeach
-                <tr class="collapse {{$collapse}} {{$applicant->name}}_new_facility">
+                <tr class="collapse {{$collapse}} {{$applicant->id}}_new_facility">
                     <td>
                         Total
                     </td>

@@ -19,13 +19,13 @@
             @endphp
             @foreach($applicants as $applicant)
                 <tr class="bg-aqua-active text-white font-weight-bolder with-border"
-                    data-toggle="collapse" data-target=".{{ $applicant->name }}_doc">
+                    data-toggle="collapse" data-target=".{{ $applicant->id }}_doc">
                     <th colspan="4">
                         {{ $applicant->name }}
                     </th>
                 </tr>
                 @foreach($applicant->applicantDocuments as $document)
-                    <tr class="collapse {{$collapse}} {{$applicant->name}}_doc">
+                    <tr class="collapse {{$collapse}} {{$applicant->id}}_doc">
                         <td>{{ date("Y-m-d",strtotime($document->created_at))}}</td>
                         <td>{{ $document->doc_name }}</td>
                         <td>{{$document->guide_lines}}</td>

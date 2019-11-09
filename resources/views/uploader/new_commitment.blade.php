@@ -13,7 +13,7 @@
 
         @foreach ($applicants as $applicant)
             <tr class="bg-aqua-active text-white font-weight-bolder with-border"
-                data-toggle="collapse" data-target=".{{ $applicant->name }}_new_commitment">
+                data-toggle="collapse" data-target=".{{ $applicant->id }}_new_commitment">
                 <th colspan="3">
                     {{ $applicant->name }}
                 </th>
@@ -34,7 +34,7 @@
         @if(count($new_commitments)>0)
             @foreach($new_commitments as $k => $v)
                 <tr {{ ($v->la_id!= null? "style=color:red":"") }}
-                    class="collapse {{$collapse}} {{$applicant->name}}_new_commitment">
+                    class="collapse {{$collapse}} {{$applicant->id}}_new_commitment">
 
                     <td>
                         {{strtoupper($v->type) }}
@@ -59,7 +59,7 @@
 
             @endforeach
             <tr {{ ($v->la_id!= null? "style=color:red":"") }}
-                class="collapse {{$collapse}} {{$applicant->name}}_new_commitment">
+                class="collapse {{$collapse}} {{$applicant->id}}_new_commitment">
                 <td>
                     Total
                 </td>

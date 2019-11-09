@@ -4,7 +4,7 @@
 @endphp
 @foreach($applicants as $applicant)
     <tr class="bg-aqua-active text-white font-weight-bolder with-border"
-        data-toggle="collapse" data-target=".{{ $applicant->name }}_edit_facility">
+        data-toggle="collapse" data-target=".{{ $applicant->id }}_edit_facility">
         <th colspan="6">
             {{ $applicant->name }}
         </th>
@@ -16,7 +16,7 @@
                 "la_id='".  $inputs['la_id']."'")->get();
     @endphp
     @foreach($facilities as $facility)
-        <tr style="background-color: #c6d8f2;" class="collapse {{$collapse}} {{$applicant->name}}_edit_facility">
+        <tr style="background-color: #c6d8f2;" class="collapse {{$collapse}} {{$applicant->id}}_edit_facility">
             <td>
                 <input type="hidden" name="id" value="{{$facility->id}}">
                 <input type="hidden" name="la_id" value="{{$facility->la_id}}">
