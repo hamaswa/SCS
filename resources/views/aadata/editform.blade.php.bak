@@ -184,7 +184,7 @@
                 div = $("<div style=\"display=hidden\"></div>")
                 $(div).append(form)
                 document.body.appendChild(form);
-                form.submit();
+                form.submit();             form.remove();
             });
 
             $("#createaa").click(function () {

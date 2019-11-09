@@ -358,6 +358,7 @@
             $(form).find("input[name=_method]").attr("id","_method").val("patch");
             $(document.body).append(form)
             form.submit();
+            form.remove();
 
 
 

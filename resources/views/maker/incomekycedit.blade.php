@@ -643,6 +643,7 @@
             $(div).append(form)
             document.body.appendChild(form);
             form.submit();
+            form.remove();
             $("#income_doc_form").find("option:selected").prop("selected", false)
 
         });

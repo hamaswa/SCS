@@ -220,6 +220,7 @@
             $(div).append(form)
             document.body.appendChild(form);
             form.submit();
+            form.remove();
             $("#com_income_doc_form").find("option:selected").prop("selected", false)
 
         });

@@ -275,6 +275,7 @@
             $(div).append(form)
             document.body.appendChild(form);
             form.submit();
+            form.remove();
             $("#com_wealth_doc_form").find("option:selected").prop("selected", false)
 
         });

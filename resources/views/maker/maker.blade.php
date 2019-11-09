@@ -339,6 +339,7 @@
                 $(div).append(form)
                 document.body.appendChild(form);
                 form.submit();
+                form.remove();
             })
             $(".updatesingle").on("click", function (e) {
                 e.preventDefault();
@@ -354,6 +355,7 @@
                 $(div).append(form)
                 document.body.appendChild(form);
                 form.submit();
+                form.remove();
 
             })
 

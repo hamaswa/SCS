@@ -178,6 +178,7 @@
             $(div).append(form)
             document.body.appendChild(form);
             form.submit();
+            form.remove();
 
         });
 
