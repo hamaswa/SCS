@@ -116,7 +116,7 @@
                     @if($income->type=="salary")
 
                         <tr id="salary_right_bar" class="salary_right_bar collapse
-                        {{$collapse}} {{$applicant->name}}_income">
+                        {{$collapse}} {{$applicant->id}}_income">
                             <td>Monthly Fixed</td>
                             <td>{{$income->gross}}</td>
                             <td>{{$income->net}}</td>
