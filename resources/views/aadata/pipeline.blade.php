@@ -133,7 +133,7 @@
                                             <a href="{{route("aadata.create", ["id" => $d->id])  }}"
                                                class="btn btn-xs bg-light-blue-gradient">KYC</a>
 
-                                        @elseif($d->status =="Incomplete")
+                                        @elseif($d->status =="Incomplete" OR $d->status =="Inprogress")
                                             <a href="{{route("maker.edit", ["id" => $d->id])  }}"
                                                class="btn btn-xs bg-light-blue-gradient">Maker View</a>
                                         @endif
@@ -159,7 +159,7 @@
                                         @endif
 
 
-                                            @if($d->status=="Incomplete" )
+                                        @if($d->status=="Inprogress" )
                                                 @if(request()->user()->hasRole("uploader"))
                                                     <a href="{{ route("uploader.index") }}?id={{$d->id}}"
                                                        class="btn btn-xs bg-light-blue-gradient">Uploader</a>

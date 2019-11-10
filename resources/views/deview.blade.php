@@ -289,11 +289,11 @@
                         <div class="box">
                             <div class="box-body bg-yellow-light left-box  detail-box" style="overflow-scrolling: auto">
                                 <div class="bg-aqua-active" data-toggle="collapse"
-                                     data-target=".{{ $data->name }}_{{$data->id}}">
+                                     data-target=".{{$data->id}}_facility">
 
                                     <strong>{{$data->name}}</strong>
                                 </div>
-                                <div class="table-responsive collapse {{ $data->name }}_{{$data->id}}">
+                                <div class="table-responsive collapse {{$data->id}}_facility">
                                 <table class="table table-bordered table-striped table-hover bg-white margin-bottom">
                                     <thead>
 

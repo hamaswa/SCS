@@ -105,7 +105,8 @@
             $('.select2').select2({allowClear: true});
         });
 
-        $(document.body).on("click", "#update_la", function (e) {
+
+        $(document.body).on("click", "[name=accessability]", function (e) {
             $.ajax({
                 url: '{{ route('uploader_la.store') }}',
                 type: 'POST',
@@ -129,6 +130,7 @@
                 }
             })
         })
+
 
     </script>
 @endpush

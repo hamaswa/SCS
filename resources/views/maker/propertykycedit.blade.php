@@ -272,7 +272,7 @@
     </div>
     <div class="form-group col-md-12 col-sm-12 col-lg-12">
         <ul class="pager">
-            <li><a href="{{ route("pipeline.index") }}" class="bg-yellow-gradient btn-finish"> Submit >></a></li>
+            <li><a href="#" id="maker_complete" class="bg-yellow-gradient btn-finish">Submit >></a></li>
         </ul>
     </div>
 </fieldset>
@@ -313,7 +313,7 @@
 
         let forms = <?php print_r(json_encode(json_decode($properties, true))); ?>;
 
-        $(document.body).on("click", "#add_property,#btn-finish", function () {
+        $(document.body).on("click", "#add_property", function () {
             //propertycount = forms.count();
             //$("#number").val(propertycount);
             let form = {};
@@ -324,6 +324,21 @@
             $("#propertyform").trigger("reset")
             formActionButtions();
         });
+
+        $(document.body).on("click", "#maker_complete", function () {
+            $.ajax({
+                url: "{{ route("maker.inprogress") }}",
+                type: "POST",
+                data: "id={{$applicant->id}}",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+            }).done(function (response) {
+                window.location = "{{ route("pipeline.index") }}";
+            })
+
+        });
+
 
         $(document.body).on("click", ".editproperty", function () {
             form = forms[$(this).data('number')];

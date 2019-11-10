@@ -46,23 +46,23 @@
 <?php
 
 
-    if (!isset($applicant_data)) {
-        if(isset($applicant)){
+if (!isset($applicant_data)) {
+    if (isset($applicant)) {
         $applicant_data = $applicant;
-        }
     }
-    if (isset($applicant_data)) {
-        $income = $applicant_data->applicantIncome;
+}
+if (isset($applicant_data)) {
+    $income = $applicant_data->applicantIncome;
 
-        $wealth = $applicant_data->applicantWealth;
+    $wealth = $applicant_data->applicantWealth;
 
-        $properties = $applicant_data->applicantProperty;
+    $properties = $applicant_data->applicantProperty;
 
-        $comments = $applicant_data->applicantComments;
-    }
+    $comments = $applicant_data->applicantComments;
+}
 
 
-    ?>
+?>
 
 <div class="wrapper" id="app">
 
@@ -71,8 +71,8 @@
 
         <!-- Logo -->
         <a class="logo" href="{{ url('/') }}">
-{{--            {{ config('app.name', 'Laravel') }}--}}
-            <img src="{{asset('img/logo.png')}}" class="img-responsive" />
+            {{--            {{ config('app.name', 'Laravel') }}--}}
+            <img src="{{asset('img/logo.png')}}" class="img-responsive"/>
         </a>
         <!--a href="index2.html" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels ->
@@ -171,20 +171,20 @@
                         </li>
                     @endif
                     @if(request()->user()->hasRole("processor") or request()->user()->hasRole("maker"))
-                            <li class="treeview">
-                                <a href="#"><span> Pipeline</span>
-                                    <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route("aadata.index") }}">New AA</a>
-                                    </li>
+                        <li class="treeview">
+                            <a href="#"><span> Pipeline</span>
+                                <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route("aadata.index") }}">New AA</a>
+                                </li>
 
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route("pipeline.index") }}">Pipeline Status</a>
-                                    </li>
-                                </ul>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route("pipeline.index") }}">Pipeline Status</a>
+                                </li>
+                            </ul>
+                        </li>
 
                     @endif
                     @if(request()->user()->hasRole("data_entry"))
@@ -198,21 +198,36 @@
                         </li>
                     @endif
                     @if(request()->user()->hasRole("maker"))
-                            <li class="treeview">
-                                <a href="#"><span> Maker</span>
-                                    <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route("maker.index") }}">Maker</a>
-                                    </li>
+                        <li class="treeview">
+                            <a href="#"><span> Maker</span>
+                                <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route("maker.index") }}">Maker</a>
+                                </li>
 
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route("new_aa") }}">New AA</a>
-                                    </li>
-                                </ul>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route("new_aa") }}">New AA</a>
+                                </li>
+                            </ul>
+                        </li>
                     @endif
+
+                    @if(request()->user()->hasRole("uploader"))
+                        <li class="treeview">
+                            <a href="#"><span> Uploader</span>
+                                <span class="pull-right-container"> <i
+                                            class="fa fa-angle-left pull-right"></i> </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route("uploader_la.index") }}">Loan
+                                        Applications</a>
+                                </li>
+                            </ul>
+                        </li>
+                @endif
                 {{--<li class="nav-item">--}}
                 {{--<a class="nav-link" href="{{ route("aafields.create") }}">AA Fields</a>--}}
                 {{--</li>--}}
@@ -315,17 +330,17 @@
                             </thead>
                             <tbody>
                             @if(isset($applicant_data))
-                            @if(isset($applicant_data->applicantDocuments))
-                                @foreach($applicant_data->applicantDocuments as $document)
-                                    <tr>
-                                        <td>{{ date("Y-m-d",strtotime($document->created_at))}}</td>
-                                        <td>{{ $document->doc_name }}</td>
-                                        <td>{{$document->guide_lines}}</td>
-                                        <td><a href="{{ route("download")}}?id={{$document->id}}">view</a></td>
-                                    </tr>
-                                @endforeach
-                            @endif
+                                @if(isset($applicant_data->applicantDocuments))
+                                    @foreach($applicant_data->applicantDocuments as $document)
+                                        <tr>
+                                            <td>{{ date("Y-m-d",strtotime($document->created_at))}}</td>
+                                            <td>{{ $document->doc_name }}</td>
+                                            <td>{{$document->guide_lines}}</td>
+                                            <td><a href="{{ route("download")}}?id={{$document->id}}">view</a></td>
+                                        </tr>
+                                    @endforeach
                                 @endif
+                            @endif
 
                             </tbody>
 
@@ -445,75 +460,83 @@
     <div id="addIncomeSource" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <form action="{{ route('bussiness.storeIncomeSource') }}" method="post">
-                @csrf
+            @csrf
             <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add Income Source</h4>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="business_forms" value="business_forms" />
-                    <input type="hidden" name="applicant_id" id="business_applicant_id"
-                           value="{{ isset($applicant_data)?$applicant_data->id:""}}" />
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Income Source</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="business_forms" value="business_forms"/>
+                        <input type="hidden" name="applicant_id" id="business_applicant_id"
+                               value="{{ isset($applicant_data)?$applicant_data->id:""}}"/>
 
-                    <div class="col-md-4 col-sm-12 form-group ">
-                        <label class="control-label">Income Source</label>
-                        <select id="income_business_type" name="business_type" class="form-control" name="">
-                            <option value="Business"> Business </option>
-                            <option value="Salaried"> Salaried </option>
-                        </select>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="form-group col-md-6 col-sm-12 clearfix for_business">
-                        <div class="col-md-11 col-sm-11 no-padding">
-                            <label class="control-label">Shareholding</label>
-                            <input name="business_shareholding" id="business_shareholding" placeholder="" class="form-control for_business" type="text">
+                        <div class="col-md-4 col-sm-12 form-group ">
+                            <label class="control-label">Income Source</label>
+                            <select id="income_business_type" name="business_type" class="form-control" name="">
+                                <option value="Business"> Business</option>
+                                <option value="Salaried"> Salaried</option>
+                            </select>
                         </div>
-                        <div class="col-md-1 col-sm-1">
-                            <h2>%</h2>
+                        <div class="clearfix"></div>
+                        <div class="form-group col-md-6 col-sm-12 clearfix for_business">
+                            <div class="col-md-11 col-sm-11 no-padding">
+                                <label class="control-label">Shareholding</label>
+                                <input name="business_shareholding" id="business_shareholding" placeholder=""
+                                       class="form-control for_business" type="text">
+                            </div>
+                            <div class="col-md-1 col-sm-1">
+                                <h2>%</h2>
+                            </div>
                         </div>
+                        <div class="form-group col-md-6 col-sm-12 for_business">
+                            <label class="control-label">Business Turnover (Monthly)</label>
+                            <input name="business_turnover" id="business_turnover" placeholder=""
+                                   class="form-control for_business" type="text">
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <label class="control-label">Nature of Business</label>
+                            <input name="business_nature" id="business_nature" placeholder="" class="form-control"
+                                   type="text">
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <label class="control-label">Position</label>
+                            <input name="business_position" id="business_position" placeholder="" class="form-control"
+                                   type="text">
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <label class="control-label"><em class="text-danger">*</em>Email</label>
+                            <input name="business_email" id="business_email" placeholder="" class="form-control"
+                                   type="email">
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <label>Company Name</label>
+                            <input type="text" name="bussiness_company_name" value="" class="form-control"
+                                   autocomplete="off">
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <label>Date Joined</label>
+                            <input type="date" name="bussiness_date_established" value="" class="form-control"
+                                   autocomplete="off">
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <label>office Phone no.</label>
+                            <input type="text" name="bussiness_office_phone_no" value="" class="form-control"
+                                   autocomplete="off">
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <label>Office Address</label>
+                            <textarea name="bussiness_office_address" class="form-control"></textarea>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="form-group col-md-6 col-sm-12 for_business">
-                        <label class="control-label">Business Turnover (Monthly)</label>
-                        <input name="business_turnover" id="business_turnover" placeholder="" class="form-control for_business" type="text">
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success pull-left" name="saveIncomeSource">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
-                    <div class="clearfix"></div>
-                    <div class="form-group col-md-4 col-sm-12">
-                        <label class="control-label">Nature of Business</label>
-                        <input name="business_nature" id="business_nature" placeholder="" class="form-control" type="text">
-                    </div>
-                    <div class="form-group col-md-4 col-sm-12">
-                        <label class="control-label">Position</label>
-                        <input name="business_position" id="business_position" placeholder="" class="form-control" type="text">
-                    </div>
-                    <div class="form-group col-md-4 col-sm-12">
-                        <label class="control-label"><em class="text-danger">*</em>Email</label>
-                        <input name="business_email" id="business_email" placeholder="" class="form-control" type="email">
-                    </div>
-                    <div class="form-group col-md-4 col-sm-12">
-                        <label>Company Name</label>
-                        <input type="text" name="bussiness_company_name" value="" class="form-control" autocomplete="off">
-                    </div>
-                    <div class="form-group col-md-4 col-sm-12">
-                        <label>Date Joined</label>
-                        <input type="date" name="bussiness_date_established" value="" class="form-control" autocomplete="off">
-                    </div>
-                    <div class="form-group col-md-4 col-sm-12">
-                        <label>office Phone no.</label>
-                        <input type="text" name="bussiness_office_phone_no" value="" class="form-control" autocomplete="off">
-                    </div>
-                    <div class="form-group col-md-4 col-sm-12">
-                        <label>Office Address</label>
-                        <textarea name="bussiness_office_address" class="form-control"></textarea>
-                    </div>
-                    <div class="clearfix"></div>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success pull-left" name="saveIncomeSource">Save</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
             </form>
         </div>
     </div>
@@ -607,20 +630,20 @@
         }
 
     });
-    $(document).on('click', '.showSearchBox',function() {
+    $(document).on('click', '.showSearchBox', function () {
         $(".searchBox").removeClass('hide');
         $(this).removeClass('showSearchBox');
         $(this).addClass('hideSearchBox');
         $(this).text('-Applicant');
     });
-    $(document).on('click', '.hideSearchBox',function() {
+    $(document).on('click', '.hideSearchBox', function () {
         $(".searchBox").addClass('hide');
         $(this).removeClass('hideSearchBox');
         $(this).addClass('showSearchBox');
         $(this).text('+Applicant');
     });
-    $(document).on('change', '#income_business_type',function() {
-        if($(this).val()=="Business"){
+    $(document).on('change', '#income_business_type', function () {
+        if ($(this).val() == "Business") {
             $(".for_business").show();
         }
         else {

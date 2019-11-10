@@ -71,6 +71,15 @@ class MakerController extends Controller
         return view("aadata.index")->with("data",$applicantdata);
     }
 
+    public function statusInprogress(Request $request)
+    {
+
+        $inputs = $request->all();
+        $applicant = ApplicantData::find($inputs['id']);
+        $applicant->status = "Inprogress";
+        $applicant->save();
+    }
+
     /**
      * Show the form for creating a new resource.
      *

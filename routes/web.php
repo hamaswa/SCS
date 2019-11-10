@@ -61,6 +61,7 @@ Route::group(['middleware' => 'role:uploader'], function() {
 
 Route::group(['middleware' => 'role:maker'], function() {
 
+    Route::post("/maker/status_inprogress", 'Maker\MakerController@statusInprogress')->name("maker.inprogress");
     Route::post("/maker/search",'Maker\MakerController@search')->name("maker.search");
     Route::get("/maker/newla/{id}",'Maker\MakerController@newla')->name("maker.newla");
     Route::get("/maker/create_aa/{id}",'Maker\MakerController@create_aa')->name("maker.create_aa");
