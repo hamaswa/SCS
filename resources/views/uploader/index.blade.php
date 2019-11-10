@@ -322,7 +322,7 @@
         })
 
         $(document.body).on("click",".facility_covered",function (e) {
-            applicant_id = $(this).data("id");
+            applicant_id = "{{$applicant->id}}";
             $.ajax({
                 url: "{{ route("cover_facility") }}",
                 type: "POST",
