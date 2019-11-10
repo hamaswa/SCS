@@ -64,15 +64,15 @@
                                         {{ $loan_application->loan_amount }}
                                     </th>
                                     <th>
-                                        <input name="accessability" value="private"
+                                        <input name={{ $loan_application->id }} class="accessability" value="private"
                                                {{ $loan_application->accessability=="private"?"checked":"" }} type="radio">
                                     </th>
                                     <th>
-                                        <input name="accessability" value="public"
+                                        <input name={{ $loan_application->id }} class="accessability" value="public"
                                                {{ $loan_application->accessability=="public"?"checked":"" }} type="radio">
                                     </th>
                                     <th>
-                                        <input name="accessability" value="own"
+                                        <input name={{ $loan_application->id }} class="accessability" value="own"
                                                {{ $loan_application->accessability=="own"?"checked":"" }} type="radio">
                                     </th>
                                     <th>
@@ -105,12 +105,12 @@
             $('.select2').select2({allowClear: true});
         });
 
-
-        $(document.body).on("click", "[name=accessability]", function (e) {
+        $(document.body).on("click", ".accessability", function (e) {
+            accessability = $(this).val();
             $.ajax({
                 url: '{{ route('uploader_la.store') }}',
                 type: 'POST',
-                data: $(this).parent("th").parent("tr").find(":input").serialize(),
+                data: $(this).parent("th").parent("tr").find(":input").serialize() + "&accessability=" + accessability,
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },

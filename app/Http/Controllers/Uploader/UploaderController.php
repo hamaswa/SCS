@@ -187,9 +187,8 @@ class UploaderController extends Controller
 
     public function laProperties(Request $request){
         $inputs = $request->all();
+        $inputs['applicant_id'] = explode(",", $inputs['applicant_id']);
         $arr["applicant"] = ApplicantData::find($inputs['applicant_id']);
-//        (
-//            "applicant_id in (". implode(",",$inputs['applicant_id']).")")->get();
 
         return view("uploader.properties")->with($arr);
     }
@@ -226,8 +225,8 @@ class UploaderController extends Controller
     }
 
     public static function checkPropertyIfCovered($inputs){
-        $applicant_id = implode(",",$inputs['applicant_id']);
-        $la_app = LoanApplication::where("applicant_id", "=", $applicant_id)
+        // $applicant_id = implode(",",$inputs['applicant_id']);
+        $la_app = LoanApplication::where("applicant_id", "=", $inputs['la_applicant_id'])
             ->where("la_serial_no", "=", explode("_", $inputs['la_id'])[0])
             ->where("la_serial_id", "=", explode("_", $inputs['la_id'])[1])->first();
         if(isset($la_app->property_id))

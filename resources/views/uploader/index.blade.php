@@ -303,14 +303,14 @@
                 }
             });
             if(applicant==""){
-                $("#la-properties").html("");
+                // $("#la-properties").html("");
                 $("#la_facilities").html("");
                 $("#new_facilities").html("");
                 id = $("input[name='applicants']").val();
                 sidebar(id);
             }
             else {
-                la_properties();
+                //  la_properties();
                 la_facilities();
                 facility_edit();
                 id = $("input[name='applicant_id[]']:checked").map(function() {
@@ -333,7 +333,7 @@
                 +"&la_id="+$("#la_id").val()
                 +"&applicant_id="+ applicant_id,
                 success: function (response) {
-                    $("#la-properties").html("").append($(response));
+                    //$("#la-properties").html("").append($(response));
                 },
                 error: function () {
                 }
@@ -468,8 +468,7 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
-            data: $("input[name='applicant_id[]']:checked").serialize() +
-                    "&la_id=" + $("#la_id").val() + "&property_id=" + $(this).data("id"),
+            data: "la_applicant_id={{$applicant->id}}&applicant_id=" + $("#applicants").val() + "&la_id=" + $("#la_id").val() + "&property_id=" + $(this).data("id"),
             success: function (response) {
                 $("#la-properties").html("").append($(response));
             },
