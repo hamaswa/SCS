@@ -26,6 +26,7 @@
                             <tbody>
                                 <tr>
                                     <td>
+                                        <button id="dsr_projection" class="hide"> Dsr Projection</button>
                                         <table>
                                             <?php
                                             $id="";
@@ -182,6 +183,25 @@
         </div>
 
     </div>
+    <div id="dsr_dialog" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">DSR Projection</h4>
+                </div>
+                <div class="modal-body" id="dsr_projection_res">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 @endsection
 @push("scripts")
     <script type="text/javascript">
@@ -218,6 +238,72 @@
                     alert("LA Created Successfully. Bank Assign Successfully")
                 }
             })
+        })
+
+        $(document.body).on("click", ".dsr_e_facility_chkbox", function () {
+            if ($(".dsr_projection_existing_facility_total").find($(this).data("target")).length) {
+                $(".dsr_projection_existing_facility_total").find($(this).data("target")).remove()
+            }
+            else {
+                div = $("<div class='col-lg-12'></div>");
+                $(div).append($($(this).data("target")).clone(true));
+                $(".dsr_projection_existing_facility_total").append(div);
+            }
+            total = 0;
+            $(".dsr_projection_existing_facility_total").find("td .installment").each(function (e) {
+                //console.log((($(this).html().match(/\d+/))))
+                total += (($(this).text()) * 1);
+            })
+            $("#dsr_existing_facility_total").val(total);
+        })
+
+        $(document.body).on("click", ".dsr_n_facility_chkbox", function () {
+            if ($(".dsr_projection_new_facility_total").find($(this).data("target")).length) {
+                $(".dsr_projection_new_facility_total").find($(this).data("target")).remove()
+            }
+            else {
+                div = $("<div class='col-lg-12'></div>");
+                $(div).append($($(this).data("target")).clone(true));
+                $(".dsr_projection_new_facility_total").append(div);
+            }
+            total = 0;
+            $(".dsr_projection_new_facility_total").find("td .installment").each(function (e) {
+                //console.log((($(this).html().match(/\d+/))))
+                total += (($(this).text()) * 1);
+            })
+            $("#dsr_new_facility_total").val(total);
+        })
+
+        $(document.body).on("click", ".dsr_income_chkbox", function () {
+            if ($(".dsr_projection_income_total").find($(this).data("target")).length) {
+                $(".dsr_projection_income_total").find($(this).data("target")).parent("div").remove()
+            }
+            else {
+                div = $("<div class='col-lg-12'></div>");
+                $(div).append($($(this).data("target")).clone(true));
+                $(".dsr_projection_income_total").append(div);
+            }
+            total = 0;
+            $(".dsr_projection_income_total").find(".income_net").each(function (e) {
+                total += (($(this).text() * 1));
+            })
+            //console.log(total)
+            $("#dsr_income_total").val(total);
+        })
+
+        $(document.body).on("click", "#dsr_projection", function (e) {
+            $.ajax({
+                url: '{{ route('dsr_projection') }}',
+                type: 'POST',
+                data: "applicant_id=" + $("#applicants").val() + "&la_id=" + $("#la_id").val(),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content"),
+                },
+            }).done(function (response) {
+                $("#dsr_projection_res").html($(response))
+                $("#dsr_dialog").modal('show');
+            })
+
         })
 
         $(document.body).on("click","#create_la",function(){
@@ -400,6 +486,7 @@
                 data: "applicant_id=" + id + "&la_id="+ $("#la_id").val(),
                 success: function (response) {
                     if(response!="") {
+                        $("#dsr_projection").removeClass("hide");
                         $("#new_facility").html("").append($(response));
                         $("#right_side_bar .new_facility").html($(response));
                         $.ajax({
@@ -417,6 +504,9 @@
                             error: function () {
                             }
                         });
+                    }
+                    else {
+                        $("#dsr_projection").addClass("hide");
                     }
 
 

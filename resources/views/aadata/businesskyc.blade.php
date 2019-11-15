@@ -21,10 +21,37 @@
                                 {{--src="{{ asset("img/file.jpeg") }}"/></a>--}}
                     {{--<input type="file" class="hide" name="consent" id="consent">--}}
                 </div>
-
+                @php
+                    $businesses = $applicant->applicantBusinesses()->get();
+                   $s=$b=$i=0;
+                @endphp
                 <div class="box-body bg-gray-light">
                     <div id="businesses" class="col-lg-12 col-md-12 col-sm-12 form-group">
+                        @foreach($businesses as $business)
+                            <?php
+                            $i++;
+                            if ($business->business_type == 'Salaried')
+                                $i_no = $s++;
+                            else
+                                $i_no = $b++;
+                            ?>
+                            <div class="btn-group margin-bottom border-black-1 businesskyc-action-btn">
+                                <button type="button" data-number='{{$i}}'
+                                        class="btn btn-default btn-flat view">{{  $business->business_type."".$i_no }}</button>
+                                <button type="button" class="btn btn-default btn-flat dropdown-toggle"
+                                        data-toggle="dropdown"/>
 
+                                <i class="fa fa-list"></i>
+                                <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu position-relative" id="" role="menu">
+                                    <li><a href="#" id='business{{$i}}' data-number='{{$i}}'
+                                           class='editbusiness'>Edit</a></li>
+                                    <li><a href="#" class='delbusiness' data-number='{{ $i }}'>Delete</a></li>
+                                </ul>
+                            </div>
+                            <?php $i++ ?>
+                        @endforeach
                     </div>
                     <div class="form-group clearfix">
                         <div class="col-md-12 col-sm-12">

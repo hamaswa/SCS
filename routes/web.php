@@ -24,7 +24,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::group(['prefix'=>'admin','auth'], function() {
-
     Route::resource('/permissions', 'Admin\PermissionController');
     Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name("register.create");
     Route::post('/register', 'Auth\RegisterController@register')->name("register.store");
@@ -56,11 +55,11 @@ Route::group(['middleware' => 'role:uploader'], function() {
     Route::post('/uploader/cover_facility','Uploader\UploaderController@coverFacility')->name('cover_facility');
     Route::post('/uploader/facility_edit','Uploader\UploaderController@facilityEdit')->name('facility_edit');
     Route::post('/uploader/select_applicant','Uploader\UploaderController@SelectApplicant')->name('select_applicant');
+    Route::post('/uploader/dst_projection', "Uploader\UploaderController@dsrProjection")->name("dsr_projection");
 });
 
 
 Route::group(['middleware' => 'role:maker'], function() {
-
     Route::post("/maker/status_inprogress", 'Maker\MakerController@statusInprogress')->name("maker.inprogress");
     Route::post("/maker/search",'Maker\MakerController@search')->name("maker.search");
     Route::get("/maker/newla/{id}",'Maker\MakerController@newla')->name("maker.newla");

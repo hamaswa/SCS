@@ -10,18 +10,6 @@
                 <input type="hidden" name="number" id="number" value="0">
                 <div class="box-header bg-gray">
                     <strong class="applicant padding-5"></strong>
-                    {{--<div class="form-group col-md-12 bg-gray padding-5">--}}
-                        {{--<div class="col-md-5 col-sm-12 bg-white">--}}
-                            {{--<strong class="padding-5 pull-left margin-r-5 applicant"></strong>--}}
-                        {{--</div>--}}
-                        {{--<div class="col-md-7 col-sm-12">--}}
-                            {{--<a class="bg-white padding-5 pull-left margin-r-5 d_pdf" id="d_pdf" title="CTOS Report Download"><img src="{{ asset("img/save.jpeg") }}" /></a>--}}
-                            {{--<a class="bg-white padding-5 pull-left" href="javascript:void(0)"  onclick = "$('#propertyform').trigger('reset')"  title="Refresh"><img src="{{ asset("img/refresh.jpeg") }}" /></a>--}}
-
-                        {{--</div>--}}
-
-                    {{--</div>--}}
-
 
                 </div>
                 <div class="box-body bg-gray-light">

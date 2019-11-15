@@ -205,11 +205,18 @@ class UploaderController extends Controller
         echo $la_applicant->property_id;
     }
 
+    public function dsrProjection(Request $request)
+    {
+
+        $inputs = $request->all();
+        $arr["applicants"] = ApplicantData::find(explode(",", $inputs['applicant_id']));
+        $arr["la_id"] = $inputs['la_id'];
+        return view("uploader.dsr_projection")->with($arr);
+    }
+
     public function laFacilities(Request $request){
         $inputs = $request->all();
-
         $arr['applicants'] = ApplicantData::find($inputs['applicant_id']);
-
         return view("uploader.la_facilities")->with($arr);
     }
 

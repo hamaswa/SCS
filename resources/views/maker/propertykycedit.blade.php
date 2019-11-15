@@ -334,7 +334,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
             }).done(function (response) {
-                window.location = "{{ route("pipeline.index") }}";
+                window.location = " {{ route("pipeline.index") }}";
             })
 
         });
