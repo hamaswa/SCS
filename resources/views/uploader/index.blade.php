@@ -167,7 +167,7 @@
 
                     </div>
                     </div>
-                    <div class="col-md-4 col-sm-4 col-lg-4 bg-chocolate"
+                    <div class="col-md-4 col-sm-4 col-lg-4 bg-chocolate border-shadlebrown"
                          id="right_side_bar">
                         <div class="tab-3"></div>
                         <div class="existing_commitment"></div>

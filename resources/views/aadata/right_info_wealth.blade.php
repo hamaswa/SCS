@@ -39,27 +39,31 @@
 
     @else
         <table class="table table-bordered table-striped bg-white">
-            <thead class="bg-light-blue">
-            <tr class="bg-aqua">
-                <th>Type</th>
-                <th>Amount</th>
-            </tr>
-            </thead>
+
             <tbody>
+                <tr>
             @php
                 $collapse = "in";
             @endphp
             @foreach($applicants as $applicant)
+                <td>
                 <?php
                 $wealth_total = 0;
                 ?>
-                <tr class="bg-aqua-active text-white font-weight-bolder with-border"
-                    data-toggle="collapse" data-target=".{{ $applicant->id }}_wealth">
-                    <th colspan="3">
-                        {{ $applicant->name }}
-                    </th>
-                </tr>
-
+                <table class="table table-bordered table-striped bg-white">
+                    <thead class="bg-light-blue">
+                        <tr class="bg-aqua-active text-white font-weight-bolder with-border"
+                            data-toggle="collapse" data-target=".{{ $applicant->id }}_wealth">
+                            <th colspan="3">
+                                {{ $applicant->name }}
+                            </th>
+                        </tr>
+                        <tr class="bg-aqua">
+                            <th>Type</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                 @foreach($applicant->applicantWealth as $wealth)
                     @php
                         $wealth_total +=  $wealth->total;
@@ -119,10 +123,13 @@
 
                 </tr>
                 @php
-                    $collapse = "out";
+                    //$collapse = "out";
                 @endphp
+                    </tbody>
+                </table>
+                </td>
             @endforeach
-
+                </tr>
             </tbody>
 
         </table>

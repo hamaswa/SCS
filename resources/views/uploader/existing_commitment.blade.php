@@ -1,24 +1,36 @@
 <div data-toggle="collapse" data-target=".right_existing_commitment"
      class="panel-heading bg-light-blue-gradient"><strong>Existing
         Commitment</strong></div>
-<div id="existing_commitment" class="collapse right_existing_commitment">
+<div id="existing_commitment" class="collapse right_existing_commitment table-responsive">
     <table class="table table-bordered table-hover bg-white existing_commitment">
-        <thead>
+        {{--<thead>--}}
 
-        <tr class="bg-aqua-gradient">
-            <th>Type</th>
-            <th>Monthly</th>
-            <th>DSR</th>
-        </tr>
-        </thead>
+        {{--<tr class="bg-aqua-gradient">--}}
+            {{--<th>Type</th>--}}
+            {{--<th>Monthly</th>--}}
+            {{--<th>DSR</th>--}}
+        {{--</tr>--}}
+        {{--</thead>--}}
         <tbody>
+            <tr>
         @foreach($applicants as $applicant)
-            <tr class="bg-aqua-active text-white font-weight-bolder with-border"
-                data-toggle="collapse" data-target=".{{ $applicant->id }}_existing_commitment">
-                <th colspan="3">
-                    {{ $applicant->name }}
-                </th>
-            </tr>
+            <td>
+                <table class="table table-bordered table-hover bg-white existing_commitment">
+                    <thead>
+                        <tr class="bg-aqua-active text-white font-weight-bolder with-border"
+                            data-toggle="collapse" data-target=".{{ $applicant->id }}_existing_commitment">
+                            <th colspan="3">
+                                {{ $applicant->name }}
+                            </th>
+                        </tr>
+                        <tr class="bg-aqua-gradient">
+                            <th>Type</th>
+                            <th>Monthly</th>
+                            <th>DSR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
 
             @php
                 $total = 0;
@@ -44,9 +56,6 @@
                         {{ round(($v->installment/$income_total)*100,2) }}
                     </td>
                 </tr>
-
-
-
             @endforeach
             <tr class="collapse {{$collapse}} {{$applicant->id}}_existing_commitment">
                 <td>
@@ -64,9 +73,13 @@
                 </td>
             </tr>
             @php
-                $collapse = "out";
+                //$collapse = "out";
             @endphp
+                    </tbody>
+                </table>
+            </td>
         @endforeach
+            </tr>
         </tbody>
     </table>
 </div>
