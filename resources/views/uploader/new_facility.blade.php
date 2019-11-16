@@ -3,14 +3,7 @@
     </div>
     <div class="collapse new_facility_right table-responsive">
         <table id="example5" class="table table-bordered table-hover table-striped bg-white new_facility">
-            <thead>
 
-            <tr class="bg-light-blue-gradient">
-                <th>Type</th>
-                <th>Amount</th>
-                <th>Installment</th>
-            </tr>
-            </thead>
             <tbody>
             <tr>
             @foreach($applicants as $applicant)

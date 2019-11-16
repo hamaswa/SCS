@@ -2,13 +2,7 @@
         Commitment</strong></div>
 <div class="collapse new_commitment_right table-responsive">
     <table class="table table-bordered table-hover bg-white new_commitment">
-        <thead>
-        <tr class="bg-light-blue-gradient">
-            <th>Type</th>
-            <th>Monthly</th>
-            <th>DSR</th>
-        </tr>
-        </thead>
+        
         <tbody>
         <tr>
         @foreach ($applicants as $applicant)
