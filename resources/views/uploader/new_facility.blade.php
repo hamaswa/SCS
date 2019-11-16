@@ -12,13 +12,25 @@
             </tr>
             </thead>
             <tbody>
+            <tr>
             @foreach($applicants as $applicant)
-                <tr class="bg-aqua-active text-white font-weight-bolder with-border"
-                    data-toggle="collapse" data-target=".{{ $applicant->id }}_new_facility">
-                    <th colspan="3">
-                        {{ $applicant->name }}
-                    </th>
-                </tr>
+                <td>
+                <table id="example5" class="table table-bordered table-hover table-striped bg-white">
+                    <thead>
+                    <tr class="bg-aqua-active text-white font-weight-bolder with-border"
+                        data-toggle="collapse" data-target=".{{ $applicant->id }}_new_facility">
+                        <th colspan="3">
+                            {{ $applicant->name }}
+                        </th>
+                    </tr>
+                    <tr class="bg-light-blue-gradient">
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Installment</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
                 @php
                     $collapse = "in";
                 @endphp
@@ -69,9 +81,13 @@
 
                 </tr>
                 @php
-                    $collapse = "out";
+                    //$collapse = "out";
                 @endphp
+                    </tbody>
+                </table>
+                </td>
             @endforeach
+            </tr>
             </tbody>
 
         </table>
