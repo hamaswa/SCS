@@ -14,44 +14,44 @@
                 </div>
             @endif
         </div>
-        <div class="col-md-12 col-sm-12 col-lg-12">
-            <div class="box">
+        <div class="clearfix"></div>
+        <div class="box">
 
-                <div class="box-body ">
-                    <div class="col-md-8 col-sm-8 col-lg-8 no-padding">
+            <div class="box-body ">
+                <div class="col-md-9 col-sm-12 col-lg-9 no-padding">
 
-                        <div class="col-md-12 col-sm-12 col-lg-12 table-responsive">
+                    <div class="col-md-12 col-sm-12 col-lg-12 table-responsive">
                         <table class="table table-bordered table-striped table-hover bg-white">
 
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <button id="dsr_projection" class="hide"> Dsr Projection</button>
-                                        <table>
+                            <tr>
+                                <td>
+                                    <button id="dsr_projection" class="hide"> Dsr Projection</button>
+                                    <table>
+                                        <?php
+                                        $id="";
+                                        ?>
+                                        @foreach($applicants as $la)
                                             <?php
-                                            $id="";
+                                            $id .= ($id==""?"":","). $la->id;
                                             ?>
-                                            @foreach($applicants as $la)
-                                                <?php
-                                                    $id .= ($id==""?"":","). $la->id;
-                                                ?>
-                                             <tr>
-                                                 <td class="la-applicant" data-id="{{$la->id}}">
-                                                     <b> {{$la->name}} </b>
-                                                 </td>
-                                                 <td> <input type="checkbox" class="applicants"
-                                                             name="applicant_id[]" value="{{$la->id}}" {{ $la->applicant_approved==1?"checked":"" }}> </td>
-                                             </tr>
-                                            @endforeach
+                                            <tr>
+                                                <td class="la-applicant" data-id="{{$la->id}}">
+                                                    <b> {{$la->name}} </b>
+                                                </td>
+                                                <td> <input type="checkbox" class="applicants"
+                                                            name="applicant_id[]" value="{{$la->id}}" {{ $la->applicant_approved==1?"checked":"" }}> </td>
+                                            </tr>
+                                        @endforeach
 
-                                        </table>
-                                        <input name="applicants" id="applicants" type="hidden" value="{{$id}}">
-                                    </td>
-                                    <td id="la-properties">
+                                    </table>
+                                    <input name="applicants" id="applicants" type="hidden" value="{{$id}}">
+                                </td>
+                                <td id="la-properties">
 
 
-                                    </td>
-                                </tr>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                         <div id="la_facilities">
@@ -134,7 +134,7 @@
                                 </td>
                                 <td class="add-button">
                                     <div class="pull-right">
-                                    <button type="button" id="create_la" class="btn bg-maroon btn-flat margin">Create LA</button>
+                                        <button type="button" id="create_la" class="btn bg-maroon btn-flat margin">Create LA</button>
                                     </div>
                                 </td>
                             </tr>
@@ -166,19 +166,18 @@
                         </table>
 
                     </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-lg-4 bg-chocolate border-shadlebrown"
-                         id="right_side_bar">
-                        <div class="tab-3"></div>
-                        <div class="existing_commitment"></div>
-                        <div class="new_facility"></div>
-                        <div class="new_commitment"></div>
-
-
-                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12 col-lg-3 bg-chocolate border-shadlebrown"
+                     id="right_side_bar">
+                    <div class="tab-3"></div>
+                    <div class="existing_commitment"></div>
+                    <div class="new_facility"></div>
+                    <div class="new_commitment"></div>
 
 
                 </div>
+
+
             </div>
         </div>
 
