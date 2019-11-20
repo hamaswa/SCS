@@ -1,4 +1,4 @@
-<table id="example5" class="table table-bordered table-hover table-striped bg-white new_facility">
+<table id="example5" class="table table-bordered table-hover table-striped bg-white new_facility table-condensed">
 
     <tbody>
     @foreach($applicants as $applicant)

@@ -229,7 +229,7 @@ if (isset($applicant)) {
 
             <!-- Settings tab content -->
             <div class="tab-pane active tap-width" id="control-sidebar-settings-tab">
-                <div id="tab-3" class="bg-chocolate border-shadlebrown">
+                <div id="tab-3" class="bg-chocolate">
                     <strong class="applicant padding-5"></strong>
                     <div class="table-responsive" id="incomekyc_right">
                         @include("aadata.right_info_income")

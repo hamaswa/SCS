@@ -1,23 +1,28 @@
 <div data-toggle="collapse" data-target=".new_commitment_right" class="panel-heading bg-primary"><strong>New
         Commitment</strong></div>
-<div class="collapse new_commitment_right">
+<div class="collapse new_commitment_right table-responsive">
     <table class="table table-bordered table-hover bg-white new_commitment">
-        <thead>
-        <tr class="bg-light-blue-gradient">
-            <th>Type</th>
-            <th>Monthly</th>
-            <th>DSR</th>
-        </tr>
-        </thead>
+        
         <tbody>
-
+        <tr>
         @foreach ($applicants as $applicant)
-            <tr class="bg-aqua-active text-white font-weight-bolder with-border"
-                data-toggle="collapse" data-target=".{{ $applicant->id }}_new_commitment">
-                <th colspan="3">
-                    {{ $applicant->name }}
-                </th>
-            </tr>
+            <td>
+                <table class="table table-bordered table-hover bg-white">
+                    <thead>
+                    <tr class="bg-aqua-active text-white font-weight-bolder with-border"
+                        data-toggle="collapse" data-target=".{{ $applicant->id }}_new_commitment">
+                        <th colspan="3">
+                            {{ $applicant->name }}
+                        </th>
+                    </tr>
+                    <tr class="bg-light-blue-gradient">
+                        <th>Type</th>
+                        <th>Monthly</th>
+                        <th>DSR</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
             @php
                 $new_commitments= $applicant->facilityInfo()
                         ->whereRaw(
@@ -76,10 +81,13 @@
             </tr>
         @endif
             @php
-                $collapse = "out";
+                //$collapse = "out";
             @endphp
+            </tbody>
+            </table>
+            </td>
         @endforeach
-
+        </tr>
 
         </tbody>
     </table>
