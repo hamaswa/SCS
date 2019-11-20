@@ -26,7 +26,7 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <button id="dsr_projection" class="hide"> Dsr Projection</button>
+                                    <button id="dsr_projection" class="hide btn btn-primary"> Dsr Projection</button>
                                     <table>
                                         <?php
                                         $id="";
@@ -621,6 +621,22 @@
                 }
             });
         }
+
+
+        function allowDropIncome(ev) {
+            ev.preventDefault();
+        }
+
+        function dragIncome(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function dropIncome(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+
 
     </script>
 @endpush
