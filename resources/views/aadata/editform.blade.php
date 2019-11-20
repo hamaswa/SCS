@@ -61,7 +61,7 @@
                                             @csrf
                                             <input type="hidden" name="formname" value="business_form">
                                             <input type="hidden" id="business_id" name="business_id">
-                                            @include('aadata.businesskyc');
+                                            @include('aadata.businesskycedit',['businesses'=>$applicant->applicantBusinesses])
                                         </form>
                                     </div>
                                 </div>
@@ -71,7 +71,7 @@
                                             @csrf
                                             <input type="hidden" name="formname" value="incomeform">
                                             <input type="hidden" name="income_id" value="" id="income_id">
-                                            @include('aadata.incomekyc');
+                                            @include('aadata.incomekyc')
                                         </form>
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@
                                     <div class="row" style="line-height: 14px; margin-bottom: 34.5px">
                                         <form id="propertyform" name="propertyform">
                                             <input type="hidden" name="property_id" id="property_id">
-                                            @include('aadata.propertykyc')
+                                            @include('aadata.propertykycedit',['properties'=>$applicant->applicantProperty])
                                         </form>
                                     </div>
                                 </div>

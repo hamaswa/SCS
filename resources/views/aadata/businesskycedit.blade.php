@@ -1,11 +1,4 @@
 <fieldset id="applicantkyc" class="tab-action-main">
-    {{--<div class="col-md-2 col-sm-3">--}}
-        {{--<a href="javascript:void(0);" data-id="applicantkyc" class="bg-yellow-light padding-5 pull-left vericaltext tab-action border-black-1">APPLICATION <br> KYC</a>--}}
-        {{--<a href="javascript:void(0);" data-id="incomekyc" id="nextincomekyc" class="bg-white padding-5 pull-left vericaltext tab-action border-black-1"><br>INCOME <br> KYC</a>--}}
-        {{--<a href="javascript:void(0);" data-id="wealthkyc" id="nextwealthkyc" class="bg-white padding-5 pull-left vericaltext tab-action border-black-1"><br><br>WEALTH <br> KYC</a>--}}
-        {{--<a href="javascript:void(0);" data-id="businesskyc" id="nextbusinesskyc" class="bg-white padding-5 pull-left vericaltext tab-action border-black-1"><br><br><br>business <br> KYC</a>--}}
-    {{--</div>--}}
-
     <div class="col-sm-12 col-md-6 col-lg-6 col-lg-offset-1">
         <div class="box">
             <div class="col-md-12 col-sm-12 bg-gray-light padding-5">
