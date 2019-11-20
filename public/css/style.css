@@ -93,6 +93,9 @@ div {
     outline-color: #ade3ff;
     outline-style: none;
 }
+.border-white-bottom{
+    border-bottom: 1px solid #fff;
+}
 
 /* Dropdowns - I */
 .dropdown .dropdown-toggle .down-arrow {

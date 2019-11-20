@@ -598,9 +598,9 @@
                 alert("already added")
             }
             else {
-                div = $("<div class='col-lg-12'></div>");
+                div = $("<div class='col-lg-12 padding-5 border-white-bottom'></div>");
                 $(div).append($(existing_facility));
-                $(div).append($("<span class=remove>X</span>"))
+                $(div).append($("<span class='btn btn-danger btn-xs pull-right remove rounded text-white'>X</span>"))
 
                 $(".dsr_projection_existing_facility_total").append(div);
             }
@@ -618,9 +618,9 @@
                 alert("already added")
             }
             else {
-                div = $("<div class='col-lg-12'></div>");
+                div = $("<div class='col-lg-12 padding-5 border-white-bottom'></div>");
                 $(div).append($(new_facility));
-                $(div).append($("<span class=remove>X</span>"))
+                $(div).append($("<span class='btn btn-danger btn-xs pull-right remove rounded text-white'>X</span>"))
 
                 $(".dsr_projection_new_facility_total").append(div);
             }
@@ -639,9 +639,9 @@
                 alert("already added");
             }
             else {
-                div = $("<div class='col-lg-12'></div>");
+                div = $("<div class='col-lg-12 padding-5 border-white-bottom'></div>");
                 $(div).append($(income));
-                $(div).append($("<span class=remove>X</span>"))
+                $(div).append($("<span class='btn btn-danger btn-xs pull-right remove rounded text-white'>X</span>"))
                 $(".dsr_projection_income_total").append(div);
             }
             total = 0;

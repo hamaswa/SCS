@@ -1,4 +1,4 @@
-<table id="example5" class="table table-bordered table-hover table-striped bg-white new_facility table-condensed">
+<table id="example5" class="table table-bordered table-hover table-striped bg-white new_facility table-condensed" style="cursor: move;">
 
     <tbody>
     @foreach($applicants as $applicant)
@@ -18,8 +18,8 @@
                 <tr>
 
                     <td>
-                        <div class="dsr_new_facility {{$v->id}}_n_facility" data-target=".{{$v->id}}_n_facility"
-                             value="{{$v->id}}">
+                        <div class="dsr_new_facility {{$v->id}}_n_facility pull-left" data-target=".{{$v->id}}_n_facility"
+                             value="{{$v->id}}" style="z-index: 999;">
                             {{strtoupper($v->type) }}
                             #
                             {{ $v->loan_amount }}
