@@ -310,6 +310,7 @@ if (isset($applicant)) {
 
 <script src="{{asset("js/app.js")}}"></script>
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="{{asset("js/bootstrap-datepicker.min.js")}}"></script>
 
 <!-- AdminLTE App -->

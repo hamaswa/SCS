@@ -2,28 +2,28 @@
         Commitment</strong></div>
 <div class="collapse new_commitment_right table-responsive">
     <table class="table table-bordered table-hover bg-white new_commitment">
-        
+
         <tbody>
         <tr>
         @foreach ($applicants as $applicant)
-            <td>
-                <table class="table table-bordered table-hover bg-white">
-                    <thead>
-                    <tr class="bg-aqua-active text-white font-weight-bolder with-border"
-                        data-toggle="collapse" data-target=".{{ $applicant->id }}_new_commitment">
-                        <th colspan="3">
-                            {{ $applicant->name }}
-                        </th>
-                    </tr>
-                    <tr class="bg-light-blue-gradient">
-                        <th>Type</th>
-                        <th>Monthly</th>
-                        <th>DSR</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                <td>
+                    <table class="table table-bordered table-hover bg-white">
+                        <thead>
+                        <tr class="bg-aqua-active text-white font-weight-bolder with-border"
+                            data-toggle="collapse" data-target=".{{ $applicant->id }}_new_commitment">
+                            <th colspan="3">
+                                {{ $applicant->name }}
+                            </th>
+                        </tr>
+                        <tr class="bg-light-blue-gradient">
+                            <th>Type</th>
+                            <th>Monthly</th>
+                            <th>DSR</th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-            @php
+                        @php
                 $new_commitments= $applicant->facilityInfo()
                         ->whereRaw(
                         "(applicant_id = '" . $applicant->id . "'
@@ -83,9 +83,9 @@
             @php
                 //$collapse = "out";
             @endphp
-            </tbody>
-            </table>
-            </td>
+                        </tbody>
+                    </table>
+                </td>
         @endforeach
         </tr>
 

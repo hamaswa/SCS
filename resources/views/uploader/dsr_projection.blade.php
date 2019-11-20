@@ -17,7 +17,7 @@
 
     <div class="col-md-3 bg-aqua padding-5">
 
-        <div class="dsr_projection_income_total bg-aqua" style="min-height:200px" ondrop="dropIncome(event)" ondragover="allowDropIncome(event)">
+        <div class="dsr_projection_income_total bg-aqua" style="min-height:200px">
 
         </div>
         Total <input type="text" name="dsr_income_total" class="form-control" id="dsr_income_total">

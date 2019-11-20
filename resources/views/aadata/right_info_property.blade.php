@@ -3,19 +3,19 @@
     <div class="collapse in right_property_new">
     <table class="table table-bordered table-striped table-hover bg-white">
         <tbody id="propertyright" class="propertyright">
-            <tr>
+        <tr>
         @php
             $collapse = "in";
         @endphp
         @foreach($applicants as $applicant)
-            <td>
-            @php
-                $total_mv = 0;
-                $total_os = 0;
-                $total_co = 0;
-            @endphp
-                <table class="table table-bordered table-striped table-hover bg-white">
-                    <thead class="bg-light-blue">
+                <td>
+                    @php
+                        $total_mv = 0;
+                        $total_os = 0;
+                        $total_co = 0;
+                    @endphp
+                    <table class="table table-bordered table-striped table-hover bg-white">
+                        <thead class="bg-light-blue">
                         <tr class="bg-aqua-active text-white font-weight-bolder with-border"
                             data-toggle="collapse" data-target=".{{ $applicant->id }}_property">
                             <th colspan="3">
@@ -27,8 +27,8 @@
                             <th>OS</th>
                             <th>CO</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         @foreach($applicant->applicantProperty as  $property)
                             <?php
                             $total_mv += $property->property_market_value;
@@ -50,14 +50,14 @@
                             <td>{{$total_os}}</td>
                             <td>{{ $total_mv * (0.9) - $total_os }}</td>
                         </tr>
-            @php
-                //$collapse = "out";
-            @endphp
-                    </tbody>
-                </table>
-            </td>
+                        @php
+                            //$collapse = "out";
+                        @endphp
+                        </tbody>
+                    </table>
+                </td>
         @endforeach
-            </tr>
+        </tr>
         </tbody>
 
     </table>

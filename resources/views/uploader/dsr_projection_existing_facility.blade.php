@@ -15,15 +15,17 @@
         <tbody>
         @foreach($data->facilityInfo as $k => $v)
             @if($v->la_id==null)
-                <tr class="dsr_existing_facility">
-                    <td><input type="checkbox" data-target=".{{$v->id}}_e_facility" value="{{$v->id}}"
-                               class="dsr_e_facility_chkbox"></td>
-                    <td class="{{$v->id}}_e_facility">
-                        {{strtoupper($v->type) }}
-                        #
-                        {{ $v->facilityoutstanding }}
-                        @
-                        <span class="installment">{{$v->installment}}</span>
+                <tr>
+                    <td>
+                        <div class="dsr_existing_facility {{$v->id}}_e_facility" data-target=".{{$v->id}}_e_facility"
+                             value="{{$v->id}}">
+                            {{strtoupper($v->type) }}
+                            #
+                            {{ $v->facilityoutstanding }}
+                            @
+                            <span class="installment">{{$v->installment}}</span>
+                        </div>
+
 
                     </td>
                 </tr>

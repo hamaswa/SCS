@@ -15,15 +15,18 @@
         @foreach($new_facility as $k => $v)
             @if($v->la_id==$la_id)
 
-                <tr class="dsr_new_facility">
-                    <td><input type="checkbox" data-target=".{{$v->id}}_n_facility" value="{{$v->id}}"
-                               class="dsr_n_facility_chkbox"></td>
-                    <td class="{{$v->id}}_n_facility">
-                        {{strtoupper($v->type) }}
-                        #
-                        {{ $v->loan_amount }}
-                        @
-                        <span class="installment">{{$v->installment}}</span>
+                <tr>
+
+                    <td>
+                        <div class="dsr_new_facility {{$v->id}}_n_facility" data-target=".{{$v->id}}_n_facility"
+                             value="{{$v->id}}">
+                            {{strtoupper($v->type) }}
+                            #
+                            {{ $v->loan_amount }}
+                            @
+                            <span class="installment">{{$v->installment}}</span>
+                        </div>
+
 
                     </td>
 

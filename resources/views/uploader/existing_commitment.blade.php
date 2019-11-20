@@ -4,11 +4,11 @@
 <div id="existing_commitment" class="collapse right_existing_commitment table-responsive">
     <table class="table table-bordered table-hover bg-white existing_commitment">
         <tbody>
-            <tr>
-        @foreach($applicants as $applicant)
-            <td>
-                <table class="table table-bordered table-hover bg-white">
-                    <thead>
+        <tr>
+            @foreach($applicants as $applicant)
+                <td>
+                    <table class="table table-bordered table-hover bg-white">
+                        <thead>
                         <tr class="bg-aqua-active text-white font-weight-bolder with-border"
                             data-toggle="collapse" data-target=".{{ $applicant->id }}_existing_commitment">
                             <th colspan="3">
@@ -20,58 +20,58 @@
                             <th>Monthly</th>
                             <th>DSR</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
 
 
-            @php
-                $total = 0;
-                $existing_commitments = $applicant->facilityInfo()->where("la_id",'=', null)->get();
-                $income_total=$applicant->applicantIncome()->sum('net');
-                $collapse="in";
-            @endphp
-            @foreach($existing_commitments as $k => $v)
+                        @php
+                            $total = 0;
+                            $existing_commitments = $applicant->facilityInfo()->where("la_id",'=', null)->get();
+                            $income_total=$applicant->applicantIncome()->sum('net');
+                            $collapse="in";
+                        @endphp
+                        @foreach($existing_commitments as $k => $v)
 
-                <tr class="collapse {{$collapse}} {{$applicant->id}}_existing_commitment">
-                    <td>
-                        {{strtoupper($v->type) }}
+                            <tr class="collapse {{$collapse}} {{$applicant->id}}_existing_commitment">
+                                <td>
+                                    {{strtoupper($v->type) }}
 
-                    </td>
-                    <td>
-                        {{$v->installment}}
-                        <?php
-                        $total += $v->installment;
-                        ?>
+                                </td>
+                                <td>
+                                    {{$v->installment}}
+                                    <?php
+                                    $total += $v->installment;
+                                    ?>
 
-                    </td>
-                    <td>
-                        {{ round(($v->installment/$income_total)*100,2) }}
-                    </td>
-                </tr>
+                                </td>
+                                <td>
+                                    {{ round(($v->installment/$income_total)*100,2) }}
+                                </td>
+                            </tr>
+                        @endforeach
+                        <tr class="collapse {{$collapse}} {{$applicant->id}}_existing_commitment">
+                            <td>
+                                Total
+                            </td>
+                            <td>
+                                {{$total}}
+                            </td>
+                            <td>
+                                @if($total!=0 and $income_total!=0)
+                                    {{ round(($total/$income_total)*100,2) }}
+                                @else
+                                    0
+                                @endif
+                            </td>
+                        </tr>
+                        @php
+                            //$collapse = "out";
+                        @endphp
+                        </tbody>
+                    </table>
+                </td>
             @endforeach
-            <tr class="collapse {{$collapse}} {{$applicant->id}}_existing_commitment">
-                <td>
-                    Total
-                </td>
-                <td>
-                    {{$total}}
-                </td>
-                <td>
-                    @if($total!=0 and $income_total!=0)
-                        {{ round(($total/$income_total)*100,2) }}
-                    @else
-                        0
-                    @endif
-                </td>
-            </tr>
-            @php
-                //$collapse = "out";
-            @endphp
-                    </tbody>
-                </table>
-            </td>
-        @endforeach
-            </tr>
+        </tr>
         </tbody>
     </table>
 </div>

@@ -29,18 +29,20 @@
                                     <button id="dsr_projection" class="hide btn btn-primary"> Dsr Projection</button>
                                     <table>
                                         <?php
-                                        $id="";
+                                        $id = "";
                                         ?>
                                         @foreach($applicants as $la)
                                             <?php
-                                            $id .= ($id==""?"":","). $la->id;
+                                            $id .= ($id == "" ? "" : ",") . $la->id;
                                             ?>
                                             <tr>
                                                 <td class="la-applicant" data-id="{{$la->id}}">
                                                     <b> {{$la->name}} </b>
                                                 </td>
-                                                <td> <input type="checkbox" class="applicants"
-                                                            name="applicant_id[]" value="{{$la->id}}" {{ $la->applicant_approved==1?"checked":"" }}> </td>
+                                                <td><input type="checkbox" class="applicants"
+                                                           name="applicant_id[]"
+                                                           value="{{$la->id}}" {{ $la->applicant_approved==1?"checked":"" }}>
+                                                </td>
                                             </tr>
                                         @endforeach
 
@@ -134,7 +136,9 @@
                                 </td>
                                 <td class="add-button">
                                     <div class="pull-right">
-                                        <button type="button" id="create_la" class="btn bg-maroon btn-flat margin">Create LA</button>
+                                        <button type="button" id="create_la" class="btn bg-maroon btn-flat margin">
+                                            Create LA
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -207,6 +211,7 @@
         var applicant = null;
         $(document).ready(function (e) {
             $('.select2').select2({allowClear:true});
+
             forms=[];
             forms['facility_form'] = $("#facility_form").children().clone(true, true)
 
@@ -239,79 +244,6 @@
             })
         })
 
-        $(document.body).on("click", ".dsr_e_facility_chkbox", function () {
-            if ($(".dsr_projection_existing_facility_total").find($(this).data("target")).length) {
-                $(".dsr_projection_existing_facility_total").find($(this).data("target")).remove()
-            }
-            else {
-                div = $("<div class='col-lg-12'></div>");
-                $(div).append($($(this).data("target")).clone(true));
-                $(".dsr_projection_existing_facility_total").append(div);
-            }
-            total = 0;
-            $(".dsr_projection_existing_facility_total").find("td .installment").each(function (e) {
-                //console.log((($(this).html().match(/\d+/))))
-                total += (($(this).text()) * 1);
-            })
-            $("#dsr_existing_facility_total").val(total);
-            calculate_dsr();
-        })
-
-        $(document.body).on("click", ".dsr_n_facility_chkbox", function () {
-            if ($(".dsr_projection_new_facility_total").find($(this).data("target")).length) {
-                $(".dsr_projection_new_facility_total").find($(this).data("target")).remove()
-            }
-            else {
-                div = $("<div class='col-lg-12'></div>");
-                $(div).append($($(this).data("target")).clone(true));
-                $(".dsr_projection_new_facility_total").append(div);
-            }
-            total = 0;
-            $(".dsr_projection_new_facility_total").find("td .installment").each(function (e) {
-                //console.log((($(this).html().match(/\d+/))))
-                total += (($(this).text()) * 1);
-            })
-            $("#dsr_new_facility_total").val(total);
-            calculate_dsr()
-        })
-
-        $(document.body).on("click", ".dsr_income_chkbox", function () {
-            if ($(".dsr_projection_income_total").find($(this).data("target")).length) {
-                $(".dsr_projection_income_total").find($(this).data("target")).parent("div").remove()
-            }
-            else {
-                div = $("<div class='col-lg-12'></div>");
-                $(div).append($($(this).data("target")).clone(true));
-                $(".dsr_projection_income_total").append(div);
-            }
-            total = 0;
-            $(".dsr_projection_income_total").find(".income_net").each(function (e) {
-                total += (($(this).text() * 1));
-            })
-            //console.log(total)
-            $("#dsr_income_total").val(total);
-            calculate_dsr()
-        })
-
-        function calculate_dsr() {
-            income_total = $("#dsr_income_total").val();
-            if (!income_total) {
-                income_total = 1;
-            }
-            new_facility_total = $("#dsr_new_facility_total").val();
-            if (!new_facility_total) {
-                new_facility_total = 0;
-            }
-
-            existing_facility_total = $("#dsr_existing_facility_total").val()
-
-            if (!existing_facility_total) {
-                existing_facility_total = 0;
-            }
-
-            $("#dsr").val(Math.round(((new_facility_total - existing_facility_total) / income_total) * 100, 2));
-        }
-
         $(document.body).on("click", "#dsr_projection", function (e) {
             $.ajax({
                 url: '{{ route('dsr_projection') }}',
@@ -323,6 +255,39 @@
             }).done(function (response) {
                 $("#dsr_projection_res").html($(response))
                 $("#dsr_dialog").modal('show');
+                $(".dsr_income, .dsr_existing_facility,.dsr_new_facility").draggable(
+                    {
+                        revert: "valid",
+                        helper: 'clone'
+                    });
+                $(".dsr_projection_income_total").droppable(
+                    {
+                        accept: ".dsr_income",
+                        drop: function (event, ui) {
+                            dsr_income($(ui.draggable.clone()))
+                        }
+                    }
+                );
+
+                $(".dsr_projection_existing_facility_total").droppable(
+                    {
+                        accept: ".dsr_existing_facility",
+                        drop: function (event, ui) {
+                            dsr_existing_facility($(ui.draggable.clone()))
+                        }
+                    }
+                );
+
+                $(".dsr_projection_new_facility_total").droppable(
+                    {
+                        accept: ".dsr_new_facility",
+                        drop: function (event, ui) {
+                            dsr_new_facility($(ui.draggable.clone()))
+                        }
+                    }
+                );
+
+
             })
 
         })
@@ -450,6 +415,11 @@
                 return this.value;
             }).get().join(',');
             sidebar(id);
+        })
+
+        $(document.body).on("click", ".remove", function (e) {
+            $(this).parent("div").remove();
+            calculate_dsr()
         })
 
         function sidebar(id) {
@@ -603,6 +573,7 @@
                 }
             });
         }
+
         function facility_edit() {
 
             $.ajax({
@@ -622,19 +593,83 @@
             });
         }
 
+        function dsr_existing_facility(existing_facility) {
+            if ($(".dsr_projection_existing_facility_total").find($(existing_facility).data("target")).length) {
+                alert("already added")
+            }
+            else {
+                div = $("<div class='col-lg-12'></div>");
+                $(div).append($(existing_facility));
+                $(div).append($("<span class=remove>X</span>"))
 
-        function allowDropIncome(ev) {
-            ev.preventDefault();
+                $(".dsr_projection_existing_facility_total").append(div);
+            }
+            total = 0;
+            $(".dsr_projection_existing_facility_total").find(".installment").each(function (e) {
+                //console.log((($(this).html().match(/\d+/))))
+                total += (($(this).text()) * 1);
+            })
+            $("#dsr_existing_facility_total").val(total);
+            calculate_dsr();
         }
 
-        function dragIncome(ev) {
-            ev.dataTransfer.setData("text", ev.target.id);
+        function dsr_new_facility(new_facility) {
+            if ($(".dsr_projection_new_facility_total").find($(new_facility).data("target")).length) {
+                alert("already added")
+            }
+            else {
+                div = $("<div class='col-lg-12'></div>");
+                $(div).append($(new_facility));
+                $(div).append($("<span class=remove>X</span>"))
+
+                $(".dsr_projection_new_facility_total").append(div);
+            }
+            total = 0;
+            $(".dsr_projection_new_facility_total").find(".installment").each(function (e) {
+                total += (($(this).text()) * 1);
+            })
+            $("#dsr_new_facility_total").val(total);
+            calculate_dsr()
         }
 
-        function dropIncome(ev) {
-            ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
-            ev.target.appendChild(document.getElementById(data));
+        function dsr_income(income) {
+
+            if ($(".dsr_projection_income_total").find($(income).data("target")).length) {
+
+                alert("already added");
+            }
+            else {
+                div = $("<div class='col-lg-12'></div>");
+                $(div).append($(income));
+                $(div).append($("<span class=remove>X</span>"))
+                $(".dsr_projection_income_total").append(div);
+            }
+            total = 0;
+            $(".dsr_projection_income_total").find(".income_net").each(function (e) {
+                total += (($(this).text() * 1));
+            })
+            //console.log(total)
+            $("#dsr_income_total").val(total);
+            calculate_dsr()
+        }
+
+        function calculate_dsr() {
+            income_total = $("#dsr_income_total").val();
+            if (!income_total) {
+                income_total = 1;
+            }
+            new_facility_total = $("#dsr_new_facility_total").val();
+            if (!new_facility_total) {
+                new_facility_total = 0;
+            }
+
+            existing_facility_total = $("#dsr_existing_facility_total").val()
+
+            if (!existing_facility_total) {
+                existing_facility_total = 0;
+            }
+
+            $("#dsr").val(Math.round(((new_facility_total - existing_facility_total) / income_total) * 100, 2));
         }
 
 
