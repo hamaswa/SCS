@@ -81,11 +81,11 @@
 
                                     <th>
 
-                                        <button id="update_la" name="update_la" value="Submit">Submit</button>
-                                        <button id="delete_la" disabled name="delete_la" value="Submit">Delete</button>
+                                        <button id="update_la" name="update_la" value="Submit" class="btn btn-success btn-xs">Submit</button>
+                                        <button id="delete_la" disabled name="delete_la" value="Submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> </button>
                                         @if(request()->user()->hasRole("uploader"))
                                             <a href="{{ route("uploader.index") }}?id={{$loan_application->applicant_id}}"
-                                               class="btn btn-xs bg-light-blue-gradient">Edit</a>
+                                               class="btn btn-xs bg-light-blue-gradient"><i class="fa fa-edit"></i> </a>
 
 
                                         @endif
