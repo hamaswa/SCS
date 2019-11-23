@@ -38,14 +38,29 @@
 
                                 </td>
                                 <td>
+                                    @if( strtolower($v->capacity)=="ja" or strtolower($v->capacity) == "joint")
+                                        {{ round($v->installment/2,2) }}
+                                        @php
+                                            $total += round($v->installment/2,2);
+                                        @endphp
+
+                                    @else
                                     {{$v->installment}}
-                                    <?php
-                                    $total += $v->installment;
-                                    ?>
+                                        @php
+                                            $total += $v->installment;
+                                        @endphp
+                                    @endif
+
 
                                 </td>
                                 <td>
-                                    {{ round(($v->installment/$income_total)*100,2) }}
+                                    @if( strtolower($v->capacity) =="ja" or strtolower($v->capacity) == "joint")
+                                        {{round((round($v->installment/2,2)/$income_total)*100,2) }}
+                                    @else
+                                        {{ round(($v->installment/$income_total)*100,2) }}
+
+                                    @endif
+
                                 </td>
                             </tr>
                         @endforeach

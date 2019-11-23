@@ -13,6 +13,9 @@
         {{--</tr>--}}
         </thead>
         <tbody>
+        @php
+            $total = 0;
+        @endphp
         @foreach($data->facilityInfo as $k => $v)
             @if($v->la_id==null)
                 <tr>
@@ -23,7 +26,18 @@
                             #
                             {{ $v->facilityoutstanding }}
                             @
-                            <span class="installment">{{$v->installment}}</span>
+                            @if( strtolower($v->capacity)=="ja" or strtolower($v->capacity) == "joint")
+                                <span class="installment">{{round($v->installment/2,2)}}</span>
+                                @php
+                                    $total += round($v->installment/2,2);
+                                @endphp
+
+                            @else
+                                <span class="installment">{{$v->installment}}</span>
+                                @php
+                                    $total += $v->installment;
+                                @endphp
+                            @endif
                         </div>
 
 
@@ -38,3 +52,5 @@
     </table>
 
 @endforeach
+
+<input type="hidden" id="dsr_all_existing_facility_total" value="{{$total}}"/>

@@ -1,6 +1,9 @@
 <table id="example5" class="table table-bordered table-hover table-striped bg-white new_facility table-condensed" style="cursor: move;">
 
     <tbody>
+    @php
+        $total = 0;
+    @endphp
     @foreach($applicants as $applicant)
         <tr class="bg-aqua-active text-white font-weight-bolder with-border">
             <th colspan="3">
@@ -25,6 +28,10 @@
                             {{ $v->loan_amount }}
                             @
                             <span class="installment">{{$v->installment}}</span>
+
+                            @php
+                                $total += $v->installment;
+                            @endphp
                         </div>
 
 
@@ -41,3 +48,4 @@
     </tbody>
 
 </table>
+<input type="hidden" id="dsr_all_new_facility_total" value="{{$total}}"/>

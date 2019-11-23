@@ -286,7 +286,7 @@
                         }
                     }
                 );
-
+                calculate_dsr();
 
             })
 
@@ -419,7 +419,11 @@
 
         $(document.body).on("click", ".remove", function (e) {
             $(this).parent("div").remove();
-            calculate_dsr()
+            dsr_existing_facility_total();
+            dsr_new_facility_total()
+            dsr_income_total();
+            // alert("hello");
+            //calculate_dsr()
         })
 
         function sidebar(id) {
@@ -557,6 +561,7 @@
             }
         });
         }
+
         function la_facilities()
         {
             $.ajax({
@@ -604,6 +609,10 @@
 
                 $(".dsr_projection_existing_facility_total").append(div);
             }
+            dsr_existing_facility_total()
+        }
+
+        function dsr_existing_facility_total() {
             total = 0;
             $(".dsr_projection_existing_facility_total").find(".installment").each(function (e) {
                 //console.log((($(this).html().match(/\d+/))))
@@ -612,7 +621,6 @@
             $("#dsr_existing_facility_total").val(total);
             calculate_dsr();
         }
-
         function dsr_new_facility(new_facility) {
             if ($(".dsr_projection_new_facility_total").find($(new_facility).data("target")).length) {
                 alert("already added")
@@ -624,6 +632,10 @@
 
                 $(".dsr_projection_new_facility_total").append(div);
             }
+            dsr_new_facility_total();
+        }
+
+        function dsr_new_facility_total() {
             total = 0;
             $(".dsr_projection_new_facility_total").find(".installment").each(function (e) {
                 total += (($(this).text()) * 1);
@@ -631,7 +643,6 @@
             $("#dsr_new_facility_total").val(total);
             calculate_dsr()
         }
-
         function dsr_income(income) {
 
             if ($(".dsr_projection_income_total").find($(income).data("target")).length) {
@@ -644,32 +655,47 @@
                 $(div).append($("<span class='btn btn-danger btn-xs pull-right remove rounded text-white'>X</span>"))
                 $(".dsr_projection_income_total").append(div);
             }
+            dsr_income_total();
+        }
+
+        function dsr_income_total() {
             total = 0;
             $(".dsr_projection_income_total").find(".income_net").each(function (e) {
                 total += (($(this).text() * 1));
             })
-            //console.log(total)
             $("#dsr_income_total").val(total);
             calculate_dsr()
         }
-
         function calculate_dsr() {
-            income_total = $("#dsr_income_total").val();
+            income_total = $("#dsr_all_income_total").val() * 1;
+            existing_facility_total = $("#dsr_all_existing_facility_total").val() * 1;
+            new_facility_total = $("#dsr_all_new_facility_total").val() * 1;
+
+
+            $("#dsr").val(Math.round(((new_facility_total + existing_facility_total) / income_total) * 100, 2));
+
+
+            income_total = $("#dsr_income_total").val() * 1;
             if (!income_total) {
                 income_total = 1;
             }
-            new_facility_total = $("#dsr_new_facility_total").val();
+            new_facility_total = $("#dsr_new_facility_total").val() * 1;
             if (!new_facility_total) {
                 new_facility_total = 0;
             }
 
-            existing_facility_total = $("#dsr_existing_facility_total").val()
+            existing_facility_total_exclude = $("#dsr_existing_facility_total").val() * 1
 
-            if (!existing_facility_total) {
-                existing_facility_total = 0;
+            if (!existing_facility_total_exclude) {
+                existing_facility_total_exclude = 0;
             }
 
-            $("#dsr").val(Math.round(((new_facility_total - existing_facility_total) / income_total) * 100, 2));
+            if (income_total != 1 && new_facility_total != 0) {
+
+                $("#dsr").val(Math.round(((new_facility_total + existing_facility_total - existing_facility_total_exclude) / income_total) * 100, 2));
+
+
+            }
         }
 
 

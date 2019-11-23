@@ -1,4 +1,7 @@
 @if(isset($applicants))
+    @php
+        $total = 0;
+    @endphp
     <table class="table table-bordered table-striped table-hover bg-white table-condensed" style="cursor: move;">
 
         <tbody>
@@ -6,7 +9,7 @@
         @foreach($applicants as $applicant)
 
             <tr class="bg-aqua-active text-white font-weight-bolder with-border">
-                <th colspan="3">
+                <th>
                     {{ $applicant->name }}
                 </th>
             </tr>
@@ -70,6 +73,9 @@
                         </td>
                     @endif
                 </tr>
+                @php
+                    $total += $income->net;
+                @endphp
             @endforeach
 
         @endforeach
@@ -77,3 +83,5 @@
         </tbody>
     </table>
 @endif
+<input type="hidden" id="dsr_all_income_total" value="{{$total}}"/>
+

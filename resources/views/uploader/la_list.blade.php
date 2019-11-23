@@ -79,9 +79,15 @@
                                         Remarks
                                     </th>
                                     <th>
+
                                         <button id="update_la" name="update_la" value="Submit">Submit</button>
                                         <button id="delete_la" disabled name="delete_la" value="Submit">Delete</button>
-                                        <button id="edit_la" disabled name="edit_la" value="Submit">Edit</button>
+                                        @if(request()->user()->hasRole("uploader"))
+                                            <a href="{{ route("uploader.index") }}?id={{$loan_application->applicant_id}}"
+                                               class="btn btn-xs bg-light-blue-gradient">Edit</a>
+
+
+                                        @endif
                                     </th>
 
                                 </tr>
