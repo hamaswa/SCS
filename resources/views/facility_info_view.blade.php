@@ -24,7 +24,7 @@
                 <select name="type" id="type" class="select2">
                     @foreach($capacity_data as $capacity)
                         <option value="{{$capacity->name}}"
-                                {{ (strtoupper($v->type))==strtoupper($capacity->name?"selected":"") }}>
+                                {{ (strtoupper($v->type)==strtoupper($capacity->name)?"selected":"") }}>
                             {{ $capacity->description }}
                         </option>
                     @endforeach

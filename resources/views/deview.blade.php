@@ -121,7 +121,6 @@
                                 <table id="example5" class="table table-bordered table-hover bg-white">
                                     <thead>
                                     <tr class="bg-light-blue-gradient">
-                                        <th>CCRIS</th>
                                         <th style="width: 115px;">Facility</th>
                                         <th style="width: 115px;">Facility Date</th>
                                         <th style="width: 100px;">STS</th>
@@ -140,13 +139,17 @@
                                     @foreach($data->facilityInfo as $k => $v)
 
                                         <tr>
-                                            <td>
-                                                {{ $v->csris }}
-                                            </td>
+
                                             <td>
                                                 <input type="hidden" name="id" value="{{$v->id}}">
-                                                {{strtoupper($v->type) }}
-
+                                                <select name="type" id="type" class="select2">
+                                                    @foreach($capacity_data as $capacity)
+                                                        <option value="{{$capacity->name}}"
+                                                                {{ (strtoupper($v->type)==strtoupper($capacity->name)?"selected":"") }}>
+                                                            {{ $capacity->description }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                             </td>
                                             <td>
                                                 <input type="date" id="facilitydate" required name="facilitydate"

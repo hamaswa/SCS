@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\ApplicantData;
 use App\maker\LoanApplication;
+use Auth;
 
 class LaController extends Controller
 {
@@ -16,8 +17,14 @@ class LaController extends Controller
      */
     public function index()
     {
-        $arr["loan_applications"] = LoanApplication::whereRaw("applicant_id = la_applicant_id 
-                and la_serial_no is not NULL and la_serial_id is not NULL")
+        if (Auth::id() == 1) {
+            $where = "applicant_id = la_applicant_id 
+                and la_serial_no is not NULL and la_serial_id is not NULL";
+        } else {
+            $where = "applicant_id = la_applicant_id 
+                and la_serial_no is not NULL and la_serial_id is not NULL and user_id=" . Auth::id();
+        }
+        $arr["loan_applications"] = LoanApplication::whereRaw($where)
             ->orderby("id", "desc")->get();
         return view("uploader.la_list")->with($arr);
     }

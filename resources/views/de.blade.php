@@ -258,10 +258,7 @@
         $("#submit").click(function () {
             submit=true;
             $(".has-error").removeClass("has-error");
-            if ($("input:checked[name^=csris]").length == 0) {
-                $("#csris").addClass('has-error')
-                submit=false;
-            }
+
             if( $("#facilitylimit").val()==""){
                 $("#facilitylimit").parent("div").addClass("has-error")
                 submit=false;
@@ -304,7 +301,7 @@
                         "            </div>"))
                 }
                 else {
-                    $("#facilitydate,#facilitylimit,#facilityoutstanding,#installment,#csris").val("");
+                    $("#facilitydate,#facilitylimit,#facilityoutstanding,#installment").val("");
                     $("#response").html($("<div class=\"alert alert-success alert-dismissable\">\n" +
                         "                Record Successfully Added\n" +
                         "                <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>\n" +
