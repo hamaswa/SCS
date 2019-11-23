@@ -40,11 +40,15 @@
     @stack('style')
 
 </head>
-
+<style>
+    .skin-blue .main-header .navbar {
+        background-color: #3c8dbc !important;
+        background-image: none;
+    }
+</style>
 <body class="hold-transition skin-blue sidebar-open">
 
 <?php
-
 
 if (!isset($applicant_data)) {
     if (isset($applicant)) {
