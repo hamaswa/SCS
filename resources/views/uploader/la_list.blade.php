@@ -35,12 +35,12 @@
                                 <th>
                                     Public
                                 </th>
-                                <th>
-                                    Own
-                                </th>
-                                <th>
-                                    Remarks
-                                </th>
+                                {{--<th>--}}
+                                    {{--Own--}}
+                                {{--</th>--}}
+                                {{--<th>--}}
+                                    {{--Remarks--}}
+                                {{--</th>--}}
                                 <th>
                                     Action
                                 </th>
@@ -71,17 +71,17 @@
                                         <input name={{ $loan_application->id }} class="accessability" value="public"
                                                {{ $loan_application->accessability=="public"?"checked":"" }} type="radio">
                                     </th>
+                                    {{--<th>--}}
+                                        {{--<input name={{ $loan_application->id }} class="accessability" value="own"--}}
+                                               {{--{{ $loan_application->accessability=="own"?"checked":"" }} type="radio">--}}
+                                    {{--</th>--}}
+                                    {{--<th>--}}
+                                        {{--Remarks--}}
+                                    {{--</th>--}}
                                     <th>
-                                        <input name={{ $loan_application->id }} class="accessability" value="own"
-                                               {{ $loan_application->accessability=="own"?"checked":"" }} type="radio">
-                                    </th>
-                                    <th>
-                                        Remarks
-                                    </th>
-                                    <th>
-                                        <button id="update_la" name="update_la" value="Submit">Submit</button>
-                                        <button id="delete_la" disabled name="delete_la" value="Submit">Delete</button>
-                                        <button id="edit_la" disabled name="edit_la" value="Submit">Edit</button>
+                                        <button id="update_la" name="update_la" value="Submit" class="btn btn-success btn-xs">Submit</button>
+                                        <button id="delete_la" disabled name="delete_la" value="Submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
+                                        <button id="edit_la" disabled name="edit_la" value="Submit" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>
                                     </th>
 
                                 </tr>
