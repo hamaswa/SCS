@@ -376,6 +376,7 @@
 
 
         $(document).ready(function () {
+            $("#mia,#conduct,#type").select2({allowclear: true});
             $(".update_facility").click(function () {
                 event.preventDefault(); //prevent default action
                 submit = true;

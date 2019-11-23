@@ -35,6 +35,7 @@
                                 <option value="Documentation">Documentation</option>
                                 <option value="Application">Application</option>
                                 <option value="Incomplete">Incomplete</option>
+                                <option value="Inprogress">Inprogress</option>
                             </select>
                         </div>
                         <div class="col-md-3">

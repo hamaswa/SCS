@@ -28,13 +28,24 @@ class PipelineController extends Controller
         //$applicantdata = new ApplicantData();
         $sql = "select a_d.*, sum(property_market_value) * 0.9 as market_value from applicant_data a_d join applicant_property a_p on a_d.id=a_p.applicant_id group by id";
         //$data = DB::select($sql)>paginate(5);
-        $data = DB::table("applicant_data")
-                        ->leftjoin("applicant_property","applicant_data.id","=","applicant_property.applicant_id")
-                        ->select(DB::raw("applicant_data.*, sum(applicant_property.property_market_value)* .9 as market_value"))
-                        ->where("applicant_data.user_id","=",Auth::id())
-                        ->orderBy("id","desc")
-                        ->groupBy("applicant_data.id")
-                        ->paginate(5);
+        if (Auth::id() == 1) {
+            $data = DB::table("applicant_data")
+                ->leftjoin("applicant_property", "applicant_data.id", "=", "applicant_property.applicant_id")
+                ->select(DB::raw("applicant_data.*, sum(applicant_property.property_market_value)* .9 as market_value"))
+                ->orderBy("id", "desc")
+                ->groupBy("applicant_data.id")
+                ->paginate(5);
+        } else {
+            $data = DB::table("applicant_data")
+                ->leftjoin("applicant_property", "applicant_data.id", "=", "applicant_property.applicant_id")
+                ->select(DB::raw("applicant_data.*, sum(applicant_property.property_market_value)* .9 as market_value"))
+                ->whereRaw("applicant_data.user_id", "=", Auth::id())
+                ->orderBy("id", "desc")
+                ->groupBy("applicant_data.id")
+                ->paginate(5);
+        }
+
+
 
 
         return view("aadata.pipeline")->with("data",$data);
@@ -127,8 +138,8 @@ class PipelineController extends Controller
             $applicantdata = new  ApplicantData();
             $data = $applicantdata->whereRaw(
                 "(unique_id = '" . $inputs['term'] . "' or name = '" . $inputs['term'] . "')" .
-                ($inputs['term'] == "" ? " OR" : " and ") . " status = '" . $inputs['status'] .
-                "' and user_id='" . Auth::id() . "'")->first();
+                ($inputs['term'] == "" ? " OR" : " and ") . " status = '" . $inputs['status'] . "'" .
+                (Auth::id() == 1 ? " and user_id='" . Auth::id() . "'" : ""))->first();
 
 
             if(isset($data->status) and $data->status == "Incomplete"){
@@ -154,24 +165,27 @@ class PipelineController extends Controller
                                      )
                                 )
                             )
-                        )
-                    
-                    
-                    
-                    and user_id='" . Auth::id() . "'")
+                        )" .
+                    (Auth::id() == 1 ? " and user_id='" . Auth::id() . "'" : ""))
                     ->paginate(50);
                 $ids = $data->Pluck("id")->ToArray();
 
             }
+
 
             return view("aadata.pipeline")->with("data", $data);
 
         }
         else if(isset($inputs['submit']) and $inputs['submit']=='Search'){
             $applicantdata =  new ApplicantData();
-            $data = $applicantdata->where('unique_id','=',$inputs['search'])
-                ->where("user_id","=",Auth::id())
-                ->first();
+            if (Auth::id() == 1)
+                $data = $applicantdata->where('unique_id','=',$inputs['search'])
+                    ->first();
+            else
+                $data = $applicantdata->where('unique_id', '=', $inputs['search'])
+                    ->where("user_id", "=", Auth::id())
+                    ->first();
+
             if(isset($data->status) and $data->status == "Incomplete"){
                 $inputs['term'] = $inputs['search'];
                 $id= $data->id;
@@ -196,11 +210,8 @@ class PipelineController extends Controller
                                      )
                                 )
                             )
-                        )
-                    
-                    
-                    
-                    and user_id='" . Auth::id() . "'")
+                        )" .
+                    (Auth::id() == 1 ? " and user_id='" . Auth::id() . "'" : ""))
                     ->paginate(50);
                 $ids = $data->Pluck("id")->ToArray();
 
