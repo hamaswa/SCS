@@ -61,7 +61,7 @@ class HousingLoanController extends Controller
             return view("deview")->with(['applicantdata'=>$applicantdata]);
         }
         else {
-            $data['csris'] = implode(",", $data['csris']);
+            //$data['csris'] = implode(",", $data['csris']);
             $arr["facility"] = FacilityInfo::create($data);
             $arr["facility_data"] = FacilityInfo::where("applicant_id","=",$data['applicant_id'])->get();
 

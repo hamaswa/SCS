@@ -36,10 +36,10 @@
                                     Public
                                 </th>
                                 {{--<th>--}}
-                                    {{--Own--}}
+                                {{--Own--}}
                                 {{--</th>--}}
                                 {{--<th>--}}
-                                    {{--Remarks--}}
+                                {{--Remarks--}}
                                 {{--</th>--}}
                                 <th>
                                     Action
@@ -72,11 +72,11 @@
                                                {{ $loan_application->accessability=="public"?"checked":"" }} type="radio">
                                     </th>
                                     {{--<th>--}}
-                                        {{--<input name={{ $loan_application->id }} class="accessability" value="own"--}}
-                                               {{--{{ $loan_application->accessability=="own"?"checked":"" }} type="radio">--}}
+                                    {{--<input name={{ $loan_application->id }} class="accessability" value="own"--}}
+                                    {{--{{ $loan_application->accessability=="own"?"checked":"" }} type="radio">--}}
                                     {{--</th>--}}
                                     {{--<th>--}}
-                                        {{--Remarks--}}
+                                    {{--Remarks--}}
                                     {{--</th>--}}
 
                                     <th>
@@ -89,7 +89,7 @@
 
 
                                         @endif
-                              </th>
+                                    </th>
 
                                 </tr>
                             @endforeach

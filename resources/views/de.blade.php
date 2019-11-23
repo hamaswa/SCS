@@ -45,44 +45,44 @@
                             </option>
                         @endforeach
                     </select>
-                    <div class="Third-width">
-                        <div class="form-group" id="csris">
-                            <div class="checkbox">
-                                <label>
+                    {{--<div class="Third-width">--}}
+                    {{--<div class="form-group" id="csris">--}}
+                    {{--<div class="checkbox">--}}
+                    {{--<label>--}}
 
-                                    <input name="csris[]" value="ssa" type="checkbox">
-                                    SAA
-                                </label>
-                            </div>
+                    {{--<input name="csris[]" value="ssa" type="checkbox">--}}
+                    {{--SAA--}}
+                    {{--</label>--}}
+                    {{--</div>--}}
 
-                            <div  class="checkbox">
-                                <label>
-                                    <input  name="csris[]" value="akpk" type="checkbox">
-                                    AKPK
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input  name="csris[]" value="trade" type="checkbox">
-                                    TRADE
-                                </label>
-                            </div>
+                    {{--<div  class="checkbox">--}}
+                    {{--<label>--}}
+                    {{--<input  name="csris[]" value="akpk" type="checkbox">--}}
+                    {{--AKPK--}}
+                    {{--</label>--}}
+                    {{--</div>--}}
+                    {{--<div class="checkbox">--}}
+                    {{--<label>--}}
+                    {{--<input  name="csris[]" value="trade" type="checkbox">--}}
+                    {{--TRADE--}}
+                    {{--</label>--}}
+                    {{--</div>--}}
 
-                            <div  class="checkbox">
-                                <label>
-                                    <input name="csris[]" value="courtcase" type="checkbox">
-                                    COURT CASE
-                                </label>
-                            </div>
+                    {{--<div  class="checkbox">--}}
+                    {{--<label>--}}
+                    {{--<input name="csris[]" value="courtcase" type="checkbox">--}}
+                    {{--COURT CASE--}}
+                    {{--</label>--}}
+                    {{--</div>--}}
 
-                            <div  class="checkbox">
-                                <label>
-                                    <input name="csris[]" value="bankruptcy" type="checkbox">
-                                    BANKRUPTCY
-                                </label>
-                            </div>
-                        </div>
-                    </div>
+                    {{--<div  class="checkbox">--}}
+                    {{--<label>--}}
+                    {{--<input name="csris[]" value="bankruptcy" type="checkbox">--}}
+                    {{--BANKRUPTCY--}}
+                    {{--</label>--}}
+                    {{--</div>--}}
+                    {{--</div>--}}
+                    {{--</div>--}}
 
                 </div>
                 <div class="col-sm-10 de-table-bor">
