@@ -136,12 +136,19 @@ class PipelineController extends Controller
         else if(isset($inputs['pipeline_update_search']) and $inputs['pipeline_update_search']=='Search') {
 
             $applicantdata = new  ApplicantData();
-            $data = $applicantdata->whereRaw(
-                "(unique_id = '" . $inputs['term'] . "' or name = '" . $inputs['term'] . "')" .
-                ($inputs['term'] == "" ? " OR" : " and ") . " status = '" . $inputs['status'] . "'" .
-                (Auth::id() == 1 ? " and user_id='" . Auth::id() . "'" : ""))->first();
+            $data = DB::table("applicant_data")
+                ->leftjoin("applicant_property", "applicant_data.id", "=", "applicant_property.applicant_id")
+                ->select(DB::raw("applicant_data.*, sum(applicant_property.property_market_value)* .9 as market_value"))
+                ->whereRaw(
+                    "(unique_id = '" . $inputs['term'] . "' or name = '" . $inputs['term'] . "')" .
+                    ($inputs['term'] == "" ? " OR" : " and ") . " status = '" . $inputs['status'] . "'" .
+                    (Auth::id() == 1 ? " and applicant_data.user_id='" . Auth::id() . "'" : ""))
+                ->orderBy("id", "desc")
+                ->groupBy("applicant_data.id")
+                ->paginate(5);
 
 
+            /*
             if(isset($data->status) and $data->status == "Incomplete"){
                 $id= $data->id;
                 $data = $applicantdata->whereRaw(
@@ -172,6 +179,7 @@ class PipelineController extends Controller
 
             }
 
+            */
 
             return view("aadata.pipeline")->with("data", $data);
 
@@ -186,6 +194,7 @@ class PipelineController extends Controller
                     ->where("user_id", "=", Auth::id())
                     ->first();
 
+            /*
             if(isset($data->status) and $data->status == "Incomplete"){
                 $inputs['term'] = $inputs['search'];
                 $id= $data->id;
@@ -216,6 +225,7 @@ class PipelineController extends Controller
                 $ids = $data->Pluck("id")->ToArray();
 
             }
+            */
             return view("aadata.index")->with("data",$data);
         }
 

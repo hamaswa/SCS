@@ -75,8 +75,7 @@
                                     </td>
 
                                 </tr>
-                            @endif
-                           @if(count($data)>0)
+                            @else
                             @foreach($data as $d)
                                 <tr>
                                     <td><input type="checkbox" name="applicant_id" value="{{$d->id}}"/></td>
