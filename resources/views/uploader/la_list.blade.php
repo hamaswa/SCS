@@ -80,7 +80,7 @@
                                     {{--</th>--}}
                                     <th>
                                         <button id="update_la" name="update_la" value="Submit" class="btn btn-success btn-xs">Submit</button>
-                                        <button id="delete_la" disabled name="delete_la" value="Submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
+                                        <button id="delete_la" name="delete_la" value="Submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
                                         <button id="edit_la" disabled name="edit_la" value="Submit" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>
                                     </th>
 
