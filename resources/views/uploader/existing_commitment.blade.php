@@ -37,29 +37,54 @@
                                     {{strtoupper($v->type) }}
 
                                 </td>
-                                <td>
-                                    @if( strtolower($v->capacity)=="ja" or strtolower($v->capacity) == "joint")
-                                        {{ round($v->installment/2,2) }}
-                                        @php
-                                            $total += round($v->installment/2,2);
-                                        @endphp
+                                @php
+                                    $v->installment = intval(preg_replace('/[^\d.]/', '', $v->installment));
 
-                                    @else
-                                    {{$v->installment}}
+                                        switch(strtolower($v->type)){
+                                            case "crdtcard":
+                                            $installment= $v->facilityoutstanding * .05;
+                                            break;
+
+                                            case "ovrdraft":
+                                            $installment =  ($v->facilitylimit * .07) / 12;
+                                            break;
+
+                                            case "ohrpcrec":
+                                            if($v->installment!="") {
+                                                if(strtolower($v->capacity)=='own')
+                                                    $installment =  $v->installment;
+                                                else
+                                                    $installment = $v->installment/2 ;
+                                                    }
+
+                                            break;
+                                            default :
+                                            if($v->installment!="") {
+                                                if(strtolower($v->capacity)=='own')
+                                                    $installment =  $v->installment;
+                                                else
+                                                    $installment = $v->installment/2;
+                                                    }
+
+
+                                            break;
+
+                                        }
+                                $total +=$installment;
+                                @endphp
+
+                                <td>
+                                    {{round($installment,2)}}
                                         @php
-                                            $total += $v->installment;
+                                            $total += $installment;
                                         @endphp
-                                    @endif
 
 
                                 </td>
                                 <td>
-                                    @if( strtolower($v->capacity) =="ja" or strtolower($v->capacity) == "joint")
-                                        {{round((round($v->installment/2,2)/$income_total)*100,2) }}
-                                    @else
-                                        {{ round(($v->installment/$income_total)*100,2) }}
 
-                                    @endif
+                                    {{ round(($installment/$income_total)*100,2) }}
+
 
                                 </td>
                             </tr>

@@ -214,6 +214,29 @@ class UploaderController extends Controller
         return view("uploader.dsr_projection")->with($arr);
     }
 
+    public function statusOpen(Request $request)
+    {
+        $inputs = $request->all();
+        $la_id = explode("_", $inputs['la_id']);
+        $serial_no = $la_id[0];
+        $serial_id = $la_id[1];
+        $applicant_ids = LoanApplication::where("la_serial_no", "=", $serial_no)
+            ->where("la_serial_id", "=", $serial_id)->Pluck("applicant_id")->ToArray();
+        $applicants = ApplicantData::find($applicant_ids);
+        foreach ($applicants as $applicant) {
+            $applicant->status = "Open";
+            $applicant->save();
+        }
+        $loan_applications = LoanApplication::where("la_serial_no", "=", $serial_no)
+            ->where("la_serial_id", "=", $serial_id)->get();
+        foreach ($loan_applications as $loan_application) {
+            $loan_application->status = "Open";
+            $loan_application->save();
+        }
+
+
+    }
+
     public function laFacilities(Request $request){
         $inputs = $request->all();
         $arr['applicants'] = ApplicantData::find($inputs['applicant_id']);

@@ -44,11 +44,12 @@
                     <td>
                         {{strtoupper($v->type) }}
                     </td>
+                    @if($v->la_id==null or $v->la_id=="")
                     <td>
                         {{$v->installment}}
                         <?php
                         $total += $v->installment;
-                        $income_total += $v->net;
+                        //$income_total += $v->net;
                         ?>
 
                     </td>
@@ -59,11 +60,62 @@
                          0
                         @endif
                     </td>
+                    @else
+                        @php
+                            $v->installment = intval(preg_replace('/[^\d.]/', '', $v->installment));
+
+                                switch(strtolower($v->type)){
+                                    case "crdtcard":
+                                    $installment= $v->facilityoutstanding * .05;
+                                    break;
+
+                                    case "ovrdraft":
+                                    $installment =  ($v->facilitylimit * .07) / 12;
+                                    break;
+
+                                    case "ohrpcrec":
+                                    if($v->installment!="") {
+                                        if(strtolower($v->capacity)=='own')
+                                            $installment =  $v->installment;
+                                        else
+                                            $installment = $v->installment/2 ;
+                                            }
+
+                                    break;
+                                    default :
+                                    if($v->installment!="") {
+                                        if(strtolower($v->capacity)=='own')
+                                            $installment =  $v->installment;
+                                        else
+                                            $installment = $v->installment/2;
+                                            }
+
+
+                                    break;
+
+                                }
+                        $total +=$installment;
+                        @endphp
+
+                        <td>
+                            {{$installment}}
+                            <?php
+                            //$income_total += $v->net;
+                            ?>
+                        </td>
+                        <td>
+                            @if($income_total!=0)
+                                {{ round(($installment/$income_total)*100,2) }}
+                            @else
+                                0
+                            @endif
+                        </td>
+                    @endif
                 </tr>
 
 
             @endforeach
-            <tr {{ ($v->la_id!= null? "style=color:red":"") }}
+            <tr {{ ( round(($total/$income_total)*100,2)>90? "style=color:red":"") }}
                 class="collapse {{$collapse}} {{$applicant->id}}_new_commitment">
                 <td>
                     Total
@@ -80,8 +132,8 @@
                 </td>
             </tr>
         @endif
-            @php
-                //$collapse = "out";
+                        @php
+                            //$collapse = "out";
             @endphp
                         </tbody>
                     </table>

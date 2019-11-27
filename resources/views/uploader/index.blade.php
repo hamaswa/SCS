@@ -229,7 +229,7 @@
         $(document.body).on("click","#assign_bank",function(){
             $("#la_bank").removeClass("hide");
             data = "loan_amount=" + $("#la_loan_amount").val() + "&bank=" + $("#bank").val() + "&la_type=" + $("#la_type").val() +
-                    "&id={{$loan_application->id}}&la=update_la";
+                "&id={{$loan_application->id}}&la=update_la";
             $.ajax({
                 url: '{{ route('uploader.store') }}',
                 type: 'POST',
@@ -332,11 +332,11 @@
 
             //installment =  Math.round(total_repay/ (loan_tenure*12),2);
             data = $(this).parent("td").parent("tr").find(":input").serialize()
-                    + "&installment=" + installment
-                    + "&applicant_id=" +
-                        $("input[name='applicant_id[]']:checked").map(function() {
-                            return this.value;
-                        }).get().join(',');
+                + "&installment=" + installment
+                + "&applicant_id=" +
+                $("input[name='applicant_id[]']:checked").map(function () {
+                    return this.value;
+                }).get().join(',');
             submit_facility(data)
 
         });
@@ -505,8 +505,7 @@
                     }
 
 
-
-                    },
+                },
                 error: function () {
                 }
             });
@@ -547,19 +546,19 @@
 
         function la_properties()
         {
-        $.ajax({
-            url: "{{ route("la_properties") }}",
-            type: "POST",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            },
-            data: "la_applicant_id={{$applicant->id}}&applicant_id=" + $("#applicants").val() + "&la_id=" + $("#la_id").val() + "&property_id=" + $(this).data("id"),
-            success: function (response) {
-                $("#la-properties").html("").append($(response));
-            },
-            error: function () {
-            }
-        });
+            $.ajax({
+                url: "{{ route("la_properties") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: "la_applicant_id={{$applicant->id}}&applicant_id=" + $("#applicants").val() + "&la_id=" + $("#la_id").val() + "&property_id=" + $(this).data("id"),
+                success: function (response) {
+                    $("#la-properties").html("").append($(response));
+                },
+                error: function () {
+                }
+            });
         }
 
         function la_facilities()
@@ -673,7 +672,6 @@
 
 
             $("#dsr").val(Math.round(((new_facility_total + existing_facility_total) / income_total) * 100, 2));
-
 
             income_total = $("#dsr_income_total").val() * 1;
             if (!income_total) {

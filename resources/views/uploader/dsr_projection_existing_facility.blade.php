@@ -18,6 +18,41 @@
         @endphp
         @foreach($data->facilityInfo as $k => $v)
             @if($v->la_id==null)
+                @php
+                    $v->installment = intval(preg_replace('/[^\d.]/', '', $v->installment));
+
+                        switch(strtolower($v->type)){
+                            case "crdtcard":
+                            $installment= $v->facilityoutstanding * .05;
+                            break;
+
+                            case "ovrdraft":
+                            $installment =  ($v->facilitylimit * .07) / 12;
+                            break;
+
+                            case "ohrpcrec":
+                            if($v->installment!="") {
+                                if(strtolower($v->capacity)=='own')
+                                    $installment =  $v->installment;
+                                else
+                                    $installment = $v->installment/2 ;
+                                    }
+
+                            break;
+                            default :
+                            if($v->installment!="") {
+                                if(strtolower($v->capacity)=='own')
+                                    $installment =  $v->installment;
+                                else
+                                    $installment = $v->installment/2;
+                                    }
+
+
+                            break;
+
+                        }
+                $total +=$installment;
+                @endphp
                 <tr>
                     <td>
                         <div class="dsr_existing_facility {{$v->id}}_e_facility pull-left" data-target=".{{$v->id}}_e_facility"
@@ -25,19 +60,8 @@
                             {{strtoupper($v->type) }}
                             #
                             {{ $v->facilityoutstanding }}
-                            @
-                            @if( strtolower($v->capacity)=="ja" or strtolower($v->capacity) == "joint")
-                                <span class="installment">{{round($v->installment/2,2)}}</span>
-                                @php
-                                    $total += round($v->installment/2,2);
-                                @endphp
-
-                            @else
-                                <span class="installment">{{$v->installment}}</span>
-                                @php
-                                    $total += $v->installment;
-                                @endphp
-                            @endif
+                            @<span class="installment">
+                                {{$installment}}</span>
                         </div>
 
 

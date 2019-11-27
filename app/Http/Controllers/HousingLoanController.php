@@ -56,10 +56,17 @@ class HousingLoanController extends Controller
         $arr["capacity_data"] = AASource::where("type", "facility_type")->get();
 
         if(isset($data['submit']) and $data['submit']=='Search') {
-            $arr["applicantdata"] = ApplicantData::where($data['searchfield'], '=', $data['search'])
-                ->where("user_id","=",Auth::id())
-                ->orderBy("id","desc")->paginate(5);
-            return view("deview")->with($arr);
+            if (Auth::id() == 1) {
+                $arr["applicantdata"] = ApplicantData::where($data['searchfield'], '=', $data['search'])
+                    ->orderBy("id", "desc")->paginate(5);
+                return view("deview")->with($arr);
+
+            } else {
+                $arr["applicantdata"] = ApplicantData::where($data['searchfield'], '=', $data['search'])
+                    ->where("user_id", "=", Auth::id())
+                    ->orderBy("id", "desc")->paginate(5);
+                return view("deview")->with($arr);
+            }
         }
         else {
             $arr["facility"] = FacilityInfo::create($data);

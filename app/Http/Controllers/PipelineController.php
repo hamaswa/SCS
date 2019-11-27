@@ -39,7 +39,7 @@ class PipelineController extends Controller
             $data = DB::table("applicant_data")
                 ->leftjoin("applicant_property", "applicant_data.id", "=", "applicant_property.applicant_id")
                 ->select(DB::raw("applicant_data.*, sum(applicant_property.property_market_value)* .9 as market_value"))
-                ->whereRaw("applicant_data.user_id", "=", Auth::id())
+                ->whereRaw("applicant_data.user_id = " . Auth::id())
                 ->orderBy("id", "desc")
                 ->groupBy("applicant_data.id")
                 ->paginate(5);
@@ -138,11 +138,11 @@ class PipelineController extends Controller
             $applicantdata = new  ApplicantData();
             $data = DB::table("applicant_data")
                 ->leftjoin("applicant_property", "applicant_data.id", "=", "applicant_property.applicant_id")
-                ->select(DB::raw("applicant_data.*, sum(applicant_property.property_market_value)* .9 as market_value"))
+                ->select(DB::raw("applicant_data.*, sum(applicant_property.property_market_value) * .9 as market_value"))
                 ->whereRaw(
                     "(unique_id = '" . $inputs['term'] . "' or name = '" . $inputs['term'] . "')" .
                     ($inputs['term'] == "" ? " OR" : " and ") . " status = '" . $inputs['status'] . "'" .
-                    (Auth::id() == 1 ? " and applicant_data.user_id='" . Auth::id() . "'" : ""))
+                    (Auth::id() == 1 ? "" : " and applicant_data.user_id='" . Auth::id() . "'"))
                 ->orderBy("id", "desc")
                 ->groupBy("applicant_data.id")
                 ->paginate(5);
@@ -188,11 +188,11 @@ class PipelineController extends Controller
             $applicantdata =  new ApplicantData();
             if (Auth::id() == 1)
                 $data = $applicantdata->where('unique_id','=',$inputs['search'])
-                    ->first();
+                    ->paginate(5);
             else
                 $data = $applicantdata->where('unique_id', '=', $inputs['search'])
                     ->where("user_id", "=", Auth::id())
-                    ->first();
+                    ->paginate(5);
 
             /*
             if(isset($data->status) and $data->status == "Incomplete"){

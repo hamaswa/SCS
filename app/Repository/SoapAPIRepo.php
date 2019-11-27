@@ -29,7 +29,7 @@ class SoapAPIRepo
 
     public function CTOSpdf($inputs){
         $options['type']=2;
-        $file = $inputs['name']."_".$inputs['unique_id'].".pdf";
+        $file = $this->get_file_name($inputs['name']) . "_" . $this->get_file_name($inputs['unique_id']) . ".pdf";
         Storage::put("uploads/application_docs/".$file, $this->apiCall($inputs,$options));
         $inputs['file_name'] = $file;
         $inputs['doc_name'] = "Ctos report";
@@ -39,6 +39,26 @@ class SoapAPIRepo
         $document = ApplicantDocuments::create($inputs);
     }
 
+    public function get_file_name($string)
+    {
+        // Transliterate non-ascii characters to ascii
+        $str = trim(strtolower($string));
+        $str = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
+
+        // Do other search and replace
+        $searches = array(' ', '&', '/');
+        $replaces = array('-', 'and', '-');
+        $str = str_replace($searches, $replaces, $str);
+
+        // Make sure we don't have more than one dash together because that's ugly
+        $str = preg_replace("/(-{2,})/", "-", $str);
+
+        // Remove all invalid characters
+        $str = preg_replace("/[^A-Za-z0-9-]/", "", $str);
+
+        // Done!
+        return $str;
+    }
 
     public function CTOSFacilityData($inputs)
     {

@@ -62,20 +62,33 @@
             </li>
         @endif
 
-        @if(request()->user()->hasRole("uploader"))
-            <li class="treeview">
-                <a href="#"><span> Uploader</span>
-                    <span class="pull-right-container"> <i
-                                class="fa fa-angle-left pull-right"></i> </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route("uploader_la.index") }}">Loan
-                            Applications</a>
-                    </li>
-                </ul>
-            </li>
-        @endif
+            @if(request()->user()->hasRole("uploader"))
+                <li class="treeview">
+                    <a href="#"><span> Uploader</span>
+                        <span class="pull-right-container"> <i
+                                    class="fa fa-angle-left pull-right"></i> </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route("uploader_la.index") }}">Loan
+                                Applications</a>
+                        </li>
+                    </ul>
+                </li>
+            @endif
+            @if(request()->user()->hasRole("checker"))
+                <li class="treeview">
+                    <a href="#"><span> Checker</span>
+                        <span class="pull-right-container"> <i
+                                    class="fa fa-angle-left pull-right"></i> </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route("checker.index") }}">Request Case</a>
+                        </li>
+                    </ul>
+                </li>
+            @endif
 
 
 

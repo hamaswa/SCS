@@ -81,7 +81,10 @@
 
                                     <th>
 
-                                        <button id="update_la" name="update_la" value="Submit" class="btn btn-success btn-xs">Submit</button>
+                                        <button id="update_la" name="update_la" value="Submit"
+                                                data-la_id="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}"
+                                                class="btn btn-success btn-xs">Submit
+                                        </button>
                                         <button id="delete_la" disabled name="delete_la" value="Submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> </button>
                                         @if(request()->user()->hasRole("uploader"))
                                             <a href="{{ route("uploader.index") }}?id={{$loan_application->applicant_id}}"
@@ -111,6 +114,27 @@
         $(document).ready(function (e) {
             $('.select2').select2({allowClear: true});
         });
+
+
+        $(document.body).on("click", "#update_la", function (e) {
+            $.ajax({
+                url: "{{ route("applicant.status_open") }}",
+                type: 'post',
+                data: 'la_id=' + $(this).data("la_id"),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content"),
+                },
+            }).done(function (response) {
+                if (response = "success") {
+                    ///
+                }
+                else {
+                    ///
+                }
+
+            })
+
+        })
 
         $(document.body).on("click", ".accessability", function (e) {
             accessability = $(this).val();

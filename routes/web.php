@@ -15,13 +15,10 @@ Route::get('/', function () {
     return view('admin.auth.login');
 });
 
-
-
 Route::get('/home', 'HomeController@index')->name('home');
     Auth::routes([
         'register' => false,
     ]);
-
 
 Route::group(['prefix'=>'admin','auth'], function() {
     Route::resource('/permissions', 'Admin\PermissionController');
@@ -41,6 +38,12 @@ Route::group(['prefix'=>'admin','auth'], function() {
 
 });
 
+Route::group(['middleware' => 'role:uploader'], function () {
+    Route::resource('checker', 'Checker\CheckerController');
+    Route::post("/checker/request", "Checker\CheckerController@requestLa")->name("checker.request");
+
+});
+
 Route::group(['middleware' => 'role:uploader'], function() {
     Route::resource('/uploader/la', 'Uploader\LaController', ['names' => 'uploader_la']);
     Route::resource('uploader', 'Uploader\UploaderController');
@@ -56,8 +59,8 @@ Route::group(['middleware' => 'role:uploader'], function() {
     Route::post('/uploader/facility_edit','Uploader\UploaderController@facilityEdit')->name('facility_edit');
     Route::post('/uploader/select_applicant','Uploader\UploaderController@SelectApplicant')->name('select_applicant');
     Route::post('/uploader/dst_projection', "Uploader\UploaderController@dsrProjection")->name("dsr_projection");
+    Route::post("/uploader/openla", "Uploader\UploaderController@statusOpen")->name("applicant.status_open");
 });
-
 
 Route::group(['middleware' => 'role:maker'], function() {
     Route::post("/maker/status_inprogress", 'Maker\MakerController@statusInprogress')->name("maker.inprogress");
