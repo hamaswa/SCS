@@ -30,7 +30,7 @@
 
             </tbody>
             <tfoot>
-            <tr class="bg-aqua income_kyc_total_right_bar" id="income_kyc_total_right_bar">
+            <tr class="bg-green income_kyc_total_right_bar" id="income_kyc_total_right_bar">
                 @if(isset($ebitda_total))
                     <th>Total</th>
                     <th>{{$ebitda_total}}</th>
@@ -68,7 +68,7 @@
 
             </tbody>
             <tfoot>
-            <tr class="bg-aqua income_kyc_total_right_bar" id="income_kyc_total_right_bar">
+            <tr class="bg-green income_kyc_total_right_bar" id="income_kyc_total_right_bar">
                 @if(isset($payments_total))
                     <th>Total</th>
                     <th>{{$payments_total}}</th>
@@ -168,7 +168,7 @@
                                     </tr>
                                 @endif
                             @endforeach
-                            <tr class="bg-aqua income_kyc_total_right_bar
+                            <tr class="bg-green income_kyc_total_right_bar
                         collapse {{$collapse}} {{$applicant->id}}_income"
                                 id="income_kyc_total_right_bar">
                                 @if(isset($total_gross) and $total_gross!=0)

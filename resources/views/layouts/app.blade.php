@@ -49,8 +49,15 @@ if (isset($applicant)) {
     $wealth = $applicant->applicantWealth;
     $properties = $applicant->applicantProperty;
 }
-
+if((request()->segment(1)) != 'pipeline' && (request()->segment(1)) != 'aadata'){
 ?>
+<style>
+    .skin-blue .main-header .navbar {
+        background-color: #3c8dbc !important;
+        background-image: none;
+    }
+</style>
+<?php } ?>
 <div class="wrapper" id="app">
 
     <!-- Main Header -->

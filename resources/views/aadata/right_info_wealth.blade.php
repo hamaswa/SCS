@@ -26,7 +26,7 @@
             @endif
             </tbody>
             <tfoot>
-            <tr class="bg-yellow-light wealth_total_right" id="wealth_total_right">
+            <tr class="bg-green wealth_total_right" id="wealth_total_right">
                 @if(isset($wealth_total) and isset($wealth_total->total_net))
                     <td>Average</td>
                     <td>{{ round($wealth_total->total_net/$i) }}</td>
@@ -114,7 +114,7 @@
                                 @endswitch
                             @endforeach
 
-                            <tr class="bg-yellow-light wealth_total_right collapse {{$collapse}} {{$applicant->id}}_wealth"
+                            <tr class="bg-green wealth_total_right collapse {{$collapse}} {{$applicant->id}}_wealth"
                                 id="wealth_total_right">
                                 @if(isset($wealth_total))
                                     <td>Total</td>
