@@ -85,6 +85,7 @@
                     <ul class="treeview-menu">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route("checker.index") }}">Request Case</a>
+                            <a class="nav-link" href="{{ route("checker.workinprogress") }}">Request Case</a>
                         </li>
                     </ul>
                 </li>

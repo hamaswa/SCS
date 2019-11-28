@@ -41,6 +41,7 @@ Route::group(['prefix'=>'admin','auth'], function() {
 Route::group(['middleware' => 'role:uploader'], function () {
     Route::resource('checker', 'Checker\CheckerController');
     Route::post("/checker/request", "Checker\CheckerController@requestLa")->name("checker.request");
+    Route::post("/checker/work_in_progress", "Checker\CheckerController@workInProgress")->name("checker.workinprogress");
 
 });
 
