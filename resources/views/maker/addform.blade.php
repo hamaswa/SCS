@@ -15,8 +15,9 @@
 
                 <legend class="text-center padding-5"><label for="">NO AA</label>
                     <input type="text" disabled value="{{$applicant->serial_no}}">
-
+                    <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#remarksModal">Add Remarks</button>
                 </legend>
+
 
                 {{--<legend><a id="form-upload" class="btn btn-app">--}}
                         {{--<i class="fa fa-upload"></i> Upload Form</a>--}}
