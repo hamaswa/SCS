@@ -32,6 +32,9 @@
                             <th>
                                 Loan Amount
                             </th>
+                            <th>
+                                HolderID
+                            </th>
 
                             <th>
                                 Action
@@ -61,11 +64,15 @@
                                     {{ $loan_application->loan_amount }}
                                 </th>
 
+                                <th>
+                                    {{ $loan_application->username }}
+                                </th>
+
 
                                 <th>
 
-                                    <button id="request_la" name="request_la" value="Submit"
-                                            data-applicant_id="{{$loan_application->applicant_id}}"
+                                    <button id="show_la_update_model"
+                                            data-la_applicant_id="{{$loan_application->la_applicant_id}}"
                                             data-la_id="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}"
                                             class="btn btn-success btn-xs">Request
                                     </button>
@@ -84,6 +91,45 @@
         </div>
     </div>
 
+    <div id="update_wip_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Update</h4>
+                </div>
+                <div class="modal-body" id="update_la_form">
+                    <div class="form-group">
+                        <input type="hidden" name="la_id">
+                        <input type="hidden" name="la_applicant_id">
+
+                        <input type="text" name="loan_amount">
+                    </div>
+                    <div class="form-group">
+                        <select name="status">
+                            <option value="approved">Approved</option>
+                            <option value="declined">Declined</option>
+                            <option value="appeal">Appeal</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="remarks">
+
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="button" id="update_la" value="Update">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
     </div>
 @endsection
 @push("scripts")
@@ -94,11 +140,16 @@
         });
 
 
-        $(document.body).on("click", "#request_la", function (e) {
+        $(document.body).on("click", "#show_la_update_model", function (e) {
+            $("#update_wip_modal").modal("show");
+            $("#update_wip_modal").find("input[name=la_id]").val($(this).data("la_id"));
+            $("#update_wip_modal").find("input[name=la_applicant_id]").val($(this).data("la_applicant_id"));
+        })
+        $(document.body).on("click", "#update_la", function (e) {
             $.ajax({
-                url: "{{ route("checker.request") }}",
+                url: "{{ route("checker.update",["id"=>0]) }}",
                 type: 'post',
-                data: 'la_id=' + $(this).data("la_id") + "&applicant_id=" + $(this).data("applicant_id"),
+                data: "_method=PATCH&" + $("#update_wip_modal").find("input,textarea,select").serialize() + "&applicant_id=" + $("#update_wip_modal").find("input[name=la_applicant_id]").val(),
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content"),
                 },
@@ -113,6 +164,7 @@
             })
 
         })
+
         $(document.body).on("click", "#sidebar", function (e) {
             id = $(this).data("applicants");
             console.log(id);

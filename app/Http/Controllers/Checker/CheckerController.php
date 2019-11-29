@@ -19,6 +19,7 @@ class CheckerController extends Controller
      */
     public function index()
     {
+
         $sql = "SELECT U2.*
         FROM (
             SELECT
@@ -37,7 +38,7 @@ class CheckerController extends Controller
 
         $sql = "select id, title,controller,method, parent_id from
         (select * from menu order by parent_id, id) products_sorted, (select @pv :=" . $parent_user[0]->id . ")
-         initialisation where find_in_set(parent_id, @pv) and length(@pv := concat(@pv, ',', id))";
+         initialisation where  bank=" . Auth::user()->bank . " and  find_in_set(parent_id, @pv) and length(@pv := concat(@pv, ',', id))";
 
 
         if (Auth::id() == 1) {
@@ -93,9 +94,12 @@ class CheckerController extends Controller
             $where = "la_serial_no is not NULL and la_serial_id is not NULL  and loan_applications.status='Processing' 
                       and loan_applications.user_id=" . Auth::id();
         }
-        $arr["loan_applications"] = LoanApplication::selectRaw("loan_applications.*, applicant_data.name, group_concat(applicant_id,'') as applicants")
+        $arr["loan_applications"] = LoanApplication::selectRaw("loan_applications.*,users.username, applicant_data.name, group_concat(applicant_id,'') as applicants")
             ->leftjoin('applicant_data', function ($join) {
                 $join->on("applicant_data.id", "=", 'loan_applications.la_applicant_id');
+            })
+            ->leftjoin('users', function ($join) {
+                $join->on("applicant_data.user_id", "=", 'users.id');
             })
             ->whereRaw($where)
             ->orderby("id", "desc")
@@ -177,7 +181,19 @@ class CheckerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($id == 0) {
+            $inputs = $request->all();
+            $la_id = explode("_", $inputs['la_id']);
+            $serial_no = $la_id[0];
+            $serial_id = $la_id[1];
+
+            $loan_application = LoanApplication::where("la_serial_no", "=", $serial_no)
+                ->where("la_serial_id", "=", $serial_id)
+                ->where("la_applicant_id", "=", $inputs["la_applicant_id"])
+                ->first();
+            //print_r($loan_application);
+            $loan_application->update($inputs);
+        }
     }
 
     /**

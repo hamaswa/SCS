@@ -94,7 +94,7 @@
         });
 
 
-        $(document.body).on("click", "#request_la", function (e) {
+        $(document.body).on("click", "#update_la", function (e) {
             $.ajax({
                 url: "{{ route("checker.request") }}",
                 type: 'post',
