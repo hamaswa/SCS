@@ -8,8 +8,9 @@
 
                 <legend class="text-center padding-5"><label for="">NO AA</label>
                     <input type="text" disabled value="{{$applicant->serial_no}}">
-
+                    <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#remarksModal">Add Remarks</button>
                 </legend>
+
 
             </div>
 

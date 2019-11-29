@@ -4,7 +4,7 @@ $i = 12 / count($childs);
 
 ?>
 @foreach($childs as $child)
-    <div class="col-sm-{{$i}} text-center form-group">
+    <div class="col-sm-{{(int) $i}} text-center form-group no-padding">
         <span class="clearfix form-group {{($child->hasRole("admin3")?"showModal":"")}}" data-id="{{$child->id}}" data-name="{{ $child->username }}">
             <i class="fa fa-user-circle fa-2x">
             </i>

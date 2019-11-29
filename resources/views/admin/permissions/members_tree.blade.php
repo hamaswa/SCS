@@ -6,7 +6,7 @@
         $i = 12/sizeof($users_tree);
         ?>
         @foreach($users_tree as $user)
-            <div class="col-sm-{{$i}} text-center form-group">
+            <div class="col-sm-{{(int) $i}} text-center form-group no-padding">
 
 
                     <span class="clearfix form-group {{($user->hasRole("admin3")?"showModal":"")}}" data-id="{{$user->id}}" data-name="{{$user->username}}">

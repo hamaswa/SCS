@@ -12,7 +12,7 @@
             <th>Facility Limit</th>
             <th>Col Type</th>
             <th>Outstanding</th>
-            <th>Adverse Remark</th>
+            <th>Installment Amount</th>
             <th>Select</th>
         </tr>
         </thead>
