@@ -32,6 +32,9 @@
                             <th>
                                 Loan Amount
                             </th>
+                            <td>
+                                Status
+                            </td>
                             <th>
                                 HolderID
                             </th>
@@ -43,6 +46,11 @@
                         </tr>
                         </thead>
                         <tbody id="new_facilities">
+                        @if(count($loan_applications)==0)
+                            <tr>
+                                <td colspan="7">No Data Found</td>
+                            </tr>
+                        @endif
                         @foreach($loan_applications as $loan_application)
                             <tr>
                                 <td>
@@ -62,6 +70,9 @@
                                 </td>
                                 <th>
                                     {{ $loan_application->loan_amount }}
+                                </th>
+                                <th>
+                                    {{ $loan_application->status }}
                                 </th>
 
                                 <th>

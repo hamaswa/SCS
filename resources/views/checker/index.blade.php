@@ -40,6 +40,11 @@
                         </tr>
                         </thead>
                         <tbody id="new_facilities">
+                        @if(count($loan_applications)==0)
+                            <tr>
+                                <td colspan="7">No Data Found</td>
+                            </tr>
+                        @endif
                         @foreach($loan_applications as $loan_application)
                             <tr>
                                 <td>
