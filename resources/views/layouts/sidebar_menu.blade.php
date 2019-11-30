@@ -76,6 +76,20 @@
                     </ul>
                 </li>
             @endif
+            @if(request()->user()->hasRole("requestor"))
+                <li class="treeview">
+                    <a href="#"><span> Requestor</span>
+                        <span class="pull-right-container"> <i
+                                    class="fa fa-angle-left pull-right"></i> </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route("checker.index") }}">Request Case</a>
+                        </li>
+                    </ul>
+                </li>
+            @endif
+
             @if(request()->user()->hasRole("checker"))
                 <li class="treeview">
                     <a href="#"><span> Checker</span>
@@ -84,8 +98,23 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route("checker.index") }}">Request Case</a>
-                            <a class="nav-link" href="{{ route("checker.workinprogress") }}">Request Case</a>
+                            <a class="nav-link" href="{{ route("checker.workinprogress") }}">WIP</a>
+                            <a class="nav-link" href="{{ route("checker.workinprogress") }}">Group List</a>
+                        </li>
+                    </ul>
+                </li>
+            @endif
+
+            @if(request()->user()->hasRole("processor"))
+                <li class="treeview">
+                    <a href="#"><span> Processor</span>
+                        <span class="pull-right-container"> <i
+                                    class="fa fa-angle-left pull-right"></i> </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route("checker.workinprogress") }}">WIP</a>
+                            <a class="nav-link" href="{{ route("checker.workinprogress") }}">Group List</a>
                         </li>
                     </ul>
                 </li>

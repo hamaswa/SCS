@@ -178,7 +178,7 @@
         });
 
         $(document.body).on("click", "#update_kiv", function (e) {
-            console.log($("#remarksModal").find(":input").serialize())
+            $(".msg").html("");
             $.ajax({
                 url: "{{ route("checker.kiv") }}",
                 type: 'post',
@@ -188,10 +188,15 @@
                 },
             }).done(function (response) {
                 if (response = "success") {
-                    ///
+                    $(".msg").html("<div class=\"alert alert-success\">\n" +
+                        "                    <p>Remarks Added successfully</p>\n" +
+                        "            </div>")
+                    window.location = href + "?action=kiv_remarks";
                 }
                 else {
-                    ///
+                    $(".msg").html("<div class=\"alert alert-error\">\n" +
+                        "                    <p>Error Occured. Please contact administrator</p>\n" +
+                        "                </div>")
                 }
 
             })

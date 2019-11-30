@@ -117,6 +117,8 @@
 
 
         $(document.body).on("click", "#update_la", function (e) {
+            $(".msg").html("");
+
             $.ajax({
                 url: "{{ route("applicant.status_open") }}",
                 type: 'post',
@@ -126,12 +128,16 @@
                 },
             }).done(function (response) {
                 if (response = "success") {
-                    ///
+                    $(".msg").html("<div class=\"alert alert-success\">\n" +
+                        "                    <p>Application Marked as Open</p>\n" +
+                        "                </div>")
+                    window.location = href + "?action=kiv_remarks";
                 }
                 else {
-                    ///
+                    $(".msg").html("<div class=\"alert alert-error\">\n" +
+                        "                    <p>Error Occured. Please contact administrator</p>\n" +
+                        "                </div>")
                 }
-
             })
 
         })

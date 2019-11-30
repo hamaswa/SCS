@@ -38,6 +38,9 @@
                             <th>
                                 HolderID
                             </th>
+                            <th>
+                                TAT
+                            </th>
 
                             <th>
                                 Action
@@ -59,7 +62,8 @@
                                            value="{{$loan_application->applicant_id}}">
                                     <input type="hidden" name="la_id"
                                            value="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}">
-                                    <a href="#" data-applicants="{{$loan_application->applicants}}"
+                                    <a href="#" data-property="{{ $loan_application->property_id }}"
+                                       data-applicants="{{$loan_application->applicants}}"
                                        id="sidebar">{{$loan_application->la_type}}/{{$loan_application->bank}}
                                         /{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}
                                     </a>
@@ -79,13 +83,16 @@
                                     {{ $loan_application->username }}
                                 </th>
 
+                                <td>
+
+                                </td>
 
                                 <th>
 
                                     <button id="show_la_update_model"
                                             data-la_applicant_id="{{$loan_application->la_applicant_id}}"
                                             data-la_id="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}"
-                                            class="btn btn-success btn-xs">Request
+                                            class="btn btn-success btn-xs">Update
                                     </button>
 
                                 </th>
@@ -183,7 +190,7 @@
 
         $(document.body).on("click", "#sidebar", function (e) {
             id = $(this).data("applicants");
-            console.log(id);
+
             sidebar(id);
         })
 
@@ -207,7 +214,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
-                data: "id=" + id,
+                data: "id=" + id + "&property_id=" + $(this).data("property"),
                 success: function (response) {
                     $("#tab-1").html(response);
                 },

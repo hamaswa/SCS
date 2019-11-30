@@ -32,6 +32,7 @@
                             <th>
                                 Loan Amount
                             </th>
+                            <th>Rating</th>
 
                             <th>
                                 Action
@@ -53,7 +54,8 @@
                                            value="{{$loan_application->applicant_id}}">
                                     <input type="hidden" name="la_id"
                                            value="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}">
-                                    <a href="#" data-applicants="{{$loan_application->applicants}}"
+                                    <a href="#" data-property="{{ $loan_application->property_id }}"
+                                       data-applicants="{{$loan_application->applicants}}"
                                        id="sidebar">{{$loan_application->la_type}}/{{$loan_application->bank}}
                                         /{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}
                                     </a>
@@ -65,6 +67,9 @@
                                 <th>
                                     {{ $loan_application->loan_amount }}
                                 </th>
+                                <td>
+                                    ******
+                                </td>
 
 
                                 <th>
@@ -116,10 +121,15 @@
                     },
                 }).done(function (response) {
                     if (response = "success") {
+                        $(".msg").html("<div class=\"alert alert-success\">\n" +
+                            "                    <p>Status Successfully marked as KIV</p>\n" +
+                            "                </div>")
                         window.location = href + "?action=kiv_remarks";
                     }
                     else {
-                        ///
+                        $(".msg").html("<div class=\"alert alert-error\">\n" +
+                            "                    <p>Error Occured. Please contact administrator</p>\n" +
+                            "                </div>")
                     }
 
                 })
@@ -127,7 +137,8 @@
             }
         })
 
-        $(document.body).on("click", "#update_la", function (e) {
+        $(document.body).on("click", "#request_la", function (e) {
+            $(".msg").html("");
             $.ajax({
                 url: "{{ route("checker.request") }}",
                 type: 'post',
@@ -136,11 +147,16 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content"),
                 },
             }).done(function (response) {
-                if (response = "success") {
-                    ///
+                if (response != "error") {
+                    $(".msg").html("<div class=\"alert alert-success\">\n" +
+                        "                    <p>" + response + "</p>\n" +
+                        "            </div>")
+                    window.location = href + "?action=kiv_remarks";
                 }
                 else {
-                    ///
+                    $(".msg").html("<div class=\"alert alert-error\">\n" +
+                        "                    <p>Error Occured. Please contact administrator</p>\n" +
+                        "                </div>")
                 }
 
             })
@@ -172,7 +188,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
-                data: "id=" + id,
+                data: "id=" + id + "&property_id=" + $(this).data("property"),
                 success: function (response) {
                     $("#tab-1").html(response);
                 },
