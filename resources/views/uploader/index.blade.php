@@ -162,6 +162,7 @@
                                             </select>
                                         </div>
                                         <div class="col-lg-6">
+
                                             <input type="button" id="assign_bank" value="Assign" class="btn btn-default">
                                         </div>
                                     </div>

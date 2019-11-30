@@ -8,7 +8,9 @@
 
                 <legend class="text-center padding-5"><label for="">NO AA</label>
                     <input type="text" disabled value="{{$applicant->serial_no}}">
+                    @if(request()->input("action")=="kiv_remarks")
                     <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#remarksModal">Add Remarks</button>
+                    @endif
                 </legend>
 
 
@@ -131,6 +133,41 @@
         </div>
 
     </section>
+    <div id="remarksModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">KIV</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12 bg-gray-light rounded padding-10">
+                        <div class="col-sm-4 form-group">
+                            <label>Category</label>
+                            <select name="kiv_category" id="" class="form-control">
+                                <option value="Applicant">Applicant</option>
+                                <option value="Income">Income</option>
+                                <option value="Wealth">Wealth</option>
+                                <option value="Property">Property</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-8 form-group">
+                            <label>Remarks</label>
+                            <textarea class="form-control" rows="5" name="remarks"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="modal-footer">
+                    <button type="button" id="update_kiv" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 @endsection
 
@@ -139,6 +176,27 @@
         $(".tab-action").on('click', function () {
             document.cookie = "maker_active_tab="+this.id;
         });
+
+        $(document.body).on("click", "#update_kiv", function (e) {
+            console.log($("#remarksModal").find(":input").serialize())
+            $.ajax({
+                url: "{{ route("checker.kiv") }}",
+                type: 'post',
+                data: $("#remarksModal").find(":input").serialize() + "&applicant_id=" + $("#applicant_id").val() + "&la_applicant_id=" + $("#la_applicant_id").val(),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content"),
+                },
+            }).done(function (response) {
+                if (response = "success") {
+                    ///
+                }
+                else {
+                    ///
+                }
+
+            })
+
+        })
 
         $(document).on("change", "select", function(){
             var val = $(this).val(); //get new value

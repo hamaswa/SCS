@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\maker\LoanApplication;
 use App\ApplicantData;
+use App\KIVRemarks;
 use App\User;
 use Auth;
 use DB;
@@ -47,14 +48,14 @@ class CheckerController extends Controller
             $where = "la_serial_no is not NULL and la_serial_id is not NULL  and loan_applications.status='Open' 
                       and loan_applications.user_id=" . Auth::id();
         }
-        $arr["loan_applications"] = LoanApplication::selectRaw("loan_applications.*, applicant_data.name, group_concat(applicant_id,'') as applicants")
+        $arr["loan_applications"] = LoanApplication::selectRaw("loan_applications.*, applicant_data.name, 
+                group_concat(applicant_id,'') as applicants")
             ->leftjoin('applicant_data', function ($join) {
                 $join->on("applicant_data.id", "=", 'loan_applications.la_applicant_id');
             })
             ->whereRaw($where)
             ->orderby("id", "desc")
-            ->groupby(DB::raw('concat("la_serial_no","_","la_serial_id")'))->get();
-
+            ->groupby(DB::raw('concat(la_serial_no,"_",la_serial_id)'))->paginate(5);
 
         return view("checker.index")->with($arr);
     }
@@ -89,11 +90,12 @@ class CheckerController extends Controller
 
 
         if (Auth::id() == 1) {
-            $where = "la_serial_no is not NULL and la_serial_id is not NULL and loan_applications.status='Processing'";
+            $where = "la_serial_no is not NULL and la_serial_id is not NULL";
         } else {
-            $where = "la_serial_no is not NULL and la_serial_id is not NULL  and loan_applications.status='Processing' 
+            $where = "la_serial_no is not NULL and la_serial_id is not NULL 
                       and loan_applications.user_id=" . Auth::id();
         }
+        $where .= " and loan_applications.status in (\"Open\",\"Processing\",\"kiv\")";
         $arr["loan_applications"] = LoanApplication::selectRaw("loan_applications.*,users.username, applicant_data.name, group_concat(applicant_id,'') as applicants")
             ->leftjoin('applicant_data', function ($join) {
                 $join->on("applicant_data.id", "=", 'loan_applications.la_applicant_id');
@@ -103,7 +105,7 @@ class CheckerController extends Controller
             })
             ->whereRaw($where)
             ->orderby("id", "desc")
-            ->groupby(DB::raw('concat("la_serial_no","_","la_serial_id")'))->get();
+            ->groupby(DB::raw('concat(la_serial_no,"_",la_serial_id)'))->paginate(5);
 
 
         return view("checker.workinprogress")->with($arr);
@@ -194,6 +196,42 @@ class CheckerController extends Controller
             //print_r($loan_application);
             $loan_application->update($inputs);
         }
+    }
+
+
+    public function updateKIV(Request $request)
+    {
+        try {
+            $inputs = $request->all();
+            $inputs["user_id"] = Auth::id();
+            $kiv_remarks = KIVRemarks::create($inputs);
+            echo "KIV remarks add successfully for " . $inputs['kiv_cat'];
+        } catch (\Exception $e) {
+            echo "error";
+        }
+
+
+    }
+
+    public function addKIV(Request $request)
+    {
+        try {
+            $inputs = $request->all();
+            $la_id = explode("_", $inputs['la_id']);
+            $serial_no = $la_id[0];
+            $serial_id = $la_id[1];
+            $loan_application = LoanApplication::where("la_serial_no", "=", $serial_no)
+                ->where("la_serial_id", "=", $serial_id)
+                ->where("applicant_id", "=", $inputs["la_applicant_id"])
+                ->where("la_applicant_id", "=", $inputs["la_applicant_id"])
+                ->first();
+            $loan_application->status = "kiv";
+            $loan_application->save();
+            echo "Application marked as KIV successfully";
+        } catch (\Exception $exception) {
+            echo $exception->getMessage();
+        }
+
     }
 
     /**

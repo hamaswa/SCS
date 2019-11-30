@@ -42,6 +42,8 @@ Route::group(['middleware' => 'role:checker'], function () {
     Route::get("/checker/work_in_progress", "Checker\CheckerController@workInProgress")->name("checker.workinprogress");
     Route::post("/checker/work_in_progress", "Checker\CheckerController@workInProgress")->name("checker.workinprogress");
     Route::post("/checker/request", "Checker\CheckerController@requestLa")->name("checker.request");
+    Route::post("/checker/update_kiv", "Checker\CheckerController@updateKIV")->name("checker.kiv");
+    Route::post("/checker/add_kiv", "Checker\CheckerController@addKIV")->name("checker.add_kiv");
     Route::resource('checker', 'Checker\CheckerController');
 
 });

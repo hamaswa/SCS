@@ -431,41 +431,6 @@ if (isset($applicant_data)) {
             </form>
         </div>
     </div>
-    <div id="remarksModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">KIV</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="col-sm-12 bg-gray-light rounded padding-10">
-                        <div class="col-sm-4 form-group">
-                            <label>Category</label>
-                            <select name="" id="" class="form-control">
-                                <option value="Applicant">Applicant</option>
-                                <option value="Income">Income</option>
-                                <option value="Wealth">Wealth</option>
-                                <option value="Property">Property</option>
-                                <option value="Others">Others</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-8 form-group">
-                            <label>Remarks</label>
-                            <textarea class="form-control" rows="5" name="" id=""></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Update</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
 </div>
 <!-- ./wrapper -->
 
