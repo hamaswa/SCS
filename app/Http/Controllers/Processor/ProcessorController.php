@@ -43,13 +43,12 @@ class ProcessorController extends Controller
 
 
         if (Auth::id() == 1) {
-            $where = "la_serial_no is not NULL and la_serial_id is not NULL and 
-            loan_applications.status in ('Checker','Open','Incomplete','Processing')";
+            $where = "la_serial_no is not NULL and la_serial_id is not NULL";
         } else {
-            $where = "la_serial_no is not NULL and la_serial_id is not NULL  and 
-            loan_applications.status in ('Checker','Open','Incomplete','Processing') 
+            $where = "la_serial_no is not NULL and la_serial_id is not NULL 
                       and loan_applications.user_id=" . Auth::id();
         }
+        $where .= " and loan_applications.status is not NULL";
 
         $arr["loan_applications"] = LoanApplication::selectRaw("loan_applications.*, applicant_data.name, 
                 group_concat(applicant_id,'') as applicants")

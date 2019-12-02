@@ -32,9 +32,9 @@
                             <th>
                                 Loan Amount
                             </th>
-                            <td>
+                            <th>
                                 Status
-                            </td>
+                            </th>
                             <th>
                                 HolderID
                             </th>
@@ -48,14 +48,28 @@
 
                         </tr>
                         </thead>
-                        <tbody id="new_facilities">
+                        <tbody>
                         @if(count($loan_applications)==0)
                             <tr>
                                 <td colspan="7">No Data Found</td>
                             </tr>
                         @endif
                         @foreach($loan_applications as $loan_application)
-                            <tr>
+                            @php
+                                $color = "#fff";
+                                switch (strtolower($loan_application->status)){
+                                case "kiv":
+                                 $color = "red";
+                                 break;
+                                 case "checker":
+                                 $color = "yellow";
+                                 break;
+                                 default:
+                                 $color="white";
+                                 break;
+                                }
+                            @endphp
+                            <tr style="background-color:{{$color}}">
                                 <td>
                                     <input type="hidden" name="id" value="{{$loan_application->id}}">
                                     <input type="hidden" name="applicant_id"
@@ -87,7 +101,7 @@
 
                                 </td>
 
-                                <th>
+                                <td>
 
                                     <a data-href="{{route("maker.edit", ["id" => $loan_application->la_applicant_id])  }}"
                                        data-la_applicant_id="{{$loan_application->la_applicant_id}}"
@@ -99,7 +113,7 @@
                                             class="btn btn-success btn-xs">Update
                                     </button>
 
-                                </th>
+                                </td>
 
                             </tr>
                         @endforeach
