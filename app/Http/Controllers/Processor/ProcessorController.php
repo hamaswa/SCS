@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Checker;
+namespace App\Http\Controllers\Processor;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,7 +11,7 @@ use App\User;
 use Auth;
 use DB;
 
-class CheckerController extends Controller
+class ProcessorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -43,9 +43,11 @@ class CheckerController extends Controller
 
 
         if (Auth::id() == 1) {
-            $where = "la_serial_no is not NULL and la_serial_id is not NULL and loan_applications.status='Processing'";
+            $where = "la_serial_no is not NULL and la_serial_id is not NULL and 
+            loan_applications.status in ('Checker','Open','Incomplete','Processing')";
         } else {
-            $where = "la_serial_no is not NULL and la_serial_id is not NULL  and loan_applications.status='Processing' 
+            $where = "la_serial_no is not NULL and la_serial_id is not NULL  and 
+            loan_applications.status in ('Checker','Open','Incomplete','Processing') 
                       and loan_applications.user_id=" . Auth::id();
         }
 
@@ -58,7 +60,7 @@ class CheckerController extends Controller
             ->orderby("id", "desc")
             ->groupby(DB::raw('concat(la_serial_no,"_",la_serial_id)'))->paginate(5);
 
-        return view("checker.index")->with($arr);
+        return view("processor.index")->with($arr);
     }
 
 
@@ -118,27 +120,22 @@ class CheckerController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function releaseLa(Request $request)
+    public function requestLa(Request $request)
     {
-        try {
-            $inputs = $request->all();
-            $applicant = ApplicantData::find($inputs['applicant_id']);
-            $applicant->status = "Processing";
-            $applicant->save();
+        $inputs = $request->all();
+        $applicant = ApplicantData::find($inputs['applicant_id']);
+        $applicant->status = "Processing";
+        $applicant->save();
 
-            $la_id = explode("_", $inputs['la_id']);
-            $serial_no = $la_id[0];
-            $serial_id = $la_id[1];
+        $la_id = explode("_", $inputs['la_id']);
+        $serial_no = $la_id[0];
+        $serial_id = $la_id[1];
 
-            $loan_applications = LoanApplication::where("la_serial_no", "=", $serial_no)
-                ->where("la_serial_id", "=", $serial_id)->get();
-            foreach ($loan_applications as $loan_application) {
-                $loan_application->status = "Checker";
-                $loan_application->save();
-            }
-            echo "Applicant Successfully Released";
-        } catch (\Exception $exception) {
-            echo "error";
+        $loan_applications = LoanApplication::where("la_serial_no", "=", $serial_no)
+            ->where("la_serial_id", "=", $serial_id)->get();
+        foreach ($loan_applications as $loan_application) {
+            $loan_application->status = "Processing";
+            $loan_application->save();
         }
     }
 

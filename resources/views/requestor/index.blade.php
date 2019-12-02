@@ -32,6 +32,7 @@
                             <th>
                                 Loan Amount
                             </th>
+                            <th>Rating</th>
 
                             <th>
                                 Action
@@ -66,18 +67,17 @@
                                 <th>
                                     {{ $loan_application->loan_amount }}
                                 </th>
-
+                                <td>
+                                    ******
+                                </td>
 
 
                                 <th>
-                                    <a data-href="{{route("maker.edit", ["id" => $loan_application->la_applicant_id])  }}"
-                                       data-la_applicant_id="{{$loan_application->la_applicant_id}}"
-                                       data-la_id="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}"
-                                       class="btn btn-xs bg-light-blue-gradient" id="add_kiv">KIV</a>
-                                    <button id="show_la_release_model" name="show_la_release_model" value="Submit"
-                                            data-la_applicant_id="{{$loan_application->la_applicant_id}}"
+
+                                    <button id="request_la" name="request_la" value="Submit"
+                                            data-applicant_id="{{$loan_application->applicant_id}}"
                                             data-la_id="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}"
-                                            class="btn btn-success btn-xs">Release
+                                            class="btn btn-success btn-xs">Request
                                     </button>
 
                                 </th>
@@ -97,33 +97,6 @@
         </div>
     </div>
 
-    <div id="release_la_modal" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header bg-primary">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Update</h4>
-                </div>
-                <div class="modal-body" id="update_la_form">
-                    <div class="form-group">
-                        <input type="hidden" id="la_id" name="la_id">
-                        <input type="hidden" id="la_applicant_id" name="la_applicant_id">
-                        <input type="number" name="rating" id="rating" class="rating"/>
-                    </div>
-
-                    <div class="form-group">
-                        <input type="button" id="release_la" value="Release">
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-
-        </div>
     </div>
 @endsection
 @push("scripts")
@@ -132,12 +105,6 @@
         $(document).ready(function (e) {
             $('.select2').select2({allowClear: true});
         });
-
-        $(document.body).on("click", "#show_la_release_model", function (e) {
-            $("#release_la_modal").modal("show");
-            $("#release_la_modal").find("input[name=la_id]").val($(this).data("la_id"));
-            $("#release_la_modal").find("input[name=la_applicant_id]").val($(this).data("la_applicant_id"));
-        })
 
         $(document.body).on("click", "#add_kiv", function (e) {
             href = $(this).data("href");
@@ -167,12 +134,12 @@
             }
         })
 
-        $(document.body).on("click", "#release_la", function (e) {
+        $(document.body).on("click", "#request_la", function (e) {
             $(".msg").html("");
             $.ajax({
-                url: "{{ route("checker.release") }}",
+                url: "{{ route("requestor.request") }}",
                 type: 'post',
-                data: 'la_id=' + $("#la_id").val() + "&applicant_id=" + $("#la_applicant_id").val() + "&rating=" + $("#rating").val(),
+                data: 'la_id=' + $(this).data("la_id") + "&applicant_id=" + $(this).data("applicant_id"),
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content"),
                 },

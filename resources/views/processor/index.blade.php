@@ -32,6 +32,15 @@
                             <th>
                                 Loan Amount
                             </th>
+                            <td>
+                                Status
+                            </td>
+                            <th>
+                                HolderID
+                            </th>
+                            <th>
+                                TAT
+                            </th>
 
                             <th>
                                 Action
@@ -66,18 +75,28 @@
                                 <th>
                                     {{ $loan_application->loan_amount }}
                                 </th>
-
-
+                                <th>
+                                    {{ $loan_application->status }}
+                                </th>
 
                                 <th>
+                                    {{ $loan_application->username }}
+                                </th>
+
+                                <td>
+
+                                </td>
+
+                                <th>
+
                                     <a data-href="{{route("maker.edit", ["id" => $loan_application->la_applicant_id])  }}"
                                        data-la_applicant_id="{{$loan_application->la_applicant_id}}"
                                        data-la_id="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}"
                                        class="btn btn-xs bg-light-blue-gradient" id="add_kiv">KIV</a>
-                                    <button id="show_la_release_model" name="show_la_release_model" value="Submit"
+                                    <button id="show_la_update_model"
                                             data-la_applicant_id="{{$loan_application->la_applicant_id}}"
                                             data-la_id="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}"
-                                            class="btn btn-success btn-xs">Release
+                                            class="btn btn-success btn-xs">Update
                                     </button>
 
                                 </th>
@@ -85,7 +104,9 @@
                             </tr>
                         @endforeach
                         <tr>
-                            {{$loan_applications->links()}}
+                            <td colspan="5">{{
+                        $loan_applications->links()
+                        }}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -97,7 +118,7 @@
         </div>
     </div>
 
-    <div id="release_la_modal" class="modal fade" role="dialog">
+    <div id="update_wip_modal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
 
             <!-- Modal content-->
@@ -108,13 +129,25 @@
                 </div>
                 <div class="modal-body" id="update_la_form">
                     <div class="form-group">
-                        <input type="hidden" id="la_id" name="la_id">
-                        <input type="hidden" id="la_applicant_id" name="la_applicant_id">
-                        <input type="number" name="rating" id="rating" class="rating"/>
-                    </div>
+                        <input type="hidden" name="la_id">
+                        <input type="hidden" name="la_applicant_id">
 
+                        <input type="text" name="loan_amount">
+                    </div>
                     <div class="form-group">
-                        <input type="button" id="release_la" value="Release">
+                        <select name="status">
+                            <option value="approved">Approved</option>
+                            <option value="declined">Declined</option>
+                            <option value="appeal">Appeal</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="remarks">
+
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="button" id="update_la" value="Update">
 
                     </div>
                 </div>
@@ -133,12 +166,12 @@
             $('.select2').select2({allowClear: true});
         });
 
-        $(document.body).on("click", "#show_la_release_model", function (e) {
-            $("#release_la_modal").modal("show");
-            $("#release_la_modal").find("input[name=la_id]").val($(this).data("la_id"));
-            $("#release_la_modal").find("input[name=la_applicant_id]").val($(this).data("la_applicant_id"));
-        })
 
+        $(document.body).on("click", "#show_la_update_model", function (e) {
+            $("#update_wip_modal").modal("show");
+            $("#update_wip_modal").find("input[name=la_id]").val($(this).data("la_id"));
+            $("#update_wip_modal").find("input[name=la_applicant_id]").val($(this).data("la_applicant_id"));
+        })
         $(document.body).on("click", "#add_kiv", function (e) {
             href = $(this).data("href");
             if (confirm("Are you sure to add KIV?")) {
@@ -167,34 +200,29 @@
             }
         })
 
-        $(document.body).on("click", "#release_la", function (e) {
-            $(".msg").html("");
+        $(document.body).on("click", "#update_la", function (e) {
             $.ajax({
-                url: "{{ route("checker.release") }}",
+                url: "{{ route("checker.update",["id"=>0]) }}",
                 type: 'post',
-                data: 'la_id=' + $("#la_id").val() + "&applicant_id=" + $("#la_applicant_id").val() + "&rating=" + $("#rating").val(),
+                data: "_method=PATCH&" + $("#update_wip_modal").find("input,textarea,select").serialize() + "&applicant_id=" + $("#update_wip_modal").find("input[name=la_applicant_id]").val(),
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content"),
                 },
             }).done(function (response) {
-                if (response != "error") {
-                    $(".msg").html("<div class=\"alert alert-success\">\n" +
-                        "                    <p>" + response + "</p>\n" +
-                        "            </div>")
-                    window.location = href + "?action=kiv_remarks";
+                if (response = "success") {
+
                 }
                 else {
-                    $(".msg").html("<div class=\"alert alert-error\">\n" +
-                        "                    <p>Error Occured. Please contact administrator</p>\n" +
-                        "                </div>")
+
                 }
 
             })
 
         })
+
         $(document.body).on("click", "#sidebar", function (e) {
             id = $(this).data("applicants");
-            console.log(id);
+
             sidebar(id);
         })
 

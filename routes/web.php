@@ -37,11 +37,22 @@ Route::group(['prefix'=>'admin','auth'], function() {
     });
 
 });
+Route::group(['middleware' => 'role:requestor'], function () {
+    Route::post("/requestor/request", "Requestor\RequestorController@requestLa")->name("requestor.request");
+    Route::resource("requestor", "Requestor\RequestorController");
+});
+
+Route::group(['middleware' => 'role:processor'], function () {
+    Route::resource("processor", "Processor\ProcessorController");
+    Route::get("/processor/work_in_progress", "Processor\ProcessorController@workInProgress")->name("processor.workinprogress");
+    Route::post("/processor/work_in_progress", "Processor\ProcessorController@workInProgress")->name("processor.workinprogress");
+
+});
 
 Route::group(['middleware' => 'role:checker'], function () {
+    Route::post("/checker/release", "Checker\CheckerController@releaseLa")->name("checker.release");
     Route::get("/checker/work_in_progress", "Checker\CheckerController@workInProgress")->name("checker.workinprogress");
     Route::post("/checker/work_in_progress", "Checker\CheckerController@workInProgress")->name("checker.workinprogress");
-    Route::post("/checker/request", "Checker\CheckerController@requestLa")->name("checker.request");
     Route::post("/checker/update_kiv", "Checker\CheckerController@updateKIV")->name("checker.kiv");
     Route::post("/checker/add_kiv", "Checker\CheckerController@addKIV")->name("checker.add_kiv");
     Route::resource('checker', 'Checker\CheckerController');

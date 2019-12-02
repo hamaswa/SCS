@@ -319,6 +319,7 @@ if((request()->segment(1)) != 'pipeline' && (request()->segment(1)) != 'aadata')
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="{{asset("js/bootstrap-datepicker.min.js")}}"></script>
+<script src="{{asset("js/bootstrap-rating.min.js")}}"></script>
 
 <!-- AdminLTE App -->
 <script src="{{asset("js/adminlte.min.js")}}"></script>

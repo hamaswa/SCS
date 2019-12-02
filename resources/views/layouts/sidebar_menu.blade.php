@@ -84,7 +84,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route("checker.index") }}">Request Case</a>
+                            <a class="nav-link" href="{{ route("requestor.index") }}">Request Case</a>
                         </li>
                     </ul>
                 </li>
@@ -98,7 +98,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route("checker.workinprogress") }}">WIP</a>
+                            <a class="nav-link" href="{{ route("checker.index") }}">WIP</a>
                             <a class="nav-link" href="{{ route("checker.workinprogress") }}">Group List</a>
                         </li>
                     </ul>
@@ -113,8 +113,8 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route("checker.workinprogress") }}">WIP</a>
-                            <a class="nav-link" href="{{ route("checker.workinprogress") }}">Group List</a>
+                            <a class="nav-link" href="{{ route("processor.index") }}">WIP</a>
+                            <a class="nav-link" href="{{ route("processor.workinprogress") }}">Group List</a>
                         </li>
                     </ul>
                 </li>

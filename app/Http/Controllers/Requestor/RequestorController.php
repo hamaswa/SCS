@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Checker;
+namespace App\Http\Controllers\Requestor;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,7 +11,7 @@ use App\User;
 use Auth;
 use DB;
 
-class CheckerController extends Controller
+class RequestorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,19 +36,17 @@ class CheckerController extends Controller
         ORDER BY U1.lvl DESC limit 1";
         $parent_user = DB::connection()->select($sql);
 
-
         $sql = "select id, title,controller,method, parent_id from
         (select * from menu order by parent_id, id) products_sorted, (select @pv :=" . $parent_user[0]->id . ")
          initialisation where  bank=" . Auth::user()->bank . " and  find_in_set(parent_id, @pv) and length(@pv := concat(@pv, ',', id))";
 
 
         if (Auth::id() == 1) {
-            $where = "la_serial_no is not NULL and la_serial_id is not NULL and loan_applications.status='Processing'";
+            $where = "la_serial_no is not NULL and la_serial_id is not NULL and loan_applications.status='Open'";
         } else {
-            $where = "la_serial_no is not NULL and la_serial_id is not NULL  and loan_applications.status='Processing' 
+            $where = "la_serial_no is not NULL and la_serial_id is not NULL  and loan_applications.status='Open' 
                       and loan_applications.user_id=" . Auth::id();
         }
-
         $arr["loan_applications"] = LoanApplication::selectRaw("loan_applications.*, applicant_data.name, 
                 group_concat(applicant_id,'') as applicants")
             ->leftjoin('applicant_data', function ($join) {
@@ -58,59 +56,9 @@ class CheckerController extends Controller
             ->orderby("id", "desc")
             ->groupby(DB::raw('concat(la_serial_no,"_",la_serial_id)'))->paginate(5);
 
-        return view("checker.index")->with($arr);
+        return view("requestor.index")->with($arr);
     }
 
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function workInProgress()
-    {
-        $sql = "SELECT U2.*
-        FROM (
-            SELECT
-                @r AS _id,
-                (SELECT @r := parent_id FROM users WHERE id = _id) AS parent_id,
-                @l := @l + 1 AS lvl
-            FROM
-                (SELECT @r := " . Auth::id() . ", @l := 0) vars,
-                users m
-            WHERE @r <> 0) U1
-        JOIN users U2
-        ON U1._id = U2.id
-        ORDER BY U1.lvl DESC limit 1";
-        $parent_user = DB::connection()->select($sql);
-
-
-        $sql = "select id, title,controller,method, parent_id from
-        (select * from menu order by parent_id, id) products_sorted, (select @pv :=" . $parent_user[0]->id . ")
-         initialisation where find_in_set(parent_id, @pv) and length(@pv := concat(@pv, ',', id))";
-
-
-        if (Auth::id() == 1) {
-            $where = "la_serial_no is not NULL and la_serial_id is not NULL";
-        } else {
-            $where = "la_serial_no is not NULL and la_serial_id is not NULL 
-                      and loan_applications.user_id=" . Auth::id();
-        }
-        $where .= " and loan_applications.status in (\"Open\",\"Processing\",\"kiv\")";
-        $arr["loan_applications"] = LoanApplication::selectRaw("loan_applications.*,users.username, applicant_data.name, group_concat(applicant_id,'') as applicants")
-            ->leftjoin('applicant_data', function ($join) {
-                $join->on("applicant_data.id", "=", 'loan_applications.la_applicant_id');
-            })
-            ->leftjoin('users', function ($join) {
-                $join->on("applicant_data.user_id", "=", 'users.id');
-            })
-            ->whereRaw($where)
-            ->orderby("id", "desc")
-            ->groupby(DB::raw('concat(la_serial_no,"_",la_serial_id)'))->paginate(5);
-
-
-        return view("checker.index")->with($arr);
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -118,7 +66,7 @@ class CheckerController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function releaseLa(Request $request)
+    public function requestLa(Request $request)
     {
         try {
             $inputs = $request->all();
@@ -133,12 +81,12 @@ class CheckerController extends Controller
             $loan_applications = LoanApplication::where("la_serial_no", "=", $serial_no)
                 ->where("la_serial_id", "=", $serial_id)->get();
             foreach ($loan_applications as $loan_application) {
-                $loan_application->status = "Checker";
+                $loan_application->status = "Processing";
                 $loan_application->save();
             }
-            echo "Applicant Successfully Released";
+            echo "Application Successfully Requested";
         } catch (\Exception $exception) {
-            echo "error";
+            echo "error";//$exception->getMessage();
         }
     }
 
