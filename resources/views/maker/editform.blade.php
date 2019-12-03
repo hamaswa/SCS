@@ -19,16 +19,19 @@
             <div class="container"> <!-- style="overflow:hidden" -->
 
 
-                @if ($message = Session::get('success'))
-                    <div class="alert alert-success">
-                        <p>{{ $message }}</p>
-                    </div>
-                @endif
-                @if($errors->any())
-                    <div class="alert alert-error">
-                        {{ $errors->first() }}
-                    </div>
-                @endif
+                <div class="msg">
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
+                    @if($errors->any())
+                        <div class="alert alert-error">
+                            {{ $errors->first() }}
+                        </div>
+                    @endif
+                </div>
+
                 <div class="row">
                     <div class="col-md-12" style="overflow:auto">
                         <div id="MyAccountsTab" class="tabbable tabs-left">
@@ -188,11 +191,10 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content"),
                 },
             }).done(function (response) {
-                if (response = "success") {
+                if (response != "error") {
                     $(".msg").html("<div class=\"alert alert-success\">\n" +
-                        "                    <p>Remarks Added successfully</p>\n" +
+                        "                    <p>" + response + "</p>\n" +
                         "            </div>")
-                    window.location = href + "?action=kiv_remarks";
                 }
                 else {
                     $(".msg").html("<div class=\"alert alert-error\">\n" +
