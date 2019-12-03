@@ -32,6 +32,15 @@
                             <th>
                                 Loan Amount
                             </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                HolderID
+                            </th>
+                            <th>
+                                TAT
+                            </th>
 
                             <th>
                                 Action
@@ -39,14 +48,28 @@
 
                         </tr>
                         </thead>
-                        <tbody id="new_facilities">
+                        <tbody>
                         @if(count($loan_applications)==0)
                             <tr>
                                 <td colspan="7">No Data Found</td>
                             </tr>
                         @endif
                         @foreach($loan_applications as $loan_application)
-                            <tr>
+                            @php
+                                $color = "#fff";
+                                switch (strtolower($loan_application->status)){
+                                case "kiv":
+                                 $color = "red";
+                                 break;
+                                 case "checker":
+                                 $color = "yellow";
+                                 break;
+                                 default:
+                                 $color="white";
+                                 break;
+                                }
+                            @endphp
+                            <tr style="background-color:{{$color}}">
                                 <td>
                                     <input type="hidden" name="id" value="{{$loan_application->id}}">
                                     <input type="hidden" name="applicant_id"
@@ -66,26 +89,38 @@
                                 <th>
                                     {{ $loan_application->loan_amount }}
                                 </th>
-
-
+                                <th>
+                                    {{ $loan_application->status }}
+                                </th>
 
                                 <th>
+                                    {{ $loan_application->username }}
+                                </th>
+
+                                <td>
+
+                                </td>
+
+                                <td>
+
                                     <a data-href="{{route("maker.edit", ["id" => $loan_application->la_applicant_id])  }}"
                                        data-la_applicant_id="{{$loan_application->la_applicant_id}}"
                                        data-la_id="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}"
                                        class="btn btn-xs bg-light-blue-gradient" id="add_kiv">KIV</a>
-                                    <button id="show_la_release_model" name="show_la_release_model" value="Submit"
+                                    <button id="show_la_update_model"
                                             data-la_applicant_id="{{$loan_application->la_applicant_id}}"
                                             data-la_id="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}"
-                                            class="btn btn-success btn-xs">Release
+                                            class="btn btn-success btn-xs">Update
                                     </button>
 
-                                </th>
+                                </td>
 
                             </tr>
                         @endforeach
                         <tr>
-                            {{$loan_applications->links()}}
+                            <td colspan="5">{{
+                        $loan_applications->links()
+                        }}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -213,19 +248,7 @@
                 error: function () {
                 }
             });
-            $.ajax({
-                url: "{{ route("documents") }}",
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                data: "id=" + id + "&property_id=" + $(this).data("property"),
-                success: function (response) {
-                    $("#tab-1").html(response);
-                },
-                error: function () {
-                }
-            });
+
             $.ajax({
                 url: "{{ route("applicant_sidebar") }}",
                 type: "POST",

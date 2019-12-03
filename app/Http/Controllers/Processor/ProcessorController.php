@@ -49,10 +49,12 @@ class ProcessorController extends Controller
         }
         $where .= " and loan_applications.status is not NULL";
 
-        $arr["loan_applications"] = LoanApplication::selectRaw("loan_applications.*, applicant_data.name, 
-                group_concat(applicant_id,'') as applicants")
+        $arr["loan_applications"] = LoanApplication::selectRaw("loan_applications.*,users.username, applicant_data.name, group_concat(applicant_id,'') as applicants")
             ->leftjoin('applicant_data', function ($join) {
                 $join->on("applicant_data.id", "=", 'loan_applications.la_applicant_id');
+            })
+            ->leftjoin('users', function ($join) {
+                $join->on("applicant_data.user_id", "=", 'users.id');
             })
             ->whereRaw($where)
             ->orderby("id", "desc")

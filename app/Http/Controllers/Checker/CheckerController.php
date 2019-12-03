@@ -39,7 +39,8 @@ class CheckerController extends Controller
 
         $sql = "select id, title,controller,method, parent_id from
         (select * from menu order by parent_id, id) products_sorted, (select @pv :=" . $parent_user[0]->id . ")
-         initialisation where  bank=" . Auth::user()->bank . " and  find_in_set(parent_id, @pv) and length(@pv := concat(@pv, ',', id))";
+         initialisation where  bank=" . Auth::user()->bank . " and  
+         find_in_set(parent_id, @pv) and length(@pv := concat(@pv, ',', id))";
 
 
         if (Auth::id() == 1) {
@@ -49,10 +50,12 @@ class CheckerController extends Controller
                       and loan_applications.user_id=" . Auth::id();
         }
 
-        $arr["loan_applications"] = LoanApplication::selectRaw("loan_applications.*, applicant_data.name, 
-                group_concat(applicant_id,'') as applicants")
+        $arr["loan_applications"] = LoanApplication::selectRaw("loan_applications.*,users.username, applicant_data.name, group_concat(applicant_id,'') as applicants")
             ->leftjoin('applicant_data', function ($join) {
                 $join->on("applicant_data.id", "=", 'loan_applications.la_applicant_id');
+            })
+            ->leftjoin('users', function ($join) {
+                $join->on("applicant_data.user_id", "=", 'users.id');
             })
             ->whereRaw($where)
             ->orderby("id", "desc")
@@ -87,7 +90,13 @@ class CheckerController extends Controller
 
         $sql = "select id, title,controller,method, parent_id from
         (select * from menu order by parent_id, id) products_sorted, (select @pv :=" . $parent_user[0]->id . ")
-         initialisation where find_in_set(parent_id, @pv) and length(@pv := concat(@pv, ',', id))";
+        initialisation where   bank=" . Auth::user()->bank . " and 
+        find_in_set(parent_id, @pv) and length(@pv := concat(@pv, ',', id))";
+
+        $private_users = DB::connection()->select($sql);
+        print_r($private_users);
+
+
 
 
         if (Auth::id() == 1) {
@@ -97,6 +106,7 @@ class CheckerController extends Controller
                       and loan_applications.user_id=" . Auth::id();
         }
         $where .= " and loan_applications.status in (\"Open\",\"Processing\",\"kiv\")";
+
         $arr["loan_applications"] = LoanApplication::selectRaw("loan_applications.*,users.username, applicant_data.name, group_concat(applicant_id,'') as applicants")
             ->leftjoin('applicant_data', function ($join) {
                 $join->on("applicant_data.id", "=", 'loan_applications.la_applicant_id');
@@ -213,6 +223,7 @@ class CheckerController extends Controller
             $kiv_remarks = KIVRemarks::create($inputs);
             echo "KIV remarks add successfully for " . $inputs['kiv_cat'];
         } catch (\Exception $e) {
+            echo $e->getMessage();
             echo "error";
         }
 
