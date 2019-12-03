@@ -216,18 +216,24 @@
 
         $(document.body).on("click", "#update_la", function (e) {
             $.ajax({
-                url: "{{ route("checker.update",["id"=>0]) }}",
+                url: "{{ route("processor.update",["id"=>0]) }}",
                 type: 'post',
                 data: "_method=PATCH&" + $("#update_wip_modal").find("input,textarea,select").serialize() + "&applicant_id=" + $("#update_wip_modal").find("input[name=la_applicant_id]").val(),
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content"),
                 },
             }).done(function (response) {
-                if (response = "success") {
-
+                if (response != "error") {
+                    $(".msg").html("<div class=\"alert alert-success\">\n" +
+                        "                    <p>" + response + "</p>\n" +
+                        "            </div>")
+                    alert(response);
+                    window.location = window.location;//href + "?action=kiv_remarks";
                 }
                 else {
-
+                    $(".msg").html("<div class=\"alert alert-error\">\n" +
+                        "                    <p>Error Occured. Please contact administrator</p>\n" +
+                        "                </div>")
                 }
 
             })

@@ -148,7 +148,8 @@
                     $(".msg").html("<div class=\"alert alert-success\">\n" +
                         "                    <p>" + response + "</p>\n" +
                         "            </div>")
-                    window.location = href + "?action=kiv_remarks";
+                    alert(response);
+                    window.location = window.location;//"{{route("requestor.index")}}";
                 }
                 else {
                     $(".msg").html("<div class=\"alert alert-error\">\n" +

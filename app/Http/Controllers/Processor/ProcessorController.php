@@ -41,7 +41,6 @@ class ProcessorController extends Controller
         (select * from menu order by parent_id, id) products_sorted, (select @pv :=" . $parent_user[0]->id . ")
          initialisation where  bank=" . Auth::user()->bank . " and  find_in_set(parent_id, @pv) and length(@pv := concat(@pv, ',', id))";
 
-
         if (Auth::id() == 1) {
             $where = "la_serial_no is not NULL and la_serial_id is not NULL";
         } else {
@@ -58,7 +57,6 @@ class ProcessorController extends Controller
             ->whereRaw($where)
             ->orderby("id", "desc")
             ->groupby(DB::raw('concat(la_serial_no,"_",la_serial_id)'))->paginate(5);
-
         return view("processor.index")->with($arr);
     }
 
@@ -119,24 +117,6 @@ class ProcessorController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function requestLa(Request $request)
-    {
-        $inputs = $request->all();
-        $applicant = ApplicantData::find($inputs['applicant_id']);
-        $applicant->status = "Processing";
-        $applicant->save();
-
-        $la_id = explode("_", $inputs['la_id']);
-        $serial_no = $la_id[0];
-        $serial_id = $la_id[1];
-
-        $loan_applications = LoanApplication::where("la_serial_no", "=", $serial_no)
-            ->where("la_serial_id", "=", $serial_id)->get();
-        foreach ($loan_applications as $loan_application) {
-            $loan_application->status = "Processing";
-            $loan_application->save();
-        }
-    }
 
     public function create()
     {
@@ -185,18 +165,23 @@ class ProcessorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($id == 0) {
-            $inputs = $request->all();
-            $la_id = explode("_", $inputs['la_id']);
-            $serial_no = $la_id[0];
-            $serial_id = $la_id[1];
+        try {
+            if ($id == 0) {
+                $inputs = $request->all();
+                $la_id = explode("_", $inputs['la_id']);
+                $serial_no = $la_id[0];
+                $serial_id = $la_id[1];
 
-            $loan_application = LoanApplication::where("la_serial_no", "=", $serial_no)
-                ->where("la_serial_id", "=", $serial_id)
-                ->where("la_applicant_id", "=", $inputs["la_applicant_id"])
-                ->first();
-            //print_r($loan_application);
-            $loan_application->update($inputs);
+                $loan_application = LoanApplication::where("la_serial_no", "=", $serial_no)
+                    ->where("la_serial_id", "=", $serial_id)
+                    ->where("la_applicant_id", "=", $inputs["la_applicant_id"])
+                    ->first();
+                //print_r($loan_application);
+                $loan_application->update($inputs);
+                echo "Loan Application Successfully " . $inputs["status"];
+            }
+        } catch (\Exception $exception) {
+            echo "error";
         }
     }
 
