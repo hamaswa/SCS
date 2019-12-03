@@ -76,7 +76,8 @@
                                            value="{{$loan_application->applicant_id}}">
                                     <input type="hidden" name="la_id"
                                            value="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}">
-                                    <a href="#" data-property="{{ $loan_application->property_id }}"
+                                    <a href="#" data-toggle="control-sidebar"
+                                       data-property="{{ $loan_application->property_id }}"
                                        data-applicants="{{$loan_application->applicants}}"
                                        id="sidebar">{{$loan_application->la_type}}/{{$loan_application->bank}}
                                         /{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}

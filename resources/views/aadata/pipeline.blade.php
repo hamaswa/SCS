@@ -143,7 +143,116 @@
                                                 @if(request()->user()->hasRole("maker"))
                                                     <a href="{{ route("maker.newla", $d->id) }}"
                                                        class="btn btn-xs bg-light-blue-gradient">Import</a>
+                                                    <table id="example5" class="table table-bordered table-hover">
+                                                        <thead>
 
+                                                        <tr>
+                                                            <th>
+                                                                LA
+                                                            </th>
+                                                            <th>
+                                                                Applicant
+                                                            </th>
+                                                            <th>
+                                                                Loan Amount
+                                                            </th>
+                                                            <th>
+                                                                Status
+                                                            </th>
+                                                            <th>
+                                                                HolderID
+                                                            </th>
+                                                            <th>
+                                                                TAT
+                                                            </th>
+
+                                                            <th>
+                                                                Action
+                                                            </th>
+
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @if(count($loan_applications)==0)
+                                                            <tr>
+                                                                <td colspan="7">No Data Found</td>
+                                                            </tr>
+                                                        @endif
+                                                        @foreach($loan_applications as $loan_application)
+                                                            @php
+                                                                $color = "#fff";
+                                                                switch (strtolower($loan_application->status)){
+                                                                case "kiv":
+                                                                 $color = "red";
+                                                                 break;
+                                                                 case "checker":
+                                                                 $color = "yellow";
+                                                                 break;
+                                                                 default:
+                                                                 $color="white";
+                                                                 break;
+                                                                }
+                                                            @endphp
+                                                            <tr style="background-color:{{$color}}">
+                                                                <td>
+                                                                    <input type="hidden" name="id"
+                                                                           value="{{$loan_application->id}}">
+                                                                    <input type="hidden" name="applicant_id"
+                                                                           value="{{$loan_application->applicant_id}}">
+                                                                    <input type="hidden" name="la_id"
+                                                                           value="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}">
+                                                                    <a href="#"
+                                                                       data-property="{{ $loan_application->property_id }}"
+                                                                       data-applicants="{{$loan_application->applicants}}"
+                                                                       id="sidebar">{{$loan_application->la_type}}
+                                                                        /{{$loan_application->bank}}
+                                                                        /{{$loan_application->la_serial_no}}
+                                                                        _{{$loan_application->la_serial_id}}
+                                                                    </a>
+
+                                                                </td>
+                                                                <td>
+                                                                    {{ $loan_application->name }}
+                                                                </td>
+                                                                <th>
+                                                                    {{ $loan_application->loan_amount }}
+                                                                </th>
+                                                                <th>
+                                                                    {{ $loan_application->status }}
+                                                                </th>
+
+                                                                <th>
+                                                                    {{ $loan_application->username }}
+                                                                </th>
+
+                                                                <td>
+
+                                                                </td>
+
+                                                                <td>
+
+                                                                    <a data-href="{{route("maker.edit", ["id" => $loan_application->la_applicant_id])  }}"
+                                                                       data-la_applicant_id="{{$loan_application->la_applicant_id}}"
+                                                                       data-la_id="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}"
+                                                                       class="btn btn-xs bg-light-blue-gradient"
+                                                                       id="add_kiv">KIV</a>
+                                                                    <button id="show_la_update_model"
+                                                                            data-la_applicant_id="{{$loan_application->la_applicant_id}}"
+                                                                            data-la_id="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}"
+                                                                            class="btn btn-success btn-xs">Update
+                                                                    </button>
+
+                                                                </td>
+
+                                                            </tr>
+                                                        @endforeach
+                                                        <tr>
+                                                            <td colspan="5">{{
+                        $loan_applications->links()
+                        }}</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
 
                                                 @endif
                                             @endif
