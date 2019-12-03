@@ -182,7 +182,8 @@
             $.ajax({
                 url: "{{ route("checker.kiv") }}",
                 type: 'post',
-                data: $("#remarksModal").find(":input").serialize() + "&applicant_id=" + $("#applicant_id").val() + "&la_applicant_id=" + $("#la_applicant_id").val(),
+                data: $("#remarksModal").find(":input").serialize() + "&applicant_id=" +
+                $("#applicant_id").val() + "&la_applicant_id=" + $("#la_applicant_id").val(),
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content"),
                 },

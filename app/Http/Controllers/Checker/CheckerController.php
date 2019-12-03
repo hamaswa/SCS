@@ -221,7 +221,7 @@ class CheckerController extends Controller
             $inputs = $request->all();
             $inputs["user_id"] = Auth::id();
             $kiv_remarks = KIVRemarks::create($inputs);
-            echo "KIV remarks add successfully for " . $inputs['kiv_cat'];
+            echo "KIV remarks add successfully for " . $inputs['kiv_category'];
         } catch (\Exception $e) {
             echo $e->getMessage();
             echo "error";
