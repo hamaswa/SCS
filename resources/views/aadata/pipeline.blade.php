@@ -250,9 +250,7 @@
                                                         @endforeach
                                                         @endif
                                                         <tr>
-                                                            <td colspan="5">{{
-                        $loan_applications->links()
-                        }}</td>
+                                                            <td colspan="5">{{ $loan_applications->links() ? $loan_applications->links() : '' }}</td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
