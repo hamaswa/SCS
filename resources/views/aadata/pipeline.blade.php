@@ -173,10 +173,12 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
+                                                        @if(isset($loan_applications))
                                                         @if(count($loan_applications)==0)
                                                             <tr>
                                                                 <td colspan="7">No Data Found</td>
                                                             </tr>
+                                                        @endif
                                                         @endif
                                                         @foreach($loan_applications as $loan_application)
                                                             @php
