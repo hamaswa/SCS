@@ -179,7 +179,7 @@
                                                                 <td colspan="7">No Data Found</td>
                                                             </tr>
                                                         @endif
-                                                        @endif
+
                                                         @foreach($loan_applications as $loan_application)
                                                             @php
                                                                 $color = "#fff";
@@ -248,6 +248,7 @@
 
                                                             </tr>
                                                         @endforeach
+                                                        @endif
                                                         <tr>
                                                             <td colspan="5">{{
                         $loan_applications->links()
