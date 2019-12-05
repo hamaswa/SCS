@@ -45,6 +45,12 @@ class ApplicantData extends Model
         return $this->hasMany("App\ApplicantComments",'applicant_id');
     }
 
+
+    public function applicantRemarks()
+    {
+        return $this->hasMany("App\KIVRemarks", 'applicant_id');
+    }
+
     public function applicantDocuments(){
         return $this->hasMany("App\ApplicantDocuments",'applicant_id');
     }

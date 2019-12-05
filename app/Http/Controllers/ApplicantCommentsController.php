@@ -22,6 +22,7 @@ class ApplicantCommentsController extends Controller
         $inputs['id'] = explode(",",$inputs["id"]);
         $arr["applicants"] = ApplicantData::find($inputs['id']);
         $arr["comments"] = ApplicantComments::where("applicant_id",'=',$inputs["id"])->get();
+        //$arr["comments"] = ApplicantComments::where("applicant_id",'=',$inputs["id"])->get();
         return view("aadata.comments")->with($arr);
     }
 
