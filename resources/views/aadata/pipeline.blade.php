@@ -173,11 +173,13 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
+                                                        @if(isset($loan_applications))
                                                         @if(count($loan_applications)==0)
                                                             <tr>
                                                                 <td colspan="7">No Data Found</td>
                                                             </tr>
                                                         @endif
+
                                                         @foreach($loan_applications as $loan_application)
                                                             @php
                                                                 $color = "#fff";
@@ -246,10 +248,9 @@
 
                                                             </tr>
                                                         @endforeach
+                                                        @endif
                                                         <tr>
-                                                            <td colspan="5">{{
-                        $loan_applications->links()
-                        }}</td>
+                                                            <td colspan="5">{{ isset($loan_applications) ? $loan_applications->links() : '' }}</td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
