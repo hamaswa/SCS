@@ -249,7 +249,19 @@
                 error: function () {
                 }
             });
-
+            $.ajax({
+                url: "{{ route("documents") }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: "id=" + id + "&property_id=" + $(this).data("property"),
+                success: function (response) {
+                    $("#tab-1").html(response);
+                },
+                error: function () {
+                }
+            });
             $.ajax({
                 url: "{{ route("applicant_sidebar") }}",
                 type: "POST",

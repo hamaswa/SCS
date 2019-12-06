@@ -51,11 +51,11 @@
         <table class="table table-bordered table-striped table-hover bg-white">
             <thead>
             <tr class="bg-light-blue-gradient">
-                <th colspan="4" class="text-center">All Comments</th>
+                <th colspan="4" class="text-center">Remarks</th>
             </tr>
             <tr class="bg-aqua">
                 <th>Date</th>
-                <th>Status</th>
+                <th>Kiv Category</th>
                 <th>By</th>
             </tr>
 
@@ -74,7 +74,7 @@
                 @foreach($applicant->applicantRemarks as $remarks)
                     <tr class="collapse {{$collapse}} {{$applicant->id}}_remarks">
                         <td>{{ date("Y-m-d",strtotime($remarks->created_at))}}</td>
-                        <td></td>
+                        <td>{{$remarks->kiv_category}}</td>
                         <td>{{$remarks->user->first_name}}</td>
                     </tr>
                     <tr class="collapse {{$collapse}} {{$applicant->id}}_remarks">

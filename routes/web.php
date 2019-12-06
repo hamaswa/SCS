@@ -43,9 +43,9 @@ Route::group(['middleware' => 'role:requestor'], function () {
 });
 
 Route::group(['middleware' => 'role:processor'], function () {
-    Route::resource("processor", "Processor\ProcessorController");
     Route::get("/processor/work_in_progress", "Processor\ProcessorController@workInProgress")->name("processor.workinprogress");
     Route::post("/processor/work_in_progress", "Processor\ProcessorController@workInProgress")->name("processor.workinprogress");
+    Route::resource("processor", "Processor\ProcessorController");
 
 });
 

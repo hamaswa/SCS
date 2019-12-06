@@ -88,23 +88,31 @@ class CheckerController extends Controller
         $parent_user = DB::connection()->select($sql);
 
 
-        $sql = "select id, title,controller,method, parent_id from
-        (select * from menu order by parent_id, id) products_sorted, (select @pv :=" . $parent_user[0]->id . ")
-        initialisation where   bank=" . Auth::user()->bank . " and 
+        $sql = "select id from
+        (select * from users order by parent_id, id) p_users, (select @pv :=" . $parent_user[0]->id . ")
+        initialisation where   bank='" . Auth::user()->bank . "' and 
         find_in_set(parent_id, @pv) and length(@pv := concat(@pv, ',', id))";
-
-        $private_users = DB::connection()->select($sql);
-        print_r($private_users);
-
-
-
-
-        if (Auth::id() == 1) {
-            $where = "la_serial_no is not NULL and la_serial_id is not NULL";
-        } else {
-            $where = "la_serial_no is not NULL and la_serial_id is not NULL 
-                      and loan_applications.user_id=" . Auth::id();
+        $results = json_decode(json_encode(DB::connection()->select($sql)), true);
+        foreach ($results as $row) {
+            $private_access[] = $row["id"];
         }
+
+        $sql = "select id from users where bank='" . Auth::user()->bank . "'";
+        $results = json_decode(json_encode(DB::connection()->select($sql)), true);
+        foreach ($results as $row) {
+            $public_access[] = $row["id"];
+        }
+
+
+        $where = "la_serial_no is not NULL and la_serial_id is not NULL 
+                  and 
+                    (
+                       ( loan_applications.accessability='private' and loan_applications.user_id in (" . implode(",", $private_access) . ") )
+                        OR
+                        ( loan_applications.accessability='public' and loan_applications.user_id in (" . implode(",", $public_access) . ") )
+                    )
+                  ";
+    
         $where .= " and loan_applications.status in (\"Open\",\"Processing\",\"kiv\")";
 
         $arr["loan_applications"] = LoanApplication::selectRaw("loan_applications.*,users.username, applicant_data.name, group_concat(applicant_id,'') as applicants")
@@ -117,7 +125,6 @@ class CheckerController extends Controller
             ->whereRaw($where)
             ->orderby("id", "desc")
             ->groupby(DB::raw('concat(la_serial_no,"_",la_serial_id)'))->paginate(5);
-
 
         return view("checker.index")->with($arr);
     }
