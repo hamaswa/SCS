@@ -21,28 +21,6 @@ class CheckerController extends Controller
     public function index()
     {
 
-        $sql = "SELECT U2.*
-        FROM (
-            SELECT
-                @r AS _id,
-                (SELECT @r := parent_id FROM users WHERE id = _id) AS parent_id,
-                @l := @l + 1 AS lvl
-            FROM
-                (SELECT @r := " . Auth::id() . ", @l := 0) vars,
-                users m
-            WHERE @r <> 0) U1
-        JOIN users U2
-        ON U1._id = U2.id
-        ORDER BY U1.lvl DESC limit 1";
-        $parent_user = DB::connection()->select($sql);
-
-
-        $sql = "select id, title,controller,method, parent_id from
-        (select * from menu order by parent_id, id) products_sorted, (select @pv :=" . $parent_user[0]->id . ")
-         initialisation where  bank=" . Auth::user()->bank . " and  
-         find_in_set(parent_id, @pv) and length(@pv := concat(@pv, ',', id))";
-
-
         if (Auth::id() == 1) {
             $where = "la_serial_no is not NULL and la_serial_id is not NULL and loan_applications.status='Processing'";
         } else {
@@ -72,7 +50,10 @@ class CheckerController extends Controller
      */
     public function workInProgress()
     {
-        $sql = "SELECT U2.*
+        if (Auth::id() == 1) {
+            $where = "la_serial_no is not NULL and la_serial_id is not NULL and loan_applications.status='Processing'";
+        } else {
+            $sql = "SELECT U2.*
         FROM (
             SELECT
                 @r AS _id,
@@ -85,26 +66,27 @@ class CheckerController extends Controller
         JOIN users U2
         ON U1._id = U2.id
         ORDER BY U1.lvl DESC limit 1";
-        $parent_user = DB::connection()->select($sql);
+            $parent_user = DB::connection()->select($sql);
 
 
-        $sql = "select id from
+            $sql = "select id from
         (select * from users order by parent_id, id) p_users, (select @pv :=" . $parent_user[0]->id . ")
         initialisation where   bank='" . Auth::user()->bank . "' and 
         find_in_set(parent_id, @pv) and length(@pv := concat(@pv, ',', id))";
-        $results = json_decode(json_encode(DB::connection()->select($sql)), true);
-        foreach ($results as $row) {
-            $private_access[] = $row["id"];
-        }
 
-        $sql = "select id from users where bank='" . Auth::user()->bank . "'";
-        $results = json_decode(json_encode(DB::connection()->select($sql)), true);
-        foreach ($results as $row) {
-            $public_access[] = $row["id"];
-        }
+            $results = json_decode(json_encode(DB::connection()->select($sql)), true);
+            foreach ($results as $row) {
+                $private_access[] = $row["id"];
+            }
+
+            $sql = "select id from users where bank='" . Auth::user()->bank . "'";
+            $results = json_decode(json_encode(DB::connection()->select($sql)), true);
+            foreach ($results as $row) {
+                $public_access[] = $row["id"];
+            }
 
 
-        $where = "la_serial_no is not NULL and la_serial_id is not NULL 
+            $where = "la_serial_no is not NULL and la_serial_id is not NULL 
                   and 
                     (
                        ( loan_applications.accessability='private' and loan_applications.user_id in (" . implode(",", $private_access) . ") )
@@ -112,8 +94,9 @@ class CheckerController extends Controller
                         ( loan_applications.accessability='public' and loan_applications.user_id in (" . implode(",", $public_access) . ") )
                     )
                   ";
-    
-        $where .= " and loan_applications.status in (\"Open\",\"Processing\",\"kiv\")";
+        }
+
+        $where .= " and loan_applications.status in (\"Processing\")";
 
         $arr["loan_applications"] = LoanApplication::selectRaw("loan_applications.*,users.username, applicant_data.name, group_concat(applicant_id,'') as applicants")
             ->leftjoin('applicant_data', function ($join) {

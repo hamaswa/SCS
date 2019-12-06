@@ -108,7 +108,7 @@
                                        data-la_applicant_id="{{$loan_application->la_applicant_id}}"
                                        data-la_id="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}"
                                        class="btn btn-xs bg-light-blue-gradient" id="add_kiv">KIV</a>
-                                    <button id="show_la_update_model"
+                                    <button id="show_la_release_model"
                                             data-la_applicant_id="{{$loan_application->la_applicant_id}}"
                                             data-la_id="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}"
                                             class="btn btn-success btn-xs">Update

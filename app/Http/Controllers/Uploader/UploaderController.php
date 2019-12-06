@@ -40,6 +40,7 @@ class UploaderController extends Controller
             foreach ($la_applicant as $applicant) {
                 $applicant->la_serial_no = date("dmY");
                 $applicant->la_serial_id = $count;
+                $applicant->user_id = Auth::id();
                 $applicant->save();
             }
         } else {
@@ -48,6 +49,7 @@ class UploaderController extends Controller
             foreach ($la_applicant_update as $applicant) {
                 $applicant->la_serial_no = $la_applicant->la_serial_no;
                 $applicant->la_serial_id = $la_applicant->la_serial_id;
+                $applicant->user_id = Auth::id();
                 $applicant->save();
             }
         }
