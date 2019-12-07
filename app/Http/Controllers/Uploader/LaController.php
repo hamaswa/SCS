@@ -17,12 +17,13 @@ class LaController extends Controller
      */
     public function index()
     {
+
         if (Auth::id() == 1) {
             $where = "applicant_id = la_applicant_id 
-                and la_serial_no is not NULL and la_serial_id is not NULL and status is Incomplete and bank is not NULL and la_type is not NULL";
+                and la_serial_no is not NULL and la_serial_id is not NULL and status = 'Incomplete'";
         } else {
             $where = "applicant_id = la_applicant_id 
-                and la_serial_no is not NULL and la_serial_id is not NULL and status is Incomplete and bank is not NULL and la_type is not NULL and user_id=" . Auth::id();
+                and la_serial_no is not NULL and la_serial_id is not NULL and status = 'Incomplete' and user_id=" . Auth::id();
         }
         $arr["loan_applications"] = LoanApplication::whereRaw($where)
             ->orderby("id", "desc")->get();

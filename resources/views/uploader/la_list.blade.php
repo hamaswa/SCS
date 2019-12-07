@@ -81,7 +81,11 @@
 
                                     <th>
 
-                                        <button id="update_la" name="update_la" value="Submit"
+
+                                        <button id="update_la" data-accessability="{{$loan_application->accessability}}"
+                                                data-bank="{{$loan_application->bank}}"
+                                                data-la_type="{{$loan_application->la_type}}"
+                                                name="update_la" value="Submit"
                                                 data-la_id="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}"
                                                 class="btn btn-success btn-xs">Submit
                                         </button>
@@ -117,6 +121,14 @@
 
 
         $(document.body).on("click", "#update_la", function (e) {
+            if ($(this).data("accessability") == "") {
+                alert("please mark application Public/Private before submit")
+                return false;
+            }
+            if ($(this).data("bank") == "") {
+                alert("Please assign application to Bank before submit");
+                return false;
+            }
             $(".msg").html("");
 
             $.ajax({
@@ -166,6 +178,7 @@
                         "                </div>" +
                         ""))
                 }
+                window.location = window.location;
             })
         })
 
