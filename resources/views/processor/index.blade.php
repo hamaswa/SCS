@@ -144,12 +144,18 @@
                 </div>
                 <div class="modal-body" id="update_la_form">
                     <div class="form-group">
+                        <label for="loan_amount">
+                            Loan Amount
+                        </label>
                         <input type="hidden" name="la_id">
                         <input type="hidden" name="la_applicant_id">
 
                         <input type="text" name="loan_amount">
                     </div>
                     <div class="form-group">
+                        <label for="status">
+                            Status
+                        </label>
                         <select name="status">
                             <option value="approved">Approved</option>
                             <option value="declined">Declined</option>
@@ -157,6 +163,7 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="remarks">Remarks</label>
                         <textarea name="remarks">
 
                         </textarea>
