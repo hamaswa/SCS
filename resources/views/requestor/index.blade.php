@@ -55,6 +55,7 @@
                                     <input type="hidden" name="la_id"
                                            value="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}">
                                     <a href="#" data-toggle="control-sidebar"
+                                       data-la_id="{{$loan_application->la_serial_no}}_{{$loan_application->la_serial_id}}"
                                        data-property="{{ $loan_application->property_id }}"
                                        data-applicants="{{$loan_application->applicants}}"
                                        id="sidebar">{{$loan_application->la_type}}/{{$loan_application->bank}}
@@ -163,11 +164,11 @@
         })
         $(document.body).on("click", "#sidebar", function (e) {
             id = $(this).data("applicants");
-            console.log(id);
-            sidebar(id);
+            la_id = $(this).data("la_id");
+            sidebar(id, la_id);
         })
 
-        function sidebar(id) {
+        function sidebar(id, la_id) {
             $.ajax({
                 url: "{{ route("comments") }}",
                 type: "POST",
@@ -203,7 +204,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
-                data: "applicant_id=" + id + "&la_id=" + $("#la_id").val(),
+                data: "applicant_id=" + id + "&la_id=" + la_id,
                 success: function (response) {
                     if (response != "") {
                         $("#dsr_projection").removeClass("hide");
@@ -215,7 +216,7 @@
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                             },
-                            data: "applicant_id=" + id + "&la_id=" + $("#la_id").val(),
+                            data: "applicant_id=" + id + "&la_id=" + la_id,
                             success: function (response) {
                                 $("#new_commitment").html("").append($(response));
                                 $("#right_side_bar .new_commitment").html($(response));
@@ -248,7 +249,7 @@
                 },
                 error: function () {
                 }
-            });
+            })
         }
 
     </script>

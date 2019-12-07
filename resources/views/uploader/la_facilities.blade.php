@@ -50,8 +50,40 @@
                     {{$v->facilityoutstanding}}
 
                 </td>
+                <?php
+                $v->installment = intval(preg_replace('/[^\d.]/', '', $v->installment));
+                ?>
                 <td>
-                    {{$v->adverse_remark}}
+                    @switch($v->type)
+
+
+                        @case("crdtcard")
+                        {{ $v->facilityoutstanding * .05}}
+                        @break
+
+                        @case("ovrdraft")
+                        {{ ($v->facilitylimit * .07) / 12 }}
+                        @break
+                        @case("ohrpcrec")
+                        @if($v->installment!="")
+                            @if(strtolower($v->capacity)=='own')
+                                {{ $v->installment }}
+                            @else
+                                {{ $v->installment/2 }}
+                            @endif
+                        @endif
+                        @break
+                        @default
+                        @if($v->installment!="")
+                            @if(strtolower($v->capacity)=='own')
+                                {{ $v->installment }}
+                            @else
+                                {{ $v->installment/2 }}
+                            @endif
+                        @endif
+                        @break
+
+                    @endswitch
                 </td>
 
 
