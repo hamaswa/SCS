@@ -19,14 +19,15 @@ class LaController extends Controller
     {
         if (Auth::id() == 1) {
             $where = "applicant_id = la_applicant_id 
-                and la_serial_no is not NULL and la_serial_id is not NULL and status is NULL";
+                and la_serial_no is not NULL and la_serial_id is not NULL and status is Incomplete and bank is not NULL and la_type is not NULL";
         } else {
             $where = "applicant_id = la_applicant_id 
-                and la_serial_no is not NULL and la_serial_id is not NULL and status is NULL and user_id=" . Auth::id();
+                and la_serial_no is not NULL and la_serial_id is not NULL and status is Incomplete and bank is not NULL and la_type is not NULL and user_id=" . Auth::id();
         }
         $arr["loan_applications"] = LoanApplication::whereRaw($where)
             ->orderby("id", "desc")->get();
         return view("uploader.la_list")->with($arr);
+
     }
 
     /**

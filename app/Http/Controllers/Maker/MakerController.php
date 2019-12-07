@@ -131,6 +131,7 @@ class MakerController extends Controller
             LoanApplication::create([
                 "la_applicant_id" => $applicant->id,
                 "applicant_id" => $applicant->id,
+                "status" => "Incomplete",
             ]);
             return redirect(route("maker.edit", $applicant->id));
         }
