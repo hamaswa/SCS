@@ -1,4 +1,4 @@
-<table class="table table-bordered table-striped table-hover bg-white">
+<table class="table table-bordered table-striped table-hover bg-white table-condensed">
     @php
         $property_covered = app('App\Http\Controllers\Uploader\UploaderController')->checkPropertyIfCovered(request()->all());
     @endphp

@@ -19,7 +19,7 @@
                 <div class="box-body table-responsive">
                     <span> AA NO </span> <span> </span>
 
-                    <table id="example5" class="table table-bordered table-hover">
+                    <table id="example5" class="table table-bordered table-hover table-striped table-condensed">
                         <thead>
 
                         <tr>

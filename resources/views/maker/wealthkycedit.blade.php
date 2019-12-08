@@ -342,9 +342,9 @@
 
         </div>
     </div>
-    <div class="col-md-4 col-lg-4 col-sm-12">
+    <div class="col-md-4 col-lg-4 col-sm-12 no-padding">
         <div class="box">
-            <div class="box-body bg-chocolate border-shadlebrown min-height left-box">
+            <div class="box-body bg-gray left-box">
                 <strong class="applicant"></strong>
                 <div class="table-responsive wealthkyc_right">
                     <?php

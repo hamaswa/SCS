@@ -19,7 +19,7 @@
                 <div class="box-body table-responsive">
                     <span> AA NO </span> <span> </span>
 
-                    <table id="example5" class="table table-bordered table-hover">
+                    <table id="example5" class="table table-bordered table-hover table-striped table-condensed">
                         <thead>
 
                         <tr>
@@ -115,7 +115,7 @@
     </div>
 
     <div id="update_wip_modal" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
 
             <!-- Modal content-->
             <div class="modal-content">
@@ -124,27 +124,26 @@
                     <h4 class="modal-title">Update</h4>
                 </div>
                 <div class="modal-body" id="update_la_form">
-                    <div class="form-group">
+                    <div class="col-md-12 col-sm-12 padding-10 rounded bg-gray-light">
+                    <div class="form-group col-md-4 col-sm-12">
                         <input type="hidden" name="la_id">
                         <input type="hidden" name="la_applicant_id">
 
-                        <input type="text" name="loan_amount">
+                        <input type="text" name="loan_amount" class="form-control">
                     </div>
-                    <div class="form-group">
-                        <select name="status">
+                    <div class="form-group col-md-4 col-sm-12">
+                        <select name="status" class="form-control">
                             <option value="approved">Approved</option>
                             <option value="declined">Declined</option>
                             <option value="appeal">Appeal</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <textarea name="remarks">
-
-                        </textarea>
+                    <div class="form-group col-md-4col-sm-12">
+                        <textarea name="remarks" class="form-control"></textarea>
                     </div>
-                    <div class="form-group">
-                        <input type="button" id="update_la" value="Update">
-
+                    <div class="form-group col-md-12 col-sm-12">
+                        <input type="button" id="update_la" class="btn btn-primary" value="Update">
+                    </div>
                     </div>
                 </div>
                 <div class="modal-footer">

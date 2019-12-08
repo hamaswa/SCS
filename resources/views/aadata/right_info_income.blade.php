@@ -3,7 +3,7 @@
     @if(isset($applicant) and $applicant->aacategory=="C")
         <div data-toggle="collapse" data-target=".right_income_new" class="panel-heading bg-light-blue-gradient"><strong>Income</strong></div>
         <div class="collapse in right_income_new">
-        <table class="table table-bordered table-striped table-hover bg-white">
+        <table class="table table-bordered table-striped table-hover bg-white table-condensed">
             <thead class="bg-light-blue">
 
 
@@ -42,7 +42,7 @@
         </div>
         <div data-toggle="collapse" data-target=".right_payments" class="panel-heading bg-light-blue-gradient"><strong>Payments</strong></div>
         <div id="right_payments" class="collapse right_payments">
-        <table class="table table-bordered table-striped table-hover bg-white">
+        <table class="table table-bordered table-striped table-hover bg-white table-condensed">
             <thead class="bg-light-blue">
 
             </thead>
@@ -82,7 +82,7 @@
     @else
         <div data-toggle="collapse" data-target=".right_monthly_income" class="panel-heading bg-light-blue-gradient"><strong>Monthly Income</strong></div>
         <div id="right_monthly_income" class="collapse in right_monthly_income">
-        <table class="table table-bordered table-striped table-hover bg-white">
+        <table class="table table-bordered table-striped table-hover bg-white table-condensed">
             <tbody>
             <tr>
                 @php
@@ -94,7 +94,7 @@
                             $total_gross=0;
                             $total_net=0;
                         @endphp
-                        <table class="table table-bordered table-striped table-hover bg-white">
+                        <table class="table table-bordered table-striped table-hover bg-white table-condensed">
                             <thead class="bg-light-blue">
                             <tr class="bg-aqua-active text-white font-weight-bolder with-border"
                                 data-toggle="collapse" data-target=".{{ $applicant->id }}_income">
@@ -102,7 +102,7 @@
                                     {{ $applicant->name }}
                                 </th>
                             </tr>
-                            <tr class="bg-aqua">
+                            <tr class="bg-gray-dark">
                                 <th>Type</th>
                                 <th>Gross</th>
                                 <th>Net</th>

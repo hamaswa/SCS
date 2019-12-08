@@ -1,14 +1,14 @@
 @if(count($new_facility)>0)
-    <div data-toggle="collapse" data-target=".new_facility_right" class="panel-heading bg-gray"><strong>New Facility</strong>
+    <div data-toggle="collapse" data-target=".new_facility_right" class="panel-heading bg-light-blue-gradient"><strong>New Facility</strong>
     </div>
     <div class="collapse new_facility_right table-responsive">
-        <table id="example5" class="table table-bordered table-hover table-striped bg-white new_facility">
+        <table id="example5" class="table table-bordered table-hover table-striped bg-white new_facility table-condensed">
 
             <tbody>
             <tr>
                 @foreach($applicants as $applicant)
                     <td>
-                        <table id="example5" class="table table-bordered table-hover table-striped bg-white">
+                        <table id="example5" class="table table-bordered table-hover table-striped bg-white table-condensed">
                             <thead>
                             <tr class="bg-aqua-active text-white font-weight-bolder with-border"
                                 data-toggle="collapse" data-target=".{{ $applicant->id }}_new_facility">
@@ -16,7 +16,7 @@
                                     {{ $applicant->name }}
                                 </th>
                             </tr>
-                            <tr class="bg-light-blue-gradient">
+                            <tr class="bg-gray-dark">
                                 <th>Type</th>
                                 <th>Amount</th>
                                 <th>Installment</th>

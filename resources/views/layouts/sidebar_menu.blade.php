@@ -19,6 +19,9 @@
             </li>
         @endif
         @if(request()->user()->hasRole("processor") or request()->user()->hasRole("maker"))
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route("pipeline.index") }}">WIP</a>
+            </li>
             <li class="treeview">
                 <a href="#"><span> Pipeline</span>
                     <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
@@ -28,9 +31,7 @@
                         <a class="nav-link" href="{{ route("aadata.index") }}">New AA</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route("pipeline.index") }}">Pipeline Status</a>
-                    </li>
+
                 </ul>
             </li>
 

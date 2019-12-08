@@ -1,13 +1,13 @@
-<div data-toggle="collapse" data-target=".new_commitment_right" class="panel-heading bg-primary"><strong>New
+<div data-toggle="collapse" data-target=".new_commitment_right" class="panel-heading bg-light-blue-gradient"><strong>New
         Commitment</strong></div>
 <div class="collapse new_commitment_right table-responsive">
-    <table class="table table-bordered table-hover bg-white new_commitment">
+    <table class="table table-bordered table-hover bg-white new_commitment table-striped table-condensed">
 
         <tbody>
         <tr>
         @foreach ($applicants as $applicant)
                 <td>
-                    <table class="table table-bordered table-hover bg-white">
+                    <table class="table table-bordered table-hover bg-white table-striped table-condensed">
                         <thead>
                         <tr class="bg-aqua-active text-white font-weight-bolder with-border"
                             data-toggle="collapse" data-target=".{{ $applicant->id }}_new_commitment">

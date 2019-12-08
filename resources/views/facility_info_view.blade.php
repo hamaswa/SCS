@@ -1,4 +1,4 @@
-<table id="example5" class="table table-bordered table-hover bg-white">
+<table id="example5" class="table table-bordered table-hover bg-white table-striped table-condensed">
     <thead>
     <tr class="bg-light-blue-gradient">
         <th>Facility</th>

@@ -55,7 +55,7 @@
                             <div class="pull-right"><a href="{{ route("housingloan.create") }}"> </a>
                             </div>
                             <div class="table-responsive">
-                            <table id="example5" class="table table-bordered table-hover bg-white">
+                            <table id="example5" class="table table-bordered table-hover bg-white table-condensed table-striped">
                                 <thead>
                                 <tr class="bg-light-blue-gradient">
                                     <th>CCRIS</th>
@@ -118,7 +118,7 @@
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="table-responsive">
-                                <table id="example5" class="table table-bordered table-hover bg-white">
+                                <table id="example5" class="table table-bordered table-hover bg-white table-condensed table-striped">
                                     <thead>
                                     <tr class="bg-light-blue-gradient">
                                         <th style="width: 115px;">Facility</th>
@@ -297,7 +297,7 @@
                                     <strong>{{$data->name}}</strong>
                                 </div>
                                 <div class="table-responsive collapse {{$data->id}}_facility">
-                                <table class="table table-bordered table-striped table-hover bg-white margin-bottom">
+                                <table class="table table-bordered table-striped table-hover bg-white margin-bottom table-condensed">
                                     <thead>
 
                                     <tr class="bg-light-blue-gradient">

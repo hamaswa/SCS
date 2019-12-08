@@ -90,7 +90,7 @@
                         <div class="box-body">
                             <div id="response"></div>
                             <div class="table-responsive">
-                            <table id="example5" class="table table-bordered table-hover">
+                            <table id="example5" class="table table-bordered table-hover table-striped table-condensed">
                                 <thead>
                                 <tr>
                                     <th style="width: 115px;">Facility Date</th>

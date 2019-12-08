@@ -1,10 +1,10 @@
 <div class="table-responsive">
-    <table class="table table-bordered table-striped table-hover bg-white">
+    <table class="table table-bordered table-striped table-hover bg-white table-condensed">
         <thead>
         <tr class="bg-light-blue-gradient">
             <th colspan="4" class="text-center">All Comments</th>
         </tr>
-        <tr class="bg-aqua">
+        <tr class="bg-gray-dark">
             <th>Date</th>
             <th>Status</th>
             <th>By</th>

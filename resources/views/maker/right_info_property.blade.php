@@ -1,9 +1,9 @@
-<table class="table table-bordered table-striped table-hover bg-white">
+<table class="table table-bordered table-striped table-hover bg-white table-condensed">
     <thead class="bg-light-blue">
     <tr class="bg-light-blue-gradient">
         <th colspan="3" class="text-center">Property</th>
     </tr>
-    <tr class="bg-aqua">
+    <tr class="bg-gray-dark">
         <th>MV</th>
         <th>OS</th>
         <th>CO</th>

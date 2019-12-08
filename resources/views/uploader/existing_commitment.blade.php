@@ -2,12 +2,12 @@
      class="panel-heading bg-light-blue-gradient"><strong>Existing
         Commitment</strong></div>
 <div id="existing_commitment" class="collapse right_existing_commitment table-responsive">
-    <table class="table table-bordered table-hover bg-white existing_commitment">
+    <table class="table table-bordered table-hover bg-white existing_commitment table-striped table-condensed">
         <tbody>
         <tr>
             @foreach($applicants as $applicant)
                 <td>
-                    <table class="table table-bordered table-hover bg-white">
+                    <table class="table table-bordered table-hover bg-white table-striped table-condensed">
                         <thead>
                         <tr class="bg-aqua-active text-white font-weight-bolder with-border"
                             data-toggle="collapse" data-target=".{{ $applicant->id }}_existing_commitment">
@@ -15,7 +15,7 @@
                                 {{ $applicant->name }}
                             </th>
                         </tr>
-                        <tr class="bg-aqua-gradient">
+                        <tr class="bg-gray-dark">
                             <th>Type</th>
                             <th>Monthly</th>
                             <th>DSR</th>

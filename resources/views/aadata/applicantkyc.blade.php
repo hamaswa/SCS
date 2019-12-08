@@ -112,17 +112,17 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-12 col-md-4 col-lg-4 bg-green-gradient">
+    <div class="col-lg-4 col-md-4 col-sm-12 no-padding">
         <div class="box">
-            <div class="box-body bg-green-gradient min-height left-box">
+            <div class="box-body bg-gray left-box">
                 <strong class="applicant"></strong>
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover bg-white text-black">
+                    <table class="table table-bordered table-striped table-hover bg-white text-black table-condensed">
                         <thead>
                         <tr class="bg-primary">
                             <th colspan="4" class="text-center">Document</th>
                         </tr>
-                        <tr class="bg-aqua">
+                        <tr class="bg-gray-dark">
                             <th>Date</th>
                             <th>Document Name</th>
                             <th>Document Status</th>

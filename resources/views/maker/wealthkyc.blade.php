@@ -227,17 +227,17 @@
 
         </div>
     </div>
-    <div class="col-md-4 col-lg-4 col-sm-12">
+    <div class="col-md-4 col-lg-4 col-sm-12 no-padding">
         <div class="box">
-            <div class="box-body bg-chocolate border-shadlebrown min-height left-box">
+            <div class="box-body bg-gray left-box">
                 <strong class="applicant"></strong>
                 <div class="table-responsive wealthkyc_right">
-                    <table class="table table-bordered table-striped bg-white">
+                    <table class="table table-bordered table-striped bg-white table-hover table-condensed">
                         <thead class="bg-light-blue">
                         <tr class="bg-light-blue-gradient">
                             <th colspan="3" class="text-center">Wealth</th>
                         </tr>
-                        <tr class="bg-aqua">
+                        <tr class="bg-gray-dark">
                             <th>Type</th>
                             <th>Amount</th>
                         </tr>

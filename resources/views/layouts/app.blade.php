@@ -195,14 +195,14 @@ if((request()->segment(1)) != 'pipeline' && (request()->segment(1)) != 'aadata')
         <div class="tab-content tab-data">
             <!-- Home tab content -->
             <div class="tab-pane active tap-width" id="control-sidebar-home-tab">
-                <div id="tab-1" class="bg-green-gradient">
+                <div id="tab-1">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover bg-white text-black">
+                        <table class="table table-bordered table-striped table-hover bg-white text-black table-condensed">
                             <thead>
                             <tr class="bg-light-blue-gradient">
                                 <th colspan="4" class="text-center">Document</th>
                             </tr>
-                            <tr class="bg-aqua">
+                            <tr class="bg-gray-dark">
                                 <th>Date</th>
                                 <th>Name</th>
                                 <th>Comments</th>
@@ -229,14 +229,14 @@ if((request()->segment(1)) != 'pipeline' && (request()->segment(1)) != 'aadata')
                 </div>
             </div>
             <div id="control-sidebar-theme-demo-options-tab" class="tab-pane active tap-width">
-                <div id="tab-2" class="bg-yellow-light">
+                <div id="tab-2">
                 </div>
             </div>
             <!-- /.tab-pane -->
 
             <!-- Settings tab content -->
             <div class="tab-pane active tap-width" id="control-sidebar-settings-tab">
-                <div id="tab-3" class="bg-chocolate">
+                <div id="tab-3">
                     <strong class="applicant padding-5"></strong>
                     <div class="table-responsive" id="incomekyc_right">
                         @include("aadata.right_info_income")
@@ -246,12 +246,12 @@ if((request()->segment(1)) != 'pipeline' && (request()->segment(1)) != 'aadata')
                     </div>
 
                     <div class="table-responsive" id="propertykyc_right">
-                        <table class="table table-bordered table-striped table-hover bg-white">
+                        <table class="table table-bordered table-striped table-hover bg-white table-condensed">
                             <thead class="bg-light-blue">
                             <tr class="bg-light-blue-gradient">
                                 <th colspan="3" class="text-center">Property</th>
                             </tr>
-                            <tr class="bg-aqua">
+                            <tr class="bg-gray-dark">
                                 <th>MV</th>
                                 <th>OS</th>
                                 <th>CO</th>

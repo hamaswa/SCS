@@ -1,10 +1,10 @@
 
-    <table class="table table-bordered table-striped bg-white">
+    <table class="table table-bordered table-striped bg-white table-condensed">
     <thead class="bg-light-blue">
     <tr class="bg-light-blue-gradient">
         <th colspan="3" class="text-center">Wealth</th>
     </tr>
-    <tr class="bg-aqua">
+    <tr class="bg-gray-dark">
         <th>Type</th>
         <th>Amount</th>
     </tr>

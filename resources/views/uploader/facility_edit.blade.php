@@ -1,6 +1,7 @@
 @php
     $collapse = "in";
     $total_loan = 0;
+$facility_type_array = array("Term Loan","OverDraft","Housing Loan");
 @endphp
 @foreach($applicants as $applicant)
     <tr class="bg-aqua-active text-white font-weight-bolder with-border"
@@ -22,9 +23,11 @@
                 <input type="hidden" name="la_id" value="{{$facility->la_id}}">
                 <select name="type" id="type" class="form-control select2 ">
                     @foreach($capacity_data as $capacity)
+                        @if(in_array($capacity->name,$facility_type_array))
                         <option {{ ($capacity->name==$facility->type?"selected":"") }} value="{{$capacity->name}}">
                             {{ $capacity->description }}
                         </option>
+                        @endif
                     @endforeach
                 </select>
             </td>

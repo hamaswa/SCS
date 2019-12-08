@@ -21,7 +21,7 @@
                 <div class="col-md-9 col-sm-12 col-lg-9 no-padding">
 
                     <div class="col-md-12 col-sm-12 col-lg-12 table-responsive">
-                        <table class="table table-bordered table-striped table-hover bg-white">
+                        <table class="table table-bordered table-striped table-hover bg-white table-condensed">
 
                             <tbody>
                             <tr>
@@ -30,6 +30,7 @@
                                     <table>
                                         <?php
                                         $id = "";
+
                                         ?>
                                         @foreach($applicants as $la)
                                             <?php
@@ -60,18 +61,16 @@
 
                         </div>
 
-                        <table id="example5" class="table table-bordered table-hover">
+                        <table id="example5" class="table table-bordered table-hover table-condensed table-striped">
                             <thead>
 
                             <tr>
-                                <th style="width: 115px;">Facility Type</th>
-                                <th style="width: 100px;">Loan Tenure (Years)
-                                </th>
-                                <th style="width: 100px;"> Interest Rate (%.p.a)
-                                </th>
-                                <th style="width: 100px;">Loan Amount (RM)</th>
+                                <th>Facility Type</th>
+                                <th>Loan Tenure (Years)</th>
+                                <th> Interest Rate (%.p.a)</th>
+                                <th>Loan Amount (RM)</th>
                                 <th>Installment</th>
-                                <th style="width: 100px;">Action</th>
+                                <th>Action</th>
 
                             </tr>
                             </thead>
@@ -79,20 +78,24 @@
                             {{--@include ("uploader.facility_edit")--}}
                             </tbody>
                             <tfoot id="facility_form">
-                            <tr class="bg-aqua-active text-white font-weight-bolder with-border"
-                            >
+                            <tr class="bg-aqua-active text-white font-weight-bolder with-border">
                                 <th colspan="6">
                                     Add New Facility
                                 </th>
                             </tr>
+                            @php
+                            $facility_type_array = array("Term Loan","OverDraft","Housing Loan");
+                            @endphp
                             <tr style="background-color: #c6d8f2;">
                                 <td>
                                     <input type="hidden" name="la_id" id="la_id" value="{{ isset($la_serial_no)?$la_serial_no."_".$la_serial_id:"" }}">
                                     <select name="type" id="type" class="form-control select2">
                                         @foreach($capacity_data as $capacity)
+                                            @if(in_array($capacity->name,$facility_type_array))
                                             <option value="{{$capacity->name}}">
                                                 {{ $capacity->description }}
                                             </option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </td>
@@ -172,7 +175,7 @@
 
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-12 col-lg-3 bg-chocolate border-shadlebrown"
+                <div class="col-md-3 col-sm-12 col-lg-3 no-padding"
                      id="right_side_bar">
                     <div class="tab-3"></div>
                     <div class="existing_commitment"></div>

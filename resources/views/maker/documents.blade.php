@@ -1,10 +1,10 @@
 <div class="table-responsive">
-    <table class="table table-bordered table-striped table-hover bg-white text-black">
+    <table class="table table-bordered table-striped table-hover bg-white text-black table-condensed">
         <thead>
         <tr class="bg-light-blue-gradient">
             <th colspan="4" class="text-center">Document</th>
         </tr>
-        <tr class="bg-aqua">
+        <tr class="bg-gray-dark">
             <th>Date</th>
             <th>Name</th>
             <th>Status</th>

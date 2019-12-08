@@ -358,12 +358,12 @@
 
         </div>
     </div>
-    <div class="col-md-4 col-lg-4 col-sm-12 bg-chocolate border-shadlebrown">
+    <div class="col-md-4 col-lg-4 col-sm-12 no-padding">
         <div class="box">
-            <div class="box-body bg-chocolate min-height left-box">
+            <div class="box-body bg-gray left-box">
                 <strong class="applicant"></strong>
                 <div class="table-responsive incomekyc_right">
-                    <table class="table table-bordered table-striped table-hover bg-white">
+                    <table class="table table-bordered table-striped table-hover bg-white table-condensed">
                         <thead class="bg-light-blue">
                         <tr class="bg-light-blue-gradient">
                             <th colspan="3" class="text-center">Monthly Income</th>

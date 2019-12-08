@@ -44,7 +44,7 @@
                 </div>
                 <div class="box-body ">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover bg-white">
+                        <table class="table table-bordered table-striped table-hover bg-white table-condensed">
                             <thead>
                             <tr class="bg-light-blue-gradient">
                                 <th>AII LA</th>

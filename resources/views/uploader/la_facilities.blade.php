@@ -1,5 +1,5 @@
 @foreach($applicants as $data)
-    <table id="example5" class="table table-bordered table-hover bg-white">
+    <table id="example5" class="table table-bordered table-hover bg-white table-condensed table-striped">
         <thead>
         <tr><th colspan="6">
                 {{ $data->name }}

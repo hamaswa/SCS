@@ -2,13 +2,13 @@
     <div data-toggle="collapse" data-target=".right_wealth_new" class="panel-heading bg-light-blue-gradient"><strong>Wealth</strong></div>
     <div  class="collapse in right_wealth_new">
     @if(isset($applicant) and $applicant->aacategory=="C")
-        <table class="table table-bordered table-striped bg-white">
+        <table class="table table-bordered table-striped bg-white table-hover table-condensed">
             <thead class="bg-light-blue">
-            <tr class="bg-aqua">
-                <th>Bank</th>
-                <th>Credit</th>
-                <th>Balance</th>
-            </tr>
+                <tr class="bg-gray-dark">
+                    <th>Bank</th>
+                    <th>Credit</th>
+                    <th>Balance</th>
+                </tr>
             </thead>
             <tbody>
             <?php $i = 0; ?>
@@ -38,7 +38,7 @@
         </table>
 
     @else
-        <table class="table table-bordered table-striped bg-white">
+        <table class="table table-bordered table-striped bg-white table-hover table-condensed">
 
             <tbody>
             <tr>
@@ -50,15 +50,15 @@
                         <?php
                         $wealth_total = 0;
                         ?>
-                        <table class="table table-bordered table-striped bg-white">
+                        <table class="table table-bordered table-striped bg-white table-hover table-condensed">
                             <thead class="bg-light-blue">
-                            <tr class="bg-aqua-active text-white font-weight-bolder with-border"
+                            <tr class="bg-gray-dark-active text-white font-weight-bolder with-border"
                                 data-toggle="collapse" data-target=".{{ $applicant->id }}_wealth">
                                 <th colspan="3">
                                     {{ $applicant->name }}
                                 </th>
                             </tr>
-                            <tr class="bg-aqua">
+                            <tr class="bg-gray-dark">
                                 <th>Type</th>
                                 <th>Amount</th>
                             </tr>

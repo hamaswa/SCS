@@ -19,7 +19,7 @@
                 <div class="box-body table-responsive">
                     <span> AA NO </span> <span> </span>
 
-                    <table id="example5" class="table table-bordered table-hover">
+                    <table id="example5" class="table table-bordered table-hover table-striped table-condensed">
                         <thead>
 
                         <tr>
@@ -144,34 +144,29 @@
                     <h4 class="modal-title">Update</h4>
                 </div>
                 <div class="modal-body" id="update_la_form">
-                    <div class="form-group">
-                        <label for="loan_amount">
-                            Loan Amount
-                        </label>
+                    <div class="col-md-12 col-sm-12 rounded bg-gray-light padding-10">
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="loan_amount"> Loan Amount </label>
                         <input type="hidden" name="la_id">
                         <input type="hidden" name="la_applicant_id">
 
-                        <input type="text" name="loan_amount">
+                        <input type="text" name="loan_amount" class="form-control">
                     </div>
-                    <div class="form-group">
-                        <label for="status">
-                            Status
-                        </label>
-                        <select name="status">
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label for="status"> Status </label>
+                        <select name="status" class="form-control">
                             <option value="approved">Approved</option>
                             <option value="declined">Declined</option>
                             <option value="appeal">Appeal</option>
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-md-4 col-sm-12">
                         <label for="remarks">Remarks</label>
-                        <textarea name="remarks">
-
-                        </textarea>
+                        <textarea name="remarks" class="form-control"></textarea>
                     </div>
-                    <div class="form-group">
-                        <input type="button" id="update_la" value="Update">
-
+                    <div class="form-group col-md-12 col-sm-12">
+                        <input type="button" id="update_la" value="Update" class="btn btn-primary">
+                    </div>
                     </div>
                 </div>
                 <div class="modal-footer">

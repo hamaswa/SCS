@@ -1,7 +1,7 @@
 @if(isset($applicants))
     <div data-toggle="collapse" data-target=".right_property_new" class="panel-heading bg-light-blue-gradient"><strong>Property</strong></div>
     <div class="collapse in right_property_new">
-    <table class="table table-bordered table-striped table-hover bg-white">
+    <table class="table table-bordered table-striped table-hover bg-white table-condensed">
         <tbody id="propertyright" class="propertyright">
         <tr>
         @php
@@ -14,7 +14,7 @@
                         $total_os = 0;
                         $total_co = 0;
                     @endphp
-                    <table class="table table-bordered table-striped table-hover bg-white">
+                    <table class="table table-bordered table-striped table-hover bg-white table-condensed">
                         <thead class="bg-light-blue">
                         <tr class="bg-aqua-active text-white font-weight-bolder with-border"
                             data-toggle="collapse" data-target=".{{ $applicant->id }}_property">
@@ -22,7 +22,7 @@
                                 {{ $applicant->name }}
                             </th>
                         </tr>
-                        <tr class="bg-aqua">
+                        <tr class="bg-gray-dark">
                             <th>MV</th>
                             <th>OS</th>
                             <th>CO</th>
