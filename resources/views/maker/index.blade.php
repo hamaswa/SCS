@@ -1,4 +1,4 @@
-@extends('maker.layouts.app')
+@extends('layouts.app')
 
 @section('content')
     <div class="bg-white">
@@ -18,7 +18,7 @@
             <div class="box">
                 <div class="box-header">
                     <form id="searchapplicant" name="searchapplicant" method="post"
-                          action="{{ route("maker.search") }}">
+                          action="{{ route("pipeline.index") }}">
                         @csrf
                         <div class="col-md-12">
                             <h4>Existing AA</h4>
@@ -32,7 +32,7 @@
                         {{--</select>--}}
                         {{--</div>--}}
                         <div class="col-md-5">
-                            <input type="number" class="form-control" name="search" placeholder="Search NRIC"/>
+                            <input class="form-control" name="search" placeholder="Search NRIC"/>
                             <span class="col-lg-12 col-md-12 col-sm-12">
                                 e.g. 791219107629 (exclude special character or symbols)
                             </span>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="box-body ">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover bg-white table-condensed">
+                        <table class="table table-bordered table-striped table-hover bg-white">
                             <thead>
                             <tr class="bg-light-blue-gradient">
                                 <th>AII LA</th>
@@ -54,18 +54,13 @@
                                 <th>Action</th>
                             </tr>
                             </thead>
-                            <tbody>
 
-                            @if(isset($data))
-                                @if(count($data)==0)
-                                    <tr>
-                                        <td colspan="5" class="text-center">
-                                            No Data Found
-                                        </td>
-
-                                    </tr>
-                                @endif
+                            @if($data!="View")
+                                <tbody>
+                                @if(count($data)>0)
                                 @foreach($data as $d)
+
+
                                     {{--$d->aasource}}/{{$d->aabranch}}/{{$d->aacategory}}/--}}
                                     <tr data-id="{{$d->id}}" data-status="{{ $d->status }}" data-name="{{ $d->name }}"
                                         data-unique_id="{{ $d->unique_id }}" data-mobile="{{$d->mobile}}"
@@ -95,18 +90,23 @@
                                 @endforeach
                             @else
                                 <tr class="bg-light-blue-gradient">
-                                    <td colspan="5">No </td>
+                                    <td colspan="5">No Data Found</td>
                                 </tr>
                             @endif
 
                             </tbody>
+                                <tfoot>
+                                @if(isset($data) and $data->hasPages())
+                                    <tr>
+                                        <td colspan="7">{{ $data->links() }}</td>
+                                    </tr>
+                                @endif
+                                </tfoot>
+                            @endif
+
                         </table>
                     </div>
-                    @if(isset($data))
-                        <div>
-                            {{ $data->links() }}
-                        </div>
-                    @endif
+
 
                 </div>
             </div>
@@ -164,8 +164,7 @@
                                         <label id="unique_id_label" class="control-label">
                                             NRIC No./Passport No.(e.g.12345678)
                                         </label>
-                                        <input name="unique_id" id="unique_id" placeholder="" class="form-control"
-                                               minlength="12" type="number">
+                                        <input name="unique_id" id="unique_id" placeholder="" class="form-control">
 
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6">
@@ -184,6 +183,15 @@
                                                 <option value="REA">REA</option>
                                                 <option value="DEVP">DEVP</option>
                                                 <option value="INS">INS</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 ">
+                                        <div class="form-group">
+                                            <label>AA Category</label>
+                                            <select name="aacategory" id="aacategory" class="form-control">
+                                                <option value="C">Company</option>
+                                                <option value="I">Individual</option>
                                             </select>
                                         </div>
                                     </div>
@@ -546,43 +554,15 @@
         });
         $(document).ready(function () {
             $('.select2').select2();
-            {{--$("#newaa").on("submit",function (e) {--}}
-            {{--if($("#applicant_status").val()=="Appointment"){--}}
-            {{--$.ajax({--}}
-            {{--url : "{{ route("aadata.store") }}",--}}
-            {{--type:"POST",--}}
-            {{--headers: {--}}
-            {{--'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),--}}
-            {{--},--}}
-            {{--data: $("#newaa").serializeArray(),--}}
-            {{--success:function (response) {--}}
-            {{--response = JSON.parse(response)--}}
-            {{--if(response.status =="Appointment-Attended"){--}}
-            {{--$("#applicant_status").val("Appointment-Attended")--}}
-            {{--$("#form").val("applicant_consent");//.prop("disabled",true);--}}
-            {{--$(".consent-field").removeClass("hide");--}}
-            {{--$(".applicant-status").addClass("hide");--}}
-            {{--$("#status").attr("disabled",true);--}}
-            {{--$("#consent").attr("disabled",false);--}}
-            {{--}--}}
-            {{--msg= "";--}}
-            {{--if(response.error){--}}
-            {{--msg = " <div class=\"alert alert-success\">\n" +--}}
-            {{--"                    <p>" + response.success + "</p>\n" +--}}
-            {{--"                </div>";--}}
-            {{--}--}}
-            {{--else if(response.success){--}}
-            {{--msg = " <div class=\"alert alert-success\">\n" +--}}
-            {{--"                    <p>" + response.success + "</p>\n" +--}}
-            {{--"                </div>";--}}
-            {{--}--}}
-            {{--$(".msg").html($(msg));--}}
-            {{--},--}}
-            {{--error: function () {--}}
-            {{--}--}}
-            {{--})--}}
-            {{--}--}}
-            {{--})--}}
+            $("#newaa").on("submit", function (e) {
+                if (!(IsIC($("#unique_id").val()))) {
+                    e.preventDefault();
+                    alert("IC can only contain numbers or Letters")
+                }
+
+
+            })
+
             $(".edit").on("click", function (e) {
                 $("#aa_title").html("Edit Profile");
                 $("#name").val($(this).data("name"));//.prop("disabled",true);
@@ -609,6 +589,15 @@
                 }
             })
         });
+
+        function IsIC(val) {
+            var regex = /^([a-zA-Z0-9+])+$/;
+            if (!regex.test(val)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
         function showData(id) {
             $('.detail-box').addClass('hide');
             $("#" + id).removeClass('hide');

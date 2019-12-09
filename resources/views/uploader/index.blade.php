@@ -244,6 +244,7 @@
             }).done(function (response) {
                 if(response=="success"){
                     alert("LA Created Successfully. Bank Assign Successfully")
+                    window.location = "{{ route("uploader_la.index") }}"
                 }
             })
         })
@@ -278,6 +279,15 @@
                         accept: ".dsr_existing_facility",
                         drop: function (event, ui) {
                             dsr_existing_facility($(ui.draggable.clone()))
+                        }
+                    }
+                );
+
+                $(".dsr_exclusion").droppable(
+                    {
+                        // accept: ".dsr_existing_facility,.dsr_new_facility",
+                        drop: function (event, ui) {
+                            dsr_exclusion($(ui.draggable.clone()))
                         }
                     }
                 );
@@ -646,6 +656,7 @@
             $("#dsr_new_facility_total").val(total);
             calculate_dsr()
         }
+
         function dsr_income(income) {
 
             if ($(".dsr_projection_income_total").find($(income).data("target")).length) {
@@ -661,6 +672,21 @@
             dsr_income_total();
         }
 
+        function dsr_exclusion(exclusion) {
+            if ($(".dsr_exclusion").find($(exclusion).data("target")).length) {
+                alert("already added")
+            }
+            else {
+                div = $("<div class='col-lg-12 padding-5 border-white-bottom'></div>");
+                $(div).append($(exclusion));
+                $(div).append($("<span class='btn btn-danger btn-xs pull-right remove rounded text-white'>X</span>"))
+
+                $(".dsr_exclusion").append(div);
+            }
+            //dsr_new_facility_total();
+        }
+
+
         function dsr_income_total() {
             total = 0;
             $(".dsr_projection_income_total").find(".income_net").each(function (e) {
@@ -669,13 +695,14 @@
             $("#dsr_income_total").val(total);
             calculate_dsr()
         }
+
         function calculate_dsr() {
-            income_total = $("#dsr_all_income_total").val() * 1;
-            existing_facility_total = $("#dsr_all_existing_facility_total").val() * 1;
-            new_facility_total = $("#dsr_all_new_facility_total").val() * 1;
-
-
-            $("#dsr").val(Math.round(((new_facility_total + existing_facility_total) / income_total) * 100, 2));
+            // income_total = $("#dsr_all_income_total").val() * 1;
+            // existing_facility_total = $("#dsr_all_existing_facility_total").val() * 1;
+            // new_facility_total = $("#dsr_all_new_facility_total").val() * 1;
+            //
+            //
+            // $("#dsr").val(Math.round(((new_facility_total + existing_facility_total) / income_total) * 100, 2));
 
             income_total = $("#dsr_income_total").val() * 1;
             if (!income_total) {
@@ -694,8 +721,8 @@
 
             if (income_total != 1 && new_facility_total != 0) {
 
-                $("#dsr").val(Math.round(((new_facility_total + existing_facility_total - existing_facility_total_exclude) / income_total) * 100, 2));
-
+                // $("#dsr").val(Math.round(((new_facility_total + existing_facility_total - existing_facility_total_exclude) / income_total) * 100, 2));
+                $("#dsr").val(Math.round(((new_facility_total + existing_facility_total_exclude) / income_total) * 100, 2));
 
             }
         }

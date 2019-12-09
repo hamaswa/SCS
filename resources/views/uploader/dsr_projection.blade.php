@@ -42,6 +42,13 @@
         </div>
         <input type="text" name="dsr_new_facility_total" class="form-control" id="dsr_new_facility_total">
     </div>
+    <div class="col-md-4 bg-success padding-5">
+
+        <div class="dsr_exclusion" style="min-height:200px">
+
+        </div>
+        {{--<input type="text" name="dsr_new_facility_total" class="form-control" id="dsr_new_facility_total">--}}
+    </div>
     <div class="col-md-12 bg-green-light padding-5">
         <label for="dsr">DSR %</label>
         <input placeholder="DSR %" type="number" class="form-control" name="dsr" id="dsr"/>

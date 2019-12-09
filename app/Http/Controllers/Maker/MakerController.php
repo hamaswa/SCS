@@ -24,16 +24,27 @@ class MakerController extends Controller
      */
     public function index()
     {
-        $applicantdata = DB::table("applicant_data")
-            ->leftjoin("applicant_property","applicant_data.id","=","applicant_property.applicant_id")
-            ->select(DB::raw("applicant_data.*, sum(applicant_property.property_market_value)* .9 as market_value"))
-            ->where("applicant_data.user_id","=",Auth::id())
-            ->where("applicant_data.status","=",'Incomplete')
-            ->orderBy("id","desc")
-            ->groupBy("applicant_data.id")
-            ->paginate(5);
-//        $applicantdata = ApplicantData::paginate(5);
-        return view("maker.maker")->with("data", $applicantdata);
+        //$applicantdata = new ApplicantData();
+        $sql = "select a_d.*, sum(property_market_value) * 0.9 as market_value from applicant_data a_d join applicant_property a_p on a_d.id=a_p.applicant_id group by id";
+        //$data = DB::select($sql)>paginate(5);
+        if (Auth::id() == 1) {
+            $data = DB::table("applicant_data")
+                ->leftjoin("applicant_property", "applicant_data.id", "=", "applicant_property.applicant_id")
+                ->select(DB::raw("applicant_data.*, sum(applicant_property.property_market_value)* .9 as market_value"))
+                ->orderBy("id", "desc")
+                ->groupBy("applicant_data.id")
+                ->paginate(5);
+        } else {
+            $data = DB::table("applicant_data")
+                ->leftjoin("applicant_property", "applicant_data.id", "=", "applicant_property.applicant_id")
+                ->select(DB::raw("applicant_data.*, sum(applicant_property.property_market_value)* .9 as market_value"))
+                ->whereRaw("applicant_data.user_id = " . Auth::id())
+                ->orderBy("id", "desc")
+                ->groupBy("applicant_data.id")
+                ->paginate(5);
+        }
+
+        return view("maker.pipeline")->with("data", $data);
     }
 
     public function newAA(){
@@ -53,7 +64,7 @@ class MakerController extends Controller
         }
         $applicant = ApplicantData::create($inputs);
 
-        return redirect()->route("maker.newla", $applicant->id)->with("success", "New Appointment Created");
+        return redirect()->route("maker.index");
     }
 
     public function search(Request $request){
@@ -100,8 +111,25 @@ class MakerController extends Controller
     {
 
         $inputs = $request->all();
+
         try {
-            if ($applicant = Applicant_ApplicantData::find($inputs['id'])) {
+            if (isset($inputs['pipeline_update_search']) and $inputs['pipeline_update_search'] == 'Search') {
+
+                $applicantdata = new  ApplicantData();
+                $data = DB::table("applicant_data")
+                    ->leftjoin("applicant_property", "applicant_data.id", "=", "applicant_property.applicant_id")
+                    ->select(DB::raw("applicant_data.*, sum(applicant_property.property_market_value) * .9 as market_value"))
+                    ->whereRaw(
+                        "(unique_id = '" . $inputs['term'] . "' or name = '" . $inputs['term'] . "')" .
+                        ($inputs['term'] == "" ? " OR" : " and ") . " status = '" . $inputs['status'] . "'" .
+                        (Auth::id() == 1 ? "" : " and applicant_data.user_id='" . Auth::id() . "'"))
+                    ->orderBy("id", "desc")
+                    ->groupBy("applicant_data.id")
+                    ->paginate(5);
+
+                return view("maker.pipeline")->with("data", $data);
+
+            } else if ($applicant = Applicant_ApplicantData::find($inputs['id'])) {
                 $inputs['user_id'] = Auth::id();
                 $applicant->update($inputs);
             } else {

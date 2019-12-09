@@ -25,7 +25,7 @@
                     <div class="col-md-12">
                         <h4>Pipeline</h4>
                     </div>
-                    <form method="post" action="{{ route("pipeline.store") }}">
+                    <form method="post" action="{{ route("maker.store") }}">
                         @csrf
                         <div class="col-md-3">
                             <select class="form-control" name="status" id="">
@@ -34,6 +34,8 @@
                                 <option value="Consent Obtained">Consent Obtained</option>
                                 <option value="Documentation">Documentation</option>
                                 <option value="Application">Application</option>
+                                <option value="Incomplete">Incomplete</option>
+                                <option value="Inprogress">Inprogress</option>
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -53,112 +55,147 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover bg-white table-condensed">
-                        <thead>
-                        <tr class="bg-light-blue-gradient">
-                            <th></th>
-                            <th>IC/Com No.</th>
-                            <th>Applicant</th>
-                            <th>Loan Amount</th>
-                            <th>TAT</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @if(count($data)==0)
-                            <tr>
-                                <td colspan="7">
-                                    No Data Found
-                                </td>
-
+                        <table class="table table-bordered table-striped table-hover bg-white table-condensed">
+                            <thead>
+                            <tr class="bg-light-blue-gradient">
+                                <th></th>
+                                <th>IC/Com No.</th>
+                                <th>Applicant</th>
+                                <th>Loan Amount</th>
+                                <th>TAT</th>
+                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
-                        @endif
-                        @foreach($data as $d)
+                            </thead>
+                            <tbody>
+                            @if(count($data)==0)
+                                <tr>
+                                    <td colspan="7">
+                                        No Data Found
+                                    </td>
+
+                                </tr>
+                            @else
+                                @foreach($data as $d)
+                                    <tr>
+                                        <td><input type="checkbox" name="applicant_id" value="{{$d->id}}"/></td>
+                                        <td>
+                                            @if($d->status =="Documentation")
+                                                <a href="{{route("aadata.edit",  $d->id)  }}">
+                                                    {{ $d->unique_id }}</a>
+
+                                            @elseif($d->status=="Consent Obtained")
+                                                <a href="{{route("aadata.create", ["id" => $d->id])  }}">
+                                                    {{ $d->unique_id }}</a>
+                                            @elseif($d->status == 'Incomplete')
+                                                <a href="{{route("maker.edit", ["id" => $d->id])  }}">
+                                                    {{ $d->unique_id }}</a>
+                                            @else
+                                                {{ $d->unique_id }}
+                                            @endif
+                                        </td>
+                                        <td>{{ $d->name }}</td>
+                                        <td>{{ $d->market_value }}</td>
+                                        <td></td>
+                                        <td>{{ $d->status }}
+                                            {{--<select class="form-control" id="singalaction{{$d->id}}">--}}
+                                            {{--<option value="Application" {{ ($d->status == "Application"?" selected":"") }}>Application</option>--}}
+                                            {{--<option value="Appointment" {{ ($d->status == "Appointment"?" selected":"") }}>Appointment</option>--}}
+                                            {{--<option value="Attended" {{ ($d->status == "Attended"?" selected":"") }}>Attended</option>--}}
+                                            {{--<option value="Consent" {{ ($d->status == "Consent"?" selected":"") }}>Consent</option>--}}
+                                            {{--<option value="Documentation" {{ ($d->status == "Documentation"?" selected":"") }}>Documentation</option>--}}
+                                            {{--</select>--}}
+                                        </td>
+                                        <td>
+                                            {{--<button class="btn bg-gray-dark updatesingle" data-id="{{$d->id}}">Update</button>--}}
+                                            <button class="btn setreminder" data-id="{{$d->id}}"><i
+                                                        class="fa fa-calendar-o"></i></button>
+                                            <button class="btn commentsModal" data-id="{{$d->id}}"><i
+                                                        class="fa fa-comment-o"></i></button>
+                                            <a href="javascript:void(0)" data-toggle="control-sidebar"
+                                               data-id="{{$d->id}}"
+                                               class="btn btn-xs bg-light-blue-gradient view-applicant">View</a>
+                                            @if($d->status=="Appointment")
+                                                <a href="javascript:void(0)"
+                                                   data-aaprogramcode="{{ $d->aaprogramcode }}"
+                                                   data-id="{{$d->id}}" data-status="{{ $d->status }}"
+                                                   data-name="{{ $d->name }}" data-unique_id="{{ $d->unique_id }}"
+                                                   data-mobile="{{$d->mobile}}"
+                                                   class="btn btn-xs bg-light-blue-gradient edit">Appointment
+                                                    Attended</a>
+                                            @elseif($d->status =="Appointment-Attended")
+                                                <a href="javascript:void(0)"
+                                                   data-aaprogramcode="{{ $d->aaprogramcode }}"
+                                                   data-id="{{$d->id}}" data-status="{{ $d->status }}"
+                                                   data-name="{{ $d->name }}" data-unique_id="{{ $d->unique_id }}"
+                                                   data-mobile="{{$d->mobile}}"
+                                                   class="btn btn-xs bg-light-blue-gradient edit">Upload
+                                                    Consent</a>
+                                            @elseif($d->status=="Consent Obtained" and $d->aacategory=="I")
+                                                <a href="{{route("aadata.create", ["id" => $d->id])  }}"
+                                                   class="btn btn-xs bg-light-blue-gradient">KYC</a>
+
+                                            @elseif($d->status =="Incomplete" OR $d->status =="Inprogress")
+                                                <a href="{{route("maker.edit", ["id" => $d->id])  }}"
+                                                   class="btn btn-xs bg-light-blue-gradient">Maker View</a>
+                                            @endif
+
+                                            @if($d->aacategory=="I")
+                                                @if($d->status=="Documentation" )
+                                                    @if(request()->user()->hasRole("maker"))
+                                                        <a href="{{ route("maker.newla", $d->id) }}"
+                                                           class="btn btn-xs bg-light-blue-gradient">Import</a>
+                                                    @endif
+                                                @endif
+                                            @else
+                                                @if($d->status=="Consent Obtained" or $d->status=="Documentation" )
+                                                    @if(request()->user()->hasRole("maker"))
+                                                        <a href="{{ route("maker.newla", $d->id) }}"
+                                                           class="btn btn-xs bg-light-blue-gradient">Import</a>
+                                                    @endif
+                                                @endif
+                                            @endif
+
+
+                                            @if($d->status=="Inprogress" )
+                                                @if(request()->user()->hasRole("uploader"))
+                                                    <a href="{{ route("uploader.index") }}?id={{$d->id}}"
+                                                       class="btn btn-xs bg-light-blue-gradient">Uploader</a>
+                                                @endif
+                                            @endif
+
+
+                                        </td>
+                                    </tr>
+
+                                @endforeach
+                            @endif
+                            </tbody>
+                            <tfoot>
                             <tr>
-                                <td><input type="checkbox" name="applicant_id" value="{{$d->id}}"/></td>
-                                <td>
-                                    @if($d->status =="Documentation")
-                                        <a href="{{route("aadata.edit",  $d->id)  }}">
-                                            {{ $d->unique_id }}</a>
+                                <td><input type="checkbox" id="checkall" name="checkall"/></td>
+                                <td colspan="2">
+                                    <select class="form-control select2" name="statusall">
+                                        <option value="KIV appointment">KIV appointment</option>
+                                        <option value="Dropped Appointment">Dropped Appointment</option>
+                                        <option value="Avoid Segment Appointment">Avoid Segment Appointment</option>
+                                        <option value="Archive">Archive</option>
+                                        <option value="Drop Pipeline">Drop Pipeline</option>
 
-                                    @elseif($d->status=="Consent Obtained")
-                                        <a href="{{route("aadata.create", ["id" => $d->id])  }}">
-                                            {{ $d->unique_id }}</a>
-                                    @else
-                                        {{ $d->unique_id }}
-                                    @endif
-                                </td>
-                                <td>{{ $d->name }}</td>
-                                <td>{{ $d->market_value }}</td>
-                                <td></td>
-                                <td>{{ $d->status }}
-                                    {{--<select class="form-control" id="singalaction{{$d->id}}">--}}
-                                    {{--<option value="Application" {{ ($d->status == "Application"?" selected":"") }}>Application</option>--}}
-                                    {{--<option value="Appointment" {{ ($d->status == "Appointment"?" selected":"") }}>Appointment</option>--}}
-                                    {{--<option value="Attended" {{ ($d->status == "Attended"?" selected":"") }}>Attended</option>--}}
-                                    {{--<option value="Consent" {{ ($d->status == "Consent"?" selected":"") }}>Consent</option>--}}
-                                    {{--<option value="Documentation" {{ ($d->status == "Documentation"?" selected":"") }}>Documentation</option>--}}
-                                    {{--</select>--}}
+                                    </select>
+
                                 </td>
                                 <td>
-                                    {{--<button class="btn bg-gray-dark updatesingle" data-id="{{$d->id}}">Update</button>--}}
-                                    <button class="btn setreminder" data-id="{{$d->id}}"><i
-                                                class="fa fa-calendar-o"></i></button>
-                                    <button class="btn commentsModal" data-id="{{$d->id}}"><i
-                                                class="fa fa-comment-o"></i></button>
-                                    <a href="javascript:void(0)" data-toggle="control-sidebar"
-                                       data-id="{{$d->id}}"
-                                       class="btn btn-xs bg-light-blue-gradient view-applicant">View</a>
-                                    @if($d->status=="Appointment")
-                                        <a href="javascript:void(0)" data-aaprogramcode="{{ $d->aaprogramcode }}"
-                                           data-id="{{$d->id}}" data-status="{{ $d->status }}"
-                                           data-name="{{ $d->name }}" data-unique_id="{{ $d->unique_id }}"
-                                           data-mobile="{{$d->mobile}}" class="btn btn-xs bg-light-blue-gradient edit">Appointment
-                                            Attended</a>
-                                    @elseif($d->status =="Appointment-Attended")
-                                        <a href="javascript:void(0)" data-aaprogramcode="{{ $d->aaprogramcode }}"
-                                           data-id="{{$d->id}}" data-status="{{ $d->status }}"
-                                           data-name="{{ $d->name }}" data-unique_id="{{ $d->unique_id }}"
-                                           data-mobile="{{$d->mobile}}" class="btn btn-xs bg-light-blue-gradient edit">Upload
-                                            Consent</a>
-                                    @elseif($d->status=="Consent Obtained")
-                                        <a href="{{route("aadata.create", ["id" => $d->id])  }}"
-                                           class="btn btn-xs bg-light-blue-gradient">KYC</a>
-                                    @else
-                                        <a onclick="alert('Will link to Next Module')"
-                                           class="btn btn-xs bg-light-blue-gradient">Application</a>
-                                    @endif
-
+                                    <button class="btn bg-gray-dark" id="moveall">Move</button>
                                 </td>
                             </tr>
-
-                        @endforeach
-
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <td><input type="checkbox" id="checkall" name="checkall"/></td>
-                            <td colspan="2">
-                                <select class="form-control select2" name="statusall">
-                                    <option value="KIV appointment">KIV appointment</option>
-                                    <option value="Dropped Appointment">Dropped Appointment</option>
-                                    <option value="Avoid Segment Appointment">Avoid Segment Appointment</option>
-                                    <option value="Archive">Archive</option>
-                                    <option value="Drop Pipeline">Drop Pipeline</option>
-
-                                </select>
-
-                            </td>
-                            <td>
-                                <button class="btn bg-gray-dark" id="moveall">Move</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="7">{{ $data->links() }}</td>
-                        </tr>
-                        </tfoot>
-                    </table>
+                            @if(isset($data) and $data->hasPages())
+                                <tr>
+                                    <td colspan="7">{{ $data->links() }}</td>
+                                </tr>
+                            @endif
+                            </tfoot>
+                        </table>
                     </div>
                 </div>
 
@@ -186,86 +223,7 @@
         {{--</div>--}}
     </div>
     <div id="aa_edit_form" class="modal fade" role="dialog">
-        <form id="edit-aa" name="edit-aa" action="{{ route("aadata.store") }}" method="post"
-              enctype="multipart/form-data">
-        <div class="modal-dialog">
-            <div class="modal-header bg-primary">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <button id="btn-newaa-submit-no-consent" data-value="noconsent"
-                        class="btn-newaa-submit btn btn-default pull-right" style="margin-right:20px;">Consent Not Obtained
-                </button>
-                <h4 id="aa_title"></h4>
-            </div>
-            <div class="modal-body bg-white">
-                    @csrf
-                    <input type="hidden" name="form" value="new_application" id="form">
-                    <input type="hidden" name="applicant_status" value="new_application" id="applicant_status">
-                    <div id="applicant_id"></div>
-                    <div class="bg-gray-light padding-5">
-                        <div class="box-body bg-gray-light">
-                            <div class="form-group col-md-12 col-sm-12">
-                                <label id="name_label" class="control-label">
-                                    Full Name as per NRIC/Passport
-                                </label>
-                                <input name="name" id="name" placeholder="" class="form-control" type="text">
-                                <input type="checkbox" data-verify-error="Please Verify Name"
-                                       class="verify-newaa-input"> Verified
-
-                            </div>
-                            <div class="form-group col-md-12 col-sm-12">
-                                <label id="unique_id_label" class="control-label">
-                                    NRIC No./Passport No.(e.g.12345678)
-                                </label>
-                                <input name="unique_id" id="unique_id" placeholder="" class="form-control"
-                                       minlength="12" type="number">
-                                <input type="checkbox" data-verify-error="Please Verify IC"
-                                       class="verify-newaa-input"> Verified
-                            </div>
-                            <div class="form-group col-md-12 col-sm-12">
-                                <label class="control-label">Mobile Number (e.g. 60121234567 /
-                                    6512345678)</label>
-                                <input name="mobile" id="mobile" placeholder="" class="form-control"
-                                       minlength="10" type="number">
-                                <input type="checkbox" data-verify-error="Please Verify mobile"
-                                       class="verify-newaa-input"> Verified
-                            </div>
-                            {{--<div class="form-group col-md-6 col-sm-6 ">--}}
-                            {{--<div class="form-group">--}}
-                            {{--<label>Program</label>--}}
-                            {{--<select class="select2 form-control" name="aaprogramcode"--}}
-                            {{--id="aaprogramcode">--}}
-                            {{--<option value="ABMB">ABMB</option>--}}
-                            {{--<option value="REA">REA</option>--}}
-                            {{--<option value="DEVP">DEVP</option>--}}
-                            {{--<option value="INS">INS</option>--}}
-                            {{--</select>--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
-
-                            <input type="hidden" name="status" value="Appointment-Attended"/>
-
-                            <div class="form-group col-md-12 col-sm-12 consent-field">
-                                <a class="bg-white padding-5 pull-right consent-field" href="javascript:void(0)"
-                                   onclick="$('#consent').trigger('click')" title="Upload Consent">
-                                    <img src="{{ asset("img/file.jpeg") }}"/></a>
-                                <input type="file" class="hide" name="consent" id="consent">
-                            </div>
-                            <div class="form-group col-md-6 col-sm-6">
-                                <button id="btn-newaa-submit" data-value="consent"
-                                        class="btn-newaa-submit btn bg-gray-dark">Request
-                                </button>
-
-
-
-                            </div>
-                        </div>
-                    </div>
-                <div class="clearfix"></div>
-            </div>
-
-        </div>
-        </form>
-
+        @include("layouts.consent_form")
     </div>
 
     <div id="commentsModal" class="modal fade" role="dialog">
@@ -327,16 +285,16 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/12.3.1/classic/ckeditor.js"></script>
     <script>
         ClassicEditor
-            .create( document.querySelector( '.editor' ) )
-            .catch( error => {
-                console.error( error );
-            } );
+            .create(document.querySelector('.editor'))
+            .catch(error => {
+                console.error(error);
+            });
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
+            //document.cookie = "maker_active_tab=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/maker/1;";
             $("#commentsform").submit(function (e) {
                 e.preventDefault();
-
                 $.ajax({
                     url: '{{ route('applicantcomments.store') }}',
                     type: 'Post',
@@ -358,7 +316,6 @@
                             "<strong>Error Occured while adding comment</strong>\n" +
                             "</div>");
                     }
-
                 });
             });
             $('.select2').select2();
@@ -413,14 +370,14 @@
             })
 
             $(".btn-newaa-submit").on("click", function (e) {
-                if($(this).data("value")=="consent")
-                $(".verify-newaa-input").each(function () {
-                    if (!($(this).prop("checked"))) {
-                        alert($(this).data("verify-error"));
-                        e.preventDefault();
-                        return false;
-                    }
-                })
+                if ($(this).data("value") == "consent")
+                    $(".verify-newaa-input").each(function () {
+                        if (!($(this).prop("checked"))) {
+                            alert($(this).data("verify-error"));
+                            e.preventDefault();
+                            return false;
+                        }
+                    })
                 $("#applicant_id").append($("<input type='hidden' name='is-consent' value='" + $(this).data("value") + "'>"))
 
             })
@@ -462,9 +419,9 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     },
-                    data: "id=" + id,
+                    data: "applicant_id=" + id,
                     success: function (response) {
-                        $("#tab-3").html(response);
+                        $("#tab-3").html("").append(response);
                     },
                     error: function () {
 
