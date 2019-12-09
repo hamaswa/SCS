@@ -719,7 +719,7 @@
                 existing_facility_total_exclude = 0;
             }
 
-            if (income_total != 1 && new_facility_total != 0) {
+            if (income_total != 1 && (new_facility_total != 0 || existing_facility_total_exclude != 0)) {
 
                 // $("#dsr").val(Math.round(((new_facility_total + existing_facility_total - existing_facility_total_exclude) / income_total) * 100, 2));
                 $("#dsr").val(Math.round(((new_facility_total + existing_facility_total_exclude) / income_total) * 100, 2));
