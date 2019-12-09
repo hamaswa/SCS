@@ -22,9 +22,9 @@ class CheckerController extends Controller
     {
 
         if (Auth::id() == 1) {
-            $where = "la_serial_no is not NULL and la_serial_id is not NULL and loan_applications.status='Processing'";
+            $where = "la_serial_no is not NULL and la_serial_id is not NULL and loan_applications.status='Open'";
         } else {
-            $where = "la_serial_no is not NULL and la_serial_id is not NULL  and loan_applications.status='Processing' 
+            $where = "la_serial_no is not NULL and la_serial_id is not NULL  and loan_applications.status='Open' 
                       and loan_applications.user_id=" . Auth::id();
         }
 
@@ -40,6 +40,35 @@ class CheckerController extends Controller
             ->groupby(DB::raw('concat(la_serial_no,"_",la_serial_id)'))->paginate(5);
 
         return view("checker.index")->with($arr);
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function checkerList()
+    {
+
+        if (Auth::id() == 1) {
+            $where = "la_serial_no is not NULL and la_serial_id is not NULL and loan_applications.status='New Submission'";
+        } else {
+            $where = "la_serial_no is not NULL and la_serial_id is not NULL  and loan_applications.status='New Submission' 
+                      and loan_applications.user_id=" . Auth::id();
+        }
+        $arr["loan_applications"] = LoanApplication::selectRaw("loan_applications.*,users.username, applicant_data.name, group_concat(applicant_id,'') as applicants")
+            ->leftjoin('applicant_data', function ($join) {
+                $join->on("applicant_data.id", "=", 'loan_applications.la_applicant_id');
+            })
+            ->leftjoin('users', function ($join) {
+                $join->on("applicant_data.user_id", "=", 'users.id');
+            })
+            ->whereRaw($where)
+            ->orderby("id", "desc")
+            ->groupby(DB::raw('concat(la_serial_no,"_",la_serial_id)'))->paginate(5);
+
+        return view("checker.checkerlist")->with($arr);
     }
 
 
@@ -117,6 +146,29 @@ class CheckerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function requestLa(Request $request)
+    {
+        try {
+            $inputs = $request->all();
+            $applicant = ApplicantData::find($inputs['applicant_id']);
+            $applicant->status = "Open";
+            $applicant->save();
+
+            $la_id = explode("_", $inputs['la_id']);
+            $serial_no = $la_id[0];
+            $serial_id = $la_id[1];
+
+            $loan_applications = LoanApplication::where("la_serial_no", "=", $serial_no)
+                ->where("la_serial_id", "=", $serial_id)->get();
+            foreach ($loan_applications as $loan_application) {
+                $loan_application->status = "Open";
+                $loan_application->save();
+            }
+            echo "Application Successfully Requested";
+        } catch (\Exception $exception) {
+            echo "error";//$exception->getMessage();
+        }
+    }
 
     public function releaseLa(Request $request)
     {
@@ -133,7 +185,7 @@ class CheckerController extends Controller
             $loan_applications = LoanApplication::where("la_serial_no", "=", $serial_no)
                 ->where("la_serial_id", "=", $serial_id)->get();
             foreach ($loan_applications as $loan_application) {
-                $loan_application->status = "Checker";
+                $loan_application->status = "Release";
                 $loan_application->save();
             }
             echo "Applicant Successfully Released";

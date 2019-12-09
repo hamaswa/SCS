@@ -50,7 +50,10 @@ Route::group(['middleware' => 'role:processor'], function () {
 });
 
 Route::group(['middleware' => 'role:checker'], function () {
+    Route::get("/checker/checker_list", "Checker\CheckerController@checkerList")->name("checker.checkerlist");
+    Route::post("/checker/checker_list", "Checker\CheckerController@checkerList")->name("checker.checkerlist");
     Route::post("/checker/release", "Checker\CheckerController@releaseLa")->name("checker.release");
+    Route::post("/checker/request", "Checker\CheckerController@requestLa")->name("checker.request");
     Route::get("/checker/work_in_progress", "Checker\CheckerController@workInProgress")->name("checker.workinprogress");
     Route::post("/checker/work_in_progress", "Checker\CheckerController@workInProgress")->name("checker.workinprogress");
     Route::post("/checker/update_kiv", "Checker\CheckerController@updateKIV")->name("checker.kiv");

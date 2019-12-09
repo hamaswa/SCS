@@ -82,8 +82,11 @@
 
                                 </td>
                                 <td>
-
+                                    @if($income_total==0)
+                                        0
+                                    @else
                                     {{ round(($installment/$income_total)*100,2) }}
+                                    @endif
 
 
                                 </td>

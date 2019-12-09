@@ -141,7 +141,7 @@
             }).done(function (response) {
                 if (response = "success") {
                     $(".msg").html("<div class=\"alert alert-success\">\n" +
-                        " <p>Application Marked as Open</p>\n" +
+                        " <p>Application Marked as New Submission</p>\n" +
                         "  </div>")
                     alert("Application Marked as Open")
                     window.location = window.location;//href + "?action=kiv_remarks";

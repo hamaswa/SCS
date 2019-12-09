@@ -227,13 +227,13 @@ class UploaderController extends Controller
                 ->where("la_serial_id", "=", $serial_id)->Pluck("applicant_id")->ToArray();
             $applicants = ApplicantData::find($applicant_ids);
             foreach ($applicants as $applicant) {
-                $applicant->status = "Open";
+                $applicant->status = "New Submission";
                 $applicant->save();
             }
             $loan_applications = LoanApplication::where("la_serial_no", "=", $serial_no)
                 ->where("la_serial_id", "=", $serial_id)->get();
             foreach ($loan_applications as $loan_application) {
-                $loan_application->status = "Open";
+                $loan_application->status = "New Submission";
                 $loan_application->save();
             }
             echo "success";

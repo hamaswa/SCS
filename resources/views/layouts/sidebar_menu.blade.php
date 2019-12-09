@@ -99,6 +99,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="nav-item">
+                            <a class="nav-link" href="{{route("checker.checkerlist")}}">Checker List</a>
                             <a class="nav-link" href="{{ route("checker.index") }}">WIP</a>
                             <a class="nav-link" href="{{ route("checker.workinprogress") }}">Group List</a>
                         </li>
