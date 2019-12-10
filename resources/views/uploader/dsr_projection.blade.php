@@ -44,7 +44,7 @@
     </div>
     <div class="col-md-3 bg-danger padding-5">
 
-        <div class="dsr_exclusion" style="min-height:200px">
+        <div class="dsr_exclusion" style="min-height:235px">
 
         </div>
         {{--<input type="text" name="dsr_new_facility_total" class="form-control" id="dsr_new_facility_total">--}}
